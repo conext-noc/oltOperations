@@ -1,19 +1,22 @@
 import paramiko
 import time
 import os
-import sys
+# import sys
 from dotenv import load_dotenv
+from csvParser import parser
+from listChecker import compare
 load_dotenv()
 
 username = os.environ["user"]
 password = os.environ["password"]
 port = os.environ["port"]
 
-logs = []
-logs1 = []
 
 if __name__ == "__main__":
     def main():
+        deactList = parser("LISTAS/LISTA_DE_CORTE.csv")
+        clientList = parser("LISTAS/LISTA_DE_CLIENTES.csv")
+        finalList = compare(deactList, clientList)
         olt = input("please select OLT [1 | 2]")
         ip = "181.232.180.5" if olt == "1" else "181.232.180.6"
         conn = paramiko.SSHClient()
@@ -29,19 +32,28 @@ if __name__ == "__main__":
             comm.send("{} \n".format(command))
             time.sleep(5)
 
+        def exitInfo():
+            comm.send("Q")
+            time.sleep(5)
+
         commandToSend("enable")
         enter()
         commandToSend("config")
         enter()
-        commandToSend("display ont info by-sn 48575443BD848D48")
-        enter()
-        commandToSend("Q")
-        enter()
-        commandToSend("display ont info by-sn 4857544358C6FA3F")
-        enter()
-        commandToSend("Q")
-        enter()
+        for client in finalList:
+            commandToSend(
+                "interface gpon {}/{}".format(client["frame"], client["slot"]))
+            commandToSend("ont activate {} {}".format(
+                client["port"], client["id"]))
         output = comm.recv(65535)
         output = output.decode("utf-8")
         print(output)
     main()
+    # print(
+    #     "interface gpon {}/{}".format(client["frame"], client["slot"]))
+    # print("ont deactivate {} {}".format(client["port"], client["id"]))
+    # print(
+    #     "interface gpon {}/{}".format(client["frame"], client["slot"]))
+    # print("display ont info {} {}".format(
+    #     client["port"], client["id"]))
+    # main()
