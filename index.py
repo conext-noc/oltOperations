@@ -1,10 +1,10 @@
-import paramiko
-import time
 import os
-# import sys
 from dotenv import load_dotenv
 from csvParser import parser
+from activate import activate
 from listChecker import compare
+from deactivate import deactivate
+from verification import verify
 load_dotenv()
 
 username = os.environ["user"]
@@ -13,47 +13,25 @@ port = os.environ["port"]
 
 
 if __name__ == "__main__":
+    delay = 2
+
     def main():
-        deactList = parser("LISTAS/LISTA_DE_CORTE.csv")
-        clientList = parser("LISTAS/LISTA_DE_CLIENTES.csv")
-        finalList = compare(deactList, clientList)
-        olt = input("please select OLT [1 | 2]")
+        action = input(
+            "Which action will be performed? [activate | deactivate] : ")
+        olt = input("In Which OLT the action will be performed? [1|2] : ")
         ip = "181.232.180.5" if olt == "1" else "181.232.180.6"
-        conn = paramiko.SSHClient()
-        conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        conn.connect(ip, port, username, password)
-        comm = conn.invoke_shell()
-
-        def enter():
-            comm.send(" \n")
-            time.sleep(5)
-
-        def commandToSend(command):
-            comm.send("{} \n".format(command))
-            time.sleep(5)
-
-        def exitInfo():
-            comm.send("Q")
-            time.sleep(5)
-
-        commandToSend("enable")
-        enter()
-        commandToSend("config")
-        enter()
-        for client in finalList:
-            commandToSend(
-                "interface gpon {}/{}".format(client["frame"], client["slot"]))
-            commandToSend("ont activate {} {}".format(
-                client["port"], client["id"]))
-        output = comm.recv(65535)
-        output = output.decode("utf-8")
-        print(output)
+        list1 = parser("LISTAS/LISTA_DE_CORTE.csv")
+        list2 = parser("LISTAS/LISTA_DE_CLIENTES.csv")
+        actionList = compare(list1, list2)
+        if (action == "activate"):
+            activate(
+                actionList, username, password, port, 1, ip)
+            verify(actionList, "{}ResultOLT.txt".format(action))
+        if (action == "deactivate"):
+            deactivate(
+                actionList, username, password, port, 1, ip)
+            verify(actionList, "{}ResultOLT.txt".format(action))
+        else:
+            print("no")
+        # return clients
     main()
-    # print(
-    #     "interface gpon {}/{}".format(client["frame"], client["slot"]))
-    # print("ont deactivate {} {}".format(client["port"], client["id"]))
-    # print(
-    #     "interface gpon {}/{}".format(client["frame"], client["slot"]))
-    # print("display ont info {} {}".format(
-    #     client["port"], client["id"]))
-    # main()

@@ -1,0 +1,290 @@
+
+
+  Huawei Integrated Access Software (EA5800).
+  Copyright(C) Huawei Technologies Co., Ltd. 2002-2019. All rights reserved.
+
+  -----------------------------------------------------------------------------
+  User last login information:
+  -----------------------------------------------------------------------------
+  Access Type : SSH
+  IP-Address  : 10.1.2.160
+  Login  Time : 2022-09-05 13:51:13-04:00
+  Logout Time : 2022-09-05 13:51:55-04:00
+  -----------------------------------------------------------------------------
+
+MARLLM01>enable 
+
+MARLLM01#config 
+
+MARLLM01(config)#interface gpon 0/3 
+
+MARLLM01(config-if-gpon-0/3)#ont activate 5 56 
+
+MARLLM01(config-if-gpon-0/3)#display ont info 5 56 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 5 56
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/3/5
+  ONT-ID                  : 56
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 3896
+  ONT last distance(m)    : 3895
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 19%
+  CPU occupation          : 5%
+  Temperature             : 78(C)
+  Authentic type          : SN-auth
+  SN                      : 48575443F17C09A6 (HWTC-F17C09A6)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : JAVIER DIAZ
+  Last down cause         : deactive
+---- More ( Press 'Q' to break ) ----[37D                                     [37D
+MARLLM01(config-if-gpon-0/3)#
+interface gpon 0/1 
+
+MARLLM01(config-if-gpon-0/1)#ont activate 2 0 
+
+MARLLM01(config-if-gpon-0/1)#display ont info 2 0 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 2 0
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/1/2
+  ONT-ID                  : 0
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 2953
+  ONT last distance(m)    : 2953
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 25%
+  CPU occupation          : 1%
+  Temperature             : 75(C)
+  Authentic type          : SN-auth
+  SN                      : 48575443EF114B9F (HWTC-EF114B9F)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : DANIEL MARTINEZ
+  Last down cause         : deactive
+---- More ( Press 'Q' to break ) ----[37D                                     [37D
+MARLLM01(config-if-gpon-0/1)#
+interface gpon 0/3 
+
+MARLLM01(config-if-gpon-0/3)#ont activate 4 58 
+
+MARLLM01(config-if-gpon-0/3)#display ont info 4 58 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 4 58
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/3/4
+  ONT-ID                  : 58
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 4483
+  ONT last distance(m)    : 4482
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 45%
+  CPU occupation          : 7%
+  Temperature             : 73(C)
+  Authentic type          : SN-auth
+  SN                      : 4857544399478AA5 (HWTC-99478AA5)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : 2000135390
+  Last down cause         : deactive
+---- More ( Press 'Q' to break ) ----[37D                                     [37D
+MARLLM01(config-if-gpon-0/3)#
+interface gpon 0/1 
+
+MARLLM01(config-if-gpon-0/1)#ont activate 3 29 
+
+MARLLM01(config-if-gpon-0/1)#display ont info 3 29 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 3 29
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/1/3
+  ONT-ID                  : 29
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 3614
+  ONT last distance(m)    : 3613
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 41%
+  CPU occupation          : 6%
+  Temperature             : 63(C)
+  Authentic type          : SN-auth
+  SN                      : 4857544393DCC0A4 (HWTC-93DCC0A4)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : 10.4.0.6/22
+  Description             : JEIKSON CHAVEZ
+  Last down cause         : deactive
+---- More ( Press 'Q' to break ) ----[37D                                     [37D
+MARLLM01(config-if-gpon-0/1)#
+interface gpon 0/2 
+
+MARLLM01(config-if-gpon-0/2)#ont activate 7 15 
+
+MARLLM01(config-if-gpon-0/2)#display ont info 7 15 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 7 15
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/2/7
+  ONT-ID                  : 15
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 4007
+  ONT last distance(m)    : 4007
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 19%
+  CPU occupation          : 3%
+  Temperature             : 69(C)
+  Authentic type          : SN-auth
+  SN                      : 48575443F17C68A6 (HWTC-F17C68A6)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : VERONICA MENDEZ
+  Last down cause         : deactive
+---- More ( Press 'Q' to break ) ----[37D                                     [37D
+MARLLM01(config-if-gpon-0/2)#
+interface gpon 0/1 
+
+MARLLM01(config-if-gpon-0/1)#ont activate 3 6 
+
+MARLLM01(config-if-gpon-0/1)#display ont info 3 6 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 3 6
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/1/3
+  ONT-ID                  : 6
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 2802
+  ONT last distance(m)    : 2802
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 41%
+  CPU occupation          : 5%
+  Temperature             : 68(C)
+  Authentic type          : SN-auth
+  SN                      : 4857544393CC5DA4 (HWTC-93CC5DA4)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : NOC2
+  Last down cause         : deactive
+---- More ( Press 'Q' to break ) ----[37D                                     [37D
+MARLLM01(config-if-gpon-0/1)#
+interface gpon 0/3 
+
+MARLLM01(config-if-gpon-0/3)#ont activate 12 1 
+
+MARLLM01(config-if-gpon-0/3)#display ont info 12 1 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 12 1
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/3/12
+  ONT-ID                  : 1
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 3652
+  ONT last distance(m)    : 3652
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 42%
+  CPU occupation          : 11%
+  Temperature             : 65(C)
+  Authentic type          : SN-auth
+  SN                      : 4857544393CC72A4 (HWTC-93CC72A4)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : TAMAIRA PARRA
+  Last down cause         : deactive
+---- More ( Press 'Q' to break ) ----[37D                                     [37D
+MARLLM01(config-if-gpon-0/3)#
+interface gpon 0/1 
+
+MARLLM01(config-if-gpon-0/1)#ont activate 14 2 
+
+MARLLM01(config-if-gpon-0/1)#display ont info 14 2 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 14 2
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/1/14
+  ONT-ID                  : 2
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 1993
+  ONT last distance(m)    : 1993
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 30%
+  CPU occupation          : 2%
+  Temperature             : 67(C)
+  Authentic type          : SN-auth
+  SN                      : 48575443EF1DA19F (HWTC-EF1DA19F)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : SHEILA MONTERO
+  Last down cause         : deactive
+---- More ( Press 'Q' to break ) ----[37D                                     [37D
+MARLLM01(config-if-gpon-0/1)#
