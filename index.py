@@ -26,11 +26,11 @@ if __name__ == "__main__":
         if (action == "activate"):
             activate(
                 actionList, username, password, port, 1, ip)
-            verify(actionList, "{}ResultOLT.txt".format(action))
+            # verify(actionList, "{}ResultOLT.txt".format(action))
         if (action == "deactivate"):
             deactivate(
                 actionList, username, password, port, 1, ip)
-            verify(actionList, "{}ResultOLT.txt".format(action))
+            # verify(actionList, "{}ResultOLT.txt".format(action))
         else:
             print("no")
         # return clients

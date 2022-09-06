@@ -23,7 +23,7 @@ def deactivate(deactList, username, password, port, delay, ip):
     commandToSend("enable")
     commandToSend("config")
     for client in deactList:
-        # print(client)
+        print(client)
         commandToSend(
             "interface gpon {}/{}".format(client["frame"], client["slot"]))
         commandToSend("ont deactivate {} {}".format(
@@ -32,7 +32,7 @@ def deactivate(deactList, username, password, port, delay, ip):
             client["port"], client["id"]))
         enter()
         exitInfo()
-        output = comm.recv(100000000000)
-        output = output.decode("utf-8")
-        print(output, file=open("deactivateResultOLT.txt", "a"))
+        # output = comm.recv(10000000000000000000000000)
+        # output = output.decode("utf-8")
+        # print(output, file=open("deactivateResultOLT.txt", "a"))
     conn.close()

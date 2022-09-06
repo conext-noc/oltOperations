@@ -1,0 +1,4655 @@
+[
+  {
+    "nombre": "Elisiana Aurimar Mosquera Yoris",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "13",
+    "ID externo": "__export__.contract_contract_437_0c412633",
+    "Cliente/NIF": "23864639"
+  },
+  {
+    "nombre": "David Emmanuel Chacin Sulbaran",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "0",
+    "ID externo": "__export__.contract_contract_6016_4885d563",
+    "Cliente/NIF": "17293180"
+  },
+  {
+    "nombre": "Marelys Chiquinquira Romero Cadenas",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "0",
+    "ID externo": "__export__.contract_contract_6021_eb4c10be",
+    "Cliente/NIF": "21076581"
+  },
+  {
+    "nombre": "Mary Estela Rios Perez",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "1",
+    "ID externo": "__export__.contract_contract_6028_0b8fd0de",
+    "Cliente/NIF": "18873491"
+  },
+  {
+    "nombre": "Eli Alberto Chacin Sulbaran",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "7",
+    "ID externo": "__export__.contract_contract_6049_47483b61",
+    "Cliente/NIF": "16365234"
+  },
+  {
+    "nombre": "Steven Andres Riquet Garcia",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "4",
+    "ID externo": "__export__.contract_contract_6060_38339e9e",
+    "Cliente/NIF": "27418371"
+  },
+  {
+    "nombre": "Alejandro Jose Montero Bravo",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "7",
+    "ID externo": "__export__.contract_contract_6061_63d5c142",
+    "Cliente/NIF": "12513129"
+  },
+  {
+    "nombre": "Miguel Angel Gomez Matos",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "13",
+    "ID externo": "__export__.contract_contract_6073_d9204a65",
+    "Cliente/NIF": "16560176"
+  },
+  {
+    "nombre": "Jesus Javier Ortega Ramirez",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "10",
+    "ID externo": "__export__.contract_contract_6100_85b7bee2",
+    "Cliente/NIF": "26112154"
+  },
+  {
+    "nombre": "Erick Wilson Gonzalez Daal",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "13",
+    "ID externo": "__export__.contract_contract_6132_f64aec2f",
+    "Cliente/NIF": "24362678"
+  },
+  {
+    "nombre": "Maria Cleotilde Hernandez Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "N/E",
+    "ID externo": "__export__.contract_contract_6175_d7d7271e",
+    "Cliente/NIF": "7690137"
+  },
+  {
+    "nombre": "Richard Alexander Arenas",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "17",
+    "ID externo": "__export__.contract_contract_6187_a2188469",
+    "Cliente/NIF": "16918190"
+  },
+  {
+    "nombre": "Ricardo Antonio Contreras Torrealba",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "76",
+    "ID externo": "__export__.contract_contract_6214_ab7fdfcc",
+    "Cliente/NIF": "9774724"
+  },
+  {
+    "nombre": "Jonathan David Rivero Diaz",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "6",
+    "ID externo": "__export__.contract_contract_6223_287490cc",
+    "Cliente/NIF": "15600663"
+  },
+  {
+    "nombre": "Early Ankher Quintero Olazabal",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "7",
+    "ID externo": "__export__.contract_contract_6225_d36f944b",
+    "Cliente/NIF": "12870170"
+  },
+  {
+    "nombre": "Osneida Josefina Rodriguez Atencio",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "5",
+    "ID externo": "__export__.contract_contract_6226_a355fb53",
+    "Cliente/NIF": "9734177"
+  },
+  {
+    "nombre": "Liz Maryoris Rivas Martinez",
+    "frame": "0",
+    "slot": "1",
+    "port": "1",
+    "id": "4",
+    "ID externo": "__export__.contract_contract_6231_a10a0556",
+    "Cliente/NIF": "20863848"
+  },
+  {
+    "nombre": "Jose Alberto Leal Rodriguez",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "22",
+    "ID externo": "__export__.contract_contract_6232_a36b6e44",
+    "Cliente/NIF": "9703552"
+  },
+  {
+    "nombre": "Noraida Del Valle Villasmil Labrador",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "2",
+    "ID externo": "__export__.contract_contract_6233_2201cc18",
+    "Cliente/NIF": "10966503"
+  },
+  {
+    "nombre": "Yullianna Emperatriz Quintero Conrado",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "3",
+    "ID externo": "__export__.contract_contract_6235_cb778823",
+    "Cliente/NIF": "20059720"
+  },
+  {
+    "nombre": "Luis Alberto Benavides Padrino",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "20",
+    "ID externo": "__export__.contract_contract_6243_6b2f2fd8",
+    "Cliente/NIF": "18388243"
+  },
+  {
+    "nombre": "Jose Gabriel Colina Vivas",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "6",
+    "ID externo": "__export__.contract_contract_6244_18bffeaf",
+    "Cliente/NIF": "9794818"
+  },
+  {
+    "nombre": "Nilba Eunice Pirela Bracho",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "19",
+    "ID externo": "__export__.contract_contract_6248_3fcdef9c",
+    "Cliente/NIF": "5798884"
+  },
+  {
+    "nombre": "Norma Isabel Pozada Olascuhaga",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "26",
+    "ID externo": "__export__.contract_contract_6254_971fec63",
+    "Cliente/NIF": "18663704"
+  },
+  {
+    "nombre": "Luzmila Bastidas Gomez",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "28",
+    "ID externo": "__export__.contract_contract_6267_dd0293c7",
+    "Cliente/NIF": "13007784"
+  },
+  {
+    "nombre": "Franklin Javier Acasio Ramos",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "29",
+    "ID externo": "__export__.contract_contract_6255_b59a7f31",
+    "Cliente/NIF": "28252918"
+  },
+  {
+    "nombre": "Rubania Natalie Chourio Rincon",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "7",
+    "ID externo": "__export__.contract_contract_6303_c7c464c5",
+    "Cliente/NIF": "16016905"
+  },
+  {
+    "nombre": "Belitza Josefina Diaz Mejias",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "22",
+    "ID externo": "__export__.contract_contract_6304_3bc13d4d",
+    "Cliente/NIF": "18282953"
+  },
+  {
+    "nombre": "Luis Alberto Quintero Simanca",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "10",
+    "ID externo": "__export__.contract_contract_6307_73b54f45",
+    "Cliente/NIF": "5063689"
+  },
+  {
+    "nombre": "Maglin Rosy Luzardo Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "11",
+    "ID externo": "__export__.contract_contract_6310_308f8d20",
+    "Cliente/NIF": "15839223"
+  },
+  {
+    "nombre": "Rossana Cecilia Berrios Isea",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "24",
+    "ID externo": "__export__.contract_contract_6367_fb9ad08b",
+    "Cliente/NIF": "15013183"
+  },
+  {
+    "nombre": "Lilinel del Valle Molina Salas",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "15",
+    "ID externo": "__export__.contract_contract_6368_a5b03606",
+    "Cliente/NIF": "9740785"
+  },
+  {
+    "nombre": "Irwin Onel Garcia Salazar",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "24",
+    "ID externo": "__export__.contract_contract_6369_d31867a7",
+    "Cliente/NIF": "10433831"
+  },
+  {
+    "nombre": "Rafael Enrique Villasmil Delgado",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "16",
+    "ID externo": "__export__.contract_contract_6370_2d2b0798",
+    "Cliente/NIF": "15010210"
+  },
+  {
+    "nombre": "Maria Alejandra Medina Soto",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "26",
+    "ID externo": "__export__.contract_contract_6378_12e77f26",
+    "Cliente/NIF": "17806923"
+  },
+  {
+    "nombre": "Nelson Enrique Perozo Arocha",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "2",
+    "ID externo": "__export__.contract_contract_6421_e3204f92",
+    "Cliente/NIF": "24255519"
+  },
+  {
+    "nombre": "Mileidy Carolina Cohen Montiel",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "89",
+    "ID externo": "__export__.contract_contract_6425_d90c2614",
+    "Cliente/NIF": "19392129"
+  },
+  {
+    "nombre": "Tiempo De Victoria",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "16",
+    "ID externo": "__export__.contract_contract_6429_a9b65f59",
+    "Cliente/NIF": "401000020"
+  },
+  {
+    "nombre": "Ramon Benito Morillo Rincón",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "7",
+    "ID externo": "__export__.contract_contract_6434_15942bd2",
+    "Cliente/NIF": "9558563"
+  },
+  {
+    "nombre": "Wuiliam Yunior Castro Mendoza",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "N/E",
+    "ID externo": "__export__.contract_contract_6437_9f75b7d2",
+    "Cliente/NIF": "27603520"
+  },
+  {
+    "nombre": "Elodia Esperanza Bejar De Villamizar",
+    "frame": "0",
+    "slot": "1",
+    "port": "1",
+    "id": "8",
+    "ID externo": "__export__.contract_contract_6500_82deb065",
+    "Cliente/NIF": "5066840"
+  },
+  {
+    "nombre": "Hector Miguel Castillo Valbuena",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "22",
+    "ID externo": "__export__.contract_contract_6502_4e2a3bc0",
+    "Cliente/NIF": "25553514"
+  },
+  {
+    "nombre": "Franz Carlos Taborda Chacin",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "19",
+    "ID externo": "__export__.contract_contract_6526_c613456b",
+    "Cliente/NIF": "9775754"
+  },
+  {
+    "nombre": "Carmen Lourdes Alvarado Sanchez",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "10",
+    "ID externo": "__export__.contract_contract_6527_a8d2fcbb",
+    "Cliente/NIF": "9798280"
+  },
+  {
+    "nombre": "Marielys Vanessa Pirela Cubillan",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "24",
+    "ID externo": "__export__.contract_contract_6514_5eeeb2a7",
+    "Cliente/NIF": "21074185"
+  },
+  {
+    "nombre": "Marlinis Simanca Mangones",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "25",
+    "ID externo": "__export__.contract_contract_6515_f3a161ac",
+    "Cliente/NIF": "83484642"
+  },
+  {
+    "nombre": "Carmen milagros llanos",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "32",
+    "ID externo": "__export__.contract_contract_6570_5c9c9236",
+    "Cliente/NIF": "15012284"
+  },
+  {
+    "nombre": "Leonardo Enrique Cardozo Andrade",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "9",
+    "ID externo": "__export__.contract_contract_6541_878a3c9b",
+    "Cliente/NIF": "20689750"
+  },
+  {
+    "nombre": "Cecilia Chiquinquira Ortega Vargas",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "3",
+    "ID externo": "__export__.contract_contract_6577_d8c03e55",
+    "Cliente/NIF": "21076059"
+  },
+  {
+    "nombre": "Jose Gregorio Primera Clavero",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "4",
+    "ID externo": "__export__.contract_contract_6555_704f38ee",
+    "Cliente/NIF": "15162122"
+  },
+  {
+    "nombre": "Nerio Efrain Montiel",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "35",
+    "ID externo": "__export__.contract_contract_6579_555799e1",
+    "Cliente/NIF": "11660300"
+  },
+  {
+    "nombre": "Anireth Antonieta Blanco Ramirez",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "16",
+    "ID externo": "__export__.contract_contract_6552_06524a4d",
+    "Cliente/NIF": "15478244"
+  },
+  {
+    "nombre": "Yakeline Carolina Nava Raga",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "18",
+    "ID externo": "__export__.contract_contract_6554_a78c3641",
+    "Cliente/NIF": "22124572"
+  },
+  {
+    "nombre": "Ferreteria Y Maderas El Araguaney Centro, C.A",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "4",
+    "ID externo": "__export__.contract_contract_6147_873cc63c",
+    "Cliente/NIF": "501214360"
+  },
+  {
+    "nombre": "Farmacia Saldivia, C.A.",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "45",
+    "ID externo": "__export__.contract_contract_6656_e6628734",
+    "Cliente/NIF": "311638920"
+  },
+  {
+    "nombre": "Gladira Pastora Caldera Roa",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "4",
+    "ID externo": "__export__.contract_contract_6851_9c47f577",
+    "Cliente/NIF": "15985167"
+  },
+  {
+    "nombre": "Posada Turistica Ula Ula C.A",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "16",
+    "ID externo": "__export__.contract_contract_6867_1432abce",
+    "Cliente/NIF": "299596078"
+  },
+  {
+    "nombre": "Organizacion De Empresas Zulianas De Autobuses",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_6936_4bb77ebc",
+    "Cliente/NIF": "300189732"
+  },
+  {
+    "nombre": "Farmacias Inversiones Ventura, C.A",
+    "frame": "0",
+    "slot": "2",
+    "port": "15",
+    "id": "2",
+    "ID externo": "__export__.contract_contract_8956_da76d98b",
+    "Cliente/NIF": "400329868"
+  },
+  {
+    "nombre": "Eder Arrizon Rios Castro",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "107",
+    "ID externo": "__export__.contract_contract_8986_8dc1d7fb",
+    "Cliente/NIF": "183552828"
+  },
+  {
+    "nombre": "Yesenia del Carmen Villalobos Morales",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "42",
+    "ID externo": "__export__.contract_contract_6627_97766edf",
+    "Cliente/NIF": "15718767"
+  },
+  {
+    "nombre": "Cristobal Arturo Briceño Ortiz",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6646_b5154d6f",
+    "Cliente/NIF": "25980109"
+  },
+  {
+    "nombre": "Jesnelia Melina Gonzalez De Montilla",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_6655_a3fda7c2",
+    "Cliente/NIF": "15287446"
+  },
+  {
+    "nombre": "Renny Andres Martinez Villarreal",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "51",
+    "ID externo": "__export__.contract_contract_6662_9d03bd1d",
+    "Cliente/NIF": "23448095"
+  },
+  {
+    "nombre": "Cristian Gerardo Perez Leal",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "23",
+    "ID externo": "__export__.contract_contract_6664_002c7c7a",
+    "Cliente/NIF": "32650964"
+  },
+  {
+    "nombre": "Nakarid del Carmen Villalobos Hernández",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "40",
+    "ID externo": "__export__.contract_contract_6669_31087691",
+    "Cliente/NIF": "10418597"
+  },
+  {
+    "nombre": "Carmen Josefa Vasquez Hugas",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "54",
+    "ID externo": "__export__.contract_contract_6672_0b56b9f0",
+    "Cliente/NIF": "17413853"
+  },
+  {
+    "nombre": "Marcos Antonio Bracho Pirela",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "45",
+    "ID externo": "__export__.contract_contract_6679_66268f22",
+    "Cliente/NIF": "15750746"
+  },
+  {
+    "nombre": "Andry Jose Rivero Ramirez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "65",
+    "ID externo": "__export__.contract_contract_6699_9d771fd7",
+    "Cliente/NIF": "26126513"
+  },
+  {
+    "nombre": "Andry Jose Rivero Ramirez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "65",
+    "ID externo": "__export__.contract_contract_6699_9d771fd7",
+    "Cliente/NIF": "26126513"
+  },
+  {
+    "nombre": "Jennifer Chiquinquirá sebrian Morales",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "N/E",
+    "ID externo": "__export__.contract_contract_6717_1a3e9765",
+    "Cliente/NIF": "23474186"
+  },
+  {
+    "nombre": "Yasmily del Valle Jugo Portillo",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "69",
+    "ID externo": "__export__.contract_contract_6718_4e9f89c0",
+    "Cliente/NIF": "9741222"
+  },
+  {
+    "nombre": "Yasmely Chiquinquira Troconiz Negretti",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "46",
+    "ID externo": "__export__.contract_contract_6723_581341c1",
+    "Cliente/NIF": "18663560"
+  },
+  {
+    "nombre": "Marioly Yaneth Santander Portillo",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "47",
+    "ID externo": "__export__.contract_contract_6725_957524ef",
+    "Cliente/NIF": "11068313"
+  },
+  {
+    "nombre": "Maria Esther Gonzalez Herrera",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "38",
+    "ID externo": "__export__.contract_contract_6727_4dec7f27",
+    "Cliente/NIF": "14006201"
+  },
+  {
+    "nombre": "Miriam Margarita Carrillo Henriquez",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "39",
+    "ID externo": "__export__.contract_contract_6731_1863fadf",
+    "Cliente/NIF": "9775298"
+  },
+  {
+    "nombre": "Kendys Alberto Cubillan Mujica",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "43",
+    "ID externo": "__export__.contract_contract_6746_3d8ac302",
+    "Cliente/NIF": "13474382"
+  },
+  {
+    "nombre": "Elis Karolina Vega Vega",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "53",
+    "ID externo": "__export__.contract_contract_6749_c8dd17f8",
+    "Cliente/NIF": "27196279"
+  },
+  {
+    "nombre": "Adelso Jesus Zamora",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_6752_c8d3c7b8",
+    "Cliente/NIF": "7811335"
+  },
+  {
+    "nombre": "Carolina Naiza Pirela Jimenez",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "19",
+    "ID externo": "__export__.contract_contract_6757_dba429c1",
+    "Cliente/NIF": "13005528"
+  },
+  {
+    "nombre": "Marianyela Nazareth Chacín Barboza",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "49",
+    "ID externo": "__export__.contract_contract_6775_3c2c5503",
+    "Cliente/NIF": "19570726"
+  },
+  {
+    "nombre": "Eduardo Gonzalez Montiel",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "83",
+    "ID externo": "__export__.contract_contract_6840_b588dd0e",
+    "Cliente/NIF": "17416358"
+  },
+  {
+    "nombre": "Lorimar Gabriela Barrientos Manares",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "45",
+    "ID externo": "__export__.contract_contract_6842_709bcbf1",
+    "Cliente/NIF": "21355992"
+  },
+  {
+    "nombre": "Floribeth Milagros Navea Urdaneta",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "N/E",
+    "ID externo": "__export__.contract_contract_6844_481bbcf4",
+    "Cliente/NIF": "21566757"
+  },
+  {
+    "nombre": "Naylea Thailina Andrade Fernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "88",
+    "ID externo": "__export__.contract_contract_6866_0edcdc9a",
+    "Cliente/NIF": "28109971"
+  },
+  {
+    "nombre": "Oscar Alberto Sira Toledo",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "90",
+    "ID externo": "__export__.contract_contract_6884_d7b18d5b",
+    "Cliente/NIF": "12591293"
+  },
+  {
+    "nombre": "Isimar Victoria Villasmil Morillo",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "0",
+    "ID externo": "__export__.contract_contract_6903_0377b70b",
+    "Cliente/NIF": "29523755"
+  },
+  {
+    "nombre": "Mariana Del Carmen Díaz Nava",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6925_5a55e8c2",
+    "Cliente/NIF": "9744929"
+  },
+  {
+    "nombre": "Mariana Del Carmen Díaz Nava",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "51",
+    "ID externo": "__export__.contract_contract_6925_5a55e8c2",
+    "Cliente/NIF": "9744929"
+  },
+  {
+    "nombre": "Wilmer Jose Pacheco Soto",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "94",
+    "ID externo": "__export__.contract_contract_6939_98b235db",
+    "Cliente/NIF": "23737095"
+  },
+  {
+    "nombre": "Gabriela De Los Angeles Piñeiro Lujano",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "40",
+    "ID externo": "__export__.contract_contract_6952_729a254f",
+    "Cliente/NIF": "30200805"
+  },
+  {
+    "nombre": "Kelly Johana Ruiz Bravo",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "69",
+    "ID externo": "__export__.contract_contract_6957_027406d6",
+    "Cliente/NIF": "21567999"
+  },
+  {
+    "nombre": "Alexis Jose Villalobos Leal",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "1",
+    "ID externo": "__export__.contract_contract_6961_98f57e96",
+    "Cliente/NIF": "20371919"
+  },
+  {
+    "nombre": "Yenifer Del Valle Garcia",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "4",
+    "ID externo": "__export__.contract_contract_6965_b7c07c24",
+    "Cliente/NIF": "15059867"
+  },
+  {
+    "nombre": "Pedro Carlos Lugo Petit",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "49",
+    "ID externo": "__export__.contract_contract_6969_982c7014",
+    "Cliente/NIF": "16118767"
+  },
+  {
+    "nombre": "Yubier Caicedo Garizao",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "33",
+    "ID externo": "__export__.contract_contract_6978_fd1498ac",
+    "Cliente/NIF": "13181601"
+  },
+  {
+    "nombre": "Nery Beatriz Garcia De Velazco",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "50",
+    "ID externo": "__export__.contract_contract_6983_f8aa095a",
+    "Cliente/NIF": "3382808"
+  },
+  {
+    "nombre": "Ottoniel Davic Garcia Correa",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "43",
+    "ID externo": "__export__.contract_contract_6998_f91c38d8",
+    "Cliente/NIF": "24727729"
+  },
+  {
+    "nombre": "Obrian Yessic Bolaño Fuenmayor",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "96",
+    "ID externo": "__export__.contract_contract_6999_e20a4207",
+    "Cliente/NIF": "30249555"
+  },
+  {
+    "nombre": "Jose Ramon Moran Hernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "45",
+    "ID externo": "__export__.contract_contract_7009_a2310364",
+    "Cliente/NIF": "7972152"
+  },
+  {
+    "nombre": "Aimara Corina Medina Palmar",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "4",
+    "ID externo": "__export__.contract_contract_7010_45b67d25",
+    "Cliente/NIF": "25794102"
+  },
+  {
+    "nombre": "Zony Esther Amesty Pirela",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "1",
+    "ID externo": "__export__.contract_contract_7019_bd8ace86",
+    "Cliente/NIF": "11392718"
+  },
+  {
+    "nombre": "Marlyn Del Carmen Solano Perez",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "30",
+    "ID externo": "__export__.contract_contract_7027_6cc07781",
+    "Cliente/NIF": "16296673"
+  },
+  {
+    "nombre": "Gian Marco Angelitri Andrade",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "81",
+    "ID externo": "__export__.contract_contract_7028_f30aeeae",
+    "Cliente/NIF": "21382229"
+  },
+  {
+    "nombre": "Paola Josefina Melean Mendoza",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "2",
+    "ID externo": "__export__.contract_contract_7035_319652f3",
+    "Cliente/NIF": "18723717"
+  },
+  {
+    "nombre": "Victor Hugo Garcia Oquendo",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "54",
+    "ID externo": "__export__.contract_contract_7043_01078e63",
+    "Cliente/NIF": "13242462"
+  },
+  {
+    "nombre": "Valeria Carolina Henriquez Leon",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "52",
+    "ID externo": "__export__.contract_contract_7053_fe2963b8",
+    "Cliente/NIF": "28436429"
+  },
+  {
+    "nombre": "Nelson Enrique Cardozo Carrasquero",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "101",
+    "ID externo": "__export__.contract_contract_7054_0790e731",
+    "Cliente/NIF": "22176513"
+  },
+  {
+    "nombre": "Oritza del Carmen Urdaneta Ferrer",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "5",
+    "ID externo": "__export__.contract_contract_7061_2c73d0eb",
+    "Cliente/NIF": "15059910"
+  },
+  {
+    "nombre": "Yon  Maicol Tello Mendes",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "6",
+    "ID externo": "__export__.contract_contract_7064_ca0182ef",
+    "Cliente/NIF": "25739110"
+  },
+  {
+    "nombre": "Marlyn Jose Perozo Villalobos",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "20",
+    "ID externo": "__export__.contract_contract_7069_0f432941",
+    "Cliente/NIF": "18987511"
+  },
+  {
+    "nombre": "Gean Manuel Mendez Caldera",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "0",
+    "ID externo": "__export__.contract_contract_7071_f1f3e3e5",
+    "Cliente/NIF": "20986617"
+  },
+  {
+    "nombre": "Edward Jose Davila Parra",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "20",
+    "ID externo": "__export__.contract_contract_7081_c28be8c0",
+    "Cliente/NIF": "24254051"
+  },
+  {
+    "nombre": "Nehomar Enrique Castellanos Olivera",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "67",
+    "ID externo": "__export__.contract_contract_7096_03b17d57",
+    "Cliente/NIF": "13781564"
+  },
+  {
+    "nombre": "Eudo Enrrique castro Hernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "61",
+    "ID externo": "__export__.contract_contract_7103_b3323f5a",
+    "Cliente/NIF": "26242106"
+  },
+  {
+    "nombre": "Angel Rafael Hernandez Fernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "9",
+    "ID externo": "__export__.contract_contract_7107_e335ceb7",
+    "Cliente/NIF": "27637162"
+  },
+  {
+    "nombre": "Rita Daniela Chourio Godoy",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "58",
+    "ID externo": "__export__.contract_contract_7110_3d938d6f",
+    "Cliente/NIF": "24406983"
+  },
+  {
+    "nombre": "Marco Antonio Espina Simancas",
+    "frame": "0",
+    "slot": "2",
+    "port": "1",
+    "id": "4",
+    "ID externo": "__export__.contract_contract_7111_30f0fed6",
+    "Cliente/NIF": "9742576"
+  },
+  {
+    "nombre": "Romulo Enrique Puentes Luzardo",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "69",
+    "ID externo": "__export__.contract_contract_7112_779eb925",
+    "Cliente/NIF": "5821806"
+  },
+  {
+    "nombre": "Jesus Miguel Godoy Andrade",
+    "frame": "0",
+    "slot": "1",
+    "port": "1",
+    "id": "18",
+    "ID externo": "__export__.contract_contract_7115_6ae14e2e",
+    "Cliente/NIF": "27251783"
+  },
+  {
+    "nombre": "Karina del Valle Mendoza Diaz",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "62",
+    "ID externo": "__export__.contract_contract_7123_6e322516",
+    "Cliente/NIF": "11292825"
+  },
+  {
+    "nombre": "Marilyn De La Chiquinquira  Medina Medina",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "46",
+    "ID externo": "__export__.contract_contract_7145_9a521fba",
+    "Cliente/NIF": "6750676"
+  },
+  {
+    "nombre": "Yasely Alexandra Pirela Sanchez",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "65",
+    "ID externo": "__export__.contract_contract_7161_d589c1d4",
+    "Cliente/NIF": "13084045"
+  },
+  {
+    "nombre": "Marlon Manuel Orozco Coronado",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_7171_1c58bf62",
+    "Cliente/NIF": "19680239"
+  },
+  {
+    "nombre": "Jose Tomas mogollon Rodriguez",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_7187_2cadaef1",
+    "Cliente/NIF": "5436813"
+  },
+  {
+    "nombre": "Rosa Guillermina Gonzales De Corredor",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "68",
+    "ID externo": "__export__.contract_contract_7198_f276b1b2",
+    "Cliente/NIF": "3275673"
+  },
+  {
+    "nombre": "Cruz Maria Parra Vilchez",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "13",
+    "ID externo": "__export__.contract_contract_7217_265a8e3a",
+    "Cliente/NIF": "7763171"
+  },
+  {
+    "nombre": "Heidy Yurivic Otero Morales",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "68",
+    "ID externo": "__export__.contract_contract_7243_97f13855",
+    "Cliente/NIF": "13742711"
+  },
+  {
+    "nombre": "Nayger Maria Mejias Chourio",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_7247_e72e70e7",
+    "Cliente/NIF": "16121329"
+  },
+  {
+    "nombre": "Jose Atilio Arrieta Parra",
+    "frame": "0",
+    "slot": "1",
+    "port": "1",
+    "id": "21",
+    "ID externo": "__export__.contract_contract_7255_12ab9380",
+    "Cliente/NIF": "3776432"
+  },
+  {
+    "nombre": "Junior Alejandro Arrieta Rojas",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_7258_2c8ca153",
+    "Cliente/NIF": "27999177"
+  },
+  {
+    "nombre": "Carmen Teresa Robles Primera",
+    "frame": "0",
+    "slot": "2",
+    "port": "1",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_7280_baaf5746",
+    "Cliente/NIF": "6802149"
+  },
+  {
+    "nombre": "Jose Gregorio Pacheco Morales",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "",
+    "ID externo": "__export__.contract_contract_7302_b80a4d7f",
+    "Cliente/NIF": "5814570"
+  },
+  {
+    "nombre": "Miriam Del Carmen  Materan Cordero",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "25",
+    "ID externo": "__export__.contract_contract_7310_f6f36b8f",
+    "Cliente/NIF": "14134886"
+  },
+  {
+    "nombre": "Cristian Enrique Mavarez Navarro",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "65",
+    "ID externo": "__export__.contract_contract_7312_be848fcb",
+    "Cliente/NIF": "17805282"
+  },
+  {
+    "nombre": "Wilberto Espitia Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "122",
+    "ID externo": "__export__.contract_contract_7315_6ce27722",
+    "Cliente/NIF": "17296832"
+  },
+  {
+    "nombre": "Angel Adolfredo Montero Briceño",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "7",
+    "ID externo": "__export__.contract_contract_7328_124f887a",
+    "Cliente/NIF": "12257557"
+  },
+  {
+    "nombre": "Ingrid Del Valle Utria Cabriales",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_7333_9e01b2b6",
+    "Cliente/NIF": "15253564"
+  },
+  {
+    "nombre": "Douglas Enrique Perez Fuenmayor",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "70",
+    "ID externo": "__export__.contract_contract_7351_87c113fa",
+    "Cliente/NIF": "18203363"
+  },
+  {
+    "nombre": "Luis Antonio Chacon Rangel",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "74",
+    "ID externo": "__export__.contract_contract_7355_a64eab82",
+    "Cliente/NIF": "15059511"
+  },
+  {
+    "nombre": "Ariana Beatriz Peña Maldonado",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "31",
+    "ID externo": "__export__.contract_contract_7356_3b5d8717",
+    "Cliente/NIF": "18349222"
+  },
+  {
+    "nombre": "Yujey Coromoto Ramirez",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "47",
+    "ID externo": "__export__.contract_contract_7376_c0e4a91b",
+    "Cliente/NIF": "14831226"
+  },
+  {
+    "nombre": "Richard de Jesus Araque Cubillan",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "26",
+    "ID externo": "__export__.contract_contract_7377_e7844592",
+    "Cliente/NIF": "13080454"
+  },
+  {
+    "nombre": "Cesar David Pardo Paz",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_7378_d9e087a9",
+    "Cliente/NIF": "27847090"
+  },
+  {
+    "nombre": "Angel Adelis Guillen Medina",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "29",
+    "ID externo": "__export__.contract_contract_7379_5b4cd1b4",
+    "Cliente/NIF": "4705926"
+  },
+  {
+    "nombre": "Yorgelis Paola Quintero Paredes",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "5",
+    "ID externo": "__export__.contract_contract_7384_4d177ed6",
+    "Cliente/NIF": "28400211"
+  },
+  {
+    "nombre": "Ender Enrique Espina Bravo",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "25",
+    "ID externo": "__export__.contract_contract_7404_d8bfd9b2",
+    "Cliente/NIF": "5845090"
+  },
+  {
+    "nombre": "Rosa Carolina Padilla Villadiego",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "36",
+    "ID externo": "__export__.contract_contract_7409_92e194ef",
+    "Cliente/NIF": "25974695"
+  },
+  {
+    "nombre": "Erika Luisa Noriega",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "57",
+    "ID externo": "__export__.contract_contract_7417_49eafc17",
+    "Cliente/NIF": "12442949"
+  },
+  {
+    "nombre": "Liliana Yaneth Niebles Carvajal",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_7419_d018c651",
+    "Cliente/NIF": "13830239"
+  },
+  {
+    "nombre": "Alejandra Carolina Lozada Castellanos",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_7425_0a4c0c49",
+    "Cliente/NIF": "30641901"
+  },
+  {
+    "nombre": "Vanessa Carolina Torres Añez",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "3",
+    "ID externo": "__export__.contract_contract_7438_b40916ec",
+    "Cliente/NIF": "25802334"
+  },
+  {
+    "nombre": "Gledys Marisela Hernández González",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "2",
+    "ID externo": "__export__.contract_contract_7456_b4bb5763",
+    "Cliente/NIF": "10439247"
+  },
+  {
+    "nombre": "José Antonio Valderrama González",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "67",
+    "ID externo": "__export__.contract_contract_7463_03139745",
+    "Cliente/NIF": "7979062"
+  },
+  {
+    "nombre": "Luis Jose Camarillo Araque",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "57",
+    "ID externo": "__export__.contract_contract_7488_0963ccd4",
+    "Cliente/NIF": "26638519"
+  },
+  {
+    "nombre": "Juan Carlos Gil",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "36",
+    "ID externo": "__export__.contract_contract_7502_a7eb880e",
+    "Cliente/NIF": "9765858"
+  },
+  {
+    "nombre": "Nelly Josefina Puche Escorcia",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "28",
+    "ID externo": "__export__.contract_contract_7512_54bbc17c",
+    "Cliente/NIF": "21491460"
+  },
+  {
+    "nombre": "Dinorah Margarita Carmona Olivar",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_7513_39c8b77c",
+    "Cliente/NIF": "6832731"
+  },
+  {
+    "nombre": "Geovani Rafael Nava Valbuena",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "14",
+    "ID externo": "__export__.contract_contract_7517_6e69b605",
+    "Cliente/NIF": "4534832"
+  },
+  {
+    "nombre": "Alba Paola Soler Zambrano",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "24",
+    "ID externo": "__export__.contract_contract_7524_e438e7c4",
+    "Cliente/NIF": "18624266"
+  },
+  {
+    "nombre": "Jermaine Ali Acosta Chirinos",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "32",
+    "ID externo": "__export__.contract_contract_7553_1e703a69",
+    "Cliente/NIF": "31050440"
+  },
+  {
+    "nombre": "Carlos Alfonso Bracho Nava",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "",
+    "ID externo": "__export__.contract_contract_7559_9be9cafa",
+    "Cliente/NIF": "5851087"
+  },
+  {
+    "nombre": "Isabel Teresa Gallardo",
+    "frame": "0",
+    "slot": "2",
+    "port": "1",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_7560_ee847971",
+    "Cliente/NIF": "5802159"
+  },
+  {
+    "nombre": "Yanireth De Los Angeles Leal Luengo",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "86",
+    "ID externo": "__export__.contract_contract_7575_7fba5c75",
+    "Cliente/NIF": "14544705"
+  },
+  {
+    "nombre": "Gabriel Enrique Torres Bracho",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "21",
+    "ID externo": "__export__.contract_contract_7586_f51a7a0c",
+    "Cliente/NIF": "6748752"
+  },
+  {
+    "nombre": "Jonathan David Vivas Espina",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "125",
+    "ID externo": "__export__.contract_contract_7618_e98c762e",
+    "Cliente/NIF": "23863692"
+  },
+  {
+    "nombre": "Gloria Esther Dávila de Núñez",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "22",
+    "ID externo": "__export__.contract_contract_7662_e46427c4",
+    "Cliente/NIF": "9701986"
+  },
+  {
+    "nombre": "Esmeira Maria Romero Rivas",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_7666_a5480f50",
+    "Cliente/NIF": "16606873"
+  },
+  {
+    "nombre": "Ivan De Jesus Consuegra Tangarife",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "23",
+    "ID externo": "__export__.contract_contract_7677_e1706b11",
+    "Cliente/NIF": "24251965"
+  },
+  {
+    "nombre": "Michelle Elizabeth Morillo Arismendi",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_7702_68e20284",
+    "Cliente/NIF": "12406066"
+  },
+  {
+    "nombre": "Jorge Luis Bravo",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "26",
+    "ID externo": "__export__.contract_contract_7703_525146aa",
+    "Cliente/NIF": "9718709"
+  },
+  {
+    "nombre": "Luis Antonio Navas Serrano",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "13",
+    "ID externo": "__export__.contract_contract_7730_ebde0d3f",
+    "Cliente/NIF": "12406975"
+  },
+  {
+    "nombre": "Yovana Coromoto Ramirez",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "9",
+    "ID externo": "__export__.contract_contract_7738_e71ca053",
+    "Cliente/NIF": "12694758"
+  },
+  {
+    "nombre": "Mariangel Elena Bracho Mendez",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "54",
+    "ID externo": "__export__.contract_contract_7755_48093ed1",
+    "Cliente/NIF": "23887713"
+  },
+  {
+    "nombre": "Daviel Alonso Galue Barreto",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "60",
+    "ID externo": "__export__.contract_contract_7759_0497f2f7",
+    "Cliente/NIF": "21491943"
+  },
+  {
+    "nombre": "Jorge Luis Rincon Pernalete",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "71",
+    "ID externo": "__export__.contract_contract_7761_d88ed381",
+    "Cliente/NIF": "18006584"
+  },
+  {
+    "nombre": "Jesualdo Gonzalez Castro",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "112",
+    "ID externo": "__export__.contract_contract_7762_8854dbcb",
+    "Cliente/NIF": "25183028"
+  },
+  {
+    "nombre": "Nelvin Alfonzo Leon Mendoza",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "82",
+    "ID externo": "__export__.contract_contract_7789_bc48a414",
+    "Cliente/NIF": "13830052"
+  },
+  {
+    "nombre": "Gerardo Enrique Puche Pirela",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "60",
+    "ID externo": "__export__.contract_contract_7793_99a74122",
+    "Cliente/NIF": "25660835"
+  },
+  {
+    "nombre": "Belkis Beatriz Montilla Gil",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "2",
+    "ID externo": "__export__.contract_contract_7803_13dbd69d",
+    "Cliente/NIF": "9626529"
+  },
+  {
+    "nombre": "Elizabeth Marys Cardenas Castellano",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "0",
+    "ID externo": "__export__.contract_contract_7808_7dca0835",
+    "Cliente/NIF": "10415556"
+  },
+  {
+    "nombre": "Minely Carolina Mendoza Barreto",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "44",
+    "ID externo": "__export__.contract_contract_7842_afbce9d1",
+    "Cliente/NIF": "16011539"
+  },
+  {
+    "nombre": "Celen Dayana Semprun Esis",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "21",
+    "ID externo": "__export__.contract_contract_7852_6b096f88",
+    "Cliente/NIF": "14824679"
+  },
+  {
+    "nombre": "Wildaly Chiquinquira Vergara Bracho",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "73",
+    "ID externo": "__export__.contract_contract_7858_5ad419dd",
+    "Cliente/NIF": "15058699"
+  },
+  {
+    "nombre": "Solvanny Lorena Medina",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "31",
+    "ID externo": "__export__.contract_contract_7867_83446d16",
+    "Cliente/NIF": "23861007"
+  },
+  {
+    "nombre": "Orlando De Jesus Corzo Moran",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "80",
+    "ID externo": "__export__.contract_contract_7873_8ad65462",
+    "Cliente/NIF": "17668302"
+  },
+  {
+    "nombre": "Victor Raul Ayos Hernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "30",
+    "ID externo": "__export__.contract_contract_7877_5bddc0e7",
+    "Cliente/NIF": "21494822"
+  },
+  {
+    "nombre": "Samuel Jimenez Ramirez",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "81",
+    "ID externo": "__export__.contract_contract_7882_c19a7abe",
+    "Cliente/NIF": "22398605"
+  },
+  {
+    "nombre": "Miguel angel morillo fuenmayor",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "70",
+    "ID externo": "__export__.contract_contract_7896_9da280f6",
+    "Cliente/NIF": "19988023"
+  },
+  {
+    "nombre": "Zoraida Coromoto Lugo Petit",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "57",
+    "ID externo": "__export__.contract_contract_7904_fcd93ee8",
+    "Cliente/NIF": "16118766"
+  },
+  {
+    "nombre": "Marlene Del Carmen Perez De Espina",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "61",
+    "ID externo": "__export__.contract_contract_7912_420bd56f",
+    "Cliente/NIF": "4886545"
+  },
+  {
+    "nombre": "Esthefany Rosangel Medina García",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "83",
+    "ID externo": "__export__.contract_contract_7918_562fcfd9",
+    "Cliente/NIF": "20690800"
+  },
+  {
+    "nombre": "Jose Gregorio Torres Añez",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "64",
+    "ID externo": "__export__.contract_contract_7939_65f2a756",
+    "Cliente/NIF": "20058903"
+  },
+  {
+    "nombre": "Humberto Jose Florido Arias",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "56",
+    "ID externo": "__export__.contract_contract_7941_29838759",
+    "Cliente/NIF": "16783614"
+  },
+  {
+    "nombre": "Sugleyni Mayerlyn Urdaneta Millan",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "97",
+    "ID externo": "__export__.contract_contract_7945_cef65127",
+    "Cliente/NIF": "30762576"
+  },
+  {
+    "nombre": "Jesus Alberto Hernandez Figueroa",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "39",
+    "ID externo": "__export__.contract_contract_7959_8eff0d0d",
+    "Cliente/NIF": "15011408"
+  },
+  {
+    "nombre": "Coromoto del Carmen Colina Vargas",
+    "frame": "0",
+    "slot": "2",
+    "port": "1",
+    "id": "19",
+    "ID externo": "__export__.contract_contract_7973_eaf54797",
+    "Cliente/NIF": "12801651"
+  },
+  {
+    "nombre": "Ana Violeta Lopez Villalobos",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "30",
+    "ID externo": "__export__.contract_contract_7986_cce3bc1e",
+    "Cliente/NIF": "9702186"
+  },
+  {
+    "nombre": "Francisco Javier Soto Ventura",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "88",
+    "ID externo": "__export__.contract_contract_7997_c4d2dcae",
+    "Cliente/NIF": "22470652"
+  },
+  {
+    "nombre": "Alicia Maria Villalobos Nevado",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "54",
+    "ID externo": "__export__.contract_contract_7999_aef9fda4",
+    "Cliente/NIF": "16834171"
+  },
+  {
+    "nombre": "Alicia Maria Villalobos Nevado",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_7999_aef9fda4",
+    "Cliente/NIF": "16834171"
+  },
+  {
+    "nombre": "Alicia Maria Villalobos Nevado",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "54",
+    "ID externo": "__export__.contract_contract_7999_aef9fda4",
+    "Cliente/NIF": "16834171"
+  },
+  {
+    "nombre": "Alicia Maria Villalobos Nevado",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_7999_aef9fda4",
+    "Cliente/NIF": "16834171"
+  },
+  {
+    "nombre": "Jenney Del Carmen Barboza De Labarca",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "67",
+    "ID externo": "__export__.contract_contract_8003_8972a47e",
+    "Cliente/NIF": "7813132"
+  },
+  {
+    "nombre": "Yoselyn del Valle Rincón Ferrer",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "8",
+    "ID externo": "__export__.contract_contract_8004_b3394d24",
+    "Cliente/NIF": "16918714"
+  },
+  {
+    "nombre": "Haydee Del Carmen Gonzalez Infante",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "69",
+    "ID externo": "__export__.contract_contract_8007_362db341",
+    "Cliente/NIF": "5835366"
+  },
+  {
+    "nombre": "Joimer Jose Flores Bracho",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "90",
+    "ID externo": "__export__.contract_contract_8058_1a2855e3",
+    "Cliente/NIF": "29740731"
+  },
+  {
+    "nombre": "Tivizay Del Pilar Alcantara Coniles",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "86",
+    "ID externo": "__export__.contract_contract_8116_1ec112e4",
+    "Cliente/NIF": "7615444"
+  },
+  {
+    "nombre": "Omelio  de jesus medrano gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "74",
+    "ID externo": "__export__.contract_contract_8122_60843a17",
+    "Cliente/NIF": "11872703"
+  },
+  {
+    "nombre": "Ingrid Coromoto Ortiz Castillo",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "19",
+    "ID externo": "__export__.contract_contract_8123_c1555e42",
+    "Cliente/NIF": "9774000"
+  },
+  {
+    "nombre": "Veronica Aracely Rojas Sanchez",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "75",
+    "ID externo": "__export__.contract_contract_8126_7a471a18",
+    "Cliente/NIF": "23554366"
+  },
+  {
+    "nombre": "Zulay del Carmen Sanchez",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "41",
+    "ID externo": "__export__.contract_contract_8139_ffb45e6c",
+    "Cliente/NIF": "9756863"
+  },
+  {
+    "nombre": "Lilibeth Del Carmen Prieto Reverol",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "34",
+    "ID externo": "__export__.contract_contract_8149_66edd828",
+    "Cliente/NIF": "28497902"
+  },
+  {
+    "nombre": "Alicia Maria Villalobos Nevado",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "54",
+    "ID externo": "__export__.contract_contract_8174_ce2faf4e",
+    "Cliente/NIF": "16834171"
+  },
+  {
+    "nombre": "Alicia Maria Villalobos Nevado",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_8174_ce2faf4e",
+    "Cliente/NIF": "16834171"
+  },
+  {
+    "nombre": "Alicia Maria Villalobos Nevado",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "54",
+    "ID externo": "__export__.contract_contract_8174_ce2faf4e",
+    "Cliente/NIF": "16834171"
+  },
+  {
+    "nombre": "Alicia Maria Villalobos Nevado",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_8174_ce2faf4e",
+    "Cliente/NIF": "16834171"
+  },
+  {
+    "nombre": "Yovana Hortencia Hernandez Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "90",
+    "ID externo": "__export__.contract_contract_8175_798c4d68",
+    "Cliente/NIF": "20584882"
+  },
+  {
+    "nombre": "Rafael Angel Valero Barrios",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "77",
+    "ID externo": "__export__.contract_contract_8187_563eb02a",
+    "Cliente/NIF": "7887303"
+  },
+  {
+    "nombre": "María Alejandra Ferrer de Rubio",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "25",
+    "ID externo": "__export__.contract_contract_8226_a62ac3ff",
+    "Cliente/NIF": "12591387"
+  },
+  {
+    "nombre": "Johan Josue Sosa Ramirez",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "26",
+    "ID externo": "__export__.contract_contract_8228_304744db",
+    "Cliente/NIF": "16680988"
+  },
+  {
+    "nombre": "Jesus Enrique Muñoz Barcelo",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "53",
+    "ID externo": "__export__.contract_contract_8249_a15ad737",
+    "Cliente/NIF": "20775275"
+  },
+  {
+    "nombre": "Yosucayz Nucette Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "110",
+    "ID externo": "__export__.contract_contract_8289_81998dd6",
+    "Cliente/NIF": "17415261"
+  },
+  {
+    "nombre": "Raquel Beatriz Gil Alvarado",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "36",
+    "ID externo": "__export__.contract_contract_8314_9208005e",
+    "Cliente/NIF": "9795427"
+  },
+  {
+    "nombre": "Cesar Johandry Avila Ferrebus",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "88",
+    "ID externo": "__export__.contract_contract_8322_9695e294",
+    "Cliente/NIF": "23454020"
+  },
+  {
+    "nombre": "Teodora de los Angeles Mendoza de Martinez",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "89",
+    "ID externo": "__export__.contract_contract_8323_64f4272a",
+    "Cliente/NIF": "11389242"
+  },
+  {
+    "nombre": "Jonathan Josue Sulbaran Rivas",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "6",
+    "ID externo": "__export__.contract_contract_8333_121eacd1",
+    "Cliente/NIF": "15409879"
+  },
+  {
+    "nombre": "Simon Antonio Hidalgo Urdaneta",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "88",
+    "ID externo": "__export__.contract_contract_8338_9f6c6d99",
+    "Cliente/NIF": "17834114"
+  },
+  {
+    "nombre": "Nerio Alberto Moreno Chacin",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "40",
+    "ID externo": "__export__.contract_contract_8344_f4b73bae",
+    "Cliente/NIF": "18286925"
+  },
+  {
+    "nombre": "Yuleny Perdomo Barroso",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "2",
+    "ID externo": "__export__.contract_contract_8372_675df002",
+    "Cliente/NIF": "13705086"
+  },
+  {
+    "nombre": "Paola Karina Torres Rangel",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "61",
+    "ID externo": "__export__.contract_contract_8385_c8ce32fd",
+    "Cliente/NIF": "15479228"
+  },
+  {
+    "nombre": "Edison Ramon Alonzo Valbuena",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "62",
+    "ID externo": "__export__.contract_contract_8387_6c66b8d8",
+    "Cliente/NIF": "5837501"
+  },
+  {
+    "nombre": "Edwin Eduardo Ferrer Hernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "68",
+    "ID externo": "__export__.contract_contract_8388_24d39e9b",
+    "Cliente/NIF": "16835059"
+  },
+  {
+    "nombre": "Javier Jose Paz Fuenmayor",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "65",
+    "ID externo": "__export__.contract_contract_8437_c5430efb",
+    "Cliente/NIF": "27206071"
+  },
+  {
+    "nombre": "Oswaldo Jose Gonzalez Mendoza",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "33",
+    "ID externo": "__export__.contract_contract_8452_2d6e92aa",
+    "Cliente/NIF": "26126530"
+  },
+  {
+    "nombre": "Ramona Ortiz Blanco",
+    "frame": "0",
+    "slot": "2",
+    "port": "9",
+    "id": "5",
+    "ID externo": "__export__.contract_contract_8462_bb8624fa",
+    "Cliente/NIF": "31040867"
+  },
+  {
+    "nombre": "Luciana Patricia Fuenmayor Zambrano",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "88",
+    "ID externo": "__export__.contract_contract_8472_138c5510",
+    "Cliente/NIF": "18874853"
+  },
+  {
+    "nombre": "Abir Margarita Abouyzbeh Al kintar",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "92",
+    "ID externo": "__export__.contract_contract_8477_1343d2c2",
+    "Cliente/NIF": "28097765"
+  },
+  {
+    "nombre": "Sunaira Nayarit Morales Añez",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "89",
+    "ID externo": "__export__.contract_contract_8480_4edcfa16",
+    "Cliente/NIF": "17568626"
+  },
+  {
+    "nombre": "Kelly Johana Diaz Diaz",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "10",
+    "ID externo": "__export__.contract_contract_8490_b9bf41c0",
+    "Cliente/NIF": "21429081"
+  },
+  {
+    "nombre": "Nelmary Paola Arrieta Atencio",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "91",
+    "ID externo": "__export__.contract_contract_8508_3a2305b9",
+    "Cliente/NIF": "26388332"
+  },
+  {
+    "nombre": "Reily Johana Marin Delgado",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "42",
+    "ID externo": "__export__.contract_contract_8509_ba41e48c",
+    "Cliente/NIF": "21355479"
+  },
+  {
+    "nombre": "Yeinmy Elizabeth Sánchez Fuenmayor",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "7",
+    "ID externo": "__export__.contract_contract_8530_6a039dad",
+    "Cliente/NIF": "14007695"
+  },
+  {
+    "nombre": "Nellys Magalis Carrillo Garcia",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "102",
+    "ID externo": "__export__.contract_contract_8555_5e5ef786",
+    "Cliente/NIF": "4329209"
+  },
+  {
+    "nombre": "Maria De Los Angeles Herrera Useche",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "86",
+    "ID externo": "__export__.contract_contract_8556_0bb29869",
+    "Cliente/NIF": "15624463"
+  },
+  {
+    "nombre": "Isabel Maria Azuaje Naveda",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "89",
+    "ID externo": "__export__.contract_contract_8566_702c3948",
+    "Cliente/NIF": "16081749"
+  },
+  {
+    "nombre": "Alejandro Jose Ordoñez Ferrer",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "39",
+    "ID externo": "__export__.contract_contract_8570_5bc68520",
+    "Cliente/NIF": "26242894"
+  },
+  {
+    "nombre": "Daniela Carolina Hernandez Rodriguez",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "55",
+    "ID externo": "__export__.contract_contract_8593_cf8d6a1e",
+    "Cliente/NIF": "27847141"
+  },
+  {
+    "nombre": "Nailse Edicta Machado",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "32",
+    "ID externo": "__export__.contract_contract_8596_aa2cc629",
+    "Cliente/NIF": "13100169"
+  },
+  {
+    "nombre": "Zulay Teresa Viña Perdomo",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "35",
+    "ID externo": "__export__.contract_contract_8600_2e81d33f",
+    "Cliente/NIF": "18484942"
+  },
+  {
+    "nombre": "Nedda Teodosia Medrano de Villasmil",
+    "frame": "0",
+    "slot": "1",
+    "port": "1",
+    "id": "1",
+    "ID externo": "__export__.contract_contract_8634_d97b0b1e",
+    "Cliente/NIF": "2872662"
+  },
+  {
+    "nombre": "Rosvit Josefina Nava Prieto",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "101",
+    "ID externo": "__export__.contract_contract_8645_f9800e28",
+    "Cliente/NIF": "18202863"
+  },
+  {
+    "nombre": "Yusmeli Josefina Cubillan Perez",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "63",
+    "ID externo": "__export__.contract_contract_8651_63ba6fea",
+    "Cliente/NIF": "17415371"
+  },
+  {
+    "nombre": "Johanny Del Carmen Araujo De Carrero",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "38",
+    "ID externo": "__export__.contract_contract_8656_d83861bb",
+    "Cliente/NIF": "11866609"
+  },
+  {
+    "nombre": "Eluz Karina Chirinos Urdaneta",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "35",
+    "ID externo": "__export__.contract_contract_8690_03793103",
+    "Cliente/NIF": "16730690"
+  },
+  {
+    "nombre": "Norbelis Coromoto Ramirez Vergara",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "108",
+    "ID externo": "__export__.contract_contract_8711_11b8c531",
+    "Cliente/NIF": "14356057"
+  },
+  {
+    "nombre": "Michele Stefanny Blanco Herrera",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "126",
+    "ID externo": "__export__.contract_contract_8724_da4bf4cc",
+    "Cliente/NIF": "27886914"
+  },
+  {
+    "nombre": "Ninibeth De Los Angeles Oroño Oliveroz",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "111",
+    "ID externo": "__export__.contract_contract_8733_01b192a2",
+    "Cliente/NIF": "23447400"
+  },
+  {
+    "nombre": "Yackeline Raquel Escocia Rodriguez",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "53",
+    "ID externo": "__export__.contract_contract_8738_2fdc0ed7",
+    "Cliente/NIF": "14631914"
+  },
+  {
+    "nombre": "Jean Eugene Brunis Polynice",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "55",
+    "ID externo": "__export__.contract_contract_8742_e9860150",
+    "Cliente/NIF": "81868498"
+  },
+  {
+    "nombre": "Eli Samuel Pirona Colina",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "96",
+    "ID externo": "__export__.contract_contract_8743_c02ae75a",
+    "Cliente/NIF": "29950654"
+  },
+  {
+    "nombre": "Luis Angel Bozo Vasquez",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "113",
+    "ID externo": "__export__.contract_contract_8744_686b2ed0",
+    "Cliente/NIF": "25972278"
+  },
+  {
+    "nombre": "Alfredo Alejandro Palmar Meza",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "56",
+    "ID externo": "__export__.contract_contract_8745_03feef5a",
+    "Cliente/NIF": "18873139"
+  },
+  {
+    "nombre": "Keyla Chiquinquira Tovar Medina",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "48",
+    "ID externo": "__export__.contract_contract_8758_bcd461ee",
+    "Cliente/NIF": "12591401"
+  },
+  {
+    "nombre": "Daniela Paola Boscan Montilla",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "114",
+    "ID externo": "__export__.contract_contract_8773_a520b337",
+    "Cliente/NIF": "25323687"
+  },
+  {
+    "nombre": "Mery Del Carmen Rosario Chueco",
+    "frame": "0",
+    "slot": "2",
+    "port": "11",
+    "id": "0",
+    "ID externo": "__export__.contract_contract_8780_22d000d9",
+    "Cliente/NIF": "9497667"
+  },
+  {
+    "nombre": "Yucelin Maria Gonzalez Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "99",
+    "ID externo": "__export__.contract_contract_8788_60c6d5d2",
+    "Cliente/NIF": "20775527"
+  },
+  {
+    "nombre": "Jesus Enrique Millan Rincon",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "92",
+    "ID externo": "__export__.contract_contract_8796_30ba6557",
+    "Cliente/NIF": "12861794"
+  },
+  {
+    "nombre": "Rolando Antonio Sanchez Palmar",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "100",
+    "ID externo": "__export__.contract_contract_8806_4a9e48b6",
+    "Cliente/NIF": "11067798"
+  },
+  {
+    "nombre": "Antonella Lucia Fernandez Corredor",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "57",
+    "ID externo": "__export__.contract_contract_8815_52024b1f",
+    "Cliente/NIF": "15839220"
+  },
+  {
+    "nombre": "Escarly Karolina Rojas Leon",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "50",
+    "ID externo": "__export__.contract_contract_8822_d0dc5980",
+    "Cliente/NIF": "30182482"
+  },
+  {
+    "nombre": "Karolyn del Carmen Yohares Gonzalez",
+    "frame": "0",
+    "slot": "2",
+    "port": "11",
+    "id": "4",
+    "ID externo": "__export__.contract_contract_8827_1bc82c38",
+    "Cliente/NIF": "14922616"
+  },
+  {
+    "nombre": "Daniela Viera Benitez",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "39",
+    "ID externo": "__export__.contract_contract_8828_7f4adc71",
+    "Cliente/NIF": "31040589"
+  },
+  {
+    "nombre": "Adriana Coromoto Cardenas",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "53",
+    "ID externo": "__export__.contract_contract_8835_59c9e652",
+    "Cliente/NIF": "14475416"
+  },
+  {
+    "nombre": "Carlos Enrique Alvarez",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "54",
+    "ID externo": "__export__.contract_contract_8837_5d68b0c5",
+    "Cliente/NIF": "16782752"
+  },
+  {
+    "nombre": "Juan Carlos Bermudez Villasmil",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "102",
+    "ID externo": "__export__.contract_contract_8838_26c0ee0d",
+    "Cliente/NIF": "9747705"
+  },
+  {
+    "nombre": "Jose Natividad Peña Barboza",
+    "frame": "0",
+    "slot": "2",
+    "port": "9",
+    "id": "0",
+    "ID externo": "__export__.contract_contract_8840_07289e33",
+    "Cliente/NIF": "12722316"
+  },
+  {
+    "nombre": "Rey Andres Pimentel Fernandez",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "116",
+    "ID externo": "__export__.contract_contract_8843_b5b8c34c",
+    "Cliente/NIF": "30058843"
+  },
+  {
+    "nombre": "Johel Jose Valera Morales",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "103",
+    "ID externo": "__export__.contract_contract_8844_95524c68",
+    "Cliente/NIF": "18394787"
+  },
+  {
+    "nombre": "Johnny de Jesus Vilchez Valbuena",
+    "frame": "0",
+    "slot": "2",
+    "port": "9",
+    "id": "15",
+    "ID externo": "__export__.contract_contract_8854_2d70fb7c",
+    "Cliente/NIF": "16186526"
+  },
+  {
+    "nombre": "Cristophe Moises Martinez Negrette",
+    "frame": "0",
+    "slot": "2",
+    "port": "9",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_8856_c6efa3fb",
+    "Cliente/NIF": "30762966"
+  },
+  {
+    "nombre": "Wilmer Josue Reyes Sangronis",
+    "frame": "0",
+    "slot": "2",
+    "port": "9",
+    "id": "16",
+    "ID externo": "__export__.contract_contract_8857_2beaa521",
+    "Cliente/NIF": "23446602"
+  },
+  {
+    "nombre": "Eliecer Bello Baquero",
+    "frame": "0",
+    "slot": "2",
+    "port": "11",
+    "id": "6",
+    "ID externo": "__export__.contract_contract_8922_a6cc012d",
+    "Cliente/NIF": "19680368"
+  },
+  {
+    "nombre": "Juan Carlos Larios Machado",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "107",
+    "ID externo": "__export__.contract_contract_8924_092487b5",
+    "Cliente/NIF": "14135060"
+  },
+  {
+    "nombre": "Julio Cesar Borges Mendoza",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "123",
+    "ID externo": "__export__.contract_contract_8940_5fb1a79d",
+    "Cliente/NIF": "15889596"
+  },
+  {
+    "nombre": "Francisco Antonio Colina Trompiz",
+    "frame": "0",
+    "slot": "2",
+    "port": "9",
+    "id": "20",
+    "ID externo": "__export__.contract_contract_8944_084711dc",
+    "Cliente/NIF": "5806503"
+  },
+  {
+    "nombre": "Maria Alejandra Verin Millano",
+    "frame": "0",
+    "slot": "2",
+    "port": "9",
+    "id": "21",
+    "ID externo": "__export__.contract_contract_8957_c78d885e",
+    "Cliente/NIF": "22484778"
+  },
+  {
+    "nombre": "Wilangel Deivid Polo Santos",
+    "frame": "0",
+    "slot": "1",
+    "port": "1",
+    "id": "29",
+    "ID externo": "__export__.contract_contract_8959_96d11f99",
+    "Cliente/NIF": "31327265"
+  },
+  {
+    "nombre": "Aldrin Jose Gomez Pirela",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "74",
+    "ID externo": "__export__.contract_contract_8962_c23cdeb3",
+    "Cliente/NIF": "10675070"
+  },
+  {
+    "nombre": "Duglys Enrique Rambal Piña",
+    "frame": "0",
+    "slot": "2",
+    "port": "9",
+    "id": "22",
+    "ID externo": "__export__.contract_contract_8965_0522cd80",
+    "Cliente/NIF": "20985336"
+  },
+  {
+    "nombre": "Norelis Margarita Fernandez Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "77",
+    "ID externo": "__export__.contract_contract_8977_bf6ab5f2",
+    "Cliente/NIF": "13008930"
+  },
+  {
+    "nombre": "Erick Enrique Au Alvarez",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "61",
+    "ID externo": "__export__.contract_contract_8979_45dee138",
+    "Cliente/NIF": "13242503"
+  },
+  {
+    "nombre": "Jose Luis Cabreras Arias",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "55",
+    "ID externo": "__export__.contract_contract_8988_cf421143",
+    "Cliente/NIF": "18574236"
+  },
+  {
+    "nombre": "Mayerling Andreina Rivas Luzardo",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "86",
+    "ID externo": "__export__.contract_contract_8990_bc3340cb",
+    "Cliente/NIF": "18518638"
+  },
+  {
+    "nombre": "Carla Paola Carrasquero Flores",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "71",
+    "ID externo": "__export__.contract_contract_8994_a50e0215",
+    "Cliente/NIF": "20689857"
+  },
+  {
+    "nombre": "Ricardo Ernesto Rodriguez Rincon",
+    "frame": "0",
+    "slot": "2",
+    "port": "9",
+    "id": "26",
+    "ID externo": "__export__.contract_contract_9009_95592ffe",
+    "Cliente/NIF": "7763427"
+  },
+  {
+    "nombre": "Marianela Del Carmen Silva Caro",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "24",
+    "ID externo": "__export__.contract_contract_9013_bbe30f01",
+    "Cliente/NIF": "15718498"
+  },
+  {
+    "nombre": "Maryolis Rodriguez Perez",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "45",
+    "ID externo": "__export__.contract_contract_9014_571becdf",
+    "Cliente/NIF": "18524853"
+  },
+  {
+    "nombre": "Ana Erlinda Numa Valle",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "28",
+    "ID externo": "__export__.contract_contract_9017_e0d864f7",
+    "Cliente/NIF": "25553452"
+  },
+  {
+    "nombre": "Ana Erlinda Numa Valle",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "28",
+    "ID externo": "__export__.contract_contract_9017_e0d864f7",
+    "Cliente/NIF": "25553452"
+  },
+  {
+    "nombre": "Kendry Josue Sanchez Rosales",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "32",
+    "ID externo": "__export__.contract_contract_9019_c540db3c",
+    "Cliente/NIF": "22081812"
+  },
+  {
+    "nombre": "Ana Erlinda Numa Valle",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "28",
+    "ID externo": "__export__.contract_contract_9020_1f0a4f6c",
+    "Cliente/NIF": "25553452"
+  },
+  {
+    "nombre": "Ana Erlinda Numa Valle",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "28",
+    "ID externo": "__export__.contract_contract_9020_1f0a4f6c",
+    "Cliente/NIF": "25553452"
+  },
+  {
+    "nombre": "Rosiel Cristina Urdaneta Raffen",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "25",
+    "ID externo": "__export__.contract_contract_9022_76d68386",
+    "Cliente/NIF": "22147979"
+  },
+  {
+    "nombre": "Alexandra Maria Quintero Villalobos",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "46",
+    "ID externo": "__export__.contract_contract_9042_57417a52",
+    "Cliente/NIF": "17231504"
+  },
+  {
+    "nombre": "Deivi Albino Galue Galue",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "69",
+    "ID externo": "__export__.contract_contract_9045_97617841",
+    "Cliente/NIF": "14921633"
+  },
+  {
+    "nombre": "Mineys Del Carmen Tejada Florez",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "16",
+    "ID externo": "__export__.contract_contract_9047_5a18107f",
+    "Cliente/NIF": "17292794"
+  },
+  {
+    "nombre": "Jorge Antonio Couma Senki",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "61",
+    "ID externo": "__export__.contract_contract_9050_e0bd49dc",
+    "Cliente/NIF": "25905860"
+  },
+  {
+    "nombre": "Yohan Jose Mora Davila",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "74",
+    "ID externo": "__export__.contract_contract_9056_9aba1b23",
+    "Cliente/NIF": "20378576"
+  },
+  {
+    "nombre": "Francheska del Valle Urbina Coronel",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "97",
+    "ID externo": "__export__.contract_contract_9065_a305ad0e",
+    "Cliente/NIF": "29714546"
+  },
+  {
+    "nombre": "Greanny Milagros Estrada Zuñiga",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_9074_b82d5112",
+    "Cliente/NIF": "17834899"
+  },
+  {
+    "nombre": "Alfredo Enrique Villalobos Rodriguez",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "64",
+    "ID externo": "__export__.contract_contract_9075_6dc6c62c",
+    "Cliente/NIF": "7716174"
+  },
+  {
+    "nombre": "Amilcar Daniel Acosta Mendoza",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "58",
+    "ID externo": "__export__.contract_contract_9077_4c6b97f5",
+    "Cliente/NIF": "12308812"
+  },
+  {
+    "nombre": "Francisco Javier Fuenmayor Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "73",
+    "ID externo": "__export__.contract_contract_9079_05a25209",
+    "Cliente/NIF": "13574923"
+  },
+  {
+    "nombre": "Elsa Marina Cortez De Lisboa",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "97",
+    "ID externo": "__export__.contract_contract_9088_04adc05a",
+    "Cliente/NIF": "14257066"
+  },
+  {
+    "nombre": "Enrique Romero Cepeda",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "7",
+    "ID externo": "__export__.contract_contract_9089_8bbe1ae0",
+    "Cliente/NIF": "15402800"
+  },
+  {
+    "nombre": "Cristofer Jose De La Rosa Villalobos",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "43",
+    "ID externo": "__export__.contract_contract_9090_3a14c4ae",
+    "Cliente/NIF": "30036703"
+  },
+  {
+    "nombre": "Belky Beatriz Bernal Villalobos",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "100",
+    "ID externo": "__export__.contract_contract_9094_d6ad43b3",
+    "Cliente/NIF": "13005621"
+  },
+  {
+    "nombre": "Diones Segundo Villalobos Montiel",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "13",
+    "ID externo": "__export__.contract_contract_9098_ee45d30c",
+    "Cliente/NIF": "9753736"
+  },
+  {
+    "nombre": "Yovanis Dario Borjas Urdaneta",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "29",
+    "ID externo": "__export__.contract_contract_9100_9c4f67ec",
+    "Cliente/NIF": "5836695"
+  },
+  {
+    "nombre": "Paulina del Pilar Bozo Mata",
+    "frame": "0",
+    "slot": "2",
+    "port": "10",
+    "id": "7",
+    "ID externo": "__export__.contract_contract_9102_0886f5d7",
+    "Cliente/NIF": "13495133"
+  },
+  {
+    "nombre": "Elvin Jose  Castillo Rosales",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "34",
+    "ID externo": "__export__.contract_contract_9104_81643205",
+    "Cliente/NIF": "5812262"
+  },
+  {
+    "nombre": "Emir Ariza Calles",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "75",
+    "ID externo": "__export__.contract_contract_9112_902ee242",
+    "Cliente/NIF": "9763247"
+  },
+  {
+    "nombre": "David Julio Bermudez Bermudez",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "66",
+    "ID externo": "__export__.contract_contract_9114_15cf313e",
+    "Cliente/NIF": "5521077"
+  },
+  {
+    "nombre": "Angélica Maria Pitalua Abreu",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "67",
+    "ID externo": "__export__.contract_contract_9115_64b04b53",
+    "Cliente/NIF": "19836246"
+  },
+  {
+    "nombre": "Victor David Roo Mendez",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "68",
+    "ID externo": "__export__.contract_contract_9117_b0739b1a",
+    "Cliente/NIF": "23741047"
+  },
+  {
+    "nombre": "María Elena León Alvarez",
+    "frame": "0",
+    "slot": "2",
+    "port": "9",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_9119_9627db95",
+    "Cliente/NIF": "5167026"
+  },
+  {
+    "nombre": "Naykely Lourdes Parra Ybarra",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "49",
+    "ID externo": "__export__.contract_contract_9194_cb83b3c5",
+    "Cliente/NIF": "17670505"
+  },
+  {
+    "nombre": "Enio Enrique Medina Perez",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "14",
+    "ID externo": "__export__.contract_contract_6133_8af56fcc",
+    "Cliente/NIF": "14895963"
+  },
+  {
+    "nombre": "Yusleidy Candy Soto Bohorquez",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "8",
+    "ID externo": "__export__.contract_contract_6156_ac27db11",
+    "Cliente/NIF": "25043690"
+  },
+  {
+    "nombre": "Iriana del Carmen Galue Torrealba",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6168_8d8a048b",
+    "Cliente/NIF": "18287171"
+  },
+  {
+    "nombre": "Xiomara Estrella Barboza Rincon",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "21",
+    "ID externo": "__export__.contract_contract_6196_72c9defb",
+    "Cliente/NIF": "7614416"
+  },
+  {
+    "nombre": "Domay Yakarina Castillo Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "16",
+    "ID externo": "__export__.contract_contract_6204_5803ebe3",
+    "Cliente/NIF": "13932977"
+  },
+  {
+    "nombre": "Fabiana Valentina Vasquez Cobarrubia",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "3",
+    "ID externo": "__export__.contract_contract_6205_9b86f714",
+    "Cliente/NIF": "30770392"
+  },
+  {
+    "nombre": "Arturo Sebastian Lopez Lopez",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "8",
+    "ID externo": "__export__.contract_contract_6256_65c2dc84",
+    "Cliente/NIF": "7888189"
+  },
+  {
+    "nombre": "Yesmary Sthefani Villalobos Medcalf",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "9",
+    "ID externo": "__export__.contract_contract_6301_ff2a75f8",
+    "Cliente/NIF": "22251634"
+  },
+  {
+    "nombre": "Gabriel Andres Ordoñez Gomez",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "9",
+    "ID externo": "__export__.contract_contract_6302_143f664b",
+    "Cliente/NIF": "19936664"
+  },
+  {
+    "nombre": "Carlos Javier Leal Paz",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6329_c1277d67",
+    "Cliente/NIF": "10416424"
+  },
+  {
+    "nombre": "Carlos Javier Leal Paz",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6329_c1277d67",
+    "Cliente/NIF": "10416424"
+  },
+  {
+    "nombre": "Carlos Javier Leal Paz",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6329_c1277d67",
+    "Cliente/NIF": "10416424"
+  },
+  {
+    "nombre": "Carlos Javier Leal Paz",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6329_c1277d67",
+    "Cliente/NIF": "10416424"
+  },
+  {
+    "nombre": "Carlos Javier Leal Paz, Carlos Javier Leal Paz",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6331_577566da",
+    "Cliente/NIF": "10416424"
+  },
+  {
+    "nombre": "Carlos Javier Leal Paz, Carlos Javier Leal Paz",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6331_577566da",
+    "Cliente/NIF": "10416424"
+  },
+  {
+    "nombre": "Carlos Javier Leal Paz, Carlos Javier Leal Paz",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6331_577566da",
+    "Cliente/NIF": "10416424"
+  },
+  {
+    "nombre": "Carlos Javier Leal Paz, Carlos Javier Leal Paz",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6331_577566da",
+    "Cliente/NIF": "10416424"
+  },
+  {
+    "nombre": "Heber David Rodriguez Goithia",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "8",
+    "ID externo": "__export__.contract_contract_6407_4d88293d",
+    "Cliente/NIF": "28335558"
+  },
+  {
+    "nombre": "Luis Orlando Padilla Coello",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_6411_cdc27046",
+    "Cliente/NIF": "12534965"
+  },
+  {
+    "nombre": "Randy Roy Carrasquero Peley",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "N/E",
+    "ID externo": "__export__.contract_contract_6416_6fea77e3",
+    "Cliente/NIF": "20069778"
+  },
+  {
+    "nombre": "Alonso Alberto Barboza González",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "11",
+    "ID externo": "__export__.contract_contract_6436_082a407f",
+    "Cliente/NIF": "5850497"
+  },
+  {
+    "nombre": "Francisco Baza Pedrozo",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6439_a4ec7405",
+    "Cliente/NIF": "22475651"
+  },
+  {
+    "nombre": "Xiomara del Consuelo Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "16",
+    "ID externo": "__export__.contract_contract_6451_ad84c5dc",
+    "Cliente/NIF": "9767722"
+  },
+  {
+    "nombre": "Jose Andres Mendez Peña",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "92",
+    "ID externo": "__export__.contract_contract_6452_cae48c1a",
+    "Cliente/NIF": "20985127"
+  },
+  {
+    "nombre": "Eduardo Antonio Medina",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "96",
+    "ID externo": "__export__.contract_contract_6524_e9a12afc",
+    "Cliente/NIF": "6984920"
+  },
+  {
+    "nombre": "Maria Alejandra Ochoa Melean",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "31",
+    "ID externo": "__export__.contract_contract_6529_fad6b4ce",
+    "Cliente/NIF": "14026887"
+  },
+  {
+    "nombre": "Angela Maria Ramos De Pirela",
+    "frame": "0",
+    "slot": "1",
+    "port": "1",
+    "id": "9",
+    "ID externo": "__export__.contract_contract_6532_0e230ce2",
+    "Cliente/NIF": "15017103"
+  },
+  {
+    "nombre": "Luis Gerardo Suarez Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "34",
+    "ID externo": "__export__.contract_contract_6538_e0cb4525",
+    "Cliente/NIF": "19937475"
+  },
+  {
+    "nombre": "Jose Luis Reyes Lara",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "14",
+    "ID externo": "__export__.contract_contract_6544_4a08769a",
+    "Cliente/NIF": "7967384"
+  },
+  {
+    "nombre": "Freddy Miguel González Vasquez",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_6549_6723a8b4",
+    "Cliente/NIF": "15461178"
+  },
+  {
+    "nombre": "Juan Diego Fernandez Sandrea",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "17",
+    "ID externo": "__export__.contract_contract_6606_fc125c42",
+    "Cliente/NIF": "23447420"
+  },
+  {
+    "nombre": "Jonas David Soler Sanchez",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "16",
+    "ID externo": "__export__.contract_contract_6607_a0658029",
+    "Cliente/NIF": "24731598"
+  },
+  {
+    "nombre": "Mariammy Del Carmen Vieras Machado",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "32",
+    "ID externo": "__export__.contract_contract_6637_24c7368e",
+    "Cliente/NIF": "19341376"
+  },
+  {
+    "nombre": "Sujeis Yaniree Melean Saravia",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_6651_a6d4b6f3",
+    "Cliente/NIF": "17635210"
+  },
+  {
+    "nombre": "Carlos Javier Viloria Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "44",
+    "ID externo": "__export__.contract_contract_6674_cb345906",
+    "Cliente/NIF": "20775379"
+  },
+  {
+    "nombre": "Yuddey Lucia Hernández de Portillo",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "49",
+    "ID externo": "__export__.contract_contract_6685_f6d72fd5",
+    "Cliente/NIF": "5170441"
+  },
+  {
+    "nombre": "Andry Jose Rivero Ramirez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "65",
+    "ID externo": "__export__.contract_contract_6700_0fff8f2d",
+    "Cliente/NIF": "26126513"
+  },
+  {
+    "nombre": "Andry Jose Rivero Ramirez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "65",
+    "ID externo": "__export__.contract_contract_6700_0fff8f2d",
+    "Cliente/NIF": "26126513"
+  },
+  {
+    "nombre": "Josselyn Beatriz Garcia Berrios",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "21",
+    "ID externo": "__export__.contract_contract_6738_a9e8cfe4",
+    "Cliente/NIF": "20911753"
+  },
+  {
+    "nombre": "Jhonatan David Aparicio Manzanillo",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "20",
+    "ID externo": "__export__.contract_contract_6778_82dca139",
+    "Cliente/NIF": "18919854"
+  },
+  {
+    "nombre": "Yajaira Coromoto Muñoz Arteaga",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "88",
+    "ID externo": "__export__.contract_contract_6825_408b4146",
+    "Cliente/NIF": "7765592"
+  },
+  {
+    "nombre": "Nereira Teresa Rincon Quijada",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "46",
+    "ID externo": "__export__.contract_contract_6846_5980d033",
+    "Cliente/NIF": "7697901"
+  },
+  {
+    "nombre": "Dianiz Acosta Roa",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "0",
+    "ID externo": "__export__.contract_contract_6848_f5e84eb2",
+    "Cliente/NIF": "17947587"
+  },
+  {
+    "nombre": "Ruby Chiquinquira Villasmil Perez",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "28",
+    "ID externo": "__export__.contract_contract_6890_96a0dd74",
+    "Cliente/NIF": "29963704"
+  },
+  {
+    "nombre": "Genesis De Los Angeles Simanca Florido",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "1",
+    "ID externo": "__export__.contract_contract_6906_bd504c10",
+    "Cliente/NIF": "21077853"
+  },
+  {
+    "nombre": "Ninibeth Del Valle Peña Graterol",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_6934_c78440d6",
+    "Cliente/NIF": "20204431"
+  },
+  {
+    "nombre": "Yarubi Del Carmen Gil Barrueta",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "23",
+    "ID externo": "__export__.contract_contract_6945_b898c0d8",
+    "Cliente/NIF": "20857720"
+  },
+  {
+    "nombre": "Yelimar Coromoto Rangel Parra",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "42",
+    "ID externo": "__export__.contract_contract_6966_980a4334",
+    "Cliente/NIF": "17834592"
+  },
+  {
+    "nombre": "Stephanie Keilye Ramirez Marin",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_6971_c7fe8279",
+    "Cliente/NIF": "31220758"
+  },
+  {
+    "nombre": "Carly Sabrina Fuenmayor Bravo",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "5",
+    "ID externo": "__export__.contract_contract_6988_1c4edccd",
+    "Cliente/NIF": "30748774"
+  },
+  {
+    "nombre": "Aura Cecilia Atencio Atencio",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "44",
+    "ID externo": "__export__.contract_contract_7006_ba063eee",
+    "Cliente/NIF": "22236059"
+  },
+  {
+    "nombre": "Alexis Jose Cirius Araque",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "11",
+    "ID externo": "__export__.contract_contract_7020_8b43de16",
+    "Cliente/NIF": "12514715"
+  },
+  {
+    "nombre": "Dahiryn Daniela Guzman Castro",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "44",
+    "ID externo": "__export__.contract_contract_7033_8783dcfe",
+    "Cliente/NIF": "22174759"
+  },
+  {
+    "nombre": "Ouclides Ramon Ferrer Tello",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "3",
+    "ID externo": "__export__.contract_contract_7036_4c026903",
+    "Cliente/NIF": "9790133"
+  },
+  {
+    "nombre": "Slim Jose Sanchez Soto",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "19",
+    "ID externo": "__export__.contract_contract_7042_d5b7b254",
+    "Cliente/NIF": "17295854"
+  },
+  {
+    "nombre": "Zaraid De Los Angeles Prieto Sanchez",
+    "frame": "0",
+    "slot": "1",
+    "port": "1",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_7048_8900cc2c",
+    "Cliente/NIF": "17951806"
+  },
+  {
+    "nombre": "Alexis Jose Parra Arrieta",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "102",
+    "ID externo": "__export__.contract_contract_7056_6b6e4268",
+    "Cliente/NIF": "10428587"
+  },
+  {
+    "nombre": "Cecilia del Carmen Montero",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "31",
+    "ID externo": "__export__.contract_contract_7106_e4383043",
+    "Cliente/NIF": "9787022"
+  },
+  {
+    "nombre": "Maryolis Yelmy Oquendo Cuevas",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "0",
+    "ID externo": "__export__.contract_contract_7134_35068874",
+    "Cliente/NIF": "18394286"
+  },
+  {
+    "nombre": "Rafael Alfonso Osorio Garcia",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "1",
+    "ID externo": "__export__.contract_contract_7150_9f907f39",
+    "Cliente/NIF": "11297358"
+  },
+  {
+    "nombre": "Kellineth Chiquinquira Reverol Reverol",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "22",
+    "ID externo": "__export__.contract_contract_7152_91a2c93e",
+    "Cliente/NIF": "19987944"
+  },
+  {
+    "nombre": "Milagros Del Valle Diaz Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "52",
+    "ID externo": "__export__.contract_contract_7158_b9b997d5",
+    "Cliente/NIF": "15163175"
+  },
+  {
+    "nombre": "Janeth Del Carmen Valero Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "65",
+    "ID externo": "__export__.contract_contract_7202_1bea8098",
+    "Cliente/NIF": "14657361"
+  },
+  {
+    "nombre": "Elsa Elena Matos Gonzalez",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "30",
+    "ID externo": "__export__.contract_contract_7205_710dc5f0",
+    "Cliente/NIF": "4145196"
+  },
+  {
+    "nombre": "Daritza Josefina Bermudez Bermudez",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_7216_da8d9119",
+    "Cliente/NIF": "13007826"
+  },
+  {
+    "nombre": "Yuliana Hernandez Baena",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "12",
+    "ID externo": "__export__.contract_contract_7232_d6484645",
+    "Cliente/NIF": "17088245"
+  },
+  {
+    "nombre": "Lucelis Del Carmen Torres Paz",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_7233_9c6ba68d",
+    "Cliente/NIF": "22470675"
+  },
+  {
+    "nombre": "Tatiana Jackeline Laos Gomez",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "75",
+    "ID externo": "__export__.contract_contract_7241_6c38f6e5",
+    "Cliente/NIF": "13415408"
+  },
+  {
+    "nombre": "Jose Del Carmen Otero Duque",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "70",
+    "ID externo": "__export__.contract_contract_7246_7f5348d5",
+    "Cliente/NIF": "29684262"
+  },
+  {
+    "nombre": "Mileinny Carolina Herrera Piña",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "40",
+    "ID externo": "__export__.contract_contract_7264_e6ffebd3",
+    "Cliente/NIF": "21162819"
+  },
+  {
+    "nombre": "Alberto Darío Cardozo Romero",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "44",
+    "ID externo": "__export__.contract_contract_7266_3b0d60d6",
+    "Cliente/NIF": "10430306"
+  },
+  {
+    "nombre": "Jessica María Gonzales Machado",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_7282_2753bbac",
+    "Cliente/NIF": "15938924"
+  },
+  {
+    "nombre": "Oswaldo Jose Perez Madueño",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "72",
+    "ID externo": "__export__.contract_contract_7285_51957340",
+    "Cliente/NIF": "18874033"
+  },
+  {
+    "nombre": "Antonio Jose Romero Sanchez",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_7304_e780671d",
+    "Cliente/NIF": "18483626"
+  },
+  {
+    "nombre": "Erick Enrique Ricon Bucobo",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "45",
+    "ID externo": "__export__.contract_contract_7309_de20f49b",
+    "Cliente/NIF": "13299207"
+  },
+  {
+    "nombre": "Erick Enrique Ricon Bucobo",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_7309_de20f49b",
+    "Cliente/NIF": "13299207"
+  },
+  {
+    "nombre": "Remberto Luis Hernández",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "11",
+    "ID externo": "__export__.contract_contract_7321_48579797",
+    "Cliente/NIF": "7771749"
+  },
+  {
+    "nombre": "Yaneska Aguilar Hincapie",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "",
+    "ID externo": "__export__.contract_contract_7332_733c3f8c",
+    "Cliente/NIF": "21205004"
+  },
+  {
+    "nombre": "David Antonio Sira Guanipa",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "29",
+    "ID externo": "__export__.contract_contract_7346_78003917",
+    "Cliente/NIF": "16150975"
+  },
+  {
+    "nombre": "Reymairy Elena Bracho Abreu",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "56",
+    "ID externo": "__export__.contract_contract_7348_6be7fbf1",
+    "Cliente/NIF": "16081559"
+  },
+  {
+    "nombre": "Angie Elvira Delmar Valdez",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "81",
+    "ID externo": "__export__.contract_contract_7818_4d5fa852",
+    "Cliente/NIF": "14544729"
+  },
+  {
+    "nombre": "Almirca Alexis Portillo Fernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "59",
+    "ID externo": "__export__.contract_contract_7361_61aa7b9c",
+    "Cliente/NIF": "18395523"
+  },
+  {
+    "nombre": "Karina Elizabeth Briceño Briceño",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "21",
+    "ID externo": "__export__.contract_contract_7386_8b9da687",
+    "Cliente/NIF": "12256785"
+  },
+  {
+    "nombre": "Leivi Stefany Ruiz Olivares",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "30",
+    "ID externo": "__export__.contract_contract_7394_4110b668",
+    "Cliente/NIF": "25906623"
+  },
+  {
+    "nombre": "Eduard Antonio Ferrer Garcia",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "26",
+    "ID externo": "__export__.contract_contract_7406_9b42a5eb",
+    "Cliente/NIF": "23443129"
+  },
+  {
+    "nombre": "Jesus Alberto Chacin Blanco",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "73",
+    "ID externo": "__export__.contract_contract_7412_edc6af47",
+    "Cliente/NIF": "14657441"
+  },
+  {
+    "nombre": "Danilo Jose Leal",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "75",
+    "ID externo": "__export__.contract_contract_7418_5e7eaa4c",
+    "Cliente/NIF": "7607760"
+  },
+  {
+    "nombre": "Lilian Krystel Acurero Guanipa",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "68",
+    "ID externo": "__export__.contract_contract_7439_18c2de13",
+    "Cliente/NIF": "17545259"
+  },
+  {
+    "nombre": "Juan Carlos Paz Mendez",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "66",
+    "ID externo": "__export__.contract_contract_7443_d1a31da6",
+    "Cliente/NIF": "24604793"
+  },
+  {
+    "nombre": "Simon Ali Cordones Guanipa",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "28",
+    "ID externo": "__export__.contract_contract_7444_d9fe2701",
+    "Cliente/NIF": "11557107"
+  },
+  {
+    "nombre": "Carmen Eyilde Barboza Socorro",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "84",
+    "ID externo": "__export__.contract_contract_7446_aee6a246",
+    "Cliente/NIF": "15840687"
+  },
+  {
+    "nombre": "Ana Maria Torres Carrullo",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "38",
+    "ID externo": "__export__.contract_contract_7814_1e335e2b",
+    "Cliente/NIF": "5168733"
+  },
+  {
+    "nombre": "Alixon Jose Duque Gonzalez",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "49",
+    "ID externo": "__export__.contract_contract_7473_5c40b40a",
+    "Cliente/NIF": "27722089"
+  },
+  {
+    "nombre": "Claudio Jose Biasino Parra",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "22",
+    "ID externo": "__export__.contract_contract_7483_14ce128c",
+    "Cliente/NIF": "10411366"
+  },
+  {
+    "nombre": "Moises David Parada Bracho",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "29",
+    "ID externo": "__export__.contract_contract_7491_d1aec83a",
+    "Cliente/NIF": "29740720"
+  },
+  {
+    "nombre": "Rosmery Maria Parada Ovalles",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "68",
+    "ID externo": "__export__.contract_contract_7496_d03ec938",
+    "Cliente/NIF": "12379213"
+  },
+  {
+    "nombre": "Jose Luis Parra Lugo",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "55",
+    "ID externo": "__export__.contract_contract_7516_6746e694",
+    "Cliente/NIF": "17953755"
+  },
+  {
+    "nombre": "Andreina De Los Angeles Boscan Medina",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "56",
+    "ID externo": "__export__.contract_contract_7519_9644b163",
+    "Cliente/NIF": "21358510"
+  },
+  {
+    "nombre": "Naudy Amarelis Montiel Colmenares",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "29",
+    "ID externo": "__export__.contract_contract_7533_3c874db2",
+    "Cliente/NIF": "7834266"
+  },
+  {
+    "nombre": "Dennis Antonio Mata Garcia",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "63",
+    "ID externo": "__export__.contract_contract_7543_55602e6c",
+    "Cliente/NIF": "17682279"
+  },
+  {
+    "nombre": "Jose Daniel Pacheco Pirela",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_7556_26ac9dbd",
+    "Cliente/NIF": "18285254"
+  },
+  {
+    "nombre": "Julio Adolfo Torrealba Castillo",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "19",
+    "ID externo": "__export__.contract_contract_7579_aa638b98",
+    "Cliente/NIF": "13420432"
+  },
+  {
+    "nombre": "Andrea Claibel Ramirez Flores",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "13",
+    "ID externo": "__export__.contract_contract_7584_84e2927a",
+    "Cliente/NIF": "22145658"
+  },
+  {
+    "nombre": "Ivanna de la Cruz Fuenmayor Delgado",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "N/E",
+    "ID externo": "__export__.contract_contract_7595_80538127",
+    "Cliente/NIF": "20205365"
+  },
+  {
+    "nombre": "Betsabe Judith Serrano",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "2",
+    "ID externo": "__export__.contract_contract_7609_8d20fdd6",
+    "Cliente/NIF": "5795616"
+  },
+  {
+    "nombre": "Jorge Levi Olivares Arias",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "5",
+    "ID externo": "__export__.contract_contract_7612_16f6fe93",
+    "Cliente/NIF": "25598668"
+  },
+  {
+    "nombre": "Kelvis Rodolfo Bravo",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "39",
+    "ID externo": "__export__.contract_contract_7631_9ac991bc",
+    "Cliente/NIF": "18876420"
+  },
+  {
+    "nombre": "Sergia Marina Mavarez Fornez",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "37",
+    "ID externo": "__export__.contract_contract_7637_f1610402",
+    "Cliente/NIF": "19211537"
+  },
+  {
+    "nombre": "Sorelis Marina Ortiz Perez",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "30",
+    "ID externo": "__export__.contract_contract_7648_c8912e36",
+    "Cliente/NIF": "11868348"
+  },
+  {
+    "nombre": "Evelyn Chiquinquira Medina Hernandez",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "93",
+    "ID externo": "__export__.contract_contract_7705_9f49bc1b",
+    "Cliente/NIF": "10439019"
+  },
+  {
+    "nombre": "Jose Luis Quintero Dominguez",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "61",
+    "ID externo": "__export__.contract_contract_7725_dd510c24",
+    "Cliente/NIF": "15195877"
+  },
+  {
+    "nombre": "Luis Daniel Soto Piñeiro",
+    "frame": "0",
+    "slot": "1",
+    "port": "11",
+    "id": "55",
+    "ID externo": "__export__.contract_contract_7748_62322869",
+    "Cliente/NIF": "28470760"
+  },
+  {
+    "nombre": "Jorge Luis Chirinos Cayama",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_7749_6cd9306e",
+    "Cliente/NIF": "15287968"
+  },
+  {
+    "nombre": "Emil Ysabel Paz De Torres",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "8",
+    "ID externo": "__export__.contract_contract_7753_37c7e8b9",
+    "Cliente/NIF": "7825956"
+  },
+  {
+    "nombre": "Carmen Julia Palmar Velazque",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "7",
+    "ID externo": "__export__.contract_contract_7754_a6ea3b1c",
+    "Cliente/NIF": "15764281"
+  },
+  {
+    "nombre": "Yurangelis Chiquinquira Almarza Villalobos",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "111",
+    "ID externo": "__export__.contract_contract_7766_f039e27d",
+    "Cliente/NIF": "31221155"
+  },
+  {
+    "nombre": "Alfredo Jose Ferrer Parra",
+    "frame": "0",
+    "slot": "1",
+    "port": "10",
+    "id": "71",
+    "ID externo": "__export__.contract_contract_7775_2251890d",
+    "Cliente/NIF": "20276095"
+  },
+  {
+    "nombre": "Yenny Margarita Flores Torres",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_7776_a6e5324e",
+    "Cliente/NIF": "12873711"
+  },
+  {
+    "nombre": "Maria Gregoria Govea Zambrano",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "91",
+    "ID externo": "__export__.contract_contract_7802_f49a3a33",
+    "Cliente/NIF": "7902354"
+  },
+  {
+    "nombre": "Leida Margarita Acosta Duran",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "28",
+    "ID externo": "__export__.contract_contract_7831_9ac97169",
+    "Cliente/NIF": "11285731"
+  },
+  {
+    "nombre": "Abigail Virginia Ballestero Romero",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_7845_752251af",
+    "Cliente/NIF": "28470137"
+  },
+  {
+    "nombre": "Nelson Enrique Leon Mendoza",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "95",
+    "ID externo": "__export__.contract_contract_7869_1018f07f",
+    "Cliente/NIF": "10434950"
+  },
+  {
+    "nombre": "Roxanna Carolina Cuenca Arias",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "31",
+    "ID externo": "__export__.contract_contract_7885_e8242a0f",
+    "Cliente/NIF": "26907361"
+  },
+  {
+    "nombre": "Gladys Coromoto Romero Pirela",
+    "frame": "0",
+    "slot": "1",
+    "port": "2",
+    "id": "31",
+    "ID externo": "__export__.contract_contract_7886_53e2b898",
+    "Cliente/NIF": "9783981"
+  },
+  {
+    "nombre": "German Jose Gonzalez Olivares",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "78",
+    "ID externo": "__export__.contract_contract_7914_90c16275",
+    "Cliente/NIF": "10437870"
+  },
+  {
+    "nombre": "Jonathan Enrique Molina Vargas",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "29",
+    "ID externo": "__export__.contract_contract_7929_4a55480f",
+    "Cliente/NIF": "15839621"
+  },
+  {
+    "nombre": "Lourdes Del Carmen Quintero De Lopez",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "84",
+    "ID externo": "__export__.contract_contract_7958_67d81b78",
+    "Cliente/NIF": "5764199"
+  },
+  {
+    "nombre": "Thais Coromoto Ortiz Molaya",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "2",
+    "ID externo": "__export__.contract_contract_7971_aca026dd",
+    "Cliente/NIF": "7796351"
+  },
+  {
+    "nombre": "Yoely Chiquinquira Delgado Villalobos",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "3",
+    "ID externo": "__export__.contract_contract_7981_fb04b95a",
+    "Cliente/NIF": "14833740"
+  },
+  {
+    "nombre": "Nestor Albino Delmar Barroso",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "98",
+    "ID externo": "__export__.contract_contract_8005_45629a35",
+    "Cliente/NIF": "23864815"
+  },
+  {
+    "nombre": "Jelenis Carolina Avila Diaz",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "9",
+    "ID externo": "__export__.contract_contract_8020_78b2c89d",
+    "Cliente/NIF": "20058216"
+  },
+  {
+    "nombre": "Johana Isabel De La Hoz Gutierrez",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "80",
+    "ID externo": "__export__.contract_contract_8073_1028de43",
+    "Cliente/NIF": "20148435"
+  },
+  {
+    "nombre": "Alana Maria Perozo Perez",
+    "frame": "0",
+    "slot": "1",
+    "port": "4",
+    "id": "70",
+    "ID externo": "__export__.contract_contract_8089_90f31618",
+    "Cliente/NIF": "16188789"
+  },
+  {
+    "nombre": "Maibelin  Chiquinquira Díaz Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "88",
+    "ID externo": "__export__.contract_contract_8107_a18851a8",
+    "Cliente/NIF": "18283669"
+  },
+  {
+    "nombre": "Norelys Josefina Lozano Teran",
+    "frame": "0",
+    "slot": "1",
+    "port": "7",
+    "id": "52",
+    "ID externo": "__export__.contract_contract_8111_57d379b7",
+    "Cliente/NIF": "18873866"
+  },
+  {
+    "nombre": "Robert Javier Romero Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "71",
+    "ID externo": "__export__.contract_contract_8113_cf7b3d9c",
+    "Cliente/NIF": "16608454"
+  },
+  {
+    "nombre": "Yequeidis Chacon Vargas",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "20",
+    "ID externo": "__export__.contract_contract_8148_aca5dfca",
+    "Cliente/NIF": "18396214"
+  },
+  {
+    "nombre": "Lolymar Coromoto Gotera Valbuena",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "35",
+    "ID externo": "__export__.contract_contract_8157_16c8e39a",
+    "Cliente/NIF": "9771572"
+  },
+  {
+    "nombre": "Nixon Rafael Andrade Hernandez",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "46",
+    "ID externo": "__export__.contract_contract_8160_356fa14f",
+    "Cliente/NIF": "15749693"
+  },
+  {
+    "nombre": "Nixon Rafael Andrade Hernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "81",
+    "ID externo": "__export__.contract_contract_8160_356fa14f",
+    "Cliente/NIF": "15749693"
+  },
+  {
+    "nombre": "Nixon Rafael Andrade Hernandez",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "46",
+    "ID externo": "__export__.contract_contract_8160_356fa14f",
+    "Cliente/NIF": "15749693"
+  },
+  {
+    "nombre": "Nixon Rafael Andrade Hernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "81",
+    "ID externo": "__export__.contract_contract_8160_356fa14f",
+    "Cliente/NIF": "15749693"
+  },
+  {
+    "nombre": "Adalberto Antonio Castillo Gonzalez",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "101",
+    "ID externo": "__export__.contract_contract_8167_df828e6f",
+    "Cliente/NIF": "18495162"
+  },
+  {
+    "nombre": "Daniel Josue García Rincon",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "N/A",
+    "ID externo": "__export__.contract_contract_8183_8a8ecc70",
+    "Cliente/NIF": "21355154"
+  },
+  {
+    "nombre": "Frenesy Del Valle Chirinos Sambrano",
+    "frame": "0",
+    "slot": "1",
+    "port": "8",
+    "id": "34",
+    "ID externo": "__export__.contract_contract_8184_d5f5dbfe",
+    "Cliente/NIF": "26335979"
+  },
+  {
+    "nombre": "Servicios Hermanos Abreu, C.A",
+    "frame": "0",
+    "slot": "2",
+    "port": "1",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_8189_03c0f220",
+    "Cliente/NIF": "408745844"
+  },
+  {
+    "nombre": "Marcos Luis Fernandes Colmenares",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "49",
+    "ID externo": "__export__.contract_contract_8198_ecd605d2",
+    "Cliente/NIF": "21164123"
+  },
+  {
+    "nombre": "Ender Ramon Fernandez Altuve",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "110",
+    "ID externo": "__export__.contract_contract_8199_0eb14478",
+    "Cliente/NIF": "23458789"
+  },
+  {
+    "nombre": "Kemberly Paola Palmar Meza",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "28",
+    "ID externo": "__export__.contract_contract_8233_5039e53c",
+    "Cliente/NIF": "22453007"
+  },
+  {
+    "nombre": "Danilo Mendoza Tovar",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "29",
+    "ID externo": "__export__.contract_contract_8238_498c2018",
+    "Cliente/NIF": "12423284"
+  },
+  {
+    "nombre": "Yolanda Isabel Perez Gerardo",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "33",
+    "ID externo": "__export__.contract_contract_8309_897ce2b8",
+    "Cliente/NIF": "4741620"
+  },
+  {
+    "nombre": "Cesar Alejandro Hernandez Calmon",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "103",
+    "ID externo": "__export__.contract_contract_8332_f939b807",
+    "Cliente/NIF": "11292113"
+  },
+  {
+    "nombre": "Cesar Augusto Vasquez Franco",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "106",
+    "ID externo": "__export__.contract_contract_8383_a1a22afe",
+    "Cliente/NIF": "13560863"
+  },
+  {
+    "nombre": "Denis Enrique Ramirez Batista",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "38",
+    "ID externo": "__export__.contract_contract_8398_ea8ef022",
+    "Cliente/NIF": "12257689"
+  },
+  {
+    "nombre": "Solange Carolina Molina Ramos",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "103",
+    "ID externo": "__export__.contract_contract_8405_4cd77a46",
+    "Cliente/NIF": "22479784"
+  },
+  {
+    "nombre": "Ysnerda del Carmen Mesa Rivera",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "44",
+    "ID externo": "__export__.contract_contract_8420_105e41fa",
+    "Cliente/NIF": "15479902"
+  },
+  {
+    "nombre": "Yetxon Humberto Carrasquero Rincon",
+    "frame": "0",
+    "slot": "1",
+    "port": "15",
+    "id": "61",
+    "ID externo": "__export__.contract_contract_8457_91570511",
+    "Cliente/NIF": "16151076"
+  },
+  {
+    "nombre": "Ruth Mariana Mota Gonzalez",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "49",
+    "ID externo": "__export__.contract_contract_8468_ce88525b",
+    "Cliente/NIF": "29546466"
+  },
+  {
+    "nombre": "Nairibeth Chiquinquira Santiago Medina",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "121",
+    "ID externo": "__export__.contract_contract_8473_81a6f51a",
+    "Cliente/NIF": "22251038"
+  },
+  {
+    "nombre": "Marjim Beatriz Castillo Añez",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "67",
+    "ID externo": "__export__.contract_contract_8478_add7dd76",
+    "Cliente/NIF": "20069749"
+  },
+  {
+    "nombre": "Sugheidy Sikiu Contreras Morales",
+    "frame": "0",
+    "slot": "1",
+    "port": "0",
+    "id": "53",
+    "ID externo": "__export__.contract_contract_8481_771d388f",
+    "Cliente/NIF": "15937694"
+  },
+  {
+    "nombre": "Rasier Del Valle Vejega Bruzual",
+    "frame": "0",
+    "slot": "1",
+    "port": "3",
+    "id": "35",
+    "ID externo": "__export__.contract_contract_8492_89e1fbe0",
+    "Cliente/NIF": "19938346"
+  },
+  {
+    "nombre": "Yorvi Alberto Quiroz Gil",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "86",
+    "ID externo": "__export__.contract_contract_8499_ddd44ba1",
+    "Cliente/NIF": "16211714"
+  },
+  {
+    "nombre": "Elimar Andrea Parra Villasmil",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "98",
+    "ID externo": "__export__.contract_contract_8501_04aa7b8e",
+    "Cliente/NIF": "27303436"
+  },
+  {
+    "nombre": "Ronald David Chacin Añez",
+    "frame": "0",
+    "slot": "1",
+    "port": "5",
+    "id": "114",
+    "ID externo": "__export__.contract_contract_8519_fc4f5dfb",
+    "Cliente/NIF": "16355478"
+  },
+  {
+    "nombre": "Yucondy Del Valle Hernandez Castillo",
+    "frame": "0",
+    "slot": "2",
+    "port": "8",
+    "id": "46",
+    "ID externo": "__export__.contract_contract_8528_c6da1d31",
+    "Cliente/NIF": "11864936"
+  },
+  {
+    "nombre": "Alonso De Jesus Infante Martinez",
+    "frame": "0",
+    "slot": "2",
+    "port": "4",
+    "id": "99",
+    "ID externo": "__export__.contract_contract_8539_446d91aa",
+    "Cliente/NIF": "13461905"
+  },
+  {
+    "nombre": "Laura Isabel Villareal Campomar",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "94",
+    "ID externo": "__export__.contract_contract_8546_06961584",
+    "Cliente/NIF": "29523821"
+  },
+  {
+    "nombre": "Levi Daniel Martinez Salas",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "80",
+    "ID externo": "__export__.contract_contract_8585_061ddd4d",
+    "Cliente/NIF": "18305631"
+  },
+  {
+    "nombre": "Ramon Javier Valera Delgado",
+    "frame": "0",
+    "slot": "1",
+    "port": "13",
+    "id": "92",
+    "ID externo": "__export__.contract_contract_8641_85e0b526",
+    "Cliente/NIF": "13371483"
+  },
+  {
+    "nombre": "Osmel Antonio Boscan Borrego",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "98",
+    "ID externo": "__export__.contract_contract_8648_25d59dd7",
+    "Cliente/NIF": "12868541"
+  },
+  {
+    "nombre": "Yusmary Leonor Chirinos Matos",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "71",
+    "ID externo": "__export__.contract_contract_8653_27e959dd",
+    "Cliente/NIF": "13624517"
+  },
+  {
+    "nombre": "Luisana Chiquinquira Valles Castillo",
+    "frame": "0",
+    "slot": "2",
+    "port": "0",
+    "id": "96",
+    "ID externo": "__export__.contract_contract_8654_d3814d3a",
+    "Cliente/NIF": "19210692"
+  },
+  {
+    "nombre": "Jesus David Mora Montenegro",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "115",
+    "ID externo": "__export__.contract_contract_8663_51468860",
+    "Cliente/NIF": "31723197"
+  },
+  {
+    "nombre": "Jesus David Mora Montenegro",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "116",
+    "ID externo": "__export__.contract_contract_8663_51468860",
+    "Cliente/NIF": "31723197"
+  },
+  {
+    "nombre": "Betsabeth Del Valle Barroso Hernandez",
+    "frame": "0",
+    "slot": "2",
+    "port": "7",
+    "id": "41",
+    "ID externo": "__export__.contract_contract_8673_62cf6fb8",
+    "Cliente/NIF": "11874897"
+  },
+  {
+    "nombre": "Alejandro Jose Ferrer Hernandez",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "25",
+    "ID externo": "__export__.contract_contract_8685_5a539d20",
+    "Cliente/NIF": "27303712"
+  },
+  {
+    "nombre": "Norexi Del Valle Espina Chacin",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "27",
+    "ID externo": "__export__.contract_contract_8686_8fff1b09",
+    "Cliente/NIF": "14206775"
+  },
+  {
+    "nombre": "Maria Betilde Romero De Finol",
+    "frame": "0",
+    "slot": "2",
+    "port": "10",
+    "id": "1",
+    "ID externo": "__export__.contract_contract_8699_3e3372ab",
+    "Cliente/NIF": "4990054"
+  },
+  {
+    "nombre": "Cesar Emilio Castillo Alvarez",
+    "frame": "0",
+    "slot": "2",
+    "port": "10",
+    "id": "2",
+    "ID externo": "__export__.contract_contract_8707_49c4b3cc",
+    "Cliente/NIF": "13937893"
+  },
+  {
+    "nombre": "Maria Jose Rubio Crespo",
+    "frame": "0",
+    "slot": "2",
+    "port": "3",
+    "id": "116",
+    "ID externo": "__export__.contract_contract_8722_d72051d9",
+    "Cliente/NIF": "24727739"
+  },
+  {
+    "nombre": "Sandra Milena  Puello de Matos",
+    "frame": "0",
+    "slot": "2",
+    "port": "2",
+    "id": "0",
+    "ID externo": "__export__.contract_contract_8751_f871748b",
+    "Cliente/NIF": "24253859"
+  },
+  {
+    "nombre": "Yoerkis Esther Osorio Bernal",
+    "frame": "0",
+    "slot": "1",
+    "port": "9",
+    "id": "109",
+    "ID externo": "__export__.contract_contract_8759_49f6b4e2",
+    "Cliente/NIF": "17951269"
+  },
+  {
+    "nombre": "Dariana Carolina Leal Valdez",
+    "frame": "0",
+    "slot": "1",
+    "port": "12",
+    "id": "77",
+    "ID externo": "__export__.contract_contract_8760_99fea4e7",
+    "Cliente/NIF": "22236011"
+  },
+  {
+    "nombre": "Nixon Rafael Andrade Hernandez",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "46",
+    "ID externo": "__export__.contract_contract_8763_e8f2a1fe",
+    "Cliente/NIF": "15749693"
+  },
+  {
+    "nombre": "Nixon Rafael Andrade Hernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "81",
+    "ID externo": "__export__.contract_contract_8763_e8f2a1fe",
+    "Cliente/NIF": "15749693"
+  },
+  {
+    "nombre": "Nixon Rafael Andrade Hernandez",
+    "frame": "0",
+    "slot": "2",
+    "port": "6",
+    "id": "46",
+    "ID externo": "__export__.contract_contract_8763_e8f2a1fe",
+    "Cliente/NIF": "15749693"
+  },
+  {
+    "nombre": "Nixon Rafael Andrade Hernandez",
+    "frame": "0",
+    "slot": "1",
+    "port": "14",
+    "id": "81",
+    "ID externo": "__export__.contract_contract_8763_e8f2a1fe",
+    "Cliente/NIF": "15749693"
+  },
+  {
+    "nombre": "Jeraldine Carolina Salas Salas",
+    "frame": "0",
+    "slot": "1",
+    "port": "6",
+    "id": "44",
+    "ID externo": "__export__.contract_contract_8945_d6894431",
+    "Cliente/NIF": "18873225"
+  }
+]

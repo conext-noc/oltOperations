@@ -19,7 +19,7 @@ def verify(actList, file):
         estado = "Activo" if value[end:end + 1] == "a" else (
             "Suspendido" if value[end:end + 1] == "d" else "Ninguno")
         indexes.append(
-            {"Cliente": client["nombre"], "Estado de contrato": estado})
+            {"Cliente": client["Cliente"], "Estado de contrato": estado, "ID externo": client["ID externo"], "Cliente/NIF": client["Cliente/NIF"]})
     keys = indexes[0].keys()
     with open('resultados.csv', 'w', newline='') as f:
         dict_writer = csv.DictWriter(f, keys)

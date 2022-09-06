@@ -1,0 +1,19 @@
+nombre,frame,slot,port,id,ID externo,Cliente/NIF
+olt1
+Luis Antonio Querales  Romero,0,1,1,N/A,__export__.contract_contract_225_2146742d,7731238
+Angel Enrique Vargas Garcia,0,N/A,N/A,N/A,__export__.contract_contract_612_20c9427b,8508049
+Damaris Katiuska Soler Arellano,0,N/A,N/A,N/A,__export__.contract_contract_6012_89e56d4d,8504491
+Maria Coromoto Brea Cristians,N/A,N/A,N/A,N/A,__export__.contract_contract_8129_24f38dc0,13454829
+
+olt2
+Nayger Maria Mejias Chourio,0,1,13,N/A,__export__.contract_contract_7247_e72e70e7,16121329
+Junior Alejandro Arrieta Rojas,0,2,3,N/A,__export__.contract_contract_7258_2c8ca153,27999177
+Carmen Teresa Robles Primera,0,2,1,N/A,__export__.contract_contract_7280_baaf5746,6802149
+Daritza Josefina Bermudez Bermudez,0,2,3,N/A,__export__.contract_contract_7216_da8d9119,13007826
+Lucelis Del Carmen Torres Paz,0,2,3,N/A,__export__.contract_contract_7233_9c6ba68d,22470675
+Antonio Jose Romero Sanchez,0,2,3,N/A,__export__.contract_contract_7304_e780671d,18483626
+Erick Enrique Ricon Bucobo,0,2,6,N/A,__export__.contract_contract_7309_de20f49b,13299207
+Jose Daniel Pacheco Pirela,0,2,4,N/A,__export__.contract_contract_7556_26ac9dbd,18285254
+Yenny Margarita Flores Torres,0,2,4,N/A,__export__.contract_contract_7776_a6e5324e,12873711
+Abigail Virginia Ballestero Romero,0,2,0,N/A,__export__.contract_contract_7845_752251af,28470137
+Daniel Josue Garca Rincon,0,2,8,N/A,__export__.contract_contract_8183_8a8ecc70,21355154
