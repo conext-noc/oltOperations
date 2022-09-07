@@ -2,7 +2,7 @@ import paramiko
 import time
 
 
-def activate(deactList, username, password, port, delay, ip):
+def activate(actList, username, password, port, delay, ip):
     conn = paramiko.SSHClient()
     conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     conn.connect(ip, port, username, password)
@@ -22,8 +22,8 @@ def activate(deactList, username, password, port, delay, ip):
 
     commandToSend("enable")
     commandToSend("config")
-    for client in deactList:
-        # print(client)
+    for client in actList:
+        print(client)
         commandToSend(
             "interface gpon {}/{}".format(client["frame"], client["slot"]))
         commandToSend("ont activate {} {}".format(
@@ -32,7 +32,7 @@ def activate(deactList, username, password, port, delay, ip):
             client["port"], client["id"]))
         enter()
         exitInfo()
-        output = comm.recv(100000000000)
-        output = output.decode("utf-8")
-        print(output, file=open("activateResultOLT.txt", "a"))
+        # output = comm.recv(100000000000)
+        # output = output.decode("utf-8")
+        # print(output, file=open("activateResultOLT.txt", "a"))
     conn.close()

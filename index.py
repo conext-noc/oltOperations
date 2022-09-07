@@ -4,7 +4,7 @@ from csvParser import parser
 from activate import activate
 from listChecker import compare
 from deactivate import deactivate
-from verification import verify
+# from verification import verify
 load_dotenv()
 
 username = os.environ["user"]
@@ -23,6 +23,8 @@ if __name__ == "__main__":
         list1 = parser("LISTAS/LISTA_DE_CORTE.csv")
         list2 = parser("LISTAS/LISTA_DE_CLIENTES.csv")
         actionList = compare(list1, list2)
+        actionList2 = parser(
+            "LISTAS/OLT1.csv") if olt == "1" else parser("LISTAS/OLT2.csv")
         if (action == "activate"):
             activate(
                 actionList, username, password, port, 1, ip)
