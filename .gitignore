@@ -1,3 +1,4 @@
 .env
 LISTAS/
 .vscode/
+__pycache__/
