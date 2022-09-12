@@ -1,9 +1,9 @@
 import re
 import csv
-from listChecker import compare
-from csvParser import parser
-list1 = parser("LISTAS/LISTA_DE_CORTE.csv")
-list2 = parser("LISTAS/LISTA_DE_CLIENTES.csv")
+from .listChecker import compare
+from .csvParser import parser
+list1 = parser("onuOperate/LISTAS/LISTA_DE_CORTE.csv")
+list2 = parser("onuOperate/LISTAS/LISTA_DE_CLIENTES.csv")
 actionList = compare(list1, list2)
 
 
@@ -28,10 +28,11 @@ def verifyODOO(actList, file):
     return indexes
 
 
-def verify(actList, file):
-    value = open(file, "r").read()
+def verify(actList, action, olt):
     indexes = []
     for client in actList:
+        value = open("onuOperate/CLIENTES/{}_{}-{}-{}-{}_OLT{}.txt".format(action,
+                     client["frame"], client["slot"], client["port"], client["id"], olt), "r").read()
         condition = """F/S/P                   : {}/{}/{}
   ONT-ID                  : {}
   Control flag            : """.format(client["frame"], client["slot"], client["port"], client["id"])

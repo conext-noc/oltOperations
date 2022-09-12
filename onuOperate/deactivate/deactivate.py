@@ -1,29 +1,9 @@
-import paramiko
-import time
-
-
-def deactivate(deactList, username, password, port, delay, ip):
-    conn = paramiko.SSHClient()
-    conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    conn.connect(ip, port, username, password)
-    comm = conn.invoke_shell()
-
-    def enter():
-        comm.send(" \n")
-        time.sleep(delay)
-
-    def commandToSend(command):
-        comm.send("{} \n".format(command))
-        time.sleep(delay)
-
-    def exitInfo():
-        comm.send("Q")
-        time.sleep(delay)
-
+def deactivate(deactList, enter, commandToSend, exitInfo, comm, olt):
     commandToSend("enable")
     commandToSend("config")
+    outputX = comm.recv(65535)
+    outputX = outputX.decode("ascii")
     for client in deactList:
-        print(client)
         commandToSend(
             "interface gpon {}/{}".format(client["frame"], client["slot"]))
         commandToSend("ont deactivate {} {}".format(
@@ -32,7 +12,7 @@ def deactivate(deactList, username, password, port, delay, ip):
             client["port"], client["id"]))
         enter()
         exitInfo()
-        # output = comm.recv(10000000000000000000000000)
-        # output = output.decode("utf-8")
-        # print(output, file=open("deactivateResultOLT.txt", "a"))
-    conn.close()
+        outputClient = comm.recv(65535)
+        outputClient = outputClient.decode("ascii")
+        print(outputClient, file=open("CLIENTES/activate_{}-{}-{}-{}_OLT{}.txt".format(
+            client["frame"], client["slot"], client["port"], client["id"], olt), "w"))
