@@ -11,10 +11,8 @@ conditionONT = """ONTID :"""
 
 
 def addONU(comm, sn, slot, port, provider, clientName, deviceType, commandToSend, enter):
-    commandToSend("enable")
-    commandToSend("config")
-    enter()
     commandToSend(f"interface gpon 0/{slot}")
+    enter()
     commandToSend(
         f"ont add {port} sn-auth {sn} omci ont-lineprofile-id {ontTypes[deviceType][0]} ont-srvprofile-id {ontTypes[deviceType][1]}  desc \"{clientName}\" ")
     enter()
@@ -31,12 +29,12 @@ def addONU(comm, sn, slot, port, provider, clientName, deviceType, commandToSend
     if (deviceType[:6] == "bridge"):
         commandToSend(
             f"ont port native-vlan {port} {ontID} eth 1 vlan {provider}")
+    commandToSend("quit")
     enter()
     return ontID
 
 
 def addOnuService(comm, spid, provider, slot, port, ontID, plan, commandToSend, enter):
-    commandToSend("enable")
-    commandToSend("config")
     enter()
     commandToSend(f"service-port {spid} vlan {provider} gpon 0/{slot}/{port} ont {ontID} gemport 14 multi-service user-vlan {provider} tag-transform transparent inbound traffic-table name {plan} outbound traffic-table name {plan}")
+    enter()

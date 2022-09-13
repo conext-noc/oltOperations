@@ -38,6 +38,9 @@ def confirm():
         comm.send("{} \n".format(command))
         time.sleep(delay)
 
+    commandToSend("enable")
+    commandToSend("config")
+
     if (isNew == "y"):
         clientSlot = input("enter client slot : ")
         clientPort = input("enter client port : ")
@@ -47,7 +50,7 @@ def confirm():
         clientPlan = input("enter the client's data plan : ")
         deviceType = input("enter the client ONU type : ")
 
-        spid = getSPID(comm, delay, commandToSend, enter)
+        spid = getSPID(comm, commandToSend, enter)
         ontId = addONU(comm, clientSN, clientSlot, clientPort,
                        clientProvider, clientName, deviceType, commandToSend, enter)
         (temp, pwr) = verifyValues(comm, clientSlot,
@@ -59,25 +62,25 @@ def confirm():
                           clientSlot, clientPort, ontId, clientPlan, commandToSend, enter)
             print(
                 f"""{clientName} 0/{clientSlot}/{clientPort}/{ontId} OLT {olt} {clientProvider.upper()} {clientPlan[3:]} \nTEMPERATURA: {temp} \nPOTENCIA: {pwr}""")
-            os.remove("ResultSPID.txt")
-            os.remove("ResultONTID.txt")
-            os.remove("ResultPwr.txt")
-            os.remove("ResultTemp.txt")
+            # os.remove("ResultSPID.txt")
+            # os.remove("ResultONTID.txt")
+            # os.remove("ResultPwr.txt")
+            # os.remove("ResultTemp.txt")
             conn.close()
             return
         if (proceed == "n"):
             reason = input("why the ont wont have service? : ")
             print(
                 f"""\n{clientName} 0/{clientSlot}/{clientPort}/{ontId} OLT {olt} {clientProvider.upper()} {clientPlan[3:]} \nTEMPERATURA: {temp} \nPOTENCIA: {pwr} \n- {reason} - \nSPID : {spid}""")
-            os.remove("ResultSPID.txt")
-            os.remove("ResultONTID.txt")
-            os.remove("ResultPwr.txt")
-            os.remove("ResultTemp.txt")
+            # os.remove("ResultSPID.txt")
+            # os.remove("ResultONTID.txt")
+            # os.remove("ResultPwr.txt")
+            # os.remove("ResultTemp.txt")
             conn.close()
             return
     if (isNew == "n"):
-        spid = getSPID(comm, delay, commandToSend, enter)
-        spid = input("enter the corresponding service port virtual id")
+        spid = getSPID(comm, commandToSend, enter)
+        spid = input("enter the corresponding service port virtual id : ")
         clientSlot = input("enter client slot : ")
         clientPort = input("enter client port : ")
         clientONUID = input("enter client onu id : ")
@@ -94,15 +97,15 @@ def confirm():
                           clientSlot, clientPort, clientONUID, clientPlan, commandToSend, enter)
             print(
                 f"""{clientName} 0/{clientSlot}/{clientPort}/{clientONUID} OLT {olt} {clientProvider.upper()} {clientPlan[3:]} \nTEMPERATURA: {temp} \nPOTENCIA: {pwr}""")
-            os.remove("ResultPwr.txt")
-            os.remove("ResultTemp.txt")
+            # os.remove("ResultPwr.txt")
+            # os.remove("ResultTemp.txt")
             conn.close()
             return
         if (proceed == "n"):
             reason = input("why the ont wont have service? : ")
             print(
                 f"""{clientName} 0/{clientSlot}/{clientPort}/{ontId} OLT {olt} {clientProvider.upper()} {clientPlan[3:]} \nTEMPERATURA: {temp} \nPOTENCIA: {pwr} \n- {reason} -\nSPID : {spid}""")
-            os.remove("ResultPwr.txt")
-            os.remove("ResultTemp.txt")
+            # os.remove("ResultPwr.txt")
+            # os.remove("ResultTemp.txt")
             conn.close()
             return

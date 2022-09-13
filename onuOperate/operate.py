@@ -4,7 +4,7 @@ import time
 from dotenv import load_dotenv
 from .helpers.csvParser import parser
 from .activate.activate import activate
-# from .helpers.listChecker import compare
+from .helpers.listChecker import compare
 from .deactivate.deactivate import deactivate
 # from .helpers.verification import verify
 load_dotenv()
@@ -15,6 +15,7 @@ port = os.environ["port"]
 
 
 def operate():
+    actionList = []
     delay = 1
     action = input(
         "Which action will be performed? [activate | deactivate] : ")
@@ -24,13 +25,19 @@ def operate():
     conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     conn.connect(ip, port, username, password)
     comm = conn.invoke_shell()
-    # actList = input("is a small lot? [yes | no] : ")
-    # list1 = parser("onuOperate/LISTAS/LISTA_DE_CORTE.csv")
-    # list2 = parser("onuOperate/LISTAS/LISTA_DE_CLIENTES.csv")
-    # actionList1 = compare(list1, list2)
-    actionList = parser(
-        "onuOperate/LISTAS/OLT1.csv") if olt == "1" else parser("onuOperate/LISTAS/OLT2.csv")
-    # actionList = actionList2 if actList == "yes" else actionList1
+    listType = input("has odoo needed data? [y | n] : ")
+    if (listType == "y"):
+        listaDeCorte = input(
+            "enter the path of \"lista de corte\" (including file.extension)")
+        listaDeClientes = input(
+            "enter the path of \"lista de clientes\" (including file.extension)")
+        list1 = parser(listaDeCorte)
+        list2 = parser(listaDeClientes)
+        actionList = compare(list1, list2)
+    if (listType == "n"):
+        listaDeClientes2 = input(
+            "enter the path of \"lista de clientes\" (including file.extension)")
+        actionList = parser(listaDeClientes2)
 
     def enter():
         comm.send(" \n")
