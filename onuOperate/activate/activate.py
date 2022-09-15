@@ -13,7 +13,11 @@ def activate(actList, enter, commandToSend, exitInfo, comm, olt):
             client["port"], client["id"]))
         enter()
         exitInfo()
-        # outputClient = comm.recv(65535)
-        # outputClient = outputClient.decode("ascii")
-        # print(outputClient, file=open("onuOperate/CLIENTES/activate_{}-{}-{}-{}_OLT{}.txt".format(
-        #     client["frame"], client["slot"], client["port"], client["id"], olt), "w"))
+        outputClient = comm.recv(65535)
+        outputClient = outputClient.decode("latin-1")
+        frame = client["frame"]
+        slot = client["slot"]
+        port = client["port"]
+        clientID = client["id"]
+        path = f"activate_{frame}-{slot}-{port}-{clientID}_OLT{olt}.txt"
+        print(outputClient, file=open(path, "w"))

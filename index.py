@@ -4,7 +4,7 @@ from onuConfirm.confirm import confirm
 if __name__ == "__main__":
     def main():
         action = input(
-            "What will you do? [ activate/deactivate (o) | confirm/add (c) ] : ")
+            "que accion se realizara? [ activar/desactivar cliente (o) | agregar cliente (c) ] : ")
         if (action == "o"):
             operate()
         if (action == "c"):

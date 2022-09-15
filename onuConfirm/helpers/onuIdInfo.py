@@ -34,7 +34,6 @@ def addONU(comm, sn, slot, port, provider, clientName, deviceType, commandToSend
     return ontID
 
 
-def addOnuService(comm, spid, provider, slot, port, ontID, plan, commandToSend, enter):
-    enter()
+def addOnuService(spid, provider, slot, port, ontID, plan, commandToSend, enter):
     commandToSend(f"service-port {spid} vlan {provider} gpon 0/{slot}/{port} ont {ontID} gemport 14 multi-service user-vlan {provider} tag-transform transparent inbound traffic-table name {plan} outbound traffic-table name {plan}")
     enter()

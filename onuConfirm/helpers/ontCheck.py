@@ -5,8 +5,6 @@ conditionPwr = "Rx optical power\(dBm\)                  : "
 
 
 def verifyValues(comm, slot, port, onuId, commandToSend, enter):
-    commandToSend("enable")
-    commandToSend("config")
     enter()
     outputX = comm.recv(65535)
     outputX = outputX.decode("ascii")
@@ -33,5 +31,6 @@ def verifyValues(comm, slot, port, onuId, commandToSend, enter):
     resultPwr = re.search(conditionPwr, valuePwr)
     endPwr = resultPwr.span()[1]
     pwr = valuePwr[endPwr:endPwr+6]
-
+    commandToSend("quit")
+    enter()
     return (temp, pwr)
