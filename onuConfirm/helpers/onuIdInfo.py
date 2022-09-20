@@ -10,11 +10,11 @@ ontTypes = {
 conditionONT = """ONTID :"""
 
 
-def addONU(comm, sn, slot, port, provider, clientName, deviceType, commandToSend, enter):
+def addONU(comm, sn, slot, port, provider, name,deviceType, commandToSend, enter):
     commandToSend(f"interface gpon 0/{slot}")
     enter()
-    commandToSend(
-        f"ont add {port} sn-auth {sn} omci ont-lineprofile-id {ontTypes[deviceType][0]} ont-srvprofile-id {ontTypes[deviceType][1]}  desc \"{clientName}\" ")
+    command = f"ont add {port} sn-auth {sn} omci ont-lineprofile-id {ontTypes[deviceType][0]} ont-srvprofile-id {ontTypes[deviceType][1]}  desc \"{name}\" "
+    commandToSend(command)
     enter()
     enter()
     output = comm.recv(65535)
@@ -23,17 +23,18 @@ def addONU(comm, sn, slot, port, provider, clientName, deviceType, commandToSend
     value = open("ResultONTID.txt", "r").read()
     resultONT = re.search(conditionONT, value)
     end = resultONT.span()[1]
-    ontID = value[end:end+3]
+    ontID = value[end:end+3].replace(" ", "")
     commandToSend(f"ont optical-alarm-profile {port} {ontID} profile-id 3")
     commandToSend(f"ont alarm-policy {port} {ontID} policy-id 1")
     if (deviceType[:6] == "bridge"):
-        commandToSend(
-            f"ont port native-vlan {port} {ontID} eth 1 vlan {provider}")
+        commandToSend(f"ont port native-vlan {port} {123} eth 1 vlan {provider}")
+        enter()
     commandToSend("quit")
     enter()
     return ontID
 
-
-def addOnuService(spid, provider, slot, port, ontID, plan, commandToSend, enter):
-    commandToSend(f"service-port {spid} vlan {provider} gpon 0/{slot}/{port} ont {ontID} gemport 14 multi-service user-vlan {provider} tag-transform transparent inbound traffic-table name {plan} outbound traffic-table name {plan}")
+def addOnuService(spid, provider, slot, port, ontID, plan, commandToSend, enter,comm):
+    command = f"""service-port {spid} vlan {provider} gpon 0/{slot}/{port} ont {ontID} gemport 14 multi-service user-vlan {provider} tag-transform transparent inbound traffic-table name {plan} outbound traffic-table name {plan}"""
+    # commandToSend(command)
+    comm.send(command)
     enter()

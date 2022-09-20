@@ -1,18 +1,18 @@
-def deactivate(deactList, enter, commandToSend, exitInfo, comm, olt):
-    commandToSend("enable")
-    commandToSend("config")
-    outputX = comm.recv(65535)
-    outputX = outputX.decode("ascii")
-    for client in deactList:
+def deactivate(actList, enter, commandToSend, comm, olt):
+    for client in actList:
+        print(client)
         commandToSend(
             "interface gpon {}/{}".format(client["frame"], client["slot"]))
         commandToSend("ont deactivate {} {}".format(
             client["port"], client["id"]))
-        commandToSend("display ont info {} {}".format(
+        commandToSend("display ont info {} {} | include \"Control flag\" ".format(
             client["port"], client["id"]))
         enter()
-        exitInfo()
         outputClient = comm.recv(65535)
-        outputClient = outputClient.decode("ascii")
-        print(outputClient, file=open("CLIENTES/activate_{}-{}-{}-{}_OLT{}.txt".format(
-            client["frame"], client["slot"], client["port"], client["id"], olt), "w"))
+        outputClient = outputClient.decode("latin-1")
+        frame = client["frame"]
+        slot = client["slot"]
+        port = client["port"]
+        clientID = client["id"]
+        path = f"deactivate_{frame}-{slot}-{port}-{clientID}_OLT{olt}.txt"
+        print(outputClient, file=open(path, "w"))
