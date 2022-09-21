@@ -12,7 +12,8 @@ def verifyValues(comm, slot, port, onuId, commandToSend, enter):
     enter()
 
     commandToSend(
-        f"display ont optical-info {port} {onuId} | include Temperature")
+        f"""display ont optical-info {port} {onuId}| include Temperature""")
+    enter()
     enter()
     outputTemp = comm.recv(65535)
     outputTemp = outputTemp.decode("ascii")
@@ -23,6 +24,7 @@ def verifyValues(comm, slot, port, onuId, commandToSend, enter):
     temp = valueTemp[endTemp:endTemp+4]
 
     commandToSend(f"display ont optical-info {port} {onuId} | include Rx")
+    enter()
     enter()
     outputPwr = comm.recv(65535)
     outputPwr = outputPwr.decode("ascii")

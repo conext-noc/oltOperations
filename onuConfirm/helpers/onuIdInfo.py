@@ -29,9 +29,15 @@ def addONU(comm, sn, slot, port, provider, name, deviceType, commandToSend, ente
     commandToSend(f"ont alarm-policy {port} {ontID} policy-id 1")
     enter()
     if (deviceType[:6] == "bridge"):
+        output = comm.recv(65535)
+        output = output.decode("ascii")
+        print(output)
         commandToSend(
-            f"ont port native-vlan {port} {123} eth 1 vlan {provider}")
+            f"ont port native-vlan {port} {ontID} eth 1 vlan {provider}")
         enter()
+        output = comm.recv(65535)
+        output = output.decode("ascii")
+        print(output)
     commandToSend("quit")
     enter()
     enter()
