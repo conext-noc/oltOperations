@@ -54,23 +54,11 @@ def confirm():
         deviceType = input("ingrese tipo de ont de cliente : ")
 
         spid = getSPID(comm, commandToSend, enter)
-        ontId = addONU(comm, sn, slot, port, provider, name,
-                       deviceType, commandToSend, enter)
-        (temp, pwr) = verifyValues(comm, slot,
-                                   port, ontId, commandToSend, enter)
-        proceed = input(
-            f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [y|n] : ")
+        ontId = addONU(comm, sn, slot, port, providerMap[provider], name, deviceType, commandToSend, enter)
+        (temp, pwr) = verifyValues(comm, slot, port, ontId, commandToSend, enter)
+        proceed = input(f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [y|n] : ")
         if (proceed == "y"):
-            output = comm.recv(65535)
-            output = output.decode("ascii")
-            print(output)
-            addOnuService(spid, providerMap[provider], slot,
-                          port, ontId, plan, commandToSend, enter, comm)
-            output = comm.recv(65535)
-            output = output.decode("ascii")
-            print(output)
-            print(
-                f"""{name} 0/{slot}/{port}/{ontId} OLT {olt} {provider.upper()} {plan[3:]}\nTEMPERATURA: {temp}\nPOTENCIA: {pwr}\nSPID: {spid}""")
+            addOnuService(spid, providerMap[provider], slot, port, ontId, plan, commandToSend, enter, comm)
             os.remove("ResultSPID.txt")
             os.remove("ResultONTID.txt")
             os.remove("ResultPwr.txt")
@@ -79,11 +67,7 @@ def confirm():
             return
         if (proceed == "n"):
             reason = input("por que no se le asignara servicio? : ")
-            print(
-                f"""{name} 0/{slot}/{port}/{ontId} OLT {olt} {provider.upper()} {plan[3:]}
-TEMPERATURA:{temp}
-POTENCIA:{pwr}
-SPID : {spid}""")
+            print(f"""{name} 0/{slot}/{port}/{ontId} OLT {olt} {provider.upper()} {plan[3:]}\nTEMPERATURA:{temp}\nPOTENCIA:{pwr}\nSPID :{spid}\n - {reason} -""")
             os.remove("ResultSPID.txt")
             os.remove("ResultONTID.txt")
             os.remove("ResultPwr.txt")
@@ -93,36 +77,24 @@ SPID : {spid}""")
     if (isNew == "n"):
         slot = input("ingrese slot de cliente : ")
         port = input("ingrese puerto de cliente : ")
-        clientONUID = input("enter client onu id : ")
+        clientONUID = input("enter client ont id : ")
         name = input("enter client name : ")
         provider = input("enter client Provider [inter | vnet] : ")
         spid = input("enter the corresponding service port virtual id : ")
         plan = input("ingrese plan de cliente : ")
 
-        (temp, pwr) = verifyValues(comm, slot,
-                                   port, clientONUID, commandToSend, enter)
-        proceed = input(
-            f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [y|n] : ")
+        (temp, pwr) = verifyValues(comm, slot, port, clientONUID, commandToSend, enter)
+        proceed = input(f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [y|n] : ")
         if (proceed == "y"):
-            addOnuService(spid, providerMap[provider], slot, port,
-                          clientONUID, plan, commandToSend, enter)
-            print(
-                f"""{name} 0/{slot}/{port}/{ontId} OLT {olt} {provider.upper()} {plan[3:]}
-TEMPERATURA:{temp}
-POTENCIA:{pwr}
-SPID : {spid}""")
+            addOnuService(spid, providerMap[provider], slot, port, clientONUID, plan, commandToSend, enter)
+            print(f"""{name} 0/{slot}/{port}/{ontId} OLT {olt} {provider.upper()} {plan[3:]}\nTEMPERATURA:{temp}\nPOTENCIA:{pwr}\nSPID :{spid}""")
             os.remove("ResultPwr.txt")
             os.remove("ResultTemp.txt")
             conn.close()
             return
         if (proceed == "n"):
             reason = input("por que no se le asignara servicio? : ")
-            print(
-                f"""{name} 0/{slot}/{port}/{ontId} OLT {olt} {provider.upper()} {plan[3:]}
-TEMPERATURA:{temp}
-POTENCIA:{pwr}
-SPID : {spid}
-- {reason} -""")
+            print(f"""{name} 0/{slot}/{port}/{ontId} OLT {olt} {provider.upper()} {plan[3:]}\nTEMPERATURA:{temp}\nPOTENCIA:{pwr}\nSPID :{spid}\n - {reason} -""")
             os.remove("ResultPwr.txt")
             os.remove("ResultTemp.txt")
             conn.close()
