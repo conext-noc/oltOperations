@@ -6,6 +6,7 @@ conditionSPID = """Next valid free service virtual port ID: """
 def getSPID(comm, commandToSend, enter):
     commandToSend("display service-port next-free-index")
     enter()
+    enter()
     output = comm.recv(65535)
     output = output.decode("ascii")
     print(output, file=open("ResultSPID.txt", "w"))

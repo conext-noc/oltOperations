@@ -31,15 +31,17 @@ def confirm():
     comm = conn.invoke_shell()
 
     def enter():
-        comm.send(" \n")
+        comm.send("\n")
         time.sleep(delay)
 
     def commandToSend(command):
-        comm.send("{} \n".format(command))
+        comm.send(f"{command}")
         time.sleep(delay)
 
     commandToSend("enable")
+    enter()
     commandToSend("config")
+    enter()
 
     if (isNew == "y"):
         slot = input("ingrese slot de cliente : ")
@@ -63,7 +65,7 @@ def confirm():
             output = output.decode("ascii")
             print(output)
             addOnuService(spid, providerMap[provider], slot,
-                          port, ontId, plan, commandToSend, enter,comm)
+                          port, ontId, plan, commandToSend, enter, comm)
             output = comm.recv(65535)
             output = output.decode("ascii")
             print(output)
