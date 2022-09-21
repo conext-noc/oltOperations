@@ -59,6 +59,7 @@ def confirm():
         proceed = input(f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [y|n] : ")
         if (proceed == "y"):
             addOnuService(spid, providerMap[provider], slot, port, ontId, plan, commandToSend, enter, comm)
+            print(f"""{name} 0/{slot}/{port}/{ontId} OLT {olt} {provider.upper()} {plan[3:]}\nTEMPERATURA:{temp}\nPOTENCIA:{pwr}\nSPID :{spid}""")
             os.remove("ResultSPID.txt")
             os.remove("ResultONTID.txt")
             os.remove("ResultPwr.txt")

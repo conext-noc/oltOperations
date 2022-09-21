@@ -29,17 +29,11 @@ def addONU(comm, sn, slot, port, provider, name, deviceType, commandToSend, ente
     commandToSend(f"ont alarm-policy {port} {ontID} policy-id 1")
     enter()
     if (deviceType[:6] == "bridge"):
-        output = comm.recv(65535)
-        output = output.decode("ascii")
-        print(output)
         commandToSend(
             f"ont port native-vlan {port} {ontID} eth 1 vlan {provider}")
         enter()
-        output = comm.recv(65535)
-        output = output.decode("ascii")
-        print(output)
+        enter()
     commandToSend("quit")
-    enter()
     enter()
     return ontID
 
@@ -47,5 +41,4 @@ def addONU(comm, sn, slot, port, provider, name, deviceType, commandToSend, ente
 def addOnuService(spid, provider, slot, port, ontID, plan, commandToSend, enter, comm):
     command = f"""service-port {spid} vlan {provider} gpon 0/{slot}/{port} ont {ontID} gemport 14 multi-service user-vlan {provider} tag-transform transparent inbound traffic-table name {plan} outbound traffic-table name {plan}"""
     commandToSend(command)
-    # comm.send(command)
     enter()
