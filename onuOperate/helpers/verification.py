@@ -41,7 +41,7 @@ def verify(actList, action, olt,result_path):
         estado = "Activo" if value[end:end + 1] == "a" else (
             "Suspendido" if value[end:end + 1] == "d" else "Ninguno")
         indexes.append(
-            {"Cliente": client["\ufeffClient"], "Estatus": estado})
+            {"Cliente": client["Client"], "Estatus": estado})
         os.remove(f"{action}_{frame}-{slot}-{port}-{clientID}_OLT{olt}.txt")
     keys = indexes[0].keys()
     with open(f'{result_path}/resultados.csv', 'w', newline='') as f:
