@@ -1,7 +1,7 @@
 import re
+import os
 
 conditionSPID = """Next valid free service virtual port ID: """
-
 
 def getSPID(comm, commandToSend, enter):
     commandToSend("display service-port next-free-index")
@@ -13,6 +13,7 @@ def getSPID(comm, commandToSend, enter):
     value = open("ResultSPID.txt", "r").read()
     result = re.search(conditionSPID, value)
     end = result.span()[1]
+    os.remove("ResultSPID.txt")
     spid = value[end:end+4]
 
     return spid
