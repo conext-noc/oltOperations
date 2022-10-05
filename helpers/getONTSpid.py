@@ -4,7 +4,7 @@ import os
 conditionSPID = "CTRL_C to break"
 conditionQTY = "Total : "
 
-def getSPID(comm, command, enter, SLOT,PORT,ID):
+def getSPIDChange(comm,command,enter,SLOT,PORT,ID):
     command(f"display service-port port 0/{SLOT}/{PORT} ont {ID} | include Total")
     enter()
     output = comm.recv(65535)
