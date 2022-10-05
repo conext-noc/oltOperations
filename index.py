@@ -6,6 +6,12 @@ from deactivate.deactivate import deactivate
 from activate.activate import activate
 from delete.delete import delete
 from confirm.confirm import confirm
+from planMigration.planMigration import newPlan
+from deviceChange.deviceChange import deviceChange
+from valueVerify.valueVerify import valueVerify
+from speedVerify.speedVerify import speedVerify
+from verifyReset.verifyReset import verifyReset
+from verifyPort.verifyPort import verifyPort
 import paramiko
 import time
 import traceback
@@ -18,39 +24,26 @@ port = os.environ["port"]
 root = tk.Tk()
 root.withdraw()
 
-def operations(action,comm,enter,command,OLT):
-  try:
-    option = {
-      "AA": activate(comm,enter,command,OLT),
-      "AO": activate(comm,enter,command,OLT),
-      "CC": deactivate(comm,enter,command,OLT),
-      "CO": deactivate(comm,enter,command,OLT),
-      "IN": confirm(comm,enter,command,OLT,"IN"),
-      "IP": confirm(comm,enter,command,OLT,"IP"),
-      "EE": delete(comm,command,enter, OLT),
-      "CP": "fun2()",
-      "CE": "fun2()",
-      "VV": "fun2()",
-      "VC": "fun2()",
-      "VR": "fun2()",
-      "PC": "fun2()",
-      }
-    return option[action]
-  except KeyError:
-    raise Exception(f"Error @ : opcion {action} no existe")
+class NoListSelected(Exception):
+  """Ningun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO"""
+  pass
+
+class NoClientsInList(Exception):
+  """la lista no tiene ningun cliente..."""
+  pass
 
 def main():
   delay = 1
   while True:
     try:
-      olt = input("en cual olt se realizara? [15|2] : ")
+      olt = input("Seleccione la OLT [15|2] : ")
       ip = ""
       if(olt == "15"):
         ip = "181.232.180.5" 
       elif (olt == "2"):
         ip = "181.232.180.6"
       else:
-        raise Exception("Cannot connect to olt")
+        raise Exception(f"No se puede Conectar a la OLT, Error OLT {olt} no existe")
 
       conn = paramiko.SSHClient()
       conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -70,22 +63,25 @@ def main():
       enter()
       command("config")
       enter()
+      output = comm.recv(65535)
+      output = output.decode("ascii")
 
       action = input("""
     Que accion se realizara? 
-      > (AA)  :  activar
-      > (AO)  :  activar con datos de odoo
-      > (CC)  :  corte
-      > (CO)  :  corte con datos de odoo
-      > (IN)  :  instalar nuevo
-      > (IP)  :  confirmar ya preinstalado
-      > (EE)  :  eliminar cliente
-      > (CP)  :  cambio de plan
-      > (CE)  :  cambio de ont
-      > (VV)  :  verificar valores de ont
-      > (VC)  :  verificar consumo
-      > (VR)  :  verificar reset
-      > (PC)  :  cambio proveedor
+      > (AA)  :  Activar
+      > (AO)  :  Activar con datos de odoo
+      > (CC)  :  Corte
+      > (CO)  :  Corte con datos de odoo
+      > (IN)  :  Instalar nuevo
+      > (IP)  :  Instalar previo
+      > (EE)  :  Eliminar cliente
+      > (CP)  :  Cambio de plan
+      > (CE)  :  Cambio de equipo
+      > (VV)  :  Verificar valores de ont
+      > (VC)  :  Verificar consumo
+      > (VR)  :  Verificar reset
+      > (VP)  :  Verificacion de puerto
+      > (CV)  :  Cambio Vlan (Proveedor)
     $ """)
 
       # TURN THIS TO A HASH MAP
@@ -108,16 +104,18 @@ def main():
       elif(action == "EE"):
         delete(comm,command,enter, olt)
       elif(action == "CP"):
-        ""
+        newPlan(comm,command,enter, olt)
       elif(action == "CE"):
-        ""
+        deviceChange(comm,command,enter)
       elif(action == "VV"):
-        ""
+        valueVerify(comm,command,enter)
       elif(action == "VC"):
-        ""
+        speedVerify(comm,command,enter)
       elif(action == "VR"):
-        ""
-      elif(action == "PC"):
+        verifyReset(comm,command,enter)
+      elif(action == "VP"):
+        verifyPort(comm,command,enter)
+      elif(action == "CV"):
         ""
       else:
         print(f"Error @ : opcion {action} no existe")
@@ -125,6 +123,10 @@ def main():
 
     except Exception:
       print("Error At : ", traceback.format_exc())
+    except NoListSelected(Exception):
+      print("""Ningun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO""")
+    except NoClientsInList(Exception):
+      print("la lista no tiene ningun cliente...")
     except KeyboardInterrupt:
       print("Saliendo...")
       sys.exit(0)

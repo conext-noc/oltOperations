@@ -1,5 +1,5 @@
 import re
-import csv
+from helpers.csvParser import converter
 import os
 from tkinter import filedialog
 
@@ -22,9 +22,5 @@ def verify(actList, action, olt):
         clientValue = {"NOMBRE": client["NOMBRE"], "Estatus": estado} if "O" not in action else {"Cliente": client["Cliente"], "Estado de contrato": estado, "ID externo": client["ID externo"], "Cliente/NIF": client["Cliente/NIF"]}
         indexes.append(clientValue)
         os.remove(f"{action}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{olt}.txt")
-    keys = indexes[0].keys()
-    with open(f'{result_path}/resultados.csv', 'w', newline='') as f:
-        dict_writer = csv.DictWriter(f, keys)
-        dict_writer.writeheader()
-        dict_writer.writerows(indexes)
-    return indexes
+    converter(result_path,"resultados",indexes,True)
+

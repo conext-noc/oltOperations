@@ -6,8 +6,7 @@ conditionONT = """ONTID :"""
 def addONU(comm, command, enter, SLOT, PORT,SN, PROVIDER, NAME, SRV, LP):
     command(f"interface gpon 0/{SLOT}")
     enter()
-    command = f"ont add {PORT} sn-auth {SN} omci ont-lineprofile-id {LP} ont-srvprofile-id {SRV}  desc \"{NAME}\" "
-    command(command)
+    command(f"ont add {PORT} sn-auth {SN} omci ont-lineprofile-name {LP} ont-srvprofile-name {SRV}  desc \"{NAME}\" ")
     enter()
     output = comm.recv(65535)
     output = output.decode("ascii")
@@ -31,6 +30,5 @@ def addONU(comm, command, enter, SLOT, PORT,SN, PROVIDER, NAME, SRV, LP):
 
 
 def addOnuService(command, enter, SPID, PROVIDER, SLOT, PORT, ID, PLAN):
-    command = f"""service-PORT {SPID} vlan {PROVIDER} gpon 0/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {PROVIDER} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"""
-    command(command)
+    command(f"""service-PORT {SPID} vlan {PROVIDER} gpon 0/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {PROVIDER} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}""")
     enter()

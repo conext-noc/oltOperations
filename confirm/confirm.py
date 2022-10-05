@@ -16,11 +16,12 @@ def confirm(comm,enter,command,olt,type):
         PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET] : ")
         SN = input("Ingrese serial de cliente : ")
         PLAN = input("Ingrese plan de cliente : ")
-        SRV = input("Ingrese Service-Profile [prueba | INET] : ")
-        LP = input("Ingrese Line-Profile [PRUEBA_BRIDGE | FTTH] : ")
+        LP = input("Ingrese Line-Profile [prueba | INET] : ")
+        SRV = input("Ingrese Service-Profile [PRUEBA_BRIDGE | FTTH] : ")
 
         SPID = getSPID(comm, command, enter)
-        ID = addONU(comm, command, enter, SLOT, PORT,SN, providerMap[PROVIDER], NAME, SRV, LP)
+        print(SPID)
+        ID = addONU(comm, command, enter, SLOT, PORT, SN, providerMap[PROVIDER], NAME, SRV, LP)
 
         (temp, pwr) = verifyValues(comm, command, enter, SLOT, PORT, ID)
 

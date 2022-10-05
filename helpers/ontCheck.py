@@ -12,7 +12,7 @@ def verifyValues(comm, command, enter, SLOT, PORT, ID):
     enter()
 
     command(
-        f"""display ont optical-info {PORT} {ID}| include Temperature""")
+        f"""display ont optical-info {PORT} {ID} | include Temperature""")
     enter()
     outputTemp = comm.recv(65535)
     outputTemp = outputTemp.decode("ascii")
