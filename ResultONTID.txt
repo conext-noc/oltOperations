@@ -2,11 +2,11 @@ interface gpon 0/2
 
 MARLLM02(config-if-gpon-0/2)# 
 
-MARLLM02(config-if-gpon-0/2)#ont add 15 sn-auth 48575443881A724D omci ont-linepr [1Dofile-name prueba ont-srvprofile-name PRUEBA_BRIDGE  desc "PRUEBA" 
+MARLLM02(config-if-gpon-0/2)#ont add 15 sn-auth 48575443881A724D omci ont-linepr [1Dofile-name PRUEBA_BRIDGE ont-srvprofile-name prueba  desc "PRUEBA" 
 { <cr>|ont-type<K> }:  
 
   Command:
-          ont add 15 sn-auth 48575443881A724D omci ont-lineprofile-name prueba ont-srvprofile-name PRUEBA_BRIDGE  desc "PRUEBA"
-  Failure: The line profile does not exist
+          ont add 15 sn-auth 48575443881A724D omci ont-lineprofile-name PRUEBA_BRIDGE ont-srvprofile-name prueba  desc "PRUEBA"
+  Failure: The service profile does not exist
 
 MARLLM02(config-if-gpon-0/2)#

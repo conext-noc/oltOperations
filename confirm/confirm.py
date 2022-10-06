@@ -28,7 +28,7 @@ def confirm(comm, enter, command, olt, type):
         SN = input("Ingrese serial de cliente : ")
         PLAN = input("Ingrese plan de cliente : ")
         LP = input("Ingrese Line-Profile [PRUEBA_BRIDGE | INET] : ")
-        SRV = input("Ingrese Service-Profile [prueba | FTTH] : ")
+        SRV = input("Ingrese Service-Profile [Prueba | FTTH] : ")
         SPID = getSPID(comm, command, enter)
         print(SPID)
         ID = addONU(comm, command, enter, SLOT, PORT, SN,
