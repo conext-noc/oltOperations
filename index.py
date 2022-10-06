@@ -24,113 +24,118 @@ port = os.environ["port"]
 root = tk.Tk()
 root.withdraw()
 
+
 class NoListSelected(Exception):
-  """Ningun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO"""
-  pass
+    """Ningun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO"""
+    pass
+
 
 class NoClientsInList(Exception):
-  """la lista no tiene ningun cliente..."""
-  pass
+    """la lista no tiene ningun cliente..."""
+    pass
+
 
 def main():
-  delay = 1
-  while True:
-    try:
-      olt = input("Seleccione la OLT [15|2] : ")
-      ip = ""
-      if(olt == "15"):
-        ip = "181.232.180.5" 
-      elif (olt == "2"):
-        ip = "181.232.180.6"
-      else:
-        raise Exception(f"No se puede Conectar a la OLT, Error OLT {olt} no existe")
+    delay = 1
+    while True:
+        try:
+            olt = input("Seleccione la OLT [15|2] : ")
+            ip = ""
+            if (olt == "15"):
+                ip = "181.232.180.5"
+            elif (olt == "2"):
+                ip = "181.232.180.6"
+            else:
+                raise Exception(
+                    f"No se puede Conectar a la OLT, Error OLT {olt} no existe")
 
-      conn = paramiko.SSHClient()
-      conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-      conn.connect(ip, port, username, password)
-      comm = conn.invoke_shell()
+            conn = paramiko.SSHClient()
+            conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            conn.connect(ip, port, username, password)
+            comm = conn.invoke_shell()
 
-      def enter():
-        comm.send(" \n")
-        comm.send(" \n")
-        time.sleep(delay)
+            def enter():
+                comm.send(" \n")
+                comm.send(" \n")
+                time.sleep(delay)
 
-      def command(cmd):
-        comm.send(cmd)
-        time.sleep(delay)
+            def command(cmd):
+                comm.send(cmd)
+                time.sleep(delay)
 
-      command("enable")
-      enter()
-      command("config")
-      enter()
-      output = comm.recv(65535)
-      output = output.decode("ascii")
+            command("enable")
+            enter()
+            command("config")
+            enter()
+            output = comm.recv(65535)
+            output = output.decode("ascii")
 
-      action = input("""
-    Que accion se realizara? 
-      > (AA)  :  Activar
-      > (AO)  :  Activar con datos de odoo
-      > (CC)  :  Corte
-      > (CO)  :  Corte con datos de odoo
-      > (IN)  :  Instalar nuevo
-      > (IP)  :  Instalar previo
-      > (EE)  :  Eliminar cliente
-      > (CP)  :  Cambio de plan
-      > (CE)  :  Cambio de equipo
-      > (VV)  :  Verificar valores de ont
-      > (VC)  :  Verificar consumo
-      > (VR)  :  Verificar reset
-      > (VP)  :  Verificacion de puerto
-      > (CV)  :  Cambio Vlan (Proveedor)
-    $ """)
+            action = input("""
+Que accion se realizara? 
+  > (AA)  :  Activar
+  > (AO)  :  Activar con datos de odoo
+  > (CC)  :  Corte
+  > (CO)  :  Corte con datos de odoo
+  > (IN)  :  Instalar nuevo
+  > (IP)  :  Instalar previo
+  > (EE)  :  Eliminar cliente
+  > (CP)  :  Cambio de plan
+  > (CE)  :  Cambio de equipo
+  > (VV)  :  Verificar valores de ont
+  > (VC)  :  Verificar consumo
+  > (VR)  :  Verificar reset
+  > (VP)  :  Verificacion de puerto
+  > (CV)  :  Cambio Vlan (Proveedor)
+$ """)
 
-      # TURN THIS TO A HASH MAP
-      if(action == "AA"):
-        result = activate(comm,enter,command,olt)
-        verify(result,action,olt)
-      elif(action == "AO"):
-        result = activate(comm,enter,command,olt)
-        verify(result,action,olt)
-      elif(action == "CC"):
-        result = deactivate(comm,enter,command,olt)
-        verify(result,action,olt)
-      elif(action == "CO"):
-        result = deactivate(comm,enter,command,olt)
-        verify(result,action,olt)
-      elif(action == "IN"):
-        confirm(comm,enter,command,olt,"IN")
-      elif(action == "IP"):
-        confirm(comm,enter,command,olt,"IP")
-      elif(action == "EE"):
-        delete(comm,command,enter, olt)
-      elif(action == "CP"):
-        newPlan(comm,command,enter, olt)
-      elif(action == "CE"):
-        deviceChange(comm,command,enter)
-      elif(action == "VV"):
-        valueVerify(comm,command,enter)
-      elif(action == "VC"):
-        speedVerify(comm,command,enter)
-      elif(action == "VR"):
-        verifyReset(comm,command,enter)
-      elif(action == "VP"):
-        verifyPort(comm,command,enter)
-      elif(action == "CV"):
-        ""
-      else:
-        print(f"Error @ : opcion {action} no existe")
-      conn.close()
+            # TURN THIS TO A HASH MAP
+            if (action == "AA"):
+                result = activate(comm, enter, command, olt, action)
+                verify(result, action, olt)
+            elif (action == "AO"):
+                result = activate(comm, enter, command, olt, action)
+                verify(result, action, olt)
+            elif (action == "CC"):
+                result = deactivate(comm, enter, command, olt, action)
+                verify(result, action, olt)
+            elif (action == "CO"):
+                result = deactivate(comm, enter, command, olt, action)
+                verify(result, action, olt)
+            elif (action == "IN"):
+                confirm(comm, enter, command, olt, "IN")
+            elif (action == "IP"):
+                confirm(comm, enter, command, olt, "IP")
+            elif (action == "EE"):
+                delete(comm, command, enter, olt)
+            elif (action == "CP"):
+                newPlan(comm, command, enter, olt)
+            elif (action == "CE"):
+                deviceChange(comm, command, enter)
+            elif (action == "VV"):
+                valueVerify(comm, command, enter)
+            elif (action == "VC"):
+                speedVerify(comm, command, enter)
+            elif (action == "VR"):
+                verifyReset(comm, command, enter)
+            elif (action == "VP"):
+                # verifyPort(comm, command, enter)
+                "AUN NO DISPONIBLE"
+            elif (action == "CV"):
+                "AUN NO DISPONIBLE"
+            else:
+                print(f"Error @ : opcion {action} no existe")
+            conn.close()
 
-    except Exception:
-      print("Error At : ", traceback.format_exc())
-    except NoListSelected(Exception):
-      print("""Ningun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO""")
-    except NoClientsInList(Exception):
-      print("la lista no tiene ningun cliente...")
-    except KeyboardInterrupt:
-      print("Saliendo...")
-      sys.exit(0)
+        except Exception:
+            print("Error At : ", traceback.format_exc())
+        except NoListSelected(Exception):
+            print("""Ningun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO""")
+        except NoClientsInList(Exception):
+            print("la lista no tiene ningun cliente...")
+        except KeyboardInterrupt:
+            print("Saliendo...")
+            sys.exit(0)
 
 
 if __name__ == "__main__":
-  main()
+    main()
