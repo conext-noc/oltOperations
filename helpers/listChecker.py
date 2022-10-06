@@ -5,9 +5,9 @@ def compare(odoo, drive, olt):
             if(odooClient["Cliente/NIF"] == driveClient["NIF"][2:] ):
                 if(driveClient["OLT"] == olt):
                     listData.append({
-                        "Nombre Cliente en ODOO": odooClient["Cliente"],
-                        "Nombre Cliente en Drive": driveClient["NOMBRE"],
-                        "NIF": odooClient["Cliente/NIF"],
+                        "Cliente": odooClient["Cliente"],
+                        "NOMBRE": driveClient["NOMBRE"],
+                        "Cliente/NIF": odooClient["Cliente/NIF"],
                         "ID externo": odooClient["ID externo"],
                         "OLT": driveClient["OLT"],
                         "FRAME": driveClient["FRAME"],

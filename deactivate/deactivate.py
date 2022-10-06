@@ -42,10 +42,10 @@ def deactivate(comm,enter,command,olt,typeOfList):
             outputClient = comm.recv(65535)
             outputClient = outputClient.decode("ascii")
             OLT = client["OLT"]
-            FRAME = client["FRAME"]
-            SLOT = client["SLOT"]
-            PORT = client["PORT"]
-            clientID = client["ID"]
+            FRAME = client["FRAME"] if (client["FRAME"] != "N/A" and client["FRAME"] != "") else "NA"
+            SLOT = client["SLOT"] if (client["SLOT"] != "N/A" and client["SLOT"] != "") else "NA"
+            PORT = client["PORT"] if (client["PORT"] != "N/A" and client["PORT"] != "") else "NA"
+            clientID = client["ID"] if (client["ID"] != "N/A" and client["ID"] != "") else "NA"
             path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{OLT}.txt"
             print(outputClient, file=open(path, "w"))
         return actionList

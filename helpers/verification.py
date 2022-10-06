@@ -16,11 +16,17 @@ def verify(actList, action, olt):
         value = open(clientFile, "r").read()
         condition = f"""Control flag            : """
         result = re.search(condition, value)
-        end = result.span()[1]
-        estado = "Activo" if value[end:end + 1] == "a" else (
-            "Suspendido" if value[end:end + 1] == "d" else "Ninguno")
-        clientValue = {"NOMBRE": client["NOMBRE"], "Estatus": estado} if "O" not in action else {"Cliente": client["Cliente"], "Estado de contrato": estado, "ID externo": client["ID externo"], "Cliente/NIF": client["Cliente/NIF"]}
-        indexes.append(clientValue)
-        os.remove(f"{action}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{olt}.txt")
-    converter(result_path,"resultados",indexes,True)
+        if(result != None):
+            end = result.span()[1]
+            estado = "Activo" if value[end:end + 1] == "a" else (
+                "Suspendido" if value[end:end + 1] == "d" else "Ninguno")
+            clientValue = {"NOMBRE": client["NOMBRE"], "Estatus": estado} if "O" not in action else {"Cliente": client["Cliente"], "Estado de contrato": estado, "ID externo": client["ID externo"], "Cliente/NIF": client["Cliente/NIF"]}
+            indexes.append(clientValue)
+            os.remove(f"{action}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{olt}.txt")
+        else:
+            estado = "No encontrado"
+            clientValue = {"NOMBRE": client["NOMBRE"], "Estatus": estado} if "O" not in action else {"Cliente": client["Cliente"], "Estado de contrato": estado, "ID externo": client["ID externo"], "Cliente/NIF": client["Cliente/NIF"]}
+            indexes.append(clientValue)
+            os.remove(f"{action}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{olt}.txt")
+    converter(result_path,f"resultados{olt}",indexes,True)
 

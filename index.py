@@ -102,9 +102,9 @@ $ """)
                 result = deactivate(comm, enter, command, olt, action)
                 verify(result, action, olt)
             elif (action == "IN"):
-                confirm(comm, enter, command, olt, "IN")
+                confirm(comm, enter, command, olt, action)
             elif (action == "IP"):
-                confirm(comm, enter, command, olt, "IP")
+                confirm(comm, enter, command, olt, action)
             elif (action == "EE"):
                 delete(comm, command, enter, olt)
             elif (action == "CP"):
@@ -119,9 +119,9 @@ $ """)
                 verifyReset(comm, command, enter)
             elif (action == "VP"):
                 # verifyPort(comm, command, enter)
-                "AUN NO DISPONIBLE"
+                print("AUN NO DISPONIBLE")
             elif (action == "CV"):
-                "AUN NO DISPONIBLE"
+                print("AUN NO DISPONIBLE")
             else:
                 print(f"Error @ : opcion {action} no existe")
             conn.close()

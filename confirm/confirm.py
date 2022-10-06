@@ -45,14 +45,14 @@ def confirm(comm, enter, command, olt, type):
     if (ID != ""):
         (temp, pwr) = verifyValues(comm, command, enter, SLOT, PORT, ID)
         proceed = input(
-            f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [y|n] : ")
-        if (proceed == "y"):
+            f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [Y | N] : ")
+        if (proceed == "Y"):
             addOnuService(command, enter, SPID,
                           providerMap[PROVIDER], SLOT, PORT, ID, PLAN)
             print(template(SLOT, PORT, ID, NAME, olt,
                            PROVIDER, PLAN, temp, pwr, SPID))
             return
-        if (proceed == "n"):
+        if (proceed == "N"):
             reason = input("Por que no se le asignara servicio? : ")
             print(template(SLOT, PORT, ID, NAME, olt,
                            PROVIDER, PLAN, temp, pwr, SPID, reason))

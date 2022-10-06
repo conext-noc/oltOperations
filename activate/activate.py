@@ -27,7 +27,7 @@ def activate(comm,enter,command,olt,typeOfList):
         raise NoListSelected
     if(len(actionList) > 0):
         for client in actionList:
-            print(client["OLT"])
+            print(client["NOMBRE"], client["OLT"],client["FRAME"],client["SLOT"],client["PORT"],client["ID"])
             command(
                 "interface gpon {}/{}".format(client["FRAME"], client["SLOT"]))
             enter()
@@ -36,8 +36,6 @@ def activate(comm,enter,command,olt,typeOfList):
             enter()
             command("display ont info {} {} | include \"Control flag\" ".format(
                 client["PORT"], client["ID"]))
-            enter()
-            command("quit")
             enter()
             outputClient = comm.recv(65535)
             outputClient = outputClient.decode("ascii")
