@@ -110,7 +110,7 @@ $ """)
             elif (action == "CP"):
                 newPlan(comm, command, enter, olt)
             elif (action == "CE"):
-                deviceChange(comm, command, enter)
+                deviceChange(comm, command, enter, olt)
             elif (action == "VV"):
                 valueVerify(comm, command, enter)
             elif (action == "VC"):
