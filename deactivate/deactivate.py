@@ -23,11 +23,18 @@ def deactivate(comm,enter,command,olt,typeOfList):
         print("Selecciona la lista de clientes")
         lista = filedialog.askopenfilename()
         actionList = parser(lista)
+
+    elif(typeOfList == "CI"):
+        NAME = input("Ingrese nombre del cliente : ")
+        SLOT = input("Ingrese slot de cliente : ")
+        PORT = input("Ingrese puerto de cliente : ")
+        ID = input("Ingrese el id del cliente : ")
+        actionList=[{"NOMBRE":NAME,"OLT":olt,"FRAME":0,"SLOT":SLOT,"PORT":PORT,"ID":ID}]
     else:
         raise NoListSelected
     if(len(actionList) > 0):
         for client in actionList:
-            print(client["OLT"])
+            print(client["NOMBRE"], client["OLT"],client["FRAME"],client["SLOT"],client["PORT"],client["ID"])
             command(
                 "interface gpon {}/{}".format(client["FRAME"], client["SLOT"]))
             enter()

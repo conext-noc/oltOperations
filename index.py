@@ -74,11 +74,15 @@ def main():
 Que accion se realizara? 
   > (AA)  :  Activar
   > (AO)  :  Activar con datos de odoo
+  > (AI)  :  Activar cliente (1)
   > (CC)  :  Corte
   > (CO)  :  Corte con datos de odoo
+  > (CI)  :  Cortar cliente (1)
   > (IN)  :  Instalar nuevo
   > (IP)  :  Instalar previo
   > (EE)  :  Eliminar cliente
+  > (BN)  :  Buscar cliente en OLT (no agregado)
+  > (BC)  :  Buscar cliente en OLT (ya agregado)
   > (CP)  :  Cambio de plan
   > (CE)  :  Cambio de equipo
   > (VV)  :  Verificar valores de ont
@@ -95,10 +99,16 @@ $ """)
             elif (action == "AO"):
                 result = activate(comm, enter, command, olt, action)
                 verify(result, action, olt)
+            elif (action == "AI"):
+                result = activate(comm, enter, command, olt, action)
+                verify(result, action, olt)
             elif (action == "CC"):
                 result = deactivate(comm, enter, command, olt, action)
                 verify(result, action, olt)
             elif (action == "CO"):
+                result = deactivate(comm, enter, command, olt, action)
+                verify(result, action, olt)
+            elif (action == "CI"):
                 result = deactivate(comm, enter, command, olt, action)
                 verify(result, action, olt)
             elif (action == "IN"):

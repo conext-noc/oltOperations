@@ -23,6 +23,13 @@ def activate(comm,enter,command,olt,typeOfList):
         print("Selecciona la lista de clientes")
         lista = filedialog.askopenfilename()
         actionList = parser(lista)
+
+    elif(typeOfList == "AI"):
+        NAME = input("Ingrese nombre del cliente : ")
+        SLOT = input("Ingrese slot de cliente : ")
+        PORT = input("Ingrese puerto de cliente : ")
+        ID = input("Ingrese el id del cliente : ")
+        actionList=[{"NOMBRE":NAME,"OLT":olt,"FRAME":0,"SLOT":SLOT,"PORT":PORT,"ID":ID}]
     else:
         raise NoListSelected
     if(len(actionList) > 0):
@@ -37,13 +44,15 @@ def activate(comm,enter,command,olt,typeOfList):
             command("display ont info {} {} | include \"Control flag\" ".format(
                 client["PORT"], client["ID"]))
             enter()
+            command("quit")
+            enter()
             outputClient = comm.recv(65535)
             outputClient = outputClient.decode("ascii")
             OLT = client["OLT"]
-            FRAME = client["FRAME"]
-            SLOT = client["SLOT"]
-            PORT = client["PORT"]
-            clientID = client["ID"]
+            FRAME = client["FRAME"] if (client["FRAME"] != "N/A" and client["FRAME"] != "") else "NA"
+            SLOT = client["SLOT"] if (client["SLOT"] != "N/A" and client["SLOT"] != "") else "NA"
+            PORT = client["PORT"] if (client["PORT"] != "N/A" and client["PORT"] != "") else "NA"
+            clientID = client["ID"] if (client["ID"] != "N/A" and client["ID"] != "") else "NA"
             path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{OLT}.txt"
             print(outputClient, file=open(path, "w"))
         return actionList
