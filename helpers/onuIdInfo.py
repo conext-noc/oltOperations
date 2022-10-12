@@ -1,30 +1,29 @@
-import re
-import os
+from helpers.outputDecoder import parser,check
 
 conditionONT = """ONTID :"""
-
-
+conditionFail = "Failure: "
 def addONU(comm, command, enter, SLOT, PORT, SN, PROVIDER, NAME, SRV, LP):
     command(f"interface gpon 0/{SLOT}")
     enter()
     command(
         f"ont add {PORT} sn-auth {SN} omci ont-lineprofile-name \"{LP}\" ont-srvprofile-name \"{SRV}\"  desc \"{NAME}\" ")
     enter()
-    output = comm.recv(65535)
-    output = output.decode("ascii")
-    print(output, file=open("ResultONTID.txt", "w"))
-    value = open("ResultONTID.txt", "r").read()
-    resultONT = re.search(conditionONT, value)
-    end = resultONT.span()[1]
+    (value,re) = parser(comm,conditionONT,"s")
+    if(re == None):
+        reFail = check(value,conditionFail)
+        (_,e) = reFail.span()
+        print(value[e:e+22])  
+        return "F"
+    end = re.span()[1]
     ID = value[end:end+3].replace(" ", "")
-    os.remove("ResultONTID.txt")
+
     command(f"ont optical-alarm-profile {PORT} {ID} profile-id 3")
     enter()
     command(f"ont alarm-policy {PORT} {ID} policy-id 1")
     enter()
     addVlan = input("Se agregara vlan al puerto? (es bridge) [Y/N] : ")
     if (addVlan == "Y"):
-        command(f"ont PORT native-vlan {PORT} {ID} eth 1 vlan {PROVIDER}")
+        command(f"ont port native-vlan {PORT} {ID} eth 1 vlan {PROVIDER}")
         enter()
     command("quit")
     enter()

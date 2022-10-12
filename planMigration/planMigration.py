@@ -1,6 +1,5 @@
 from helpers.getONTSpid import getSPIDChange
 
-
 def newPlan(comm, command, enter, olt):
     SLOT = input("Ingrese slot de cliente : ")
     PORT = input("Ingrese puerto de cliente : ")

@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 from dotenv import load_dotenv
+from helpers.spidInfo import verifySPID
 from helpers.verification import verify
 from deactivate.deactivate import deactivate
 from activate.activate import activate
@@ -12,6 +13,7 @@ from valueVerify.valueVerify import valueVerify
 from speedVerify.speedVerify import speedVerify
 from verifyReset.verifyReset import verifyReset
 from verifyPort.verifyPort import verifyPort
+from ontLookup.lookup import existingLookup,newLookup
 import paramiko
 import time
 import traceback
@@ -88,6 +90,7 @@ Que accion se realizara?
   > (VV)  :  Verificar valores de ont
   > (VC)  :  Verificar consumo
   > (VR)  :  Verificar reset
+  > (VS)  :  Verificar Service-Port ID
   > (VP)  :  Verificacion de puerto
   > (CV)  :  Cambio Vlan (Proveedor)
 $ """)
@@ -101,7 +104,6 @@ $ """)
                 verify(result, action, olt)
             elif (action == "AI"):
                 result = activate(comm, enter, command, olt, action)
-                verify(result, action, olt)
             elif (action == "CC"):
                 result = deactivate(comm, enter, command, olt, action)
                 verify(result, action, olt)
@@ -110,13 +112,16 @@ $ """)
                 verify(result, action, olt)
             elif (action == "CI"):
                 result = deactivate(comm, enter, command, olt, action)
-                verify(result, action, olt)
             elif (action == "IN"):
                 confirm(comm, enter, command, olt, action)
             elif (action == "IP"):
                 confirm(comm, enter, command, olt, action)
             elif (action == "EE"):
                 delete(comm, command, enter, olt)
+            elif (action == "BN"):
+                newLookup(comm, command, enter, olt)
+            elif (action == "BC"):
+                existingLookup(comm, command, enter, olt)
             elif (action == "CP"):
                 newPlan(comm, command, enter, olt)
             elif (action == "CE"):
@@ -128,8 +133,10 @@ $ """)
             elif (action == "VR"):
                 verifyReset(comm, command, enter)
             elif (action == "VP"):
-                # verifyPort(comm, command, enter)
-                print("AUN NO DISPONIBLE")
+                verifyPort(comm, command, enter)
+            elif (action == "VS"):
+                spid = input("Ingrese el Service-Port ID : ")
+                verifySPID(comm, command, enter,spid)
             elif (action == "CV"):
                 print("AUN NO DISPONIBLE")
             else:

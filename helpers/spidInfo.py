@@ -1,19 +1,21 @@
-import re
-import os
+from helpers.outputDecoder import parser
 
 conditionSPID = """Next valid free service virtual port ID: """
+conditionSpidCheck = "-------------------------------------------------------------"
 
-def getSPID(comm, commandToSend, enter):
-    commandToSend("display service-port next-free-index")
+def getSPID(comm, command, enter):
+    command("display service-port next-free-index")
     enter()
     enter()
-    output = comm.recv(65535)
-    output = output.decode("ascii")
-    print(output, file=open("ResultSPID.txt", "w"))
-    value = open("ResultSPID.txt", "r").read()
-    result = re.search(conditionSPID, value)
-    end = result.span()[1]
-    os.remove("ResultSPID.txt")
+    (value,re) = parser(comm,conditionSPID,"s")
+    end = re.span()[1]
     spid = value[end:end+4]
-
     return spid
+
+def verifySPID(comm, command, enter,spid):
+    command(f"display service-port {spid} | no-more")
+    enter()
+    (value,re) = parser(comm,conditionSpidCheck,"m")
+    (s,_) = re[0]
+    (_,e) = re[1]
+    print(value[s:e])

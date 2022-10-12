@@ -1,6 +1,7 @@
 from tkinter import filedialog
 from helpers.csvParser import parser
 from helpers.listChecker import compare
+from helpers.outputDecoder import decoder
 
 class NoListSelected(Exception):
   """Ningun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO"""
@@ -46,15 +47,15 @@ def activate(comm,enter,command,olt,typeOfList):
             enter()
             command("quit")
             enter()
-            outputClient = comm.recv(65535)
-            outputClient = outputClient.decode("ascii")
+            outputClient = decoder(comm)
             OLT = client["OLT"]
             FRAME = client["FRAME"] if (client["FRAME"] != "N/A" and client["FRAME"] != "") else "NA"
             SLOT = client["SLOT"] if (client["SLOT"] != "N/A" and client["SLOT"] != "") else "NA"
             PORT = client["PORT"] if (client["PORT"] != "N/A" and client["PORT"] != "") else "NA"
             clientID = client["ID"] if (client["ID"] != "N/A" and client["ID"] != "") else "NA"
             path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{OLT}.txt"
-            print(outputClient, file=open(path, "w"))
+            if(typeOfList != "AI"):
+                print(outputClient, file=open(path, "w"))
         return actionList
     else:
         raise NoClientsInList

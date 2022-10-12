@@ -33,6 +33,8 @@ def valueVerify(comm,command,enter):
     speedDownArr.append(downSpeed)
     os.remove(f"Result{i}.txt")
     i = i + 1
+  command("quit")
+  enter()
   upLen = len(speedUpArr)
   upSum = sum(speedUpArr)
   upAVG = upSum / upLen

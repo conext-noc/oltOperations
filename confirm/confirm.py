@@ -1,4 +1,4 @@
-from helpers.spidInfo import getSPID
+from helpers.spidInfo import getSPID,verifySPID
 from helpers.onuIdInfo import addONU, addOnuService
 from helpers.ontCheck import verifyValues
 from helpers.templateGen import template
@@ -30,7 +30,6 @@ def confirm(comm, enter, command, olt, type):
         LP = input("Ingrese Line-Profile [PRUEBA_BRIDGE | INET] : ")
         SRV = input("Ingrese Service-Profile [Prueba | FTTH] : ")
         SPID = getSPID(comm, command, enter)
-        print(SPID)
         ID = addONU(comm, command, enter, SLOT, PORT, SN,
                     providerMap[PROVIDER], NAME, SRV, LP)
     elif ("P" in type):
@@ -42,13 +41,14 @@ def confirm(comm, enter, command, olt, type):
         PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET] : ")
         SN = input("Ingrese serial de cliente : ")
         PLAN = input("Ingrese plan de cliente : ")
-    if (ID != ""):
+    if (ID != "" and ID != "F"):
         (temp, pwr) = verifyValues(comm, command, enter, SLOT, PORT, ID)
         proceed = input(
             f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [Y | N] : ")
         if (proceed == "Y"):
             addOnuService(command, enter, SPID,
                           providerMap[PROVIDER], SLOT, PORT, ID, PLAN)
+            verifySPID(comm,command,enter, SPID)
             print(template(SLOT, PORT, ID, NAME, olt,
                            PROVIDER, PLAN, temp, pwr, SPID))
             return
