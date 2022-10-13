@@ -14,6 +14,7 @@ from speedVerify.speedVerify import speedVerify
 from verifyReset.verifyReset import verifyReset
 from verifyPort.verifyPort import verifyPort
 from ontLookup.lookup import existingLookup,newLookup
+from providerChange.providerChange import providerChange
 import paramiko
 import time
 import traceback
@@ -138,7 +139,7 @@ $ """)
                 spid = input("Ingrese el Service-Port ID : ")
                 verifySPID(comm, command, enter,spid)
             elif (action == "CV"):
-                print("AUN NO DISPONIBLE")
+                providerChange(comm, command, enter,olt)
             else:
                 print(f"Error @ : opcion {action} no existe")
             conn.close()

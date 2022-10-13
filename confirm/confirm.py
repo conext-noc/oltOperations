@@ -5,7 +5,8 @@ from helpers.templateGen import template
 
 providerMap = {
     "INTER": 1101,
-    "VNET": 1102
+    "VNET": 1102,
+    "PUBLICAS": 1104
 }
 
 
@@ -24,11 +25,11 @@ def confirm(comm, enter, command, olt, type):
         SLOT = input("Ingrese slot de cliente : ")
         PORT = input("Ingrese puerto de cliente : ")
         NAME = input("Ingrese nombre del cliente : ")
-        PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET] : ")
+        PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ")
         SN = input("Ingrese serial de cliente : ")
         PLAN = input("Ingrese plan de cliente : ")
-        LP = input("Ingrese Line-Profile [PRUEBA_BRIDGE | INET] : ")
-        SRV = input("Ingrese Service-Profile [Prueba | FTTH] : ")
+        LP = input("Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ")
+        SRV = input("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
         SPID = getSPID(comm, command, enter)
         ID = addONU(comm, command, enter, SLOT, PORT, SN,
                     providerMap[PROVIDER], NAME, SRV, LP)
