@@ -26,7 +26,7 @@ def verifyReset(comm, command, enter):
 def verifyWAN(comm, command, enter, SLOT, PORT, ID):
     command(f"interface gpon 0/{SLOT}")
     enter()
-    command(f'display ont wan-info {PORT} {ID} | include "IPv4 address" ')
+    command(f"display ont wan-info {PORT} {ID}")
     enter()
     (value, re) = parser(comm, ip, "s")
     print(value)
