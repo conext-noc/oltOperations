@@ -1,19 +1,19 @@
-import csv
+import pandas as pd
+
 
 def parser(path):
-    with open(path, "r", encoding="utf8") as f:
-        data = list(csv.DictReader(f))
+    file = pd.read_csv(path, encoding="latin1")
+    data = file.to_dict("records")
     return data
 
-def converter(path,filename,data,show):
-    keys = data[0].keys()
-    if(show):
-        with open(f'{path}/{filename}.csv', 'w', newline='') as f:
-            dict_writer = csv.DictWriter(f, keys)
-            dict_writer.writeheader()
-            dict_writer.writerows(data)
+
+def converter(path, filename, data, show):
+    value = pd.DataFrame.from_records(data)
+    if show:
+        value.to_csv(f"{path}/{filename}.csv", index=None)
     else:
-        with open(f'{filename}.csv', 'w', newline='') as f:
-            dict_writer = csv.DictWriter(f, keys)
-            dict_writer.writeheader()
-            dict_writer.writerows(data)
+        value.to_csv(f"{filename}.csv", index=None)
+
+
+def converterFromTxt():
+    """"""

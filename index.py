@@ -13,12 +13,14 @@ from valueVerify.valueVerify import valueVerify
 from speedVerify.speedVerify import speedVerify
 from verifyReset.verifyReset import verifyReset
 from verifyPort.verifyPort import verifyPort
-from ontLookup.lookup import existingLookup,newLookup
+from ontLookup.lookup import existingLookup, newLookup
 from providerChange.providerChange import providerChange
+from clientFault.clientFault import clientFault
 import paramiko
 import time
 import traceback
 import sys
+
 load_dotenv()
 
 username = os.environ["user"]
@@ -30,11 +32,13 @@ root.withdraw()
 
 class NoListSelected(Exception):
     """Ningun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO"""
+
     pass
 
 
 class NoClientsInList(Exception):
     """la lista no tiene ningun cliente..."""
+
     pass
 
 
@@ -44,13 +48,14 @@ def main():
         try:
             olt = input("Seleccione la OLT [15|2] : ")
             ip = ""
-            if (olt == "15"):
+            if olt == "15":
                 ip = "181.232.180.5"
-            elif (olt == "2"):
+            elif olt == "2":
                 ip = "181.232.180.6"
             else:
                 raise Exception(
-                    f"No se puede Conectar a la OLT, Error OLT {olt} no existe")
+                    f"No se puede Conectar a la OLT, Error OLT {olt} no existe"
+                )
 
             conn = paramiko.SSHClient()
             conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -73,19 +78,20 @@ def main():
             output = comm.recv(65535)
             output = output.decode("ascii")
 
-            action = input("""
+            action = input(
+                """
 Que accion se realizara? 
-  > (AA)  :  Activar
-  > (AO)  :  Activar con datos de odoo
-  > (AI)  :  Activar cliente (1)
-  > (CC)  :  Corte
-  > (CO)  :  Corte con datos de odoo
-  > (CI)  :  Cortar cliente (1)
+  > (RC)  :  Reactivar Clientes (lista)
+  > (RO)  :  Reactivar con lista de Odoo
+  > (RU)  :  Reactivar uno
+  > (SC)  :  Suspender Clientes
+  > (SO)  :  Suspender con lista de Odoo
+  > (SU)  :  Suspender uno
   > (IN)  :  Instalar nuevo
   > (IP)  :  Instalar previo
-  > (EE)  :  Eliminar cliente
+  > (EC)  :  Eliminar Cliente
   > (BN)  :  Buscar cliente en OLT (no agregado)
-  > (BC)  :  Buscar cliente en OLT (ya agregado)
+  > (BE)  :  Buscar cliente en OLT (ya agregado)
   > (CP)  :  Cambio de plan
   > (CE)  :  Cambio de equipo
   > (VV)  :  Verificar valores de ont
@@ -94,64 +100,65 @@ Que accion se realizara?
   > (VS)  :  Verificar Service-Port ID
   > (VP)  :  Verificacion de puerto
   > (CV)  :  Cambio Vlan (Proveedor)
-$ """)
+  > (CA)  :  Clientes con averias (corte de fibra)
+$ """
+            )
 
             # TURN THIS TO A HASH MAP
-            if (action == "AA"):
+            if action == "RC":
                 result = activate(comm, enter, command, olt, action)
                 verify(result, action, olt)
-            elif (action == "AO"):
+            elif action == "RO":
                 result = activate(comm, enter, command, olt, action)
                 verify(result, action, olt)
-            elif (action == "AI"):
+            elif action == "RU":
                 result = activate(comm, enter, command, olt, action)
-            elif (action == "CC"):
+            elif action == "SC":
                 result = deactivate(comm, enter, command, olt, action)
                 verify(result, action, olt)
-            elif (action == "CO"):
+            elif action == "SO":
                 result = deactivate(comm, enter, command, olt, action)
                 verify(result, action, olt)
-            elif (action == "CI"):
+            elif action == "SU":
                 result = deactivate(comm, enter, command, olt, action)
-            elif (action == "IN"):
+            elif action == "IN":
                 confirm(comm, enter, command, olt, action)
-            elif (action == "IP"):
+            elif action == "IP":
                 confirm(comm, enter, command, olt, action)
-            elif (action == "EE"):
+            elif action == "EC":
                 delete(comm, command, enter, olt)
-            elif (action == "BN"):
+            elif action == "BN":
                 newLookup(comm, command, enter, olt)
-            elif (action == "BC"):
+            elif action == "BE":
                 existingLookup(comm, command, enter, olt)
-            elif (action == "CP"):
+            elif action == "CP":
                 newPlan(comm, command, enter, olt)
-            elif (action == "CE"):
+            elif action == "CE":
                 deviceChange(comm, command, enter, olt)
-            elif (action == "VV"):
+            elif action == "VV":
                 valueVerify(comm, command, enter)
-            elif (action == "VC"):
+            elif action == "VC":
                 speedVerify(comm, command, enter)
-            elif (action == "VR"):
+            elif action == "VR":
                 verifyReset(comm, command, enter)
-            elif (action == "VP"):
+            elif action == "VP":
                 verifyPort(comm, command, enter)
-            elif (action == "VS"):
+            elif action == "VS":
                 spid = input("Ingrese el Service-Port ID : ")
-                verifySPID(comm, command, enter,spid)
-            elif (action == "CV"):
-                providerChange(comm, command, enter,olt)
+                verifySPID(comm, command, enter, spid)
+            elif action == "CV":
+                providerChange(comm, command, enter, olt)
+            elif action == "CA":
+                clientFault(comm, command, enter, olt)
             else:
                 print(f"Error @ : opcion {action} no existe")
             conn.close()
 
-        except Exception:
-            print("Error At : ", traceback.format_exc())
-        except NoListSelected(Exception):
-            print("""Ningun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO""")
-        except NoClientsInList(Exception):
-            print("la lista no tiene ningun cliente...")
         except KeyboardInterrupt:
             print("Saliendo...")
+            sys.exit(0)
+        except Exception:
+            print("Error At : ", traceback.format_exc())
             sys.exit(0)
 
 
