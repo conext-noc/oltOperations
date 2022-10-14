@@ -30,18 +30,6 @@ root = tk.Tk()
 root.withdraw()
 
 
-class NoListSelected(Exception):
-    """Ningun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO"""
-
-    pass
-
-
-class NoClientsInList(Exception):
-    """la lista no tiene ningun cliente..."""
-
-    pass
-
-
 def main():
     delay = 1
     while True:
