@@ -1,7 +1,13 @@
 import re
 from helpers.csvParser import converter
+from helpers.outputDecoder import check
+from helpers.failHandler import failChecker
 import os
 from tkinter import filedialog
+
+condition1 = "Control flag            : "
+condition2 = "Run state"
+
 
 def verify(actList, action, olt):
     print("Donde quieres guardar los resultados?")
@@ -11,22 +17,36 @@ def verify(actList, action, olt):
         FRAME = client["FRAME"]
         SLOT = client["SLOT"]
         PORT = client["PORT"]
-        clientID = client["ID"]
-        clientFile = f"{action}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{olt}.txt"
-        value = open(clientFile, "r").read()
-        condition = f"""Control flag            : """
-        result = re.search(condition, value)
-        if(result != None):
-            end = result.span()[1]
-            estado = "Activo" if value[end:end + 1] == "a" else (
-                "Suspendido" if value[end:end + 1] == "d" else "Ninguno")
-            clientValue = {"NOMBRE": client["NOMBRE"], "Estatus": estado} if "O" not in action else {"Cliente": client["Cliente"], "Estado de contrato": estado, "ID externo": client["ID externo"], "Cliente/NIF": client["Cliente/NIF"]}
+        ID = client["ID"]
+        value = open(f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{olt}.txt", "r").read()
+        fail = failChecker(value)
+        os.remove(f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{olt}.txt")
+        if fail == None:
+            (_, s) = check(value, condition1).span()
+            (e, _) = check(value, condition2).span()
+            state = value[s:e].replace("\n", "").replace(" ", "")
+            estado = "suspendido" if state == "deactivated" else "activo"
+            clientValue = (
+                {"NOMBRE": client["NOMBRE"], "Estatus": estado}
+                if "O" not in action
+                else {
+                    "Cliente": client["Cliente"],
+                    "Estado de contrato": estado,
+                    "ID externo": client["ID externo"],
+                    "Cliente/NIF": client["Cliente/NIF"],
+                }
+            )
             indexes.append(clientValue)
-            os.remove(f"{action}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{olt}.txt")
         else:
-            estado = "No encontrado"
-            clientValue = {"NOMBRE": client["NOMBRE"], "Estatus": estado} if "O" not in action else {"Cliente": client["Cliente"], "Estado de contrato": estado, "ID externo": client["ID externo"], "Cliente/NIF": client["Cliente/NIF"]}
+            clientValue = (
+                {"NOMBRE": client["NOMBRE"], "Estatus": fail}
+                if "O" not in action
+                else {
+                    "Cliente": client["Cliente"],
+                    "Estado de contrato": fail,
+                    "ID externo": client["ID externo"],
+                    "Cliente/NIF": client["Cliente/NIF"],
+                }
+            )
             indexes.append(clientValue)
-            os.remove(f"{action}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{olt}.txt")
-    converter(result_path,f"resultados{olt}",indexes,True)
-
+    converter(result_path, f"resultados{olt}", indexes, True)

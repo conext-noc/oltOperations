@@ -13,7 +13,3 @@ def converter(path, filename, data, show):
         value.to_csv(f"{path}/{filename}.csv", index=None)
     else:
         value.to_csv(f"{filename}.csv", index=None)
-
-
-def converterFromTxt():
-    """"""
