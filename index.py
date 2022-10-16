@@ -8,7 +8,7 @@ from activate.activate import activate
 from delete.delete import delete
 from confirm.confirm import confirm
 from planMigration.planMigration import newPlan
-from deviceChange.deviceChange import deviceChange
+from deviceChange.deviceModify import deviceModify
 from valueVerify.valueVerify import valueVerify
 from speedVerify.speedVerify import speedVerify
 from verifyReset.verifyReset import verifyReset
@@ -81,7 +81,7 @@ Que accion se realizara?
   > (BN)  :  Buscar cliente en OLT (no agregado)
   > (BE)  :  Buscar cliente en OLT (ya agregado)
   > (CP)  :  Cambio de plan
-  > (CE)  :  Cambio de equipo
+  > (MC)  :  Modificar Cliente
   > (VV)  :  Verificar valores de ont
   > (VC)  :  Verificar consumo
   > (VR)  :  Verificar reset
@@ -121,8 +121,8 @@ $ """
                 existingLookup(comm, command, enter, olt)
             elif action == "CP":
                 newPlan(comm, command, enter, olt)
-            elif action == "CE":
-                deviceChange(comm, command, enter, olt)
+            elif action == "MC":
+                deviceModify(comm, command, enter, olt)
             elif action == "VV":
                 valueVerify(comm, command, enter)
             elif action == "VC":

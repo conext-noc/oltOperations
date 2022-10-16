@@ -1,8 +1,9 @@
-from helpers.outputDecoder import decoder,parser,check
+from helpers.outputDecoder import decoder, parser, check
+from helpers.failHandler import failChecker
 
 conditionTemp = "Temperature\(C\)                         : "
 conditionPwr = "Rx optical power\(dBm\)                  : "
-conditionFail = "Failure: "
+
 
 def verifyValues(comm, command, enter, SLOT, PORT, ID):
     enter()
@@ -10,29 +11,20 @@ def verifyValues(comm, command, enter, SLOT, PORT, ID):
     command(f"interface gpon 0/{SLOT}")
     enter()
 
-    command(
-        f"""display ont optical-info {PORT} {ID} | include Temperature""")
+    command(f"display ont optical-info {PORT} {ID} | no-more")
     enter()
-    (value,re) = parser(comm,conditionTemp,"s")
-    if(re == None):
-        reFail = check(value,conditionFail)
-        (_,e) = reFail.span()
-        print(valueFail[e:e+22]) 
-        return ("NA", "NA")
-    endTemp = re.span()[1]
-    temp = value[endTemp:endTemp+4]
-
-    command(f"display ont optical-info {PORT} {ID} | include Rx")
-    enter()
-    (value,re) = parser(comm,conditionPwr,"s")
-    if(re == None):
-        (valueFail,reFail) = parser(comm,conditionFail,"s")
-        (_,e) = reFail.span()
-        print(valueFail[e:e+22]) 
-        return ("NA", "NA")
-    endPwr = re.span()[1]
-    pwr = value[endPwr:endPwr+6]
-
-    command("quit")
-    enter()
-    return (temp, pwr)
+    (value, rePwr) = parser(comm, conditionPwr, "s")
+    reTemp = check(value, conditionTemp)
+    fail = failChecker(value)
+    if fail == None:
+        print(fail)
+        command("quit")
+        enter()
+    else:
+        command("quit")
+        enter()
+        (_, eT) = reTemp.span()
+        (_, eP) = rePwr.span()
+        pwr = value[eP : eP + 6]
+        temp = value[eT : eT + 4]
+        return (temp, pwr)

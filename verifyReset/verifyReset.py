@@ -1,6 +1,8 @@
-from helpers.outputDecoder import parser
+from helpers.outputDecoder import parser, check
+from helpers.failHandler import failChecker
 
 ip = "IPv4 address               : "
+vlan = "Manage VLAN                : "
 
 
 def verifyReset(comm, command, enter):
@@ -28,5 +30,13 @@ def verifyWAN(comm, command, enter, SLOT, PORT, ID):
     enter()
     command(f"display ont wan-info {PORT} {ID}")
     enter()
-    (value, re) = parser(comm, ip, "s")
-    print(value)
+    (value, re) = parser(comm, vlan, "s")
+    fail = failChecker(value)
+    if fail == None:
+        (_, e) = re.span()
+        vUsed = value[e : e + 4]
+        print(f"Al ONT se le ha agregado la vlan {vUsed}")
+        return vUsed
+    else:
+        print(fail)
+        return fail

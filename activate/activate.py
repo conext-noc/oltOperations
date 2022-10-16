@@ -1,7 +1,7 @@
 from tkinter import filedialog
 from helpers.csvParser import parser
 from helpers.listChecker import compare
-from helpers.outputDecoder import decoder
+from helpers.outputDecoder import sshToFile
 
 
 def activate(comm, enter, command, olt, typeOfList):
@@ -12,12 +12,10 @@ def activate(comm, enter, command, olt, typeOfList):
         print("Selecciona el archivo de lista de clientes de Drive")
         drive = filedialog.askopenfilename()
         actionList = compare(parser(odoo), parser(drive), olt)
-
     elif typeOfList == "RC":
         print("Selecciona la lista de clientes")
         lista = filedialog.askopenfilename()
         actionList = parser(lista)
-
     elif typeOfList == "RU":
         NAME = input("Ingrese nombre del cliente : ")
         SLOT = input("Ingrese slot de cliente : ")
@@ -35,55 +33,30 @@ def activate(comm, enter, command, olt, typeOfList):
         ]
     else:
         print(
-            """\nNingun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO\n"""
+            '\nNingun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO\n'
         )
         return
     if len(actionList) > 0:
         for client in actionList:
-            print(
-                client["NOMBRE"],
-                client["OLT"],
-                client["FRAME"],
-                client["SLOT"],
-                client["PORT"],
-                client["ID"],
-            )
-            command("interface gpon {}/{}".format(client["FRAME"], client["SLOT"]))
-            enter()
-            command("ont activate {} {}".format(client["PORT"], client["ID"]))
-            enter()
-            command(
-                'display ont info {} {} | include "Control flag" '.format(
-                    client["PORT"], client["ID"]
-                )
-            )
-            enter()
-            command("quit")
-            enter()
-            outputClient = decoder(comm)
+            NAME = client["NOMBRE"]
             OLT = client["OLT"]
-            FRAME = (
-                client["FRAME"]
-                if (client["FRAME"] != "N/A" and client["FRAME"] != "")
-                else "NA"
-            )
-            SLOT = (
-                client["SLOT"]
-                if (client["SLOT"] != "N/A" and client["SLOT"] != "")
-                else "NA"
-            )
-            PORT = (
-                client["PORT"]
-                if (client["PORT"] != "N/A" and client["PORT"] != "")
-                else "NA"
-            )
-            clientID = (
-                client["ID"] if (client["ID"] != "N/A" and client["ID"] != "") else "NA"
-            )
-            path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{clientID}_OLT{OLT}.txt"
+            FRAME = client["FRAME"]
+            SLOT = client["SLOT"]
+            PORT = client["PORT"]
+            ID = client["ID"]
+            print(f"{NAME} @ OLT {OLT} IN {FRAME}/{SLOT}/{PORT}/{ID}")
+            command(f"interface gpon {FRAME}/{SLOT}")
+            enter()
+            command(f"ont activate {PORT} {ID}")
+            enter()
+            command(f'display ont info {PORT} {ID} | include "Control flag" ')
+            enter()
             if typeOfList != "RU":
-                print(outputClient, file=open(path, "w"))
+                path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
+                sshToFile(comm, path)
+        command("quit")
+        enter()
         return actionList
     else:
-        print("""\nla lista no tiene ningun cliente...\n""")
+        print("\nla lista no tiene ningun cliente...\n")
         return

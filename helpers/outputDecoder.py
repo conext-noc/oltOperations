@@ -4,7 +4,7 @@ import re
 
 def decoder(comm):
     data = ""
-    chunk = comm.recv(65535)
+    chunk = comm.recv(1024000000)
     chunk = chunk.decode("latin1")
     data += chunk
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
@@ -54,3 +54,8 @@ def txt2csvFormatter(file):
     for line in lines:
         f.write(line[1:].replace(" +", ""))
     f.close()
+
+
+def sshToFile(comm, file):
+    output = decoder(comm)
+    print(output, file=open(f"{file}", "w"))
