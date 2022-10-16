@@ -29,7 +29,7 @@ def confirm(comm, enter, command, olt, type):
         )
         SRV = input("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
         SPID = getSPID(comm, command, enter)
-        print(SPID)
+        print(f"El SPID que se le agregara al cliente es : {SPID}")
         ID = addONU(
             comm, command, enter, SLOT, PORT, SN, providerMap[PROVIDER], NAME, SRV, LP
         )
@@ -38,11 +38,12 @@ def confirm(comm, enter, command, olt, type):
         PORT = input("Ingrese puerto de cliente : ")
         ID = input("Ingrese el id del cliente : ")
         NAME = input("Ingrese nombre del cliente : ")
-        SPID = input("Ingrese el Service Port ID del cliente : ")
         PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET] : ")
         SN = input("Ingrese serial de cliente : ")
         PLAN = input("Ingrese plan de cliente : ")
+        SPID = getSPID(comm, command, enter)
     if ID != "" and ID != "F":
+        print(f"El SPID que se le agregara al cliente es : {SPID}")
         (temp, pwr) = verifyValues(comm, command, enter, SLOT, PORT, ID)
         proceed = input(
             f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [Y | N] : "
