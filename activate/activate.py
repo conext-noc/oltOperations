@@ -49,7 +49,7 @@ def activate(comm, enter, command, olt, typeOfList):
             enter()
             command(f"ont activate {PORT} {ID}")
             enter()
-            command(f'display ont info {PORT} {ID} | include "Control flag" ')
+            command(f"display ont info {PORT} {ID}")
             enter()
             if typeOfList != "RU":
                 path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
