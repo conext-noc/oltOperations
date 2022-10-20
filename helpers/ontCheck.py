@@ -14,17 +14,17 @@ def verifyValues(comm, command, enter, SLOT, PORT, ID):
     command(f"display ont optical-info {PORT} {ID} | no-more")
     enter()
     (value, rePwr) = parser(comm, conditionPwr, "s")
-    reTemp = check(value, conditionTemp)
     fail = failChecker(value)
-    if fail == None:
+    if fail != None:
         print(fail)
         command("quit")
         enter()
     else:
         command("quit")
         enter()
+        reTemp = check(value, conditionTemp)
         (_, eT) = reTemp.span()
         (_, eP) = rePwr.span()
-        pwr = value[eP : eP + 6]
-        temp = value[eT : eT + 4]
+        pwr = value[eP: eP + 6]
+        temp = value[eT: eT + 4]
         return (temp, pwr)

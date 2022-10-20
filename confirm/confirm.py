@@ -21,7 +21,6 @@ def confirm(comm, enter, command, olt, type):
         SLOT = input("Ingrese slot de cliente : ")
         PORT = input("Ingrese puerto de cliente : ")
         NAME = input("Ingrese nombre del cliente : ")
-        PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ")
         SN = input("Ingrese serial de cliente : ")
         PLAN = input("Ingrese plan de cliente : ")
         LP = input(
@@ -31,7 +30,7 @@ def confirm(comm, enter, command, olt, type):
         SPID = getSPID(comm, command, enter)
         print(f"El SPID que se le agregara al cliente es : {SPID}")
         ID = addONU(
-            comm, command, enter, SLOT, PORT, SN, providerMap[PROVIDER], NAME, SRV, LP
+            comm, command, enter, SLOT, PORT, SN, NAME, SRV, LP
         )
     elif "P" in type:
         SLOT = input("Ingrese slot de cliente : ")

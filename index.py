@@ -92,7 +92,6 @@ Que accion se realizara?
 $ """
             )
 
-            # TURN THIS TO A HASH MAP
             if action == "RC":
                 result = activate(comm, enter, command, olt, action)
                 verify(result, action, olt)
