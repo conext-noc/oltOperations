@@ -5,6 +5,7 @@ from helpers.failHandler import failChecker
 conditionONT = """ONTID :"""
 conditionFail = "Failure: "
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
+vlanProvMap = {"1101": "INTER", "1102": "VNET", "1104": "PUBLICAS"}
 
 
 def addONU(comm, command, enter, SLOT, PORT, SN, NAME, SRV, LP):
@@ -16,14 +17,14 @@ def addONU(comm, command, enter, SLOT, PORT, SN, NAME, SRV, LP):
     enter()
     (value, re) = parser(comm, conditionONT, "s")
     fail = failChecker(value)
-    if fail == None:
+    if fail != None:
         print(fail)
     else:
         end = re.span()[1]
-        ID = value[end : end + 3].replace(" ", "")
-        command(f"ont optical-alarm-profile {PORT} {ID} profile-id 3")
+        ID = value[end : end + 3].replace(" ", "").replace("\n", "")
+        command(f"ont optical-alarm-profile {PORT} {ID} profile-name ALARMAS_OPTICAS")
         enter()
-        command(f"ont alarm-policy {PORT} {ID} policy-id 1")
+        command(f"ont alarm-policy {PORT} {ID} policy-name FAULT_ALARMS")
         enter()
         preg = input(
             "Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : "
@@ -38,7 +39,7 @@ def addONU(comm, command, enter, SLOT, PORT, SN, NAME, SRV, LP):
             enter()
         command("quit")
         enter()
-        return (ID,PROVIDER)
+        return (ID,vlanProvMap[f"{str(PROVIDER)}"])
 
 
 def addOnuService(command, enter, SPID, PROVIDER, SLOT, PORT, ID, PLAN):

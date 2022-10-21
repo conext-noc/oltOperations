@@ -29,7 +29,7 @@ def confirm(comm, enter, command, olt, type):
         SRV = input("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
         SPID = getSPID(comm, command, enter)
         print(f"El SPID que se le agregara al cliente es : {SPID}")
-        ID = addONU(
+        (ID, PROVIDER) = addONU(
             comm, command, enter, SLOT, PORT, SN, NAME, SRV, LP
         )
     elif "P" in type:
@@ -37,7 +37,7 @@ def confirm(comm, enter, command, olt, type):
         PORT = input("Ingrese puerto de cliente : ")
         ID = input("Ingrese el id del cliente : ")
         NAME = input("Ingrese nombre del cliente : ")
-        PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET] : ")
+        PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ")
         SN = input("Ingrese serial de cliente : ")
         PLAN = input("Ingrese plan de cliente : ")
         SPID = getSPID(comm, command, enter)
