@@ -146,7 +146,6 @@ $ """
             sys.exit(0)
         except Exception:
             print("Error At : ", traceback.format_exc())
-            sys.exit(0)
 
 
 if __name__ == "__main__":
