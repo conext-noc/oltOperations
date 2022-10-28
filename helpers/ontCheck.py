@@ -20,5 +20,5 @@ def verifyValues(comm, command, SLOT, PORT, ID):
         (_, eT) = reTemp.span()
         (_, eP) = rePwr.span()
         pwr = value[eP: eP + 6]
-        temp = value[eT: eT + 4]
+        temp = value[eT: eT + 4].replace("\n", "").replace(" ", "")
         return (temp, pwr)
