@@ -7,8 +7,8 @@ vlan = "Manage VLAN                : "
 
 
 def verifyReset(comm, command):
-    lookupType = input("Buscar cliente por serial o por datos [S | D] : ")
-    if(lookupType == "D"):
+    lookupType = input("Buscar cliente por serial o por F/S/P/ID [S | F] : ").upper()
+    if(lookupType == "F"):
         SLOT = input("Ingrese slot de cliente : ")
         PORT = input("Ingrese puerto de cliente : ")
         ID = input("Ingrese el id del cliente : ")
@@ -26,7 +26,7 @@ def verifyReset(comm, command):
             print(f"El cliente {NAME} tiene reset")
     elif(lookupType == "S"):
         SN = input("Ingrese serial de cliente : ")
-        (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,enter,SN)
+        (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,SN)
         command(f"interface gpon {FRAME}/{SLOT}")
         command(f'display ont wan-info {PORT} {ID} | include "IPv4 address" ')
 
@@ -51,4 +51,4 @@ def verifyWAN(comm, command, SLOT, PORT, ID):
         return vUsed
     else:
         print(fail)
-        return fail
+        return "OFFLINE"

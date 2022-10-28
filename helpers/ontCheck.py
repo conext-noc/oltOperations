@@ -6,19 +6,16 @@ conditionPwr = "Rx optical power\(dBm\)                  : "
 
 
 def verifyValues(comm, command, SLOT, PORT, ID):
-    decoder(comm)
     command(f"interface gpon 0/{SLOT}")
-
     command(f"display ont optical-info {PORT} {ID} | no-more")
+    command("quit")
     (value, rePwr) = parser(comm, conditionPwr, "s")
     fail = failChecker(value)
     if fail != None:
         print(fail)
-        command("quit")
+        return ("OFFLINE", "OFFLINE")
 
     else:
-        command("quit")
-
         reTemp = check(value, conditionTemp)
         (_, eT) = reTemp.span()
         (_, eP) = rePwr.span()

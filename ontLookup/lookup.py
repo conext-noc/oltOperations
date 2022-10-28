@@ -1,7 +1,15 @@
-from helpers.outputDecoder import parser, check, checkIter
+from helpers.getONTSpid import getSPIDChange
+from helpers.outputDecoder import decoder, parser, checkIter, check
+from helpers.serialLookup import serialSearch
 from helpers.ontCheck import verifyValues
+from helpers.failHandler import failChecker
 from verifyReset.verifyReset import verifyWAN
 from time import sleep
+
+planMap = {
+    "VLANID":"VLAN ID             : ",
+    "PLAN": "Inbound table name  : "
+}
 
 existingCond = (
     "-----------------------------------------------------------------------------"
@@ -10,18 +18,10 @@ newCond = "---------------------------------------------------------------------
 newCondFSP = "F/S/P               : "
 newCondSn = "Ont SN              : "
 existing = {
-    "FSP": "F/S/P                   : ",
-    "LP": "Line profile name    : ",
-    "SRV": "Service profile name : ",
-    "ONTID": "ONT-ID                  : ",
     "CF": "Control flag            : ",
-    "CS": "Config state",
     "RE": "Run state               : ",
     "DESC": "Description             : ",
     "LDC": "Last down cause         : ",
-    "LDT": "Last down time          : ",
-    "LUT": "Last up time            : ",
-    "LDGT": "Last dying gasp time    : ",
 }
 
 
@@ -48,47 +48,74 @@ def newLookup(comm, command, olt):
 
 
 def existingLookup(comm, command, olt):
+    FRAME = ""
+    SLOT = ""
+    PORT = ""
+    ID = ""
+    NAME = ""
+    STATE = ""
+    SPID = "NA"
+    SPID1 = "NA"
+    SPID2 = "NA"
+    VLAN = "NA"
+    PLAN = "NA"
+    VLAN1 = "NA"
+    PLAN1 = "NA"
+    VLAN2 = "NA"
+    PLAN2 = "NA"
     lookupType = input("Buscar cliente por serial, por nombre o por F/S/P/ID [S | N | F] : ")
     if lookupType == "S":
         SN = input("Ingrese el Serial del Cliente a buscar : ")
         command(f"display ont info by-sn {SN} | no-more")
         sleep(3)
-        (val, regex) = parser(comm, existingCond, "m")
-        (_, s) = regex[0]
-        (e, _) = regex[len(regex) - 1]
-        value = val[s:e]
-        (_, eFSP) = check(value, existing["FSP"]).span()
-        valFSP = value[eFSP : eFSP + 6].replace("\n", "")
-        reFSP = checkIter(valFSP, "/")
-        (_, eSLOT) = reFSP[0]
-        (_, ePORT) = reFSP[1]
-        SLOT = valFSP[eSLOT : eSLOT + 1].replace("\n", "")
-        PORT = valFSP[ePORT : ePORT + 2].replace("\n", "")
-        (_, eID) = check(value, existing["ONTID"]).span()
-        (_, eLP) = check(value, existing["LP"]).span()
-        (_, eSRV) = check(value, existing["SRV"]).span()
-        (_, sDESC) = check(value, existing["DESC"]).span()
-        (_, sCF) = check(value, existing["CF"]).span()
-        (eCF, sRE) = check(value, existing["RE"]).span()
-        (eRE, _) = check(value, existing["CS"]).span()
-        (eDESC, sLDC) = check(value, existing["LDC"]).span()
-        (eLDC, sLUT) = check(value, existing["LUT"]).span()
-        (eLUT, sLDT) = check(value, existing["LDT"]).span()
-        (eLDT, _) = check(value, existing["LDGT"]).span()
-        FRAME = 0
-        ID = value[eID : eID + 3].replace("\n", "")
-        NAME = value[sDESC:eDESC].replace("\n", "")
-        RUNSTATE = value[sRE:eRE].replace("\n", "")
-        LDC = value[sLDC:eLDC].replace("\n", "")
-        LDT = value[sLDT:eLDT].replace("\n", "")
-        LUT = value[sLUT:eLUT].replace("\n", "")
-        STATE = value[sCF:eCF].replace("\n", "")
-        LP = value[eLP : eLP + 4].replace("\n", "")
-        SRV = value[eSRV : eSRV + 4].replace("\n", "")
-        VLAN = verifyWAN(comm, command, SLOT, PORT, ID)
+        (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,SN)
         (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
-
-        print(
+        result = getSPIDChange(comm, command, SLOT, PORT, ID)
+        if(result["values"] != None):
+            if result["ttl"] == 1:
+                SPID = result["values"]
+                command(f"display service-port {SPID}")
+                value = decoder(comm)
+                fail = failChecker(value)
+                if(fail == None):
+                    (_,sV) = check(value,planMap["VLANID"]).span()
+                    (_,sP) = check(value,planMap["PLAN"]).span()
+                    VLAN = value[sV:sV+4]
+                    PLAN = value[sP:sP+10].replace(" ", "").replace("\n", "")
+                print(
+                f"""
+    FRAME               :   {FRAME}
+    SLOT                :   {SLOT}
+    PORT                :   {PORT}
+    ID                  :   {ID}
+    NAME                :   {NAME}
+    STATE               :   {STATE}
+    VLAN                :   {VLAN}
+    PLAN                :   {PLAN}
+    SPID                :   {SPID}
+    TEMPERATURA         :   {temp}
+    POTENCIA            :   {pwr}
+    """)
+            else:
+                value1 = decoder(comm)
+                fail1 = failChecker(value1)
+                SPID1 = result["values"][0]
+                SPID2 = result["values"][1]
+                command(f"display service-port {SPID1}")
+                if(fail1 == None):
+                    (_,sV1) = check(value1,planMap["VLANID"]).span()
+                    (_,sP1) = check(value1,planMap["PLAN"]).span()
+                    VLAN1 = value1[sV1:sV1+4]
+                    PLAN1 = value1[sP1:sP1+10].replace(" ", "").replace("\n", "")
+                value2 = decoder(comm)
+                fail2 = failChecker(value2)
+                command(f"display service-port {SPID2}")
+                if(fail2 == None):
+                    (_,sV2) = check(value2,planMap["VLANID"]).span()
+                    (_,sP2) = check(value2,planMap["PLAN"]).span()
+                    VLAN2 = value2[sV2:sV2+4]
+                    PLAN2 = value2[sP2:sP2+10].replace(" ", "").replace("\n", "")
+                print(
             f"""
 FRAME               :   {FRAME}
 SLOT                :   {SLOT}
@@ -96,17 +123,16 @@ PORT                :   {PORT}
 ID                  :   {ID}
 NAME                :   {NAME}
 STATE               :   {STATE}
-RUN STATE           :   {RUNSTATE}
-VLAN                :   {VLAN}
-LAST DOWN TIME      :   {LDT}
-LAST DOWN CAUSE     :   {LDC}
-LAST UP TIME        :   {LUT}
-LINE PROFILE        :   {LP}
-SERVICE PROFILE     :   {SRV}
+VLAN1               :   {VLAN1}
+PLAN1               :   {PLAN1}
+SPID1               :   {SPID1}
+VLAN2               :   {VLAN2}
+PLAN2               :   {PLAN2}
+SPID2               :   {SPID2}
 TEMPERATURA         :   {temp}
 POTENCIA            :   {pwr}
-"""
-        )
+""")
+
     elif lookupType == "F":
         FRAME = input("Ingrese frame de cliente : ")
         SLOT = input("Ingrese slot de cliente : ")
@@ -118,29 +144,59 @@ POTENCIA            :   {pwr}
         (_, s) = regex[0]
         (e, _) = regex[len(regex) - 1]
         value = val[s:e]
-        (_, eID) = check(value, existing["ONTID"]).span()
-        (_, eLP) = check(value, existing["LP"]).span()
-        (_, eSRV) = check(value, existing["SRV"]).span()
         (_, sDESC) = check(value, existing["DESC"]).span()
         (_, sCF) = check(value, existing["CF"]).span()
-        (eCF, sRE) = check(value, existing["RE"]).span()
-        (eRE, _) = check(value, existing["CS"]).span()
-        (eDESC, sLDC) = check(value, existing["LDC"]).span()
-        (eLDC, sLUT) = check(value, existing["LUT"]).span()
-        (eLUT, sLDT) = check(value, existing["LDT"]).span()
-        (eLDT, _) = check(value, existing["LDGT"]).span()
+        (eCF, _) = check(value, existing["RE"]).span()
+        (eDESC, _) = check(value, existing["LDC"]).span()
         NAME = value[sDESC:eDESC].replace("\n", "")
-        RUNSTATE = value[sRE:eRE].replace("\n", "")
-        LDC = value[sLDC:eLDC].replace("\n", "")
-        LDT = value[sLDT:eLDT].replace("\n", "")
-        LUT = value[sLUT:eLUT].replace("\n", "")
         STATE = value[sCF:eCF].replace("\n", "")
-        LP = value[eLP : eLP + 4].replace("\n", "")
-        SRV = value[eSRV : eSRV + 4].replace("\n", "")
-        VLAN = verifyWAN(comm, command, SLOT, PORT, ID)
         (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
-
-        print(
+        result = getSPIDChange(comm, command, SLOT, PORT, ID)
+        if(result["values"] != None):
+            if result["ttl"] == 1:
+                SPID = result["values"]
+                command(f"display service-port {SPID}")
+                value = decoder(comm)
+                fail = failChecker(value)
+                if(fail == None):
+                    (_,sV) = check(value,planMap["VLANID"]).span()
+                    (_,sP) = check(value,planMap["PLAN"]).span()
+                    VLAN = value[sV:sV+4]
+                    PLAN = value[sP:sP+10].replace(" ", "").replace("\n", "")
+                print(
+                f"""
+    FRAME               :   {FRAME}
+    SLOT                :   {SLOT}
+    PORT                :   {PORT}
+    ID                  :   {ID}
+    NAME                :   {NAME}
+    STATE               :   {STATE}
+    VLAN                :   {VLAN}
+    PLAN                :   {PLAN}
+    SPID                :   {SPID}
+    TEMPERATURA         :   {temp}
+    POTENCIA            :   {pwr}
+    """)
+            else:
+                value1 = decoder(comm)
+                fail1 = failChecker(value1)
+                SPID1 = result["values"][0]
+                SPID2 = result["values"][1]
+                command(f"display service-port {SPID1}")
+                if(fail1 == None):
+                    (_,sV1) = check(value1,planMap["VLANID"]).span()
+                    (_,sP1) = check(value1,planMap["PLAN"]).span()
+                    VLAN1 = value1[sV1:sV1+4]
+                    PLAN1 = value1[sP1:sP1+10].replace(" ", "").replace("\n", "")
+                value2 = decoder(comm)
+                fail2 = failChecker(value2)
+                command(f"display service-port {SPID2}")
+                if(fail2 == None):
+                    (_,sV2) = check(value2,planMap["VLANID"]).span()
+                    (_,sP2) = check(value2,planMap["PLAN"]).span()
+                    VLAN2 = value2[sV2:sV2+4]
+                    PLAN2 = value2[sP2:sP2+10].replace(" ", "").replace("\n", "")
+                print(
             f"""
 FRAME               :   {FRAME}
 SLOT                :   {SLOT}
@@ -148,17 +204,16 @@ PORT                :   {PORT}
 ID                  :   {ID}
 NAME                :   {NAME}
 STATE               :   {STATE}
-RUN STATE           :   {RUNSTATE}
-VLAN                :   {VLAN}
-LAST DOWN TIME      :   {LDT}
-LAST DOWN CAUSE     :   {LDC}
-LAST UP TIME        :   {LUT}
-LINE PROFILE        :   {LP}
-SERVICE PROFILE     :   {SRV}
+VLAN1               :   {VLAN1}
+PLAN1               :   {PLAN1}
+SPID1               :   {SPID1}
+VLAN2               :   {VLAN2}
+PLAN2               :   {PLAN2}
+SPID2               :   {SPID2}
 TEMPERATURA         :   {temp}
 POTENCIA            :   {pwr}
-"""
-        )
+""")
+
     elif lookupType == "N":
         NAME = input("Ingrese el Nombre del Cliente a buscar : ")
         command(f'display ont info by-desc "{NAME}" | no-more')
@@ -167,5 +222,6 @@ POTENCIA            :   {pwr}
         (_, s) = regex[0]
         (e, _) = regex[len(regex) - 1]
         print(value[s:e])
+    
     else:
         print(f'la opcion "{lookupType}" no existe')

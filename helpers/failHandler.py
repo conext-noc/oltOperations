@@ -1,13 +1,12 @@
-import re
+from helpers.outputDecoder import check, checkIter
 
 failSTR = "Failure: "
 
-
 def failChecker(value):
-    val = re.search(failSTR, value)
-    if val == None:
+    re = check(value,failSTR)
+    if re == None:
         return None
     else:
-        (_, e) = val.span()
-        reason = value[e:e+50]
+        (_, s) = re.span()
+        reason = value[s:s+25].replace("\n", "")
         return reason

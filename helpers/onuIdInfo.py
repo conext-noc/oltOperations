@@ -26,7 +26,7 @@ def addONU(comm, command, SLOT, PORT, SN, NAME, SRV, LP):
             "Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : "
         )
         if preg == "Y":
-            verifyWAN(comm, command, enter, SLOT, PORT, ID)
+            verifyWAN(comm, command, SLOT, PORT, ID)
         Prov= input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ")
         PROVIDER = providerMap[Prov]
         addVlan = input("Se agregara vlan al puerto? (es bridge) [Y/N] : ")
@@ -36,7 +36,7 @@ def addONU(comm, command, SLOT, PORT, SN, NAME, SRV, LP):
         return (ID,vlanProvMap[f"{str(PROVIDER)}"])
 
 
-def addOnuService(command, enter, SPID, PROVIDER, SLOT, PORT, ID, PLAN):
+def addOnuService(command, SPID, PROVIDER, SLOT, PORT, ID, PLAN):
     command(
         f"""service-PORT {SPID} vlan {PROVIDER} gpon 0/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {PROVIDER} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"""
     )
