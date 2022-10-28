@@ -9,7 +9,7 @@ condition = (
 )
 
 
-def verifyPort(comm, command, enter):
+def verifyPort(comm, command):
     types = [
         {
             "name": "status",
@@ -30,7 +30,6 @@ def verifyPort(comm, command, enter):
         PORT = input("Ingrese puerto de los clientes : ")
         keep = True
         command(f"display ont info summary 0/{SLOT}/{PORT} | no-more")
-        enter()
         sleep(3)
         (valueSSH, result) = outputParser(comm, condition, "m")
 

@@ -109,7 +109,7 @@ options = [
 ]
 
 
-def clientFault(comm, command, enter, olt):
+def clientFault(comm, command, olt):
     portToExec = ports[olt]
     print(
         "| {:^8} | {:^5} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} |".format(
@@ -119,7 +119,6 @@ def clientFault(comm, command, enter, olt):
     for idx, selectedPorts in enumerate(portToExec):
         fsp = selectedPorts["fsp"]
         command(f"display ont info summary {fsp} | no-more")
-        enter()
         sleep(3)
         (valueRES, regex) = parser(comm, condition, "m")
         for op in options:

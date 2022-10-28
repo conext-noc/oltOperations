@@ -20,11 +20,8 @@ existing = {
 }
 
 
-def serialSearch(comm,command,enter,SN):
-  command(f"display ont info by-sn {SN}")
-  enter()
+def serialSearch(comm,command,SN):
   command(f"display ont info by-sn {SN} | no-more")
-  enter()
   sleep(3)
   (val, regex) = parser(comm, existingCond, "m")
   (_, s) = regex[0]

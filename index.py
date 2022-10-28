@@ -1,6 +1,6 @@
-import os
 import tkinter as tk
-from dotenv import load_dotenv
+from helpers.ssh import ssh
+from helpers.outputDecoder import decoder
 from helpers.spidInfo import verifySPID
 from helpers.verification import verify
 from deactivate.deactivate import deactivate
@@ -9,23 +9,15 @@ from delete.delete import delete
 from confirm.confirm import confirm
 from planMigration.planMigration import newPlan
 from deviceChange.deviceModify import deviceModify
-from valueVerify.valueVerify import valueVerify
 from speedVerify.speedVerify import speedVerify
 from verifyReset.verifyReset import verifyReset
 from verifyPort.verifyPort import verifyPort
 from ontLookup.lookup import existingLookup, newLookup
 from providerChange.providerChange import providerChange
 from clientFault.clientFault import clientFault
-import paramiko
-import time
 import traceback
 import sys
 
-load_dotenv()
-
-username = os.environ["user"]
-password = os.environ["password"]
-port = os.environ["port"]
 root = tk.Tk()
 root.withdraw()
 
@@ -45,26 +37,11 @@ def main():
                     f"No se puede Conectar a la OLT, Error OLT {olt} no existe"
                 )
 
-            conn = paramiko.SSHClient()
-            conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-            conn.connect(ip, port, username, password)
-            comm = conn.invoke_shell()
-
-            def enter():
-                comm.send(" \n")
-                comm.send(" \n")
-                time.sleep(delay)
-
-            def command(cmd):
-                comm.send(cmd)
-                time.sleep(delay)
+            (comm, command) = ssh(ip)
 
             command("enable")
-            enter()
             command("config")
-            enter()
-            output = comm.recv(65535)
-            output = output.decode("ascii")
+            decoder(comm)
 
             action = input(
                 """
@@ -82,7 +59,6 @@ Que accion se realizara?
   > (BE)  :  Buscar cliente en OLT (ya agregado)
   > (CP)  :  Cambio de plan
   > (MC)  :  Modificar Cliente
-  > (VV)  :  Verificar valores de ont
   > (VC)  :  Verificar consumo
   > (VR)  :  Verificar reset
   > (VS)  :  Verificar Service-Port ID
@@ -90,56 +66,53 @@ Que accion se realizara?
   > (CV)  :  Cambio Vlan (Proveedor)
   > (CA)  :  Clientes con averias (corte de fibra)
 $ """
-            )
+            ).upper()
 
             if action == "RC":
-                result = activate(comm, enter, command, olt, action)
+                result = activate(comm, command, olt, action)
                 verify(result, action, olt)
             elif action == "RO":
-                result = activate(comm, enter, command, olt, action)
+                result = activate(comm, command, olt, action)
                 verify(result, action, olt)
             elif action == "RU":
-                result = activate(comm, enter, command, olt, action)
+                result = activate(comm, command, olt, action)
             elif action == "SC":
-                result = deactivate(comm, enter, command, olt, action)
+                result = deactivate(comm, command, olt, action)
                 verify(result, action, olt)
             elif action == "SO":
-                result = deactivate(comm, enter, command, olt, action)
+                result = deactivate(comm, command, olt, action)
                 verify(result, action, olt)
             elif action == "SU":
-                result = deactivate(comm, enter, command, olt, action)
+                result = deactivate(comm, command, olt, action)
             elif action == "IN":
-                confirm(comm, enter, command, olt, action)
+                confirm(comm, command, olt, action)
             elif action == "IP":
-                confirm(comm, enter, command, olt, action)
+                confirm(comm, command, olt, action)
             elif action == "EC":
-                delete(comm, command, enter, olt)
+                delete(comm, command, olt)
             elif action == "BN":
-                newLookup(comm, command, enter, olt)
+                newLookup(comm, command, olt)
             elif action == "BE":
-                existingLookup(comm, command, enter, olt)
+                existingLookup(comm, command, olt)
             elif action == "CP":
-                newPlan(comm, command, enter, olt)
+                newPlan(comm, command, olt)
             elif action == "MC":
-                deviceModify(comm, command, enter, olt)
-            elif action == "VV":
-                valueVerify(comm, command, enter)
+                deviceModify(comm, command, olt)
             elif action == "VC":
-                speedVerify(comm, command, enter)
+                speedVerify(comm, command)
             elif action == "VR":
-                verifyReset(comm, command, enter)
+                verifyReset(comm, command)
             elif action == "VP":
-                verifyPort(comm, command, enter)
+                verifyPort(comm, command)
             elif action == "VS":
                 spid = input("Ingrese el Service-Port ID : ")
-                verifySPID(comm, command, enter, spid)
+                verifySPID(comm, command, spid)
             elif action == "CV":
-                providerChange(comm, command, enter, olt)
+                providerChange(comm, command, olt)
             elif action == "CA":
-                clientFault(comm, command, enter, olt)
+                clientFault(comm, command, olt)
             else:
                 print(f"Error @ : opcion {action} no existe")
-            conn.close()
 
         except KeyboardInterrupt:
             print("Saliendo...")

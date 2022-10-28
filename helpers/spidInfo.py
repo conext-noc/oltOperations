@@ -8,19 +8,17 @@ conditionSPIDChckO = (
 )
 
 
-def getSPID(comm, command, enter):
+def getSPID(comm, command):
     command("display service-port next-free-index")
-    enter()
-    enter()
+    command("")
     (value, re) = parser(comm, conditionSPID, "s")
     end = re.span()[1]
     spid = value[end : end + 4]
     return spid
 
 
-def verifySPID(comm, command, enter, spid):
+def verifySPID(comm, command, spid):
     command(f"display service-port {spid} | no-more")
-    enter()
     (value, re) = parser(comm, conditionSpidCheck, "m")
     fail = failChecker(value)
     if fail == None:
@@ -29,13 +27,12 @@ def verifySPID(comm, command, enter, spid):
         print(value[s:e])
     else:
         print(fail)
-        spid = getSPID(comm, command, enter)
+        spid = getSPID(comm, command)
         print(f"No se agrego el SPID, el siguiente SPID libre es {spid}")
 
 
-def clientSPID(comm, command, enter, SLOT, PORT, ID):
+def clientSPID(comm, command, SLOT, PORT, ID):
     command(f"display service-port port 0/{SLOT}/{PORT} ont {ID}")
-    enter()
     (value, _) = parser(comm, conditionSPIDChckO, "m")
     fail = failChecker(value)
     if fail == None:

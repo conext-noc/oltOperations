@@ -5,17 +5,15 @@ import time
 upstream = "Up traffic \(kbps\)          : "
 downstream = "Down traffic \(kbps\)        : "
 
-def speedVerify(comm,command,enter):
+def speedVerify(comm,command):
   speedUpArr = []
   speedDownArr = []
   SLOT = input("Ingrese slot de cliente : ")
   PORT = input("Ingrese puerto de cliente : ")
   ID = input("Ingrese el id del cliente : ")
   command(f"interface gpon 0/{SLOT}")
-  enter()
   for i in range(0,15):
     comm.send(f"display ont traffic {PORT} {ID}")
-    enter()
     time.sleep(5)
     outputSpeed = comm.recv(65535)
     outputSpeed = outputSpeed.decode("ascii")
@@ -32,7 +30,6 @@ def speedVerify(comm,command,enter):
     os.remove(f"Result{i}.txt")
     i = i + 1
   command("quit")
-  enter()
   upLen = len(speedUpArr)
   upSum = sum(speedUpArr)
   upAVG = upSum / upLen

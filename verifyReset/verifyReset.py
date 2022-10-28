@@ -6,7 +6,7 @@ ip = "IPv4 address               : "
 vlan = "Manage VLAN                : "
 
 
-def verifyReset(comm, command, enter):
+def verifyReset(comm, command):
     lookupType = input("Buscar cliente por serial o por datos [S | D] : ")
     if(lookupType == "D"):
         SLOT = input("Ingrese slot de cliente : ")
@@ -15,9 +15,7 @@ def verifyReset(comm, command, enter):
         NAME = input("Ingrese nombre del cliente : ")
 
         command(f"interface gpon 0/{SLOT}")
-        enter()
         command(f'display ont wan-info {PORT} {ID} | include "IPv4 address" ')
-        enter()
 
         (value, re) = parser(comm, ip, "s")
         if re != None:
@@ -30,9 +28,7 @@ def verifyReset(comm, command, enter):
         SN = input("Ingrese serial de cliente : ")
         (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,enter,SN)
         command(f"interface gpon {FRAME}/{SLOT}")
-        enter()
         command(f'display ont wan-info {PORT} {ID} | include "IPv4 address" ')
-        enter()
 
         (value, re) = parser(comm, ip, "s")
         if re != None:
@@ -43,11 +39,9 @@ def verifyReset(comm, command, enter):
             print(f"El cliente {NAME} tiene reset")
 
 
-def verifyWAN(comm, command, enter, SLOT, PORT, ID):
+def verifyWAN(comm, command, SLOT, PORT, ID):
     command(f"interface gpon 0/{SLOT}")
-    enter()
     command(f"display ont wan-info {PORT} {ID}")
-    enter()
     (value, re) = parser(comm, vlan, "s")
     fail = failChecker(value)
     if fail == None:

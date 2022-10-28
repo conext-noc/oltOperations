@@ -5,23 +5,20 @@ conditionTemp = "Temperature\(C\)                         : "
 conditionPwr = "Rx optical power\(dBm\)                  : "
 
 
-def verifyValues(comm, command, enter, SLOT, PORT, ID):
-    enter()
+def verifyValues(comm, command, SLOT, PORT, ID):
     decoder(comm)
     command(f"interface gpon 0/{SLOT}")
-    enter()
 
     command(f"display ont optical-info {PORT} {ID} | no-more")
-    enter()
     (value, rePwr) = parser(comm, conditionPwr, "s")
     fail = failChecker(value)
     if fail != None:
         print(fail)
         command("quit")
-        enter()
+
     else:
         command("quit")
-        enter()
+
         reTemp = check(value, conditionTemp)
         (_, eT) = reTemp.span()
         (_, eP) = rePwr.span()

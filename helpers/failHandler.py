@@ -9,5 +9,5 @@ def failChecker(value):
         return None
     else:
         (_, e) = val.span()
-        reason = value[e:]
+        reason = value[e:e+50]
         return reason

@@ -4,7 +4,7 @@ from helpers.listChecker import compare
 from helpers.outputDecoder import sshToFile
 
 
-def activate(comm, enter, command, olt, typeOfList):
+def activate(comm, command, olt, typeOfList):
     actionList = []
     if typeOfList == "RO":
         print("Selecciona el archivo de lista de clientes de ODOO")
@@ -46,16 +46,12 @@ def activate(comm, enter, command, olt, typeOfList):
             ID = client["ID"]
             print(f"{NAME} @ OLT {OLT} IN {FRAME}/{SLOT}/{PORT}/{ID}")
             command(f"interface gpon {FRAME}/{SLOT}")
-            enter()
             command(f"ont activate {PORT} {ID}")
-            enter()
             command(f"display ont info {PORT} {ID}")
-            enter()
             if typeOfList != "RU":
                 path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                 sshToFile(comm, path)
         command("quit")
-        enter()
         return actionList
     else:
         print("\nla lista no tiene ningun cliente...\n")

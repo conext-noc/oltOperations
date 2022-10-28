@@ -1,4 +1,5 @@
 from helpers.outputDecoder import parser, check, checkIter
+from helpers.ontCheck import verifyValues
 from verifyReset.verifyReset import verifyWAN
 from time import sleep
 
@@ -24,10 +25,9 @@ existing = {
 }
 
 
-def newLookup(comm, command, enter, olt):
+def newLookup(comm, command, olt):
     client = []
     command("display ont autofind all | no-more")
-    enter()
     sleep(5)
     (value, regex) = parser(comm, newCond, "m")
     for ont in range(len(regex) - 1):
@@ -47,12 +47,11 @@ def newLookup(comm, command, enter, olt):
         print("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
 
 
-def existingLookup(comm, command, enter, olt):
-    lookupType = input("Buscar cliente por serial o por nombre [S | N] : ")
+def existingLookup(comm, command, olt):
+    lookupType = input("Buscar cliente por serial, por nombre o por F/S/P/ID [S | N | F] : ")
     if lookupType == "S":
         SN = input("Ingrese el Serial del Cliente a buscar : ")
         command(f"display ont info by-sn {SN} | no-more")
-        enter()
         sleep(3)
         (val, regex) = parser(comm, existingCond, "m")
         (_, s) = regex[0]
@@ -86,29 +85,80 @@ def existingLookup(comm, command, enter, olt):
         STATE = value[sCF:eCF].replace("\n", "")
         LP = value[eLP : eLP + 4].replace("\n", "")
         SRV = value[eSRV : eSRV + 4].replace("\n", "")
-        VLAN = verifyWAN(comm, command, enter, SLOT, PORT, ID)
+        VLAN = verifyWAN(comm, command, SLOT, PORT, ID)
+        (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
 
         print(
             f"""
-FRAME             : {FRAME}
-SLOT              : {SLOT}
-PORT              : {PORT}
-ID                : {ID}
-NAME              : {NAME}
-STATE             : {STATE}
-RUN STATE         : {RUNSTATE}
-VLAN              : {VLAN}
-LAST DOWN TIME    : {LDT}
-LAST DOWN CAUSE   : {LDC}
-LAST UP TIME      : {LUT}
-LINE PROFILE      : {LP}
-SERVICE PROFILE   : {SRV}
+FRAME               :   {FRAME}
+SLOT                :   {SLOT}
+PORT                :   {PORT}
+ID                  :   {ID}
+NAME                :   {NAME}
+STATE               :   {STATE}
+RUN STATE           :   {RUNSTATE}
+VLAN                :   {VLAN}
+LAST DOWN TIME      :   {LDT}
+LAST DOWN CAUSE     :   {LDC}
+LAST UP TIME        :   {LUT}
+LINE PROFILE        :   {LP}
+SERVICE PROFILE     :   {SRV}
+TEMPERATURA         :   {temp}
+POTENCIA            :   {pwr}
+"""
+        )
+    elif lookupType == "F":
+        FRAME = input("Ingrese frame de cliente : ")
+        SLOT = input("Ingrese slot de cliente : ")
+        PORT = input("Ingrese puerto de cliente : ")
+        ID = input("Ingrese el id del cliente : ")
+        command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
+        sleep(3)
+        (val, regex) = parser(comm, existingCond, "m")
+        (_, eID) = check(value, existing["ONTID"]).span()
+        (_, eLP) = check(value, existing["LP"]).span()
+        (_, eSRV) = check(value, existing["SRV"]).span()
+        (_, sDESC) = check(value, existing["DESC"]).span()
+        (_, sCF) = check(value, existing["CF"]).span()
+        (eCF, sRE) = check(value, existing["RE"]).span()
+        (eRE, _) = check(value, existing["CS"]).span()
+        (eDESC, sLDC) = check(value, existing["LDC"]).span()
+        (eLDC, sLUT) = check(value, existing["LUT"]).span()
+        (eLUT, sLDT) = check(value, existing["LDT"]).span()
+        (eLDT, _) = check(value, existing["LDGT"]).span()
+        NAME = value[sDESC:eDESC].replace("\n", "")
+        RUNSTATE = value[sRE:eRE].replace("\n", "")
+        LDC = value[sLDC:eLDC].replace("\n", "")
+        LDT = value[sLDT:eLDT].replace("\n", "")
+        LUT = value[sLUT:eLUT].replace("\n", "")
+        STATE = value[sCF:eCF].replace("\n", "")
+        LP = value[eLP : eLP + 4].replace("\n", "")
+        SRV = value[eSRV : eSRV + 4].replace("\n", "")
+        VLAN = verifyWAN(comm, command, SLOT, PORT, ID)
+        (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
+
+        print(
+            f"""
+FRAME               :   {FRAME}
+SLOT                :   {SLOT}
+PORT                :   {PORT}
+ID                  :   {ID}
+NAME                :   {NAME}
+STATE               :   {STATE}
+RUN STATE           :   {RUNSTATE}
+VLAN                :   {VLAN}
+LAST DOWN TIME      :   {LDT}
+LAST DOWN CAUSE     :   {LDC}
+LAST UP TIME        :   {LUT}
+LINE PROFILE        :   {LP}
+SERVICE PROFILE     :   {SRV}
+TEMPERATURA         :   {temp}
+POTENCIA            :   {pwr}
 """
         )
     elif lookupType == "N":
         NAME = input("Ingrese el Nombre del Cliente a buscar : ")
         command(f'display ont info by-desc "{NAME}" | no-more')
-        enter()
         sleep(3)
         (value, regex) = parser(comm, existingCond, "m")
         (_, s) = regex[0]

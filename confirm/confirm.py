@@ -6,7 +6,7 @@ from helpers.templateGen import template
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
 
-def confirm(comm, enter, command, olt, type):
+def confirm(comm, command, olt, type):
     SLOT = ""
     PORT = ""
     NAME = ""
@@ -27,10 +27,10 @@ def confirm(comm, enter, command, olt, type):
             "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : "
         )
         SRV = input("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
-        SPID = getSPID(comm, command, enter)
+        SPID = getSPID(comm, command)
         print(f"El SPID que se le agregara al cliente es : {SPID}")
         (ID, PROVIDER) = addONU(
-            comm, command, enter, SLOT, PORT, SN, NAME, SRV, LP
+            comm, command, SLOT, PORT, SN, NAME, SRV, LP
         )
     elif "P" in type:
         SLOT = input("Ingrese slot de cliente : ")
@@ -40,18 +40,18 @@ def confirm(comm, enter, command, olt, type):
         PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ")
         SN = input("Ingrese serial de cliente : ")
         PLAN = input("Ingrese plan de cliente : ")
-        SPID = getSPID(comm, command, enter)
+        SPID = getSPID(comm, command)
     if ID != "" and ID != "F":
         print(f"El SPID que se le agregara al cliente es : {SPID}")
-        (temp, pwr) = verifyValues(comm, command, enter, SLOT, PORT, ID)
+        (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
         proceed = input(
             f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [Y | N] : "
         )
         if proceed == "Y":
             addOnuService(
-                command, enter, SPID, providerMap[PROVIDER], SLOT, PORT, ID, PLAN
+                command, SPID, providerMap[PROVIDER], SLOT, PORT, ID, PLAN
             )
-            verifySPID(comm, command, enter, SPID)
+            verifySPID(comm, command, SPID)
             print(template(SLOT, PORT, ID, NAME, olt, PROVIDER, PLAN, temp, pwr, SPID))
             return
         if proceed == "N":
