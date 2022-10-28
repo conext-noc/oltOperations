@@ -115,6 +115,9 @@ POTENCIA            :   {pwr}
         command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
         sleep(3)
         (val, regex) = parser(comm, existingCond, "m")
+        (_, s) = regex[0]
+        (e, _) = regex[len(regex) - 1]
+        value = val[s:e]
         (_, eID) = check(value, existing["ONTID"]).span()
         (_, eLP) = check(value, existing["LP"]).span()
         (_, eSRV) = check(value, existing["SRV"]).span()
