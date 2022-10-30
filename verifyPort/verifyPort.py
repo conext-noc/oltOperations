@@ -27,22 +27,26 @@ def verifyPort(comm, command):
             FRAME,SLOT,PORT, ID, NAME, STATUS, CAUSE, TIME, DATE
             )
             CT = f"{DATE} {TIME}"
-            t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
-            t2 = datetime.fromisoformat(str(datetime.now()))
-            clientTime = t2 - t1
-            color = ""
-            if (STATUS == "offline" and CAUSE == "LOSi/LOBi" and clientTime <= 5):
-                color = "los1" 
-            if (STATUS == "offline" and CAUSE == "LOSi/LOBi" and clientTime > 5):
-                color = "los2" 
-            elif (STATUS == "offline" and CAUSE == "dying-gasp"):
-                color = "off" 
-            elif (STATUS == "offline" and CAUSE == "deactive"):
-                color = "suspended"
+            if(str(TIME) != "nan"):
+                t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
+                t2 = datetime.fromisoformat(str(datetime.now()))
+                clientTime = t2 - t1
+                color = ""
+                if (STATUS == "offline" and CAUSE == "LOSi/LOBi" and clientTime.days <= 5):
+                    color = "los1" 
+                if (STATUS == "offline" and CAUSE == "LOSi/LOBi" and clientTime.days > 5):
+                    color = "los2" 
+                elif (STATUS == "offline" and CAUSE == "dying-gasp"):
+                    color = "off" 
+                elif (STATUS == "offline" and CAUSE == "deactive"):
+                    color = "suspended"
+                else:
+                    color = "activated"
+                resp = colorFormatter(resp,color)
+                print(resp)
             else:
-                color = "activated"
-            resp = colorFormatter(resp,color)
-            print(resp)
+                resp = colorFormatter(resp,"problems")
+                print(resp)
         
         preg = input("continuar? [Y | N] : ")
         keep = True if preg == "Y" else False

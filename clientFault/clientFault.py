@@ -109,21 +109,15 @@ def clientFault(comm, command, olt):
             FSP, ID, NAME, STATUS, CAUSE, TIME, DATE
         )
         CT = f"{DATE} {TIME}"
-        t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
-        t2 = datetime.fromisoformat(str(datetime.now()))
-        clientTime = t2 - t1
-        color = ""
-        if (STATUS == "offline" and CAUSE == "LOSi/LOBi"):
-            color = "los1" 
-        # if (STATUS == "offline" and CAUSE == "LOSi/LOBi" and clientTime <= 5):
-        #     color = "los1" 
-        # if (STATUS == "offline" and CAUSE == "LOSi/LOBi" and clientTime > 5):
-        #     color = "los2" 
-        elif (STATUS == "offline" and CAUSE == "dying-gasp"):
-            color = "off" 
-        elif (STATUS == "offline" and CAUSE == "deactive"):
-            color = "suspended"
-        else:
-            color = "activated"
-        resp = colorFormatter(resp,color)
-        print(resp)
+        if(str(TIME) != "nan" and str(TIME) != "-"):
+            if (STATUS == "offline" and CAUSE == "LOSi/LOBi"):
+                t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
+                t2 = datetime.fromisoformat(str(datetime.now()))
+                clientTime = t2 - t1
+                color = ""
+                if (clientTime.days <= 5):
+                    color = "los1" 
+                if (clientTime.days > 5):
+                    color = "los2" 
+                resp = colorFormatter(resp,color)
+                print(resp)

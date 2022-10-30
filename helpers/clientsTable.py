@@ -67,6 +67,7 @@ def clientsTable(comm, command, lst):
                     )
                     name += NAME + " "
                 CLIENTS.append({"fsp":fsp,"id": ID,"name":name.replace(" +", "").replace("\n", ""), "status":STATUS, "ldt":TIME, "ldd": DATE, "cause":CAUSE, "sn": SN, "ontType": ONT_TYPE})
+        print(idx,fsp,"done")
         os.remove(f"state{idx}.csv")
         os.remove(f"names{idx}.csv")
     return CLIENTS
