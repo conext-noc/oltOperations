@@ -6,9 +6,9 @@ from helpers.formatter import colorFormatter
 def verifyPort(comm, command):
     keep = True
     while keep == True:
-        FRAME = input("Ingrese frame de clientes : ")
-        SLOT = input("Ingrese slot de clientes : ")
-        PORT = input("Ingrese puerto de los clientes : ")
+        FRAME = input("Ingrese frame de clientes : ").upper()
+        SLOT = input("Ingrese slot de clientes : ").upper()
+        PORT = input("Ingrese puerto de los clientes : ").upper()
         lst = [{"fsp": f"{FRAME}/{SLOT}/{PORT}"}]
         clients = clientsTable(comm,command,lst)
         print(
@@ -48,5 +48,5 @@ def verifyPort(comm, command):
                 resp = colorFormatter(resp,"problems")
                 print(resp)
         
-        preg = input("continuar? [Y | N] : ")
+        preg = input("continuar? [Y | N] : ").upper()
         keep = True if preg == "Y" else False

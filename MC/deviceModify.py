@@ -25,24 +25,24 @@ $ """
     ).upper()
     lookupType = input("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
     if(lookupType == "S"):
-        SN = input("Ingrese el Serial del Cliente a buscar : ")
+        SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
         (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,SN)
     if(lookupType == "D"):
-        FRAME = input("Ingrese frame de cliente : ")
-        SLOT = input("Ingrese slot de cliente : ")
-        PORT = input("Ingrese puerto de cliente : ")
-        ID = input("Ingrese el id del cliente : ")
+        FRAME = input("Ingrese frame de cliente : ").upper()
+        SLOT = input("Ingrese slot de cliente : ").upper()
+        PORT = input("Ingrese puerto de cliente : ").upper()
+        ID = input("Ingrese el id del cliente : ").upper()
         ## SEARCH FOR NAME IN OLT!!
     command(f"interface gpon {FRAME}/{SLOT}")
     if action == "CT":
-        NAME = input("Ingrese el nuevo nombre del cliente : ")
+        NAME = input("Ingrese el nuevo nombre del cliente : ").upper()
         command(f"ont modify {PORT} {ID} desc {NAME}")
         print(
             f"Al Cliente {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se ha cambiado de titular a {NAME}"
         )
         return
     if action == "CO":
-        SN = input("Ingrese el nuevo ont del cliente : ")
+        SN = input("Ingrese el nuevo ont del cliente : ").upper()
         command(f"ont modify {PORT} {ID} sn {SN}")
         print(
             f"Al Cliente 0/{SLOT}/{PORT}/{ID} OLT {OLT} se ha sido cambiado el ont a {SN}"
@@ -73,7 +73,7 @@ $ """
         )
         return
     if action == "CP":
-        PLAN = input("Ingrese el nuevo plan de cliente : ")
+        PLAN = input("Ingrese el nuevo plan de cliente : ").upper()
         result = getOntSpid(comm, command, SLOT, PORT, ID)
         if (result["ttl"] == 2):
             spid1 = result["values"][0]

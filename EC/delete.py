@@ -1,11 +1,11 @@
 from helpers.getONTSpid import getOntSpid
 
 def delete(comm,command, OLT):
-  FRAME = input("Ingrese frame de cliente : ")
-  SLOT = input("Ingrese slot de cliente : ")
-  PORT = input("Ingrese puerto de cliente : ")
-  ID = input("Ingrese el id del cliente : ")
-  NAME = input("Ingrese nombre del cliente : ")
+  FRAME = input("Ingrese frame de cliente : ").upper()
+  SLOT = input("Ingrese slot de cliente : ").upper()
+  PORT = input("Ingrese puerto de cliente : ").upper()
+  ID = input("Ingrese el id del cliente : ").upper()
+  NAME = input("Ingrese nombre del cliente : ").upper()
   result = getOntSpid(comm, command, FRAME,SLOT,PORT,ID)
   if(result["ttl"] == 2):
     spid1=result["values"][0]

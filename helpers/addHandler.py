@@ -24,12 +24,12 @@ def addONU(comm, command, FRAME,SLOT, PORT, SN, NAME, SRV, LP):
         command(f"ont alarm-policy {PORT} {ID} policy-name FAULT_ALARMS")
         preg = input(
             "Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : "
-        )
+        ).upper()
         if preg == "Y":
             preWan(comm, command, SLOT, PORT, ID)
-        Prov= input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ")
+        Prov= input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
         PROVIDER = providerMap[Prov]
-        addVlan = input("Se agregara vlan al puerto? (es bridge) [Y/N] : ")
+        addVlan = input("Se agregara vlan al puerto? (es bridge) [Y/N] : ").upper()
         if addVlan == "Y":
             command(f"ont port native-vlan {PORT} {ID} eth 1 vlan {PROVIDER}")
         command("quit")

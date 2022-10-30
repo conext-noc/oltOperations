@@ -18,10 +18,10 @@ def activate(comm, command, olt, typeOfList):
         lista = filedialog.askopenfilename()
         actionList = parserCSV(lista)
     elif typeOfList == "RU":
-        NAME = input("Ingrese nombre del cliente : ")
-        SLOT = input("Ingrese slot de cliente : ")
-        PORT = input("Ingrese puerto de cliente : ")
-        ID = input("Ingrese el id del cliente : ")
+        NAME = input("Ingrese nombre del cliente : ").upper()
+        SLOT = input("Ingrese slot de cliente : ").upper()
+        PORT = input("Ingrese puerto de cliente : ").upper()
+        ID = input("Ingrese el id del cliente : ").upper()
         actionList = [
             {
                 "NOMBRE": NAME,

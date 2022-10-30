@@ -11,13 +11,13 @@ vlan = "Manage VLAN                : "
 def verifyReset(comm, command):
     lookupType = input("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
     if(lookupType == "D"):
-        FRAME = input("Ingrese frame de cliente : ")
-        SLOT = input("Ingrese slot de cliente : ")
-        PORT = input("Ingrese puerto de cliente : ")
-        ID = input("Ingrese el id del cliente : ")
+        FRAME = input("Ingrese frame de cliente : ").upper()
+        SLOT = input("Ingrese slot de cliente : ").upper()
+        PORT = input("Ingrese puerto de cliente : ").upper()
+        ID = input("Ingrese el id del cliente : ").upper()
         # AUTO BUSCAR NOMBRE DE CLIENTE
     elif(lookupType == "S"):
-        SN = input("Ingrese serial de cliente : ")
+        SN = input("Ingrese serial de cliente : ").upper()
         (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,SN)
 
     command(f'display ont wan-info  {FRAME}/{SLOT}  {PORT} {ID}  ')

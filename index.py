@@ -22,7 +22,7 @@ root.withdraw()
 def main():
     while True:
         try:
-            olt = input("Seleccione la OLT [15|2] : ")
+            olt = input("Seleccione la OLT [15|2] : ").upper()
             ip = ""
             if olt == "15":
                 ip = "181.232.180.5"

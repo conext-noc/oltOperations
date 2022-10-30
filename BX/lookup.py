@@ -46,7 +46,7 @@ def newLookup(comm, command, olt):
 def existingLookup(comm, command, olt):
     lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ").upper()
     if lookupType == "S":
-        SN = input("Ingrese el Serial del Cliente a buscar : ")
+        SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
         (FRAME,SLOT,PORT,ID,NAME,STATE,fail) = serialSearch(comm,command,SN)
         if(fail == None):
             (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
@@ -72,10 +72,10 @@ def existingLookup(comm, command, olt):
             print(fail)
 
     elif lookupType == "D":
-        FRAME = input("Ingrese frame de cliente : ")
-        SLOT = input("Ingrese slot de cliente : ")
-        PORT = input("Ingrese puerto de cliente : ")
-        ID = input("Ingrese el id del cliente : ")
+        FRAME = input("Ingrese frame de cliente : ").upper()
+        SLOT = input("Ingrese slot de cliente : ").upper()
+        PORT = input("Ingrese puerto de cliente : ").upper()
+        ID = input("Ingrese el id del cliente : ").upper()
         command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
         sleep(3)
         (value, regex) = parser(comm, existingCond, "m")

@@ -8,9 +8,9 @@ downstream = "Down traffic \(kbps\)        : "
 def speedVerify(comm,command):
   speedUpArr = []
   speedDownArr = []
-  SLOT = input("Ingrese slot de cliente : ")
-  PORT = input("Ingrese puerto de cliente : ")
-  ID = input("Ingrese el id del cliente : ")
+  SLOT = input("Ingrese slot de cliente : ").upper()
+  PORT = input("Ingrese puerto de cliente : ").upper()
+  ID = input("Ingrese el id del cliente : ").upper()
   command(f"interface gpon 0/{SLOT}")
   for i in range(0,15):
     comm.send(f"display ont traffic {PORT} {ID}")
