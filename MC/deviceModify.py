@@ -1,8 +1,5 @@
-from helpers.getONTSpid import getOntSpid
 from helpers.getWanData import wan
 from helpers.serialLookup import serialSearch
-from helpers.outputDecoder import  check, decoder
-from helpers.failHandler import failChecker
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
@@ -11,21 +8,43 @@ planMap = {
     "PLAN": "Inbound table name  : "
 }
 
-def providerChange(comm, command, olt):
+def deviceModify(comm, command, OLT):
     FRAME = ""
     SLOT = ""
     PORT = ""
     ID = ""
-    NAME = ""
-    lookupType = input("Buscar cliente por serial o por F/S/P [S | F] : ").upper()
-    if (lookupType == "S"):
+    action = input(
+        """
+Que cambio se realizara? 
+  > (CT)    :   Cambiar Titular
+  > (CO)    :   Cambiar ONT
+  > (CV)    :   Cambiar Vlan (Proveedor)
+$ """
+    )
+    lookupType = input("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
+    if(lookupType == "S"):
         SN = input("Ingrese el Serial del Cliente a buscar : ")
         (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,SN)
-    if(lookupType == "F"):
-        FRAME = input("Ingrese frame de cliente : ") 
+    if(lookupType == "D"):
+        FRAME = input("Ingrese frame de cliente : ")
         SLOT = input("Ingrese slot de cliente : ")
         PORT = input("Ingrese puerto de cliente : ")
         ID = input("Ingrese el id del cliente : ")
+    command(f"interface gpon {FRAME}/{SLOT}")
+    if action == "CT":
+        NAME = input("Ingrese el nuevo nombre del cliente : ")
+        command(f"ont modify {PORT} {ID} desc {NAME}")
+        print(
+            f"Al Cliente {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se ha cambiado de titular a {NAME}"
+        )
+        return
+    if action == "CO":
+        SN = input("Ingrese el nuevo ont del cliente : ")
+        command(f"ont modify {PORT} {ID} sn {SN}")
+        print(
+            f"Al Cliente 0/{SLOT}/{PORT}/{ID} OLT {OLT} se ha sido cambiado el ont a {SN}"
+        )
+    if action == "CV":
         (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
         print(f"""
         NOMBRE DE CLIENTE   :   {NAME}
@@ -47,6 +66,6 @@ def providerChange(comm, command, olt):
             command(f"ont port native-vlan {PORT} {ID} eth 1 vlan {prov}")
             command("quit")
         print(
-            f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {olt} ha sido cambiado al proveedor {PROVIDER}"
+            f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al proveedor {PROVIDER}"
         )
-    return
+        return

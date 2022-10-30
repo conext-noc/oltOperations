@@ -3,17 +3,16 @@ from helpers.ssh import ssh
 from helpers.outputDecoder import decoder
 from helpers.spidInfo import verifySPID
 from helpers.verification import verify
-from deactivate.deactivate import deactivate
-from activate.activate import activate
-from delete.delete import delete
-from confirm.confirm import confirm
-from planMigration.planMigration import newPlan
-from deviceChange.deviceModify import deviceModify
+from SX.deactivate import deactivate
+from RX.activate import activate
+from EC.delete import delete
+from IX.confirm import confirm
+from CP.planMigration import newPlan
+from MC.deviceModify import deviceModify
 from speedVerify.speedVerify import speedVerify
 from verifyReset.verifyReset import verifyReset
 from verifyPort.verifyPort import verifyPort
-from ontLookup.lookup import existingLookup, newLookup
-from providerChange.providerChange import providerChange
+from BX.lookup import existingLookup, newLookup
 from clientFault.clientFault import clientFault
 import traceback
 import sys
@@ -23,7 +22,6 @@ root.withdraw()
 
 
 def main():
-    delay = 1
     while True:
         try:
             olt = input("Seleccione la OLT [15|2] : ")
@@ -63,7 +61,6 @@ Que accion se realizara?
   > (VR)  :  Verificar reset
   > (VS)  :  Verificar Service-Port ID
   > (VP)  :  Verificacion de puerto
-  > (CV)  :  Cambio Vlan (Proveedor)
   > (CA)  :  Clientes con averias (corte de fibra)
 $ """
             ).upper()
@@ -107,8 +104,6 @@ $ """
             elif action == "VS":
                 spid = input("Ingrese el Service-Port ID : ")
                 verifySPID(comm, command, spid)
-            elif action == "CV":
-                providerChange(comm, command, olt)
             elif action == "CA":
                 clientFault(comm, command, olt)
             else:
