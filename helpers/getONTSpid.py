@@ -5,16 +5,16 @@ conditionSPID = "CTRL_C to break"
 conditionQTY = "Total : "
 
 
-def getOntSpid(comm, command, SLOT, PORT, ID):
+def getOntSpid(comm, command, FRAME,SLOT, PORT, ID):
     command(
-        f"display service-port port 0/{SLOT}/{PORT} ont {ID} | include Total")
+        f"display service-port port {FRAME}/{SLOT}/{PORT} ont {ID} | include Total")
     (value,re) = parser(comm,conditionQTY,"s")
     fail = failChecker(value)
     if(fail == None):
         end = re.span()[1]
         qty = int(value[end:end+2])
         command(
-            f"display service-port port 0/{SLOT}/{PORT} ont {ID} | include gpon")
+            f"display service-port port {FRAME}/{SLOT}/{PORT} ont {ID} | include gpon")
         (value,re1) = parser(comm,conditionSPID,"s")
         end1 = re1.span()[1]
         if (qty == 2):

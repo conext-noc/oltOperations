@@ -1,54 +1,35 @@
-from helpers.outputDecoder import parser, check
+from helpers.formatter import colorFormatter
+from helpers.outputDecoder import decoder, check
 from helpers.failHandler import failChecker
 from helpers.serialLookup import serialSearch
 
 ip = "IPv4 address               : "
+endIp = "Subnet mask"
 vlan = "Manage VLAN                : "
 
 
 def verifyReset(comm, command):
-    lookupType = input("Buscar cliente por serial o por F/S/P/ID [S | F] : ").upper()
-    if(lookupType == "F"):
+    lookupType = input("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
+    if(lookupType == "D"):
+        FRAME = input("Ingrese frame de cliente : ")
         SLOT = input("Ingrese slot de cliente : ")
         PORT = input("Ingrese puerto de cliente : ")
         ID = input("Ingrese el id del cliente : ")
-        NAME = input("Ingrese nombre del cliente : ")
-
-        command(f"interface gpon 0/{SLOT}")
-        command(f'display ont wan-info {PORT} {ID} | include "IPv4 address" ')
-
-        (value, re) = parser(comm, ip, "s")
-        if re != None:
-            endIp = re.span()[1]
-            IP = value[endIp : endIp + 15].replace("\n", "").replace(" ", "")
-            print(f"El cliente {NAME} tiene la IP : {IP}")
-        else:
-            print(f"El cliente {NAME} tiene reset")
+        # AUTO BUSCAR NOMBRE DE CLIENTE
     elif(lookupType == "S"):
         SN = input("Ingrese serial de cliente : ")
         (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,SN)
-        command(f"interface gpon {FRAME}/{SLOT}")
-        command(f'display ont wan-info {PORT} {ID} | include "IPv4 address" ')
 
-        (value, re) = parser(comm, ip, "s")
-        if re != None:
-            endIp = re.span()[1]
-            IP = value[endIp : endIp + 15].replace("\n", "").replace(" ", "")
-            print(f"El cliente {NAME} tiene la IP : {IP}")
-        else:
-            print(f"El cliente {NAME} tiene reset")
+    command(f'display ont wan-info  {FRAME}/{SLOT}  {PORT} {ID}  ')
 
-
-def verifyWAN(comm, command, SLOT, PORT, ID):
-    command(f"interface gpon 0/{SLOT}")
-    command(f"display ont wan-info {PORT} {ID}")
-    (value, re) = parser(comm, vlan, "s")
+    value = decoder(comm)
     fail = failChecker(value)
     if fail == None:
-        (_, e) = re.span()
-        vUsed = value[e : e + 4]
-        print(f"Al ONT se le ha agregado la vlan {vUsed}")
-        return vUsed
+        (_,s) = check(value,ip).span()
+        (e,_) = check(value,endIp).span()
+
+        IP = value[s : e].replace("\n", "").replace(" ", "")
+        print(f"El cliente tiene la IP : {IP}")
     else:
+        fail = colorFormatter(fail, "warning")
         print(fail)
-        return "OFFLINE"

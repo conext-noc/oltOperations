@@ -8,8 +8,8 @@ providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 vlanProvMap = {"1101": "INTER", "1102": "VNET", "1104": "PUBLICAS"}
 
 
-def addONU(comm, command, SLOT, PORT, SN, NAME, SRV, LP):
-    command(f"interface gpon 0/{SLOT}")
+def addONU(comm, command, FRAME,SLOT, PORT, SN, NAME, SRV, LP):
+    command(f"interface gpon {FRAME}/{SLOT}")
     command(
         f'ont add {PORT} sn-auth {SN} omci ont-lineprofile-name "{LP}" ont-srvprofile-name "{SRV}"  desc "{NAME}" '
     )
@@ -36,7 +36,7 @@ def addONU(comm, command, SLOT, PORT, SN, NAME, SRV, LP):
         return (ID,vlanProvMap[f"{str(PROVIDER)}"])
 
 
-def addOnuService(command, enter, SPID, PROVIDER, SLOT, PORT, ID, PLAN):
+def addOnuService(command, SPID, PROVIDER, FRAME, SLOT, PORT, ID, PLAN):
     command(
-        f"""service-PORT {SPID} vlan {PROVIDER} gpon 0/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {PROVIDER} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"""
+        f"""service-PORT {SPID} vlan {PROVIDER} gpon {FRAME}/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {PROVIDER} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"""
     )
