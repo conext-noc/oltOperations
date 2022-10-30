@@ -1,9 +1,11 @@
+from helpers.failHandler import failChecker
+from helpers.serialLookup import serialSearch
+from helpers.formatter import colorFormatter
 from helpers.outputDecoder import parser, check
 from helpers.ontCheck import verifyValues
 from helpers.getWanData import wan
 from time import sleep
 
-from helpers.serialLookup import serialSearch
 
 existingCond = (
     "-----------------------------------------------------------------------------"
@@ -42,28 +44,33 @@ def newLookup(comm, command, olt):
 
 
 def existingLookup(comm, command, olt):
-    lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ")
+    lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ").upper()
     if lookupType == "S":
         SN = input("Ingrese el Serial del Cliente a buscar : ")
-        (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,SN)
-        (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
-        (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
-        print(
-            f"""
-FRAME               :   {FRAME}
-SLOT                :   {SLOT}
-PORT                :   {PORT}
-ID                  :   {ID}
-NAME                :   {NAME}
-STATE               :   {STATE}
-VLAN                :   {VLAN}
-PLAN                :   {PLAN}
-IP                  :   {IPADDRESS}
-SPID                :   {SPID}
-TEMPERATURA         :   {temp}
-POTENCIA            :   {pwr}
-"""
-        )
+        (FRAME,SLOT,PORT,ID,NAME,STATE,fail) = serialSearch(comm,command,SN)
+        if(fail == None):
+            (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
+            (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID)
+            print(
+                f"""
+    FRAME               :   {FRAME}
+    SLOT                :   {SLOT}
+    PORT                :   {PORT}
+    ID                  :   {ID}
+    NAME                :   {NAME}
+    STATE               :   {STATE}
+    VLAN                :   {VLAN}
+    PLAN                :   {PLAN}
+    IP                  :   {IPADDRESS}
+    SPID                :   {SPID}
+    TEMPERATURA         :   {temp}
+    POTENCIA            :   {pwr}
+    """
+            )
+        else:
+            fail = colorFormatter(fail, "fail")
+            print(fail)
+
     elif lookupType == "D":
         FRAME = input("Ingrese frame de cliente : ")
         SLOT = input("Ingrese slot de cliente : ")
@@ -72,39 +79,49 @@ POTENCIA            :   {pwr}
         command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
         sleep(3)
         (value, regex) = parser(comm, existingCond, "m")
-        (_, sDESC) = check(value, existing["DESC"]).span()
-        (_, sCF) = check(value, existing["CF"]).span()
-        (eCF, _) = check(value, existing["RE"]).span()
-        (eDESC, _) = check(value, existing["LDC"]).span()
-        NAME = value[sDESC:eDESC].replace("\n", "")
-        STATE = value[sCF:eCF].replace("\n", "")
-        VLAN = wan(comm, command, SLOT, PORT, ID)
-        (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
-        (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
-        print(
-            f"""
-FRAME               :   {FRAME}
-SLOT                :   {SLOT}
-PORT                :   {PORT}
-ID                  :   {ID}
-NAME                :   {NAME}
-STATE               :   {STATE}
-VLAN                :   {VLAN}
-PLAN                :   {PLAN}
-IP                  :   {IPADDRESS}
-SPID                :   {SPID}
-TEMPERATURA         :   {temp}
-POTENCIA            :   {pwr}
-""")
+        fail = failChecker(value)
+        if(fail == None):
+            (_, sDESC) = check(value, existing["DESC"]).span()
+            (_, sCF) = check(value, existing["CF"]).span()
+            (eCF, _) = check(value, existing["RE"]).span()
+            (eDESC, _) = check(value, existing["LDC"]).span()
+            NAME = value[sDESC:eDESC].replace("\n", "")
+            STATE = value[sCF:eCF].replace("\n", "")
+            VLAN = wan(comm, command, SLOT, PORT, ID)
+            (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
+            (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID)
+            print(
+                f"""
+    FRAME               :   {FRAME}
+    SLOT                :   {SLOT}
+    PORT                :   {PORT}
+    ID                  :   {ID}
+    NAME                :   {NAME}
+    STATE               :   {STATE}
+    VLAN                :   {VLAN}
+    PLAN                :   {PLAN}
+    IP                  :   {IPADDRESS}
+    SPID                :   {SPID}
+    TEMPERATURA         :   {temp}
+    POTENCIA            :   {pwr}
+    """)
+        else:
+            fail = colorFormatter(fail, "fail")
+            print(fail)
 
     elif lookupType == "N":
         NAME = input("Ingrese el Nombre del Cliente a buscar : ")
         command(f'display ont info by-desc "{NAME}" | no-more')
         sleep(3)
         (value, regex) = parser(comm, existingCond, "m")
-        (_, s) = regex[0]
-        (e, _) = regex[len(regex) - 1]
-        print(value[s:e])
+        fail = failChecker(value)
+        if(fail == None):
+            (_, s) = regex[0]
+            (e, _) = regex[len(regex) - 1]
+            print(value[s:e])
+        else:
+            fail = colorFormatter(fail, "fail")
+            print(fail)
     
     else:
         print(f'la opcion "{lookupType}" no existe')

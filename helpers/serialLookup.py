@@ -1,4 +1,5 @@
 from helpers.outputDecoder import parser,check,checkIter
+from helpers.failHandler import failChecker
 from time import sleep
 
 existingCond = (
@@ -21,26 +22,30 @@ existing = {
 
 
 def serialSearch(comm,command,SN):
-  command(f"display ont info by-sn {SN} | no-more")
-  sleep(3)
-  (val, regex) = parser(comm, existingCond, "m")
-  (_, s) = regex[0]
-  (e, _) = regex[len(regex) - 1]
-  value = val[s:e]
-  (_, eFSP) = check(value, existing["FSP"]).span()
-  valFSP = value[eFSP : eFSP + 6].replace("\n", "")
-  reFSP = checkIter(valFSP, "/")
-  (_, eSLOT) = reFSP[0]
-  (_, ePORT) = reFSP[1]
-  SLOT = valFSP[eSLOT : eSLOT + 1].replace("\n", "")
-  PORT = valFSP[ePORT : ePORT + 2].replace("\n", "")
-  (_, eID) = check(value, existing["ONTID"]).span()
-  (_, sDESC) = check(value, existing["DESC"]).span()
-  (eDESC, _) = check(value, existing["LDC"]).span()
-  (_, sCF) = check(value, existing["CF"]).span()
-  (eCF, _) = check(value, existing["RE"]).span()
-  FRAME = 0
-  ID = value[eID : eID + 3].replace("\n", "")
-  NAME = value[sDESC:eDESC].replace("\n", "")
-  STATE = value[sCF:eCF].replace("\n", "")
-  return(FRAME,SLOT,PORT,ID,NAME,STATE)
+    command(f"display ont info by-sn {SN} | no-more")
+    sleep(3)
+    (val, regex) = parser(comm, existingCond, "m")
+    fail = failChecker(val)
+    if(fail == None):
+        (_, s) = regex[0]
+        (e, _) = regex[len(regex) - 1]
+        value = val[s:e]
+        (_, eFSP) = check(value, existing["FSP"]).span()
+        valFSP = value[eFSP : eFSP + 6].replace("\n", "")
+        reFSP = checkIter(valFSP, "/")
+        (_, eSLOT) = reFSP[0]
+        (_, ePORT) = reFSP[1]
+        SLOT = valFSP[eSLOT : eSLOT + 1].replace("\n", "")
+        PORT = valFSP[ePORT : ePORT + 2].replace("\n", "")
+        (_, eID) = check(value, existing["ONTID"]).span()
+        (_, sDESC) = check(value, existing["DESC"]).span()
+        (eDESC, _) = check(value, existing["LDC"]).span()
+        (_, sCF) = check(value, existing["CF"]).span()
+        (eCF, _) = check(value, existing["RE"]).span()
+        FRAME = 0
+        ID = value[eID : eID + 3].replace("\n", "")
+        NAME = value[sDESC:eDESC].replace("\n", "")
+        STATE = value[sCF:eCF].replace("\n", "")
+        return(FRAME,SLOT,PORT,ID,NAME,STATE,None)
+    else:
+        return(None,None,None,None,None,None,fail)

@@ -5,9 +5,9 @@ conditionTemp = "Temperature\(C\)                         : "
 conditionPwr = "Rx optical power\(dBm\)                  : "
 
 
-def verifyValues(comm, command, SLOT, PORT, ID, show):
+def verifyValues(comm, command, FRAME, SLOT, PORT, ID, show):
     decoder(comm)
-    command(f"interface gpon 0/{SLOT}")
+    command(f"interface gpon {FRAME}/{SLOT}")
     command(f"display ont optical-info {PORT} {ID} | no-more")
     command("quit")
     (value, rePwr) = parser(comm, conditionPwr, "s")

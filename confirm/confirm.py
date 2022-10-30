@@ -6,7 +6,7 @@ from helpers.templateGen import template
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
 
-def confirm(comm, command, olt, type):
+def confirm(comm, command, olt, action):
     SLOT = ""
     PORT = ""
     NAME = ""
@@ -17,7 +17,7 @@ def confirm(comm, command, olt, type):
     SRV = ""
     SPID = ""
     ID = ""
-    if "N" in type:
+    if action == "IN":
         SLOT = input("Ingrese slot de cliente : ")
         PORT = input("Ingrese puerto de cliente : ")
         NAME = input("Ingrese nombre del cliente : ")
@@ -32,7 +32,8 @@ def confirm(comm, command, olt, type):
         (ID, PROVIDER) = addONU(
             comm, command, SLOT, PORT, SN, NAME, SRV, LP
         )
-    elif "P" in type:
+    elif action == "IP":
+        FRAME = input("Ingrese frame de cliente : ")
         SLOT = input("Ingrese slot de cliente : ")
         PORT = input("Ingrese puerto de cliente : ")
         ID = input("Ingrese el id del cliente : ")
@@ -43,7 +44,7 @@ def confirm(comm, command, olt, type):
         SPID = getFreeSpid(comm, command)
     if ID != "" and ID != "F":
         print(f"El SPID que se le agregara al cliente es : {SPID}")
-        (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
+        (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID)
         proceed = input(
             f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [Y | N] : "
         )
