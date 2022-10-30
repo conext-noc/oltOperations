@@ -5,7 +5,7 @@ conditionSPID = "CTRL_C to break"
 conditionQTY = "Total : "
 
 
-def getSPIDChange(comm, command, SLOT, PORT, ID):
+def getOntSpid(comm, command, SLOT, PORT, ID):
     command(
         f"display service-port port 0/{SLOT}/{PORT} ont {ID} | include Total")
     (value,re) = parser(comm,conditionQTY,"s")

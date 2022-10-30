@@ -1,15 +1,9 @@
-from helpers.getONTSpid import getSPIDChange
-from helpers.outputDecoder import decoder, parser, checkIter, check
-from helpers.serialLookup import serialSearch
+from helpers.outputDecoder import parser, check
 from helpers.ontCheck import verifyValues
-from helpers.failHandler import failChecker
-from verifyReset.verifyReset import verifyWAN
+from helpers.getWanData import wan
 from time import sleep
 
-planMap = {
-    "VLANID":"VLAN ID             : ",
-    "PLAN": "Inbound table name  : "
-}
+from helpers.serialLookup import serialSearch
 
 existingCond = (
     "-----------------------------------------------------------------------------"
@@ -48,6 +42,7 @@ def newLookup(comm, command, olt):
 
 
 def existingLookup(comm, command, olt):
+<<<<<<< HEAD
     FRAME = ""
     SLOT = ""
     PORT = ""
@@ -116,6 +111,15 @@ def existingLookup(comm, command, olt):
                     VLAN2 = value2[sV2:sV2+4]
                     PLAN2 = value2[sP2:sP2+10].replace(" ", "").replace("\n", "")
                 print(
+=======
+    lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ")
+    if lookupType == "S":
+        SN = input("Ingrese el Serial del Cliente a buscar : ")
+        (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,SN)
+        (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
+        (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
+        print(
+>>>>>>> 1a0d145 (add: added functionality and refactored code)
             f"""
 FRAME               :   {FRAME}
 SLOT                :   {SLOT}
@@ -123,6 +127,7 @@ PORT                :   {PORT}
 ID                  :   {ID}
 NAME                :   {NAME}
 STATE               :   {STATE}
+<<<<<<< HEAD
 VLAN1               :   {VLAN1}
 PLAN1               :   {PLAN1}
 SPID1               :   {SPID1}
@@ -134,22 +139,38 @@ POTENCIA            :   {pwr}
 """)
 
     elif lookupType == "F":
+=======
+VLAN                :   {VLAN}
+PLAN                :   {PLAN}
+IP                  :   {IPADDRESS}
+SPID                :   {SPID}
+TEMPERATURA         :   {temp}
+POTENCIA            :   {pwr}
+"""
+        )
+    elif lookupType == "D":
+>>>>>>> 1a0d145 (add: added functionality and refactored code)
         FRAME = input("Ingrese frame de cliente : ")
         SLOT = input("Ingrese slot de cliente : ")
         PORT = input("Ingrese puerto de cliente : ")
         ID = input("Ingrese el id del cliente : ")
         command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
         sleep(3)
+<<<<<<< HEAD
         (val, regex) = parser(comm, existingCond, "m")
         (_, s) = regex[0]
         (e, _) = regex[len(regex) - 1]
         value = val[s:e]
+=======
+        (value, regex) = parser(comm, existingCond, "m")
+>>>>>>> 1a0d145 (add: added functionality and refactored code)
         (_, sDESC) = check(value, existing["DESC"]).span()
         (_, sCF) = check(value, existing["CF"]).span()
         (eCF, _) = check(value, existing["RE"]).span()
         (eDESC, _) = check(value, existing["LDC"]).span()
         NAME = value[sDESC:eDESC].replace("\n", "")
         STATE = value[sCF:eCF].replace("\n", "")
+<<<<<<< HEAD
         (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
         result = getSPIDChange(comm, command, SLOT, PORT, ID)
         if(result["values"] != None):
@@ -197,6 +218,12 @@ POTENCIA            :   {pwr}
                     VLAN2 = value2[sV2:sV2+4]
                     PLAN2 = value2[sP2:sP2+10].replace(" ", "").replace("\n", "")
                 print(
+=======
+        VLAN = wan(comm, command, SLOT, PORT, ID)
+        (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
+        (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)
+        print(
+>>>>>>> 1a0d145 (add: added functionality and refactored code)
             f"""
 FRAME               :   {FRAME}
 SLOT                :   {SLOT}
@@ -204,12 +231,19 @@ PORT                :   {PORT}
 ID                  :   {ID}
 NAME                :   {NAME}
 STATE               :   {STATE}
+<<<<<<< HEAD
 VLAN1               :   {VLAN1}
 PLAN1               :   {PLAN1}
 SPID1               :   {SPID1}
 VLAN2               :   {VLAN2}
 PLAN2               :   {PLAN2}
 SPID2               :   {SPID2}
+=======
+VLAN                :   {VLAN}
+PLAN                :   {PLAN}
+IP                  :   {IPADDRESS}
+SPID                :   {SPID}
+>>>>>>> 1a0d145 (add: added functionality and refactored code)
 TEMPERATURA         :   {temp}
 POTENCIA            :   {pwr}
 """)

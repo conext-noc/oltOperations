@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-def parser(path):
+def parserCSV(path):
     file = pd.read_csv(path, encoding="latin1")
     data = file.to_dict("records")
     return data

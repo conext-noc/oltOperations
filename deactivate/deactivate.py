@@ -1,5 +1,6 @@
 from tkinter import filedialog
-from helpers.csvParser import parser
+from helpers.csvParser import parserCSV
+from helpers.formatter import colorFormatter
 from helpers.listChecker import compare
 from helpers.outputDecoder import sshToFile
 
@@ -11,11 +12,11 @@ def deactivate(comm, command, olt, typeOfList):
         odoo = filedialog.askopenfilename()
         print("Selecciona el archivo de lista de clientes de Drive")
         drive = filedialog.askopenfilename()
-        actionList = compare(parser(odoo), parser(drive), olt)
+        actionList = compare(parserCSV(odoo), parserCSV(drive), olt)
     elif typeOfList == "SC":
         print("Selecciona la lista de clientes")
         lista = filedialog.askopenfilename()
-        actionList = parser(lista)
+        actionList = parserCSV(lista)
     elif typeOfList == "SU":
         NAME = input("Ingrese nombre del cliente : ")
         SLOT = input("Ingrese slot de cliente : ")
@@ -32,9 +33,9 @@ def deactivate(comm, command, olt, typeOfList):
             }
         ]
     else:
-        print(
-            '\nNingun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO\n'
-        )
+        resp = '\nNingun tipo de lista se ha seleccionado, tip: respuestas posibles "Y" para listas con datos de ODOO y "N" para listas sin datos de ODOO\n'
+        resp = colorFormatter(resp,"warning")
+        print(resp)
         return
     if len(actionList) > 0:
         for client in actionList:
@@ -44,7 +45,9 @@ def deactivate(comm, command, olt, typeOfList):
             SLOT = client["SLOT"]
             PORT = client["PORT"]
             ID = client["ID"]
-            print(f"{NAME} @ OLT {OLT} IN {FRAME}/{SLOT}/{PORT}/{ID}")
+            resp = f"{NAME} @ OLT {OLT} IN {FRAME}/{SLOT}/{PORT}/{ID}"
+            resp = colorFormatter(resp,"success")
+            print(resp)
             command(f"interface gpon {FRAME}/{SLOT}")
             command(f"ont deactivate {PORT} {ID}")
             command(f"display ont info {PORT} {ID}")
@@ -54,5 +57,7 @@ def deactivate(comm, command, olt, typeOfList):
         command("quit")
         return actionList
     else:
-        print("\nla lista no tiene ningun cliente...\n")
+        resp = "\nla lista no tiene ningun cliente...\n"
+        resp = colorFormatter(resp,"warning")
+        print(resp)
         return

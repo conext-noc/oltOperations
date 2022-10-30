@@ -1,11 +1,11 @@
-from helpers.getONTSpid import getSPIDChange
+from helpers.getONTSpid import getOntSpid
 
 def delete(comm,command, OLT):
   SLOT = input("Ingrese slot de cliente : ")
   PORT = input("Ingrese puerto de cliente : ")
   ID = input("Ingrese el id del cliente : ")
   NAME = input("Ingrese nombre del cliente : ")
-  result = getSPIDChange(comm, command, SLOT,PORT,ID)
+  result = getOntSpid(comm, command, SLOT,PORT,ID)
   if(result["ttl"] == 2):
     spid1=result["values"][0]
     spid2=result["values"][1]

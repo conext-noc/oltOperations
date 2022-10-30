@@ -1,5 +1,5 @@
-from helpers.spidInfo import getSPID, verifySPID
-from helpers.onuIdInfo import addONU, addOnuService
+from helpers.spidInfo import getFreeSpid, verifySPID
+from helpers.addHandler import addONU, addOnuService
 from helpers.ontCheck import verifyValues
 from helpers.templateGen import template
 
@@ -27,7 +27,7 @@ def confirm(comm, command, olt, type):
             "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : "
         )
         SRV = input("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
-        SPID = getSPID(comm, command)
+        SPID = getFreeSpid(comm, command)
         print(f"El SPID que se le agregara al cliente es : {SPID}")
         (ID, PROVIDER) = addONU(
             comm, command, SLOT, PORT, SN, NAME, SRV, LP
@@ -40,7 +40,7 @@ def confirm(comm, command, olt, type):
         PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ")
         SN = input("Ingrese serial de cliente : ")
         PLAN = input("Ingrese plan de cliente : ")
-        SPID = getSPID(comm, command)
+        SPID = getFreeSpid(comm, command)
     if ID != "" and ID != "F":
         print(f"El SPID que se le agregara al cliente es : {SPID}")
         (temp, pwr) = verifyValues(comm, command, SLOT, PORT, ID)

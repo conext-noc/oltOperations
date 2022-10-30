@@ -1,4 +1,4 @@
-from helpers.getONTSpid import getSPIDChange
+from helpers.getONTSpid import getOntSpid
 
 def newPlan(comm, command, olt):
     SLOT = input("Ingrese slot de cliente : ")
@@ -6,7 +6,7 @@ def newPlan(comm, command, olt):
     ID = input("Ingrese el id del cliente : ")
     NAME = input("Ingrese nombre del cliente : ")
     PLAN = input("Ingrese plan de cliente : ")
-    result = getSPIDChange(comm, command, SLOT, PORT, ID)
+    result = getOntSpid(comm, command, SLOT, PORT, ID)
     if (result["ttl"] == 2):
         spid1 = result["values"][0]
         spid2 = result["values"][1]
