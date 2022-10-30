@@ -1,5 +1,6 @@
 from helpers.getWanData import wan
 from helpers.serialLookup import serialSearch
+from helpers.getONTSpid import getOntSpid
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
@@ -18,9 +19,10 @@ def deviceModify(comm, command, OLT):
 Que cambio se realizara? 
   > (CT)    :   Cambiar Titular
   > (CO)    :   Cambiar ONT
+  > (CP)    :   Cambiar Plan
   > (CV)    :   Cambiar Vlan (Proveedor)
 $ """
-    )
+    ).upper()
     lookupType = input("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
     if(lookupType == "S"):
         SN = input("Ingrese el Serial del Cliente a buscar : ")
@@ -30,6 +32,7 @@ $ """
         SLOT = input("Ingrese slot de cliente : ")
         PORT = input("Ingrese puerto de cliente : ")
         ID = input("Ingrese el id del cliente : ")
+        ## SEARCH FOR NAME IN OLT!!
     command(f"interface gpon {FRAME}/{SLOT}")
     if action == "CT":
         NAME = input("Ingrese el nuevo nombre del cliente : ")
@@ -68,4 +71,21 @@ $ """
         print(
             f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al proveedor {PROVIDER}"
         )
+        return
+    if action == "CP":
+        PLAN = input("Ingrese el nuevo plan de cliente : ")
+        result = getOntSpid(comm, command, SLOT, PORT, ID)
+        if (result["ttl"] == 2):
+            spid1 = result["values"][0]
+            spid2 = result["values"][1]
+            command(
+                f"service-port {spid1} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+            command(
+                f"service-port {spid2} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+        if (result["ttl"] == 1):
+            spid = result["values"]
+            command(
+                f"service-port {spid} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+        print(
+            f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}")
         return

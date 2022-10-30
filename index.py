@@ -1,19 +1,17 @@
 import tkinter as tk
 from helpers.ssh import ssh
 from helpers.outputDecoder import decoder
-from helpers.spidInfo import verifySPID
 from helpers.verification import verify
 from SX.deactivate import deactivate
 from RX.activate import activate
 from EC.delete import delete
 from IX.confirm import confirm
-from CP.planMigration import newPlan
 from MC.deviceModify import deviceModify
-from speedVerify.speedVerify import speedVerify
-from verifyReset.verifyReset import verifyReset
-from verifyPort.verifyPort import verifyPort
+from VC.speedVerify import speedVerify
+from VR.verifyReset import verifyReset
+from VP.verifyPort import verifyPort
 from BX.lookup import existingLookup, newLookup
-from clientFault.clientFault import clientFault
+from CA.clientFault import clientFault
 import traceback
 import sys
 
@@ -55,11 +53,9 @@ Que accion se realizara?
   > (EC)  :  Eliminar Cliente
   > (BN)  :  Buscar cliente en OLT (no agregado)
   > (BE)  :  Buscar cliente en OLT (ya agregado)
-  > (CP)  :  Cambio de plan
   > (MC)  :  Modificar Cliente
   > (VC)  :  Verificar consumo
   > (VR)  :  Verificar reset
-  > (VS)  :  Verificar Service-Port ID
   > (VP)  :  Verificacion de puerto
   > (CA)  :  Clientes con averias (corte de fibra)
 $ """
@@ -91,8 +87,6 @@ $ """
                 newLookup(comm, command, olt)
             elif action == "BE":
                 existingLookup(comm, command, olt)
-            elif action == "CP":
-                newPlan(comm, command, olt)
             elif action == "MC":
                 deviceModify(comm, command, olt)
             elif action == "VC":
@@ -101,9 +95,6 @@ $ """
                 verifyReset(comm, command)
             elif action == "VP":
                 verifyPort(comm, command)
-            elif action == "VS":
-                spid = input("Ingrese el Service-Port ID : ")
-                verifySPID(comm, command, spid)
             elif action == "CA":
                 clientFault(comm, command, olt)
             else:
