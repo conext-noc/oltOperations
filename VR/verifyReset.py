@@ -18,7 +18,7 @@ def verifyReset(comm, command):
         # AUTO BUSCAR NOMBRE DE CLIENTE
     elif(lookupType == "S"):
         SN = input("Ingrese serial de cliente : ").upper()
-        (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,SN)
+        (FRAME,SLOT,PORT,ID,NAME,STATE, FAIL) = serialSearch(comm,command,SN)
 
     command(f'display ont wan-info  {FRAME}/{SLOT}  {PORT} {ID}  ')
 

@@ -14,6 +14,7 @@ def deviceModify(comm, command, OLT):
     SLOT = ""
     PORT = ""
     ID = ""
+    FAIL = None
     action = input(
         """
 Que cambio se realizara? 
@@ -26,66 +27,67 @@ $ """
     lookupType = input("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
     if(lookupType == "S"):
         SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
-        (FRAME,SLOT,PORT,ID,NAME,STATE) = serialSearch(comm,command,SN)
+        (FRAME,SLOT,PORT,ID,NAME,STATE, FAIL) = serialSearch(comm,command,SN)
     if(lookupType == "D"):
         FRAME = input("Ingrese frame de cliente : ").upper()
         SLOT = input("Ingrese slot de cliente : ").upper()
         PORT = input("Ingrese puerto de cliente : ").upper()
         ID = input("Ingrese el id del cliente : ").upper()
         ## SEARCH FOR NAME IN OLT!!
-    command(f"interface gpon {FRAME}/{SLOT}")
-    if action == "CT":
-        NAME = input("Ingrese el nuevo nombre del cliente : ").upper()
-        command(f"ont modify {PORT} {ID} desc {NAME}")
-        print(
-            f"Al Cliente {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se ha cambiado de titular a {NAME}"
-        )
-        return
-    if action == "CO":
-        SN = input("Ingrese el nuevo ont del cliente : ").upper()
-        command(f"ont modify {PORT} {ID} sn {SN}")
-        print(
-            f"Al Cliente 0/{SLOT}/{PORT}/{ID} OLT {OLT} se ha sido cambiado el ont a {SN}"
-        )
-    if action == "CV":
-        (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
-        print(f"""
-        NOMBRE DE CLIENTE   :   {NAME}
-        VLAN DE CLIENTE     :   {VLAN}
-        PLAN DE CLIENTE     :   {PLAN}
-        IP DEL CLIENTE      :   {IPADDRESS}
-        SPID                :   {SPID}
-        """)
-        PROVIDER = input("Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
-        PLAN = input("Ingrese plan de cliente : ").upper()
-        prov = providerMap[PROVIDER]
-        command(f" undo  service-port  {SPID}")
-        command(
-            f"service-port {SPID} vlan {prov} gpon {FRAME}/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {prov} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"
-        )
-        isBridge = input("ONT es un bridge? [Y | N] : ").upper()
-        if isBridge == "Y":
-            command(f"interface gpon {FRAME}/{SLOT}")
-            command(f"ont port native-vlan {PORT} {ID} eth 1 vlan {prov}")
-            command("quit")
-        print(
-            f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al proveedor {PROVIDER}"
-        )
-        return
-    if action == "CP":
-        PLAN = input("Ingrese el nuevo plan de cliente : ").upper()
-        result = getOntSpid(comm, command, SLOT, PORT, ID)
-        if (result["ttl"] == 2):
-            spid1 = result["values"][0]
-            spid2 = result["values"][1]
+    if(FAIL == None):
+        command(f"interface gpon {FRAME}/{SLOT}")
+        if action == "CT":
+            NAME = input("Ingrese el nuevo nombre del cliente : ").upper()
+            command(f"ont modify {PORT} {ID} desc {NAME}")
+            print(
+                f"Al Cliente {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se ha cambiado de titular a {NAME}"
+            )
+            return
+        if action == "CO":
+            SN = input("Ingrese el nuevo ont del cliente : ").upper()
+            command(f"ont modify {PORT} {ID} sn {SN}")
+            print(
+                f"Al Cliente 0/{SLOT}/{PORT}/{ID} OLT {OLT} se ha sido cambiado el ont a {SN}"
+            )
+        if action == "CV":
+            (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
+            print(f"""
+            NOMBRE DE CLIENTE   :   {NAME}
+            VLAN DE CLIENTE     :   {VLAN}
+            PLAN DE CLIENTE     :   {PLAN}
+            IP DEL CLIENTE      :   {IPADDRESS}
+            SPID                :   {SPID}
+            """)
+            PROVIDER = input("Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
+            PLAN = input("Ingrese plan de cliente : ").upper()
+            prov = providerMap[PROVIDER]
+            command(f" undo  service-port  {SPID}")
             command(
-                f"service-port {spid1} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
-            command(
-                f"service-port {spid2} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
-        if (result["ttl"] == 1):
-            spid = result["values"]
-            command(
-                f"service-port {spid} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
-        print(
-            f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}")
-        return
+                f"service-port {SPID} vlan {prov} gpon {FRAME}/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {prov} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"
+            )
+            isBridge = input("ONT es un bridge? [Y | N] : ").upper()
+            if isBridge == "Y":
+                command(f"interface gpon {FRAME}/{SLOT}")
+                command(f"ont port native-vlan {PORT} {ID} eth 1 vlan {prov}")
+                command("quit")
+            print(
+                f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al proveedor {PROVIDER}"
+            )
+            return
+        if action == "CP":
+            PLAN = input("Ingrese el nuevo plan de cliente : ").upper()
+            result = getOntSpid(comm, command, SLOT, PORT, ID)
+            if (result["ttl"] == 2):
+                spid1 = result["values"][0]
+                spid2 = result["values"][1]
+                command(
+                    f"service-port {spid1} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+                command(
+                    f"service-port {spid2} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+            if (result["ttl"] == 1):
+                spid = result["values"]
+                command(
+                    f"service-port {spid} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+            print(
+                f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}")
+            return
