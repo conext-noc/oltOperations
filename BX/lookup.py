@@ -49,7 +49,7 @@ def existingLookup(comm, command, olt):
         SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
         (FRAME,SLOT,PORT,ID,NAME,STATE,fail) = serialSearch(comm,command,SN)
         if(fail == None):
-            (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, SLOT, PORT, ID)
+            (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, FRAME,SLOT, PORT, ID)
             (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID)
             print(
                 f"""

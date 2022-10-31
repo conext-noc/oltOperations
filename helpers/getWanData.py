@@ -25,12 +25,12 @@ def preWan(comm, command, SLOT, PORT, ID):
         return fail
 
 
-def wan(comm, command, SLOT, PORT, ID):
+def wan(comm, command,FRAME, SLOT, PORT, ID):
     IPADDRESS = ""
     SPID = "NA"
     PLAN = "NA"
     VLAN = "NA"
-    result = getOntSpid(comm,command,SLOT,PORT,ID)
+    result = getOntSpid(comm,command,FRAME,SLOT,PORT,ID)
     if(result["values"] == None):
         return ("NA", "NA", "NA", "NA")
     if(result["ttl"] == 1):
