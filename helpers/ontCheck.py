@@ -20,7 +20,6 @@ def verifyValues(comm, command, FRAME, SLOT, PORT, ID, show):
             return fail
         return fail
         
-
     else:
         reTemp = check(value, conditionTemp)
         (_, eT) = reTemp.span()

@@ -44,7 +44,7 @@ def confirm(comm, command, olt, action):
         SPID = getFreeSpid(comm, command)
     if ID != "" and ID != "F":
         print(f"El SPID que se le agregara al cliente es : {SPID}")
-        (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID)
+        (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID, True)
         proceed = input(
             f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [Y | N] : "
         ).upper()
