@@ -64,5 +64,5 @@ def wan(comm, command,FRAME, SLOT, PORT, ID):
         if(failIp == None):
             (_,s) = check(val,ip).span()
             (e,_) = check(val,endIp).span()
-            IPADDRESS = value[s : e -1].replace(" ", "").replace("\n", "")
+            IPADDRESS = val[s : e -1].replace(" ", "").replace("\n", "")
     return (VLAN,PLAN,IPADDRESS,SPID)
