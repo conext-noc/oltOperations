@@ -88,6 +88,7 @@ def existingLookup(comm, command, olt):
             NAME = value[sDESC:eDESC].replace("\n", "")
             STATE = value[sCF:eCF].replace("\n", "")
             (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command,FRAME, SLOT, PORT, ID)
+            print("looking for optical data")
             (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID, False)
             print(
                 f"""

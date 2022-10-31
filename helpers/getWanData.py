@@ -26,14 +26,12 @@ def preWan(comm, command, SLOT, PORT, ID):
 
 
 def wan(comm, command,FRAME, SLOT, PORT, ID):
-    IPADDRESS = ""
+    IPADDRESS = "NA"
     SPID = "NA"
     PLAN = "NA"
     VLAN = "NA"
     result = getOntSpid(comm,command,FRAME,SLOT,PORT,ID)
-    if(result["values"] == None):
-        return ("NA", "NA", "NA", "NA")
-    if(result["ttl"] == 1):
+    if(result["ttl"] == 1 and result["values"] != None):
         SPID = result["values"]
         command(f" display  service-port  {SPID}")
         value = decoder(comm)
@@ -43,21 +41,18 @@ def wan(comm, command,FRAME, SLOT, PORT, ID):
             (_,sP) = check(value,planMap["PLAN"]).span()
             VLAN = value[sV:sV+4]
             PLAN = value[sP:sP+10].replace(" ", "").replace("\n", "")
-            command(f"display ont wan-info 0 {SLOT} {PORT} {ID}")
+            command(f" display  ont  wan-info  {FRAME}/{SLOT}  {PORT}  {ID}")
             val = decoder(comm)
             failIp = failChecker(val)
             if(failIp == None):
                 (_,s) = check(val,ip).span()
                 (e,_) = check(val,endIp).span()
-                IPADDRESS = value[s : e -1].replace(" ", "").replace("\n", "")
-            return (VLAN,PLAN,IPADDRESS,SPID)
-        else:
-            return ("NA", "NA", "NA","NA")
-    elif(result["ttl"] > 1):
-        value = decoder(comm)
-        fail = failChecker(value)
+                IPADDRESS = val[s : e -1].replace(" ", "").replace("\n", "")
+    elif(result["ttl"] > 1 and result["values"] != None):
         SPID = result["values"][0]
         command(f"display service-port {SPID}")
+        value = decoder(comm)
+        fail = failChecker(value)
         if(fail == None):
             (_,sV1) = check(value,planMap["VLANID"]).span()
             (_,sP1) = check(value,planMap["PLAN"]).span()
@@ -70,4 +65,4 @@ def wan(comm, command,FRAME, SLOT, PORT, ID):
             (_,s) = check(val,ip).span()
             (e,_) = check(val,endIp).span()
             IPADDRESS = value[s : e -1].replace(" ", "").replace("\n", "")
-        return (VLAN,PLAN,IPADDRESS,SPID)
+    return (VLAN,PLAN,IPADDRESS,SPID)
