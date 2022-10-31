@@ -49,7 +49,7 @@ def existingLookup(comm, command, olt):
         SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
         (FRAME,SLOT,PORT,ID,NAME,STATE,fail) = serialSearch(comm,command,SN)
         if(fail == None):
-            (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command, FRAME,SLOT, PORT, ID)
+            (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command,FRAME, SLOT, PORT, ID)
             (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID, False)
             print(
                 f"""
@@ -87,7 +87,6 @@ def existingLookup(comm, command, olt):
             (eDESC, _) = check(value, existing["LDC"]).span()
             NAME = value[sDESC:eDESC].replace("\n", "")
             STATE = value[sCF:eCF].replace("\n", "")
-            VLAN = wan(comm, command, SLOT, PORT, ID)
             (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command,FRAME, SLOT, PORT, ID)
             (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID, False)
             print(
