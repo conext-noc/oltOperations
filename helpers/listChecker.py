@@ -2,8 +2,10 @@ def compare(odoo, drive, olt):
     listData = []
     for odooClient in odoo:
         for driveClient in drive:
-            if odooClient["Cliente/NIF"] == driveClient["NIF"][2:]:
-                if driveClient["OLT"] == olt:
+            NIF1 = driveClient["NIF"][2:]
+            NIF2 = odooClient["Cliente/NIF"]
+            if int(NIF2) == int(NIF1):
+                if int(driveClient["OLT"]) == int(olt):
                     FRAME = (
                         driveClient["FRAME"]
                         if (
@@ -55,6 +57,17 @@ def compare(odoo, drive, olt):
                             and driveClient["ID"] != "S/II"
                         )
                         else "NA"
+                    )
+                    print(
+                        odooClient["Cliente"],
+                        driveClient["NOMBRE"],
+                        odooClient["Cliente/NIF"],
+                        odooClient["ID externo"],
+                        driveClient["OLT"],
+                        FRAME,
+                        SLOT,
+                        PORT,
+                        ID,
                     )
                     listData.append(
                         {

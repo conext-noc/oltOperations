@@ -6,3 +6,4 @@ def avg(arr1, arr2):
     ttl2 = sum(arr2)
     avg2 = ttl2 / len2
     return (avg1, avg2)
+    

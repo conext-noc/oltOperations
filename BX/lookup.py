@@ -44,13 +44,15 @@ def newLookup(comm, command, olt):
 
 
 def existingLookup(comm, command, olt):
-    lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ").upper()
+    lookupType = input(
+        "Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : "
+    ).upper()
     if lookupType == "S":
         SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
-        (FRAME,SLOT,PORT,ID,NAME,STATE,fail) = serialSearch(comm,command,SN)
-        if(fail == None):
-            (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command,FRAME, SLOT, PORT, ID)
-            (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID, False)
+        (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
+        if fail == None:
+            (VLAN, PLAN, IPADDRESS, SPID) = wan(comm, command, FRAME, SLOT, PORT, ID)
+            (temp, pwr) = verifyValues(comm, command, FRAME, SLOT, PORT, ID, False)
             print(
                 f"""
     FRAME               :   {FRAME}
@@ -80,16 +82,16 @@ def existingLookup(comm, command, olt):
         sleep(3)
         (value, regex) = parser(comm, existingCond, "m")
         fail = failChecker(value)
-        if(fail == None):
+        if fail == None:
             (_, sDESC) = check(value, existing["DESC"]).span()
             (_, sCF) = check(value, existing["CF"]).span()
             (eCF, _) = check(value, existing["RE"]).span()
             (eDESC, _) = check(value, existing["LDC"]).span()
             NAME = value[sDESC:eDESC].replace("\n", "")
             STATE = value[sCF:eCF].replace("\n", "")
-            (VLAN,PLAN,IPADDRESS,SPID) = wan(comm, command,FRAME, SLOT, PORT, ID)
+            (VLAN, PLAN, IPADDRESS, SPID) = wan(comm, command, FRAME, SLOT, PORT, ID)
             print("looking for optical data")
-            (temp, pwr) = verifyValues(comm, command,FRAME, SLOT, PORT, ID, False)
+            (temp, pwr) = verifyValues(comm, command, FRAME, SLOT, PORT, ID, False)
             print(
                 f"""
     FRAME               :   {FRAME}
@@ -104,7 +106,8 @@ def existingLookup(comm, command, olt):
     SPID                :   {SPID}
     TEMPERATURA         :   {temp}
     POTENCIA            :   {pwr}
-    """)
+    """
+            )
         else:
             fail = colorFormatter(fail, "fail")
             print(fail)
@@ -115,13 +118,14 @@ def existingLookup(comm, command, olt):
         sleep(3)
         (value, regex) = parser(comm, existingCond, "m")
         fail = failChecker(value)
-        if(fail == None):
+        if fail == None:
             (_, s) = regex[0]
             (e, _) = regex[len(regex) - 1]
             print(value[s:e])
         else:
             fail = colorFormatter(fail, "fail")
             print(fail)
-    
+
     else:
-        print(f'la opcion "{lookupType}" no existe')
+        resp = f'\nla opcion "{lookupType}" no existe\n'
+        resp = colorFormatter(resp, "warning")

@@ -56,6 +56,7 @@ def txt2csvFormatter(file):
     f.close()
 
 
-def sshToFile(comm, file):
+def sshToFile(comm, file, typeOfList):
     output = decoder(comm)
-    print(output, file=open(f"{file}", "w"))
+    if "U" not in typeOfList:
+        print(output, file=open(f"{file}", "w"))

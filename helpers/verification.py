@@ -1,5 +1,6 @@
 import re
 from helpers.csvParser import converter
+from helpers.formatter import colorFormatter
 from helpers.outputDecoder import check
 from helpers.failHandler import failChecker
 import os
@@ -50,3 +51,6 @@ def verify(actList, action, olt):
             )
             indexes.append(clientValue)
     converter(result_path, f"resultados{olt}", indexes, True)
+    resp = f'lista "resultados{olt}" creada, operacion finalizada'
+    resp = colorFormatter(resp, "success")
+    print(resp)

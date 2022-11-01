@@ -91,7 +91,7 @@ ports = {
 
 def clientFault(comm, command, olt):
     portToExec = ports[olt]
-    clients = clientsTable(comm,command,portToExec)
+    clients = clientsTable(comm, command, portToExec)
     print(
         "| {:^8} | {:^5} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} |".format(
             "F/S/P", "ID", "NAME", "STATUS", "CAUSE", "TIME", "DATE"
@@ -109,15 +109,16 @@ def clientFault(comm, command, olt):
             FSP, ID, NAME, STATUS, CAUSE, TIME, DATE
         )
         CT = f"{DATE} {TIME}"
-        if(str(TIME) != "nan" and str(TIME) != "-"):
-            if (STATUS == "offline" and CAUSE == "LOSi/LOBi"):
-                t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
-                t2 = datetime.fromisoformat(str(datetime.now()))
-                clientTime = t2 - t1
-                color = ""
-                if (clientTime.days <= 5):
-                    color = "los1" 
-                if (clientTime.days > 5):
-                    color = "los2" 
-                resp = colorFormatter(resp,color)
-                print(resp)
+        if str(TIME) != "nan" and str(TIME) != "-":
+            if STATUS == "offline":
+                if CAUSE == "LOSi/LOBi":
+                    t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
+                    t2 = datetime.fromisoformat(str(datetime.now()))
+                    clientTime = t2 - t1
+                    color = ""
+                    if clientTime.days <= 5:
+                        color = "los1"
+                    if clientTime.days > 5:
+                        color = "los2"
+                    resp = colorFormatter(resp, color)
+                    print(resp)
