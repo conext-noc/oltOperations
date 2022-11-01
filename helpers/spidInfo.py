@@ -1,5 +1,6 @@
 from helpers.outputDecoder import parser
 from helpers.failHandler import failChecker
+from helpers.formatter import colorFormatter
 
 conditionSPID = """Next valid free service virtual port ID: """
 conditionSpidCheck = "-------------------------------------------------------------"
@@ -24,9 +25,13 @@ def verifySPID(comm, command, spid):
     if fail == None:
         (s, _) = re[0]
         (_, e) = re[1]
-        print(value[s:e])
+        msg = colorFormatter(value[s:e], "ok")
+        print(msg)
     else:
+        fail = colorFormatter(value, "fail")
         print(fail)
         spid = getFreeSpid(comm, command)
-        print(f"No se agrego el SPID, el siguiente SPID libre es {spid}")
-
+        msg = colorFormatter(
+            f"No se agrego el SPID, el siguiente SPID libre es {spid}", "warning"
+        )
+        print(msg)

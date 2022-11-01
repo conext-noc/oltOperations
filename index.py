@@ -1,4 +1,5 @@
 import tkinter as tk
+from time import sleep
 from helpers.ssh import ssh
 from helpers.outputDecoder import decoder
 from helpers.verification import verify
@@ -20,27 +21,29 @@ root.withdraw()
 
 
 def main():
-    while True:
-        try:
-            olt = input("Seleccione la OLT [15|2] : ").upper()
-            ip = ""
-            if olt == "15":
-                ip = "181.232.180.5"
-            elif olt == "2":
-                ip = "181.232.180.6"
-            else:
-                raise Exception(
-                    f"No se puede Conectar a la OLT, Error OLT {olt} no existe"
-                )
+    try:
+        olt = input("Seleccione la OLT [15|2] : ").upper()
+        ip = ""
+        if olt == "15":
+            ip = "181.232.180.5"
+        elif olt == "2":
+            ip = "181.232.180.6"
+        else:
+            raise Exception(f"No se puede Conectar a la OLT, Error OLT {olt} no existe")
 
-            (comm, command) = ssh(ip)
+        (comm, command, close) = ssh(ip)
 
-            command("enable")
-            command("config")
-            decoder(comm)
+        def quit():
+            close()
+            sleep(30)
+            sys.exit(0)
 
-            action = input(
-                """
+        command("enable")
+        command("config")
+        decoder(comm)
+
+        action = input(
+            """
 Que accion se realizara? 
   > (RC)  :  Reactivar Clientes (lista)
   > (RO)  :  Reactivar con lista de Odoo
@@ -59,52 +62,71 @@ Que accion se realizara?
   > (VP)  :  Verificacion de puerto
   > (CA)  :  Clientes con averias (corte de fibra)
 $ """
-            ).upper()
+        ).upper()
 
-            if action == "RC":
-                result = activate(comm, command, olt, action)
-                verify(result, action, olt)
-            elif action == "RO":
-                result = activate(comm, command, olt, action)
-                verify(result, action, olt)
-            elif action == "RU":
-                result = activate(comm, command, olt, action)
-            elif action == "SC":
-                result = deactivate(comm, command, olt, action)
-                verify(result, action, olt)
-            elif action == "SO":
-                result = deactivate(comm, command, olt, action)
-                verify(result, action, olt)
-            elif action == "SU":
-                result = deactivate(comm, command, olt, action)
-            elif action == "IN":
-                confirm(comm, command, olt, action)
-            elif action == "IP":
-                confirm(comm, command, olt, action)
-            elif action == "EC":
-                delete(comm, command, olt)
-            elif action == "BN":
-                newLookup(comm, command, olt)
-            elif action == "BE":
-                existingLookup(comm, command, olt)
-            elif action == "MC":
-                deviceModify(comm, command, olt)
-            elif action == "VC":
-                speedVerify(comm, command)
-            elif action == "VR":
-                verifyReset(comm, command)
-            elif action == "VP":
-                verifyPort(comm, command)
-            elif action == "CA":
-                clientFault(comm, command, olt)
-            else:
-                print(f"Error @ : opcion {action} no existe")
+        if action == "RC":
+            result = activate(comm, command, olt, action)
+            verify(result, action, olt)
+            quit()
+        elif action == "RO":
+            result = activate(comm, command, olt, action)
+            verify(result, action, olt)
+            quit()
+        elif action == "RU":
+            result = activate(comm, command, olt, action)
+            quit()
+        elif action == "SC":
+            result = deactivate(comm, command, olt, action)
+            verify(result, action, olt)
+            quit()
+        elif action == "SO":
+            result = deactivate(comm, command, olt, action)
+            verify(result, action, olt)
+            quit()
+        elif action == "SU":
+            result = deactivate(comm, command, olt, action)
+            quit()
+        elif action == "IN":
+            confirm(comm, command, olt, action)
+            quit()
+        elif action == "IP":
+            confirm(comm, command, olt, action)
+            quit()
+        elif action == "EC":
+            delete(comm, command, olt)
+            quit()
+        elif action == "BN":
+            newLookup(comm, command, olt)
+            quit()
+        elif action == "BE":
+            existingLookup(comm, command, olt)
+            quit()
+        elif action == "MC":
+            deviceModify(comm, command, olt)
+            quit()
+        elif action == "VC":
+            speedVerify(comm, command)
+            quit()
+        elif action == "VR":
+            verifyReset(comm, command)
+            quit()
+        elif action == "VP":
+            verifyPort(comm, command)
+            quit()
+        elif action == "CA":
+            clientFault(comm, command, olt)
+            quit()
+        else:
+            print(f"Error @ : opcion {action} no existe")
 
-        except KeyboardInterrupt:
-            print("Saliendo...")
-            sys.exit(0)
-        except Exception:
-            print("Error At : ", traceback.format_exc())
+    except KeyboardInterrupt:
+        print("Saliendo...")
+        sleep(5)
+        sys.exit(0)
+    except Exception:
+        print("Error At : ", traceback.format_exc())
+        sleep(10)
+        sys.exit(1)
 
 
 if __name__ == "__main__":
