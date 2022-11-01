@@ -125,7 +125,7 @@ $ """
         sys.exit(0)
     except Exception:
         print("Error At : ", traceback.format_exc())
-        sleep(10)
+        sleep(20)
         sys.exit(1)
 
 
