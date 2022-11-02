@@ -1,19 +1,19 @@
-from helpers.outputDecoder import check
+from helpers.outputDecoder import check, checkIter
 from helpers.formatter import colorFormatter
 
 failSTR = "Failure: "
-noExist = "The required ONT does not exist"
+endFail = "MARLLM0"
+
 
 def failChecker(value):
-    re = check(value,failSTR)
-    reExist = check(value,noExist)
-    if re == None and reExist == None:
+    re = check(value, failSTR)
+    if re == None:
         return None
-    elif(reExist == None and re != None):
+    else:
         (_, s) = re.span()
-        reason = value[s:s+25].replace("\n", "")
+        end = checkIter(value, endFail)
+        maxLen = len(end) - 1
+        (e, _) = end[maxLen]
+        reason = value[s:e].replace("\n", "")
         reason = colorFormatter(reason, "fail")
-        return reason
-    elif(reExist != None and re == None):
-        reason = colorFormatter(noExist, "fail")
         return reason

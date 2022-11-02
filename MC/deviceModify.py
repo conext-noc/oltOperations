@@ -27,31 +27,25 @@ Que cambio se realizara?
   > (CV)    :   Cambiar Vlan (Proveedor)
 $ """
     ).upper()
-    lookupType = input(
-        "Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : "
-    ).upper()
+    lookupType = input("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
     if lookupType == "S":
         SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
         (FRAME, SLOT, PORT, ID, NAME, STATE, FAIL) = serialSearch(comm, command, SN)
         if FAIL == None:
             keep = input(
                 f"""
-        NOMBRE              :   {NAME}
-        OLT                 :   {OLT}
-        FRAME               :   {FRAME}
-        SLOT                :   {SLOT}
-        PORT                :   {PORT}
-        ID                  :   {ID}
-        Desea continuar? [Y | N]    :   """
+    NOMBRE              :   {NAME}
+    OLT                 :   {OLT}
+    FRAME               :   {FRAME}
+    SLOT                :   {SLOT}
+    PORT                :   {PORT}
+    ID                  :   {ID}
+    Desea continuar? [Y | N]    :   """
             ).upper()
             FAIL = (
                 None
                 if keep == "Y"
-                else (
-                    "No se procedera con la operacion..."
-                    if keep == "N"
-                    else f"opcion {keep} no existe"
-                )
+                else ("No se procedera con la operacion..." if keep == "N" else f"opcion {keep} no existe")
             )
     if lookupType == "D":
         FRAME = input("Ingrese frame de cliente : ").upper()
@@ -79,11 +73,7 @@ $ """
             FAIL = (
                 None
                 if keep == "Y"
-                else (
-                    "No se procedera con la operacion..."
-                    if keep == "N"
-                    else f"opcion {keep} no existe"
-                )
+                else ("No se procedera con la operacion..." if keep == "N" else f"opcion {keep} no existe")
             )
     if FAIL == None:
         if action == "CT":
@@ -108,16 +98,14 @@ $ """
             (VLAN, PLAN, IPADDRESS, SPID) = wan(comm, command, FRAME, SLOT, PORT, ID)
             print(
                 f"""
-            NOMBRE DE CLIENTE   :   {NAME}
-            VLAN DE CLIENTE     :   {VLAN}
-            PLAN DE CLIENTE     :   {PLAN}
-            IP DEL CLIENTE      :   {IPADDRESS}
-            SPID                :   {SPID}
+    NOMBRE DE CLIENTE   :   {NAME}
+    VLAN DE CLIENTE     :   {VLAN}
+    PLAN DE CLIENTE     :   {PLAN}
+    IP DEL CLIENTE      :   {IPADDRESS}
+    SPID                :   {SPID}
             """
             )
-            PROVIDER = input(
-                "Ingrese el nuevo proveedor de cliente [INTER | VNET] : "
-            ).upper()
+            PROVIDER = input("Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
             prov = providerMap[PROVIDER]
             command(f" undo  service-port  {SPID}")
             command(
@@ -136,11 +124,11 @@ $ """
             (VLAN, PLAN, IPADDRESS, SPID) = wan(comm, command, FRAME, SLOT, PORT, ID)
             print(
                 f"""
-            NOMBRE DE CLIENTE   :   {NAME}
-            VLAN DE CLIENTE     :   {VLAN}
-            PLAN DE CLIENTE     :   {PLAN}
-            IP DEL CLIENTE      :   {IPADDRESS}
-            SPID                :   {SPID}
+    NOMBRE DE CLIENTE   :   {NAME}
+    VLAN DE CLIENTE     :   {VLAN}
+    PLAN DE CLIENTE     :   {PLAN}
+    IP DEL CLIENTE      :   {IPADDRESS}
+    SPID                :   {SPID}
             """
             )
             PLAN = input("Ingrese el nuevo plan de cliente : ").upper()
@@ -148,17 +136,11 @@ $ """
             if result["ttl"] == 2:
                 spid1 = result["values"][0]
                 spid2 = result["values"][1]
-                command(
-                    f"service-port {spid1} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"
-                )
-                command(
-                    f"service-port {spid2} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"
-                )
+                command(f"service-port {spid1} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+                command(f"service-port {spid2} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
             if result["ttl"] == 1:
                 spid = result["values"]
-                command(
-                    f"service-port {spid} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"
-                )
+                command(f"service-port {spid} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
             resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"
             resp = colorFormatter(resp, "ok")
             print(resp)

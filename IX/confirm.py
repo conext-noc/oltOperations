@@ -1,7 +1,6 @@
 from helpers.spidInfo import getFreeSpid, verifySPID
 from helpers.addHandler import addONU, addOnuService
 from helpers.ontCheck import verifyValues
-from helpers.templateGen import template
 from helpers.formatter import colorFormatter
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
@@ -30,7 +29,7 @@ def confirm(comm, command, olt, action):
         SRV = input("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ").upper()
         SPID = getFreeSpid(comm, command)
         (ID, PROVIDER, fail) = addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP)
-        if fail:
+        if fail != None:
             resp = colorFormatter(fail, "fail")
             print(resp)
             return
@@ -51,11 +50,37 @@ def confirm(comm, command, olt, action):
             f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [Y | N] : "
         ).upper()
         if proceed == "Y":
+            addVlan = input("Se agregara vlan al puerto? (es bridge) [Y/N] : ").upper()
+            if addVlan == "Y":
+                command(f"interface gpon {FRAME}/{SLOT}")
+                command(f" ont  port  native-vlan  {PORT} {ID}  eth  1  vlan  {providerMap[PROVIDER]} ")
+                command("quit")
             addOnuService(command, SPID, providerMap[PROVIDER], FRAME, SLOT, PORT, ID, PLAN)
             verifySPID(comm, command, SPID)
-            print(template(FRAME, SLOT, PORT, ID, NAME, olt, PROVIDER, PLAN, temp, pwr, SPID))
+            PLAN = PLAN[3:]
+            template = """
+{} {}/{}/{}/{} 
+OLT {} {} {}
+TEMPERATURA :   {}
+POTENCIA    :   {}
+SPID        :   {}""".format(
+                NAME, FRAME, SLOT, PORT, ID, olt, PROVIDER, PLAN, temp, pwr, SPID
+            )
+            res = colorFormatter(template, "success")
+            print(res)
             return
         if proceed == "N":
             reason = input("Por que no se le asignara servicio? : ").upper()
-            print(template(FRAME, SLOT, PORT, ID, NAME, olt, PROVIDER, PLAN, temp, pwr, SPID, reason))
+            PLAN = PLAN[3:]
+            template = """
+    {} {}/{}/{}/{} 
+    OLT {} {} {}
+    TEMPERATURA :   {}
+    POTENCIA    :   {}
+    SPID        :   {}
+    RAZÓN       :   {}""".format(
+                NAME, FRAME, SLOT, PORT, ID, olt, PROVIDER, PLAN, temp, pwr, SPID, reason
+            )
+            res = colorFormatter(template, "success")
+            print(res)
             return

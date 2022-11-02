@@ -33,9 +33,9 @@ def main():
 
         (comm, command, close) = ssh(ip)
 
-        def quit():
+        def quit(delay):
             close()
-            sleep(30)
+            sleep(delay)
             sys.exit(0)
 
         command("enable")
@@ -67,65 +67,64 @@ $ """
         if action == "RC":
             result = activate(comm, command, olt, action)
             verify(result, action, olt)
-            quit()
+            quit(2)
         elif action == "RO":
             result = activate(comm, command, olt, action)
             verify(result, action, olt)
-            quit()
+            quit(2)
         elif action == "RU":
             result = activate(comm, command, olt, action)
-            quit()
+            quit(2)
         elif action == "SC":
             result = deactivate(comm, command, olt, action)
-            verify(result, action, olt)
-            quit()
+            verify(2)
         elif action == "SO":
             result = deactivate(comm, command, olt, action)
             verify(result, action, olt)
-            quit()
+            quit(2)
         elif action == "SU":
             result = deactivate(comm, command, olt, action)
-            quit()
+            quit(2)
         elif action == "IN":
             confirm(comm, command, olt, action)
-            quit()
+            quit(10)
         elif action == "IP":
             confirm(comm, command, olt, action)
-            quit()
+            quit(10)
         elif action == "EC":
             delete(comm, command, olt)
-            quit()
+            quit(3)
         elif action == "BN":
             newLookup(comm, command, olt)
-            quit()
+            quit(90)
         elif action == "BE":
             existingLookup(comm, command, olt)
-            quit()
+            quit(90)
         elif action == "MC":
             deviceModify(comm, command, olt)
-            quit()
+            quit(3)
         elif action == "VC":
             speedVerify(comm, command)
-            quit()
+            quit(5)
         elif action == "VR":
             verifyReset(comm, command)
-            quit()
+            quit(5)
         elif action == "VP":
             verifyPort(comm, command)
-            quit()
+            quit(10)
         elif action == "CA":
             clientFault(comm, command, olt)
-            quit()
+            quit(180)
         else:
             print(f"Error @ : opcion {action} no existe")
 
     except KeyboardInterrupt:
         print("Saliendo...")
-        sleep(5)
+        sleep(1)
         sys.exit(0)
     except Exception:
         print("Error At : ", traceback.format_exc())
-        sleep(20)
+        sleep(10)
         sys.exit(1)
 
 

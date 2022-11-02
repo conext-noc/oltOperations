@@ -1,9 +1,8 @@
-from helpers.outputDecoder import parser
+from helpers.outputDecoder import parser, decoder, check
 from helpers.getWanData import preWan
 from helpers.failHandler import failChecker
 
-conditionONT = """ONTID :"""
-conditionFail = "Failure: "
+conditionONT = "ONTID :"
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 vlanProvMap = {"1101": "INTER", "1102": "VNET", "1104": "PUBLICAS"}
 
@@ -11,12 +10,12 @@ vlanProvMap = {"1101": "INTER", "1102": "VNET", "1104": "PUBLICAS"}
 def addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP):
     command(f"interface gpon {FRAME}/{SLOT}")
     command(f'ont add {PORT} sn-auth {SN} omci ont-lineprofile-name "{LP}" ont-srvprofile-name "{SRV}"  desc "{NAME}" ')
-    (value, re) = parser(comm, conditionONT, "s")
+    value = decoder(comm)
     fail = failChecker(value)
     if fail != None:
         return (None, None, fail)
     else:
-        end = re.span()[1]
+        (_, end) = check(value, conditionONT).span()
         ID = value[end : end + 3].replace(" ", "").replace("\n", "")
         command(f"ont optical-alarm-profile {PORT} {ID} profile-name ALARMAS_OPTICAS")
         command(f"ont alarm-policy {PORT} {ID} policy-name FAULT_ALARMS")
@@ -27,7 +26,7 @@ def addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP):
         PROVIDER = providerMap[Prov]
         addVlan = input("Se agregara vlan al puerto? (es bridge) [Y/N] : ").upper()
         if addVlan == "Y":
-            command(f"ont port native-vlan {PORT} {ID} eth 1 vlan {PROVIDER}")
+            command(f" ont  port  native-vlan  {PORT} {ID}  eth  1  vlan  {PROVIDER} ")
         command("quit")
         return (ID, vlanProvMap[f"{str(PROVIDER)}"], fail)
 
