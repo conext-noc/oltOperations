@@ -27,7 +27,7 @@ def verifyPort(comm, command):
                 FRAME, SLOT, PORT, ID, NAME, STATUS, CAUSE, TIME, DATE
             )
             CT = f"{DATE} {TIME}"
-            if str(TIME) != "nan":
+            if str(TIME) != "nan" and str(TIME) != "-":
                 t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
                 t2 = datetime.fromisoformat(str(datetime.now()))
                 clientTime = t2 - t1
@@ -43,11 +43,13 @@ def verifyPort(comm, command):
                         color = "suspended"
                 else:
                     color = "activated"
-                resp = colorFormatter(resp, color)
-                print(resp)
             else:
-                resp = colorFormatter(resp, "problems")
-                print(resp)
+                if STATUS == "offline":
+                    color = "problems"
+                else:
+                    color = "activated"
+            resp = colorFormatter(resp, color)
+            print(resp)
 
         preg = input("continuar? [Y | N] : ").upper()
         keep = True if preg == "Y" else False

@@ -7,9 +7,7 @@ from helpers.listChecker import compare
 from helpers.outputDecoder import check, decoder, sshToFile
 from helpers.serialLookup import serialSearch
 
-existingCond = (
-    "-----------------------------------------------------------------------------"
-)
+existingCond = "-----------------------------------------------------------------------------"
 
 
 def deactivate(comm, command, olt, typeOfList):
@@ -20,7 +18,9 @@ def deactivate(comm, command, olt, typeOfList):
         odoo = filedialog.askopenfilename()
         print("Selecciona el archivo de lista de clientes de Drive")
         drive = filedialog.askopenfilename()
-        actionList = compare(parserCSV(odoo), parserCSV(drive), olt)
+        ODOO = parserCSV(odoo)
+        DRIVE = parserCSV(drive)
+        actionList = compare(ODOO, DRIVE, olt)
         keep = "Y"
     elif typeOfList == "SC":
         print("Selecciona la lista de clientes")
@@ -28,9 +28,7 @@ def deactivate(comm, command, olt, typeOfList):
         actionList = parserCSV(lista)
         keep = "Y"
     elif typeOfList == "SU":
-        lookupType = input(
-            "Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : "
-        ).upper()
+        lookupType = input("Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ").upper()
         if lookupType == "S":
             SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
             (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
@@ -107,6 +105,9 @@ def deactivate(comm, command, olt, typeOfList):
             PORT = client["PORT"]
             ID = client["ID"]
             OLT = client["OLT"]
+            command(f"interface gpon {FRAME}/{SLOT}")
+            command(f"ont deactivate {PORT} {ID}")
+            command(f"display ont info {PORT} {ID}")
             resp = (
                 f"{FRAME}/{SLOT}/{PORT}/{ID} Suspendido\n"
                 if "U" in typeOfList
@@ -114,10 +115,7 @@ def deactivate(comm, command, olt, typeOfList):
             )
             resp = colorFormatter(resp, "ok")
             print(resp)
-            command(f"interface gpon {FRAME}/{SLOT}")
-            command(f"ont deactivate {PORT} {ID}")
-            command(f"display ont info {PORT} {ID}")
-            if typeOfList != "RU":
+            if typeOfList != "SU":
                 path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                 sshToFile(comm, path, typeOfList)
         command("quit")

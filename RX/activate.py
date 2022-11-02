@@ -7,9 +7,7 @@ from helpers.listChecker import compare
 from helpers.outputDecoder import check, decoder, sshToFile
 from helpers.serialLookup import serialSearch
 
-existingCond = (
-    "-----------------------------------------------------------------------------"
-)
+existingCond = "-----------------------------------------------------------------------------"
 
 
 def activate(comm, command, olt, typeOfList):
@@ -22,10 +20,7 @@ def activate(comm, command, olt, typeOfList):
         drive = filedialog.askopenfilename()
         ODOO = parserCSV(odoo)
         DRIVE = parserCSV(drive)
-        print(ODOO)
-        print(DRIVE)
         actionList = compare(ODOO, DRIVE, olt)
-        print(actionList)
         keep = "Y"
     elif typeOfList == "RC":
         print("Selecciona la lista de clientes")
@@ -33,9 +28,7 @@ def activate(comm, command, olt, typeOfList):
         actionList = parserCSV(lista)
         keep = "Y"
     elif typeOfList == "RU":
-        lookupType = input(
-            "Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : "
-        ).upper()
+        lookupType = input("Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ").upper()
         if lookupType == "S":
             SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
             (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
