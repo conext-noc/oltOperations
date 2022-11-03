@@ -2,14 +2,13 @@ from helpers.failHandler import failChecker
 from helpers.serialLookup import serialSearch
 from helpers.formatter import colorFormatter
 from helpers.outputDecoder import parser, check
-from helpers.ontCheck import verifyValues
+from helpers.opticalCheck import opticalValues
 from helpers.getWanData import wan
 from time import sleep
+import re
 
 
-existingCond = (
-    "-----------------------------------------------------------------------------"
-)
+existingCond = "-----------------------------------------------------------------------------"
 newCond = "----------------------------------------------------------------------------"
 newCondFSP = "F/S/P               : "
 newCondSn = "Ont SN              : "
@@ -44,31 +43,39 @@ def newLookup(comm, command, olt):
 
 
 def existingLookup(comm, command, olt):
-    lookupType = input(
-        "Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : "
-    ).upper()
+    lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ").upper()
     if lookupType == "S":
         SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
         (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
         if fail == None:
-            (VLAN, PLAN, IPADDRESS, SPID) = wan(comm, command, FRAME, SLOT, PORT, ID)
-            (temp, pwr) = verifyValues(comm, command, FRAME, SLOT, PORT, ID, False)
-            print(
-                f"""
-    FRAME               :   {FRAME}
-    SLOT                :   {SLOT}
-    PORT                :   {PORT}
-    ID                  :   {ID}
-    NAME                :   {NAME}
-    STATE               :   {STATE}
-    VLAN                :   {VLAN}
-    PLAN                :   {PLAN}
-    IP                  :   {IPADDRESS}
-    SPID                :   {SPID}
-    TEMPERATURA         :   {temp}
-    POTENCIA            :   {pwr}
-    """
-            )
+            (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, olt)
+            if FAIL == None:
+                (temp, pwr) = opticalValues(comm, command, FRAME, SLOT, PORT, ID, False)
+                NAME = re.sub(" +", " ", NAME).replace("\n", "")
+                str1 = f"""
+        FRAME               :   {FRAME}
+        SLOT                :   {SLOT}
+        PORT                :   {PORT}
+        ID                  :   {ID}
+        NAME                :   {NAME}
+        STATE               :   {STATE}
+        IP                  :   {IPADDRESS}
+        TEMPERATURA         :   {temp}
+        POTENCIA            :   {pwr}
+        """
+                str2 = ""
+                for idx, wanData in enumerate(WAN):
+                    str2 += f"""
+        VLAN_{idx}              :   {wanData["VLAN"]}
+        PLAN_{idx}              :   {wanData["PLAN"]}
+        SPID_{idx}              :   {wanData["SPID"]}
+        """
+                res = str1 + str2
+                res = colorFormatter(res, "ok")
+                print(res)
+            else:
+                fail = colorFormatter(FAIL, "fail")
+                print(fail)
         else:
             fail = colorFormatter(fail, "fail")
             print(fail)
@@ -89,25 +96,34 @@ def existingLookup(comm, command, olt):
             (eDESC, _) = check(value, existing["LDC"]).span()
             NAME = value[sDESC:eDESC].replace("\n", "")
             STATE = value[sCF:eCF].replace("\n", "")
-            (VLAN, PLAN, IPADDRESS, SPID) = wan(comm, command, FRAME, SLOT, PORT, ID)
-            print("looking for optical data")
-            (temp, pwr) = verifyValues(comm, command, FRAME, SLOT, PORT, ID, False)
-            print(
-                f"""
-    FRAME               :   {FRAME}
-    SLOT                :   {SLOT}
-    PORT                :   {PORT}
-    ID                  :   {ID}
-    NAME                :   {NAME}
-    STATE               :   {STATE}
-    VLAN                :   {VLAN}
-    PLAN                :   {PLAN}
-    IP                  :   {IPADDRESS}
-    SPID                :   {SPID}
-    TEMPERATURA         :   {temp}
-    POTENCIA            :   {pwr}
-    """
-            )
+            (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, olt)
+            if FAIL == None:
+                (temp, pwr) = opticalValues(comm, command, FRAME, SLOT, PORT, ID, False)
+                NAME = re.sub(" +", " ", NAME).replace("\n", "")
+                str1 = f"""
+        FRAME               :   {FRAME}
+        SLOT                :   {SLOT}
+        PORT                :   {PORT}
+        ID                  :   {ID}
+        NAME                :   {NAME}
+        STATE               :   {STATE}
+        IP                  :   {IPADDRESS}
+        TEMPERATURA         :   {temp}
+        POTENCIA            :   {pwr}
+        """
+                str2 = ""
+                for idx, wanData in enumerate(WAN):
+                    str2 += f"""
+        VLAN_{idx}              :   {wanData["VLAN"]}
+        PLAN_{idx}              :   {wanData["PLAN"]}
+        SPID_{idx}              :   {wanData["SPID"]}
+        """
+                res = str1 + str2
+                res = colorFormatter(res, "ok")
+                print(res)
+            else:
+                fail = colorFormatter(FAIL, "fail")
+                print(fail)
         else:
             fail = colorFormatter(fail, "fail")
             print(fail)

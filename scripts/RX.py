@@ -1,6 +1,6 @@
 from time import sleep
 from tkinter import filedialog
-from helpers.csvParser import parserCSV
+from helpers.fileHandler import fromCsv
 from helpers.failHandler import failChecker
 from helpers.formatter import colorFormatter
 from helpers.listChecker import compare
@@ -18,14 +18,14 @@ def activate(comm, command, olt, typeOfList):
         odoo = filedialog.askopenfilename()
         print("Selecciona el archivo de lista de clientes de Drive")
         drive = filedialog.askopenfilename()
-        ODOO = parserCSV(odoo)
-        DRIVE = parserCSV(drive)
+        ODOO = fromCsv(odoo)
+        DRIVE = fromCsv(drive)
         actionList = compare(ODOO, DRIVE, olt)
         keep = "Y"
     elif typeOfList == "RC":
         print("Selecciona la lista de clientes")
         lista = filedialog.askopenfilename()
-        actionList = parserCSV(lista)
+        actionList = fromCsv(lista)
         keep = "Y"
     elif typeOfList == "RU":
         lookupType = input("Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ").upper()

@@ -5,7 +5,7 @@ conditionTemp = "Temperature\(C\)                         : "
 conditionPwr = "Rx optical power\(dBm\)                  : "
 
 
-def verifyValues(comm, command, FRAME, SLOT, PORT, ID, show):
+def opticalValues(comm, command, FRAME, SLOT, PORT, ID, show):
     temp = "NA"
     pwr = "NA"
     command(f" interface  gpon  {FRAME}/{SLOT} ")
@@ -15,13 +15,13 @@ def verifyValues(comm, command, FRAME, SLOT, PORT, ID, show):
     fail = failChecker(value)
     command("quit")
     if fail != None:
-        if(show):
+        if show:
             print(fail)
     else:
-        rePwr  =check(value, conditionPwr)
+        rePwr = check(value, conditionPwr)
         reTemp = check(value, conditionTemp)
         (_, eT) = reTemp.span()
         (_, eP) = rePwr.span()
-        pwr = value[eP: eP + 6]
-        temp = value[eT: eT + 4].replace("\n", "").replace(" ", "")
+        pwr = value[eP : eP + 6]
+        temp = value[eT : eT + 4].replace("\n", "").replace(" ", "")
     return (temp, pwr)

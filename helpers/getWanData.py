@@ -1,6 +1,6 @@
 from helpers.outputDecoder import decoder, parser, check
 from helpers.failHandler import failChecker
-from helpers.getONTSpid import getOntSpid
+from helpers.spidHandler import ontSpid, planX15Maps, planX2Maps
 
 ip = "IPv4 address               : "
 endIp = "Subnet mask"
@@ -23,44 +23,27 @@ def preWan(comm, command, SLOT, PORT, ID):
         return fail
 
 
-def wan(comm, command, FRAME, SLOT, PORT, ID):
-    IPADDRESS = "NA"
-    SPID = "NA"
-    PLAN = "NA"
-    VLAN = "NA"
-    result = getOntSpid(comm, command, FRAME, SLOT, PORT, ID)
-    if int(result["ttl"]) == 1 and result["values"] != None:
-        SPID = result["values"]
-        command(f" display  service-port  {SPID}")
-        value = decoder(comm)
-        fail = failChecker(value)
-        if fail == None:
-            (_, sV) = check(value, planMap["VLANID"]).span()
-            (_, sP) = check(value, planMap["PLAN"]).span()
-            VLAN = value[sV : sV + 4]
-            PLAN = value[sP : sP + 10].replace(" ", "").replace("\n", "")
-            command(f" display  ont  wan-info  {FRAME}/{SLOT}  {PORT}  {ID}")
-            val = decoder(comm)
-            failIp = failChecker(val)
-            if failIp == None:
-                (_, s) = check(val, ip).span()
-                (e, _) = check(val, endIp).span()
-                IPADDRESS = val[s : e - 1].replace(" ", "").replace("\n", "")
-    elif int(result["ttl"]) > 1 and result["values"] != None:
-        SPID = result["values"][0]
-        command(f"display service-port {SPID}")
-        value = decoder(comm)
-        fail = failChecker(value)
-        if fail == None:
-            (_, sV1) = check(value, planMap["VLANID"]).span()
-            (_, sP1) = check(value, planMap["PLAN"]).span()
-            VLAN = value[sV1 : sV1 + 4]
-            PLAN = value[sP1 : sP1 + 10].replace(" ", "").replace("\n", "")
-        command(f"display ont wan-info 0 {SLOT} {PORT} {ID}")
+def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
+    IPADDRESS = None
+    FAIL = None
+    WAN = []
+    planMap = planX15Maps if OLT == "15" else planX2Maps
+    (result, failSpid) = ontSpid(comm, command, FRAME, SLOT, PORT, ID)
+    if failSpid == None:
+        for wanData in result:
+            plan = planMap[str(wanData["RX"])]
+            WAN.append({"VLAN": wanData["ID"], "SPID": wanData["SPID"], "PLAN": plan, "STATE": wanData["STATE"]})
+        command(f" display  ont  wan-info  {FRAME}/{SLOT}  {PORT}  {ID}")
         val = decoder(comm)
         failIp = failChecker(val)
         if failIp == None:
             (_, s) = check(val, ip).span()
             (e, _) = check(val, endIp).span()
             IPADDRESS = val[s : e - 1].replace(" ", "").replace("\n", "")
-    return (VLAN, PLAN, IPADDRESS, SPID)
+            return (IPADDRESS, WAN, FAIL)
+        else:
+            FAIL = failIp
+            return (IPADDRESS, WAN, FAIL)
+    else:
+        FAIL = failSpid
+        return (IPADDRESS, WAN, FAIL)

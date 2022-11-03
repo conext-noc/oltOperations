@@ -1,4 +1,4 @@
-from helpers.clientsTable import clientsTable
+from helpers.tableConverter import clientsTable
 from helpers.formatter import colorFormatter
 from datetime import datetime
 

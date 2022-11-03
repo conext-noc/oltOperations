@@ -3,18 +3,19 @@ from time import sleep
 from helpers.ssh import ssh
 from helpers.outputDecoder import decoder
 from helpers.verification import verify
-from SX.deactivate import deactivate
-from RX.activate import activate
-from EC.delete import delete
-from IX.confirm import confirm
-from MC.deviceModify import deviceModify
-from VC.speedVerify import speedVerify
-from VR.verifyReset import verifyReset
-from VP.verifyPort import verifyPort
-from BX.lookup import existingLookup, newLookup
-from CA.clientFault import clientFault
+from scripts.SX import deactivate
+from scripts.RX import activate
+from scripts.EC import delete
+from scripts.IX import confirm
+from scripts.MC import deviceModify
+from scripts.VC import speedVerify
+from scripts.VR import verifyReset
+from scripts.VP import verifyPort
+from scripts.BX import existingLookup, newLookup
+from scripts.CA import clientFault
 import traceback
 import sys
+from helpers.formatter import colorFormatter
 
 root = tk.Tk()
 root.withdraw()
@@ -29,7 +30,10 @@ def main():
         elif olt == "2":
             ip = "181.232.180.6"
         else:
-            raise Exception(f"No se puede Conectar a la OLT, Error OLT {olt} no existe")
+            resp = colorFormatter(f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")
+            print(resp)
+            sleep(1)
+            sys.exit(0)
 
         (comm, command, close) = ssh(ip)
 
@@ -116,16 +120,16 @@ $ """
             clientFault(comm, command, olt)
             quit(180)
         else:
-            print(f"Error @ : opcion {action} no existe")
+            resp = colorFormatter(f"Error @ : opcion {action} no existe", "warning")
+            print(resp)
+            quit(2)
 
     except KeyboardInterrupt:
         print("Saliendo...")
-        sleep(1)
-        sys.exit(0)
+        quit(1)
     except Exception:
         print("Error At : ", traceback.format_exc())
-        sleep(10)
-        sys.exit(1)
+        quit(10)
 
 
 if __name__ == "__main__":

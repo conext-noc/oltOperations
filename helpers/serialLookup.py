@@ -1,10 +1,9 @@
-from helpers.outputDecoder import parser,check,checkIter
+from helpers.outputDecoder import parser, check, checkIter
 from helpers.failHandler import failChecker
 from time import sleep
+from re import sub
 
-existingCond = (
-    "-----------------------------------------------------------------------------"
-)
+existingCond = "-----------------------------------------------------------------------------"
 existing = {
     "FSP": "F/S/P                   : ",
     "LP": "Line profile name    : ",
@@ -21,12 +20,12 @@ existing = {
 }
 
 
-def serialSearch(comm,command,SN):
+def serialSearch(comm, command, SN):
     command(f"display ont info by-sn {SN} | no-more")
     sleep(3)
     (val, regex) = parser(comm, existingCond, "m")
     fail = failChecker(val)
-    if(fail == None):
+    if fail == None:
         (_, s) = regex[0]
         (e, _) = regex[len(regex) - 1]
         value = val[s:e]
@@ -44,8 +43,8 @@ def serialSearch(comm,command,SN):
         (eCF, _) = check(value, existing["RE"]).span()
         FRAME = 0
         ID = value[eID : eID + 3].replace("\n", "")
-        NAME = value[sDESC:eDESC].replace("\n", "")
+        NAME = sub(" +", " ", value[sDESC:eDESC]).replace("\n", "")
         STATE = value[sCF:eCF].replace("\n", "")
-        return(FRAME,SLOT,PORT,ID,NAME,STATE,None)
+        return (FRAME, SLOT, PORT, ID, NAME, STATE, None)
     else:
-        return(None,None,None,None,None,None,fail)
+        return (None, None, None, None, None, None, fail)

@@ -24,7 +24,7 @@ def addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP):
             preWan(comm, command, SLOT, PORT, ID)
         Prov = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
         PROVIDER = providerMap[Prov]
-        addVlan = input("Se agregara vlan al puerto? (es bridge) [Y/N] : ").upper()
+        addVlan = input("Se agregara vlan al puerto? (es bridge) [Y | N] : ").upper()
         if addVlan == "Y":
             command(f" ont  port  native-vlan  {PORT} {ID}  eth  1  vlan  {PROVIDER} ")
         command("quit")

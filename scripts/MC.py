@@ -3,7 +3,8 @@ from helpers.serialLookup import serialSearch
 from helpers.outputDecoder import decoder, check
 from helpers.formatter import colorFormatter
 from helpers.failHandler import failChecker
-from helpers.getONTSpid import getOntSpid
+from helpers.spidHandler import ontSpid
+from re import sub
 from time import sleep
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
@@ -95,19 +96,30 @@ $ """
             print(resp)
             return
         if action == "CV":
-            (VLAN, PLAN, IPADDRESS, SPID) = wan(comm, command, FRAME, SLOT, PORT, ID)
-            print(
-                f"""
+            (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
+            NAME = sub(" +", " ", NAME).replace("\n", "")
+            str1 = f"""
     NOMBRE DE CLIENTE   :   {NAME}
-    VLAN DE CLIENTE     :   {VLAN}
-    PLAN DE CLIENTE     :   {PLAN}
     IP DEL CLIENTE      :   {IPADDRESS}
-    SPID                :   {SPID}
             """
-            )
+            str2 = ""
+            for idx, wanData in enumerate(WAN):
+                str2 += f"""
+    VLAN_{idx}              :   {wanData["VLAN"]}
+    PLAN_{idx}              :   {wanData["PLAN"]}
+    SPID_{idx}              :   {wanData["SPID"]}
+    """
+            res = str1 + str2
+            res = colorFormatter(res, "ok")
+            print(res)
+
             PROVIDER = input("Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
             prov = providerMap[PROVIDER]
-            command(f" undo  service-port  {SPID}")
+            for wanData in WAN:
+                spid = wanData["SPID"]
+                command(f" undo  service-port  {spid}")
+
+            SPID = WAN[0]["SPID"]
             command(
                 f"service-port {SPID} vlan {prov} gpon {FRAME}/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {prov} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"
             )
@@ -121,26 +133,29 @@ $ """
             print(resp)
             return
         if action == "CP":
-            (VLAN, PLAN, IPADDRESS, SPID) = wan(comm, command, FRAME, SLOT, PORT, ID)
-            print(
-                f"""
+            (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
+            NAME = sub(" +", " ", NAME).replace("\n", "")
+            str1 = f"""
     NOMBRE DE CLIENTE   :   {NAME}
-    VLAN DE CLIENTE     :   {VLAN}
-    PLAN DE CLIENTE     :   {PLAN}
     IP DEL CLIENTE      :   {IPADDRESS}
-    SPID                :   {SPID}
             """
-            )
+            str2 = ""
+            for idx, wanData in enumerate(WAN):
+                str2 += f"""
+    VLAN_{idx}              :   {wanData["VLAN"]}
+    PLAN_{idx}              :   {wanData["PLAN"]}
+    SPID_{idx}              :   {wanData["SPID"]}
+    """
+            res = str1 + str2
+            res = colorFormatter(res, "ok")
+            print(res)
             PLAN = input("Ingrese el nuevo plan de cliente : ").upper()
-            result = getOntSpid(comm, command, FRAME, SLOT, PORT, ID)
-            if result["ttl"] == 2:
-                spid1 = result["values"][0]
-                spid2 = result["values"][1]
-                command(f"service-port {spid1} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
-                command(f"service-port {spid2} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
-            if result["ttl"] == 1:
-                spid = result["values"]
-                command(f"service-port {spid} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+            for wanData in WAN:
+                spid = wanData["SPID"]
+                command(f" undo  service-port  {spid}")
+
+            spid = WAN[0]["SPID"]
+            command(f"service-port {spid} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
             resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"
             resp = colorFormatter(resp, "ok")
             print(resp)

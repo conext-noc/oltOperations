@@ -1,5 +1,5 @@
 from datetime import datetime
-from helpers.clientsTable import clientsTable
+from helpers.tableConverter import clientsTable
 from helpers.formatter import colorFormatter
 
 
@@ -41,13 +41,10 @@ def verifyPort(comm, command):
                         color = "off"
                     elif CAUSE == "deactive":
                         color = "suspended"
-                else:
-                    color = "activated"
-            else:
-                if STATUS == "offline":
-                    color = "problems"
-                else:
-                    color = "activated"
+                    elif CAUSE == "nan":
+                        color = "problems"
+                    elif CAUSE != "LOSi/LOBi" and CAUSE != "dying-gasp" and CAUSE != "deactive" and CAUSE != "nan":
+                        color = "unknown"
             resp = colorFormatter(resp, color)
             print(resp)
 
