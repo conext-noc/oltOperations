@@ -4,6 +4,7 @@ from helpers.getWanData import wan
 from time import sleep
 from helpers.outputDecoder import check, decoder
 from helpers.failHandler import failChecker
+from re import sub
 
 existing = {
     "CF": "Control flag            : ",
@@ -43,6 +44,7 @@ def delete(comm, command, OLT):
         else:
             fail = colorFormatter(fail, "fail")
             print(fail)
+    NAME = sub(" +", " ", NAME).replace("\n", "")
     resp = colorFormatter(
         f"""
     FRAME               :   {FRAME}

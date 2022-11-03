@@ -6,7 +6,7 @@ from re import sub
 
 conditionSpidOnt = "CTRL_C to break"
 condition = "-----------------------------------------------------------------------------"
-spidHeader = "NA,SPID,ID,ATT,PORT_TYPE,F/S,/P,VPI,VCI,FLOW_TYPE,FLOW_PARA,RX,TX,STATE"
+spidHeader = "SPID,ID,ATT,PORT_TYPE,F/S,/P,VPI,VCI,FLOW_TYPE,FLOW_PARA,RX,TX,STATE,"
 conditionSPID = """Next valid free service virtual port ID: """
 spidCheck = {
     "index": "Index               : ",

@@ -2,8 +2,20 @@ from helpers.spidHandler import availableSpid, verifySPID
 from helpers.addHandler import addONU, addOnuService
 from helpers.opticalCheck import opticalValues
 from helpers.formatter import colorFormatter
+from helpers.serialLookup import serialSearch
+from time import sleep
+from re import sub
+from helpers.outputDecoder import check, decoder
+from helpers.failHandler import failChecker
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
+
+existing = {
+    "CF": "Control flag            : ",
+    "RE": "Run state               : ",
+    "DESC": "Description             : ",
+    "LDC": "Last down cause         : ",
+}
 
 
 def confirm(comm, command, olt, action):
@@ -25,8 +37,8 @@ def confirm(comm, command, olt, action):
         NAME = input("Ingrese nombre del cliente : ").upper()
         SN = input("Ingrese serial de cliente : ").upper()
         PLAN = input("Ingrese plan de cliente : ").upper()
-        LP = input("Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ").upper()
-        SRV = input("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ").upper()
+        LP = input("Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ")
+        SRV = input("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
         SPID = availableSpid(comm, command)
         (ID, PROVIDER, fail) = addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP)
         if fail != None:
@@ -34,11 +46,36 @@ def confirm(comm, command, olt, action):
             print(resp)
             return
     elif action == "IP":
-        FRAME = input("Ingrese frame de cliente : ").upper()
-        SLOT = input("Ingrese slot de cliente : ").upper()
-        PORT = input("Ingrese puerto de cliente : ").upper()
-        ID = input("Ingrese el id del cliente : ").upper()
-        NAME = input("Ingrese nombre del cliente : ").upper()
+        lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | D] : ").upper()
+        if lookupType == "S":
+            SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
+            (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
+        elif lookupType == "D":
+            FRAME = input("Ingrese frame de cliente : ").upper()
+            SLOT = input("Ingrese slot de cliente : ").upper()
+            PORT = input("Ingrese puerto de cliente : ").upper()
+            ID = input("Ingrese el id del cliente : ").upper()
+            command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
+            sleep(3)
+            value = decoder(comm)
+            fail = failChecker(value)
+            if fail == None:
+                (_, sDESC) = check(value, existing["DESC"]).span()
+                (eDESC, _) = check(value, existing["LDC"]).span()
+                NAME = value[sDESC:eDESC].replace("\n", "")
+                NAME = sub(" +", " ", NAME).replace("\n", "")
+            else:
+                fail = colorFormatter(fail, "fail")
+                print(fail)
+        res = f"""
+        FRAME               :   {FRAME}
+        SLOT                :   {SLOT}
+        PORT                :   {PORT}
+        ID                  :   {ID}
+        NAME                :   {NAME}
+        """
+        res = colorFormatter(res, "ok")
+        print(res)
         PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
         PLAN = input("Ingrese plan de cliente : ").upper()
         SPID = availableSpid(comm, command)

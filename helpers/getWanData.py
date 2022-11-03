@@ -30,6 +30,7 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
     planMap = planX15Maps if OLT == "15" else planX2Maps
     (result, failSpid) = ontSpid(comm, command, FRAME, SLOT, PORT, ID)
     if failSpid == None:
+        print(result)
         for wanData in result:
             plan = planMap[str(wanData["RX"])]
             WAN.append({"VLAN": wanData["ID"], "SPID": wanData["SPID"], "PLAN": plan, "STATE": wanData["STATE"]})
@@ -40,10 +41,7 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
             (_, s) = check(val, ip).span()
             (e, _) = check(val, endIp).span()
             IPADDRESS = val[s : e - 1].replace(" ", "").replace("\n", "")
-            return (IPADDRESS, WAN, FAIL)
-        else:
-            FAIL = failIp
-            return (IPADDRESS, WAN, FAIL)
+        return (IPADDRESS, WAN, FAIL)
     else:
         FAIL = failSpid
         return (IPADDRESS, WAN, FAIL)
