@@ -35,10 +35,12 @@ planX2Maps = {
 
 planX15Maps = {
     "6": "OZ_LIFT",
+    "9": "FTTH_VOIP",
     "7": "OZ_FAMILY",
     "15": "UNLIMITED",
     "39": "OZ_MAGICAL",
     "40": "OZ_NEXT",
+    "41": "OZ EMPRENDE",
     "42": "OZ_EMPRENDE",
     "43": "OZ_INICIATE",
     "44": "OZ_CONECTA",

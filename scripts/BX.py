@@ -22,7 +22,7 @@ existing = {
 
 def newLookup(comm, command, olt):
     client = []
-    command("display ont autofind all | no-more")
+    command("  display  ont  autofind  all  |  no-more  ")
     sleep(5)
     (value, regex) = parser(comm, newCond, "m")
     for ont in range(len(regex) - 1):
@@ -114,9 +114,9 @@ def existingLookup(comm, command, olt):
                 str2 = ""
                 for idx, wanData in enumerate(WAN):
                     str2 += f"""
-        VLAN_{idx}              :   {wanData["VLAN"]}
-        PLAN_{idx}              :   {wanData["PLAN"]}
-        SPID_{idx}              :   {wanData["SPID"]}
+        VLAN_{idx + 1}              :   {wanData["VLAN"]}
+        PLAN_{idx + 1}              :   {wanData["PLAN"]}
+        SPID_{idx + 1}              :   {wanData["SPID"]}
         """
                 res = str1 + str2
                 res = colorFormatter(res, "ok")

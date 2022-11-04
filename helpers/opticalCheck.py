@@ -6,14 +6,16 @@ conditionPwr = "Rx optical power\(dBm\)                  : "
 
 
 def opticalValues(comm, command, FRAME, SLOT, PORT, ID, show):
+    decoder(comm)
     temp = "NA"
     pwr = "NA"
-    command(f" interface  gpon  {FRAME}/{SLOT} ")
+    command(f"interface gpon {FRAME}/{SLOT} ")
+    decoder(comm)
+    command(f"interface gpon {FRAME}/{SLOT} ")
     command(f" display  ont  optical-info  {PORT}  {ID}  |  no-more")
     command("quit")
     value = decoder(comm)
     fail = failChecker(value)
-    command("quit")
     if fail != None:
         if show:
             print(fail)

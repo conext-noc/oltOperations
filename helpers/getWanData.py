@@ -30,7 +30,6 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
     planMap = planX15Maps if OLT == "15" else planX2Maps
     (result, failSpid) = ontSpid(comm, command, FRAME, SLOT, PORT, ID)
     if failSpid == None:
-        print(result)
         for wanData in result:
             plan = planMap[str(wanData["RX"])]
             WAN.append({"VLAN": wanData["ID"], "SPID": wanData["SPID"], "PLAN": plan, "STATE": wanData["STATE"]})
