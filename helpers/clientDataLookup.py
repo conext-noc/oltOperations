@@ -51,6 +51,12 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             FAIL = fail
     elif lookupType == "N":
         NAME = input("Ingrese el Nombre del Cliente a buscar : ")
+    else:
+        print(colorFormatter(f"Opcion {lookupType} no existe", "fail"))
+        return {
+            "fail": f"Opcion {lookupType} no existe",
+        }
+        return
     if FAIL == None:
         if previous:
             print(colorFormatter("getting wan data", "info"))

@@ -43,22 +43,22 @@ def existingLookup(comm, command, olt):
     if data["fail"] == None:
         if lookupType == "S" or lookupType == "D":
             str1 = f"""
-                FRAME               :   {data["frame"]}
-                SLOT                :   {data["slot"]}
-                PORT                :   {data["port"]}
-                ID                  :   {data["id"]}
-                NAME                :   {data["name"]}
-                STATE               :   {data["state"]}
-                IP                  :   {data["ipAdd"]}
-                TEMPERATURA         :   {data["temp"]}
-                POTENCIA            :   {data["pwr"]}
+    FRAME               :   {data["frame"]}
+    SLOT                :   {data["slot"]}
+    PORT                :   {data["port"]}
+    ID                  :   {data["id"]}
+    NAME                :   {data["name"]}
+    STATE               :   {data["state"]}
+    IP                  :   {data["ipAdd"]}
+    TEMPERATURA         :   {data["temp"]}
+    POTENCIA            :   {data["pwr"]}
                 """
             str2 = ""
             for idx, wanData in enumerate(data["wan"]):
                 str2 += f"""
-                VLAN_{idx}              :   {wanData["VLAN"]}
-                PLAN_{idx}              :   {wanData["PLAN"]}
-                SPID_{idx}              :   {wanData["SPID"]}
+    VLAN_{idx}              :   {wanData["VLAN"]}
+    PLAN_{idx}              :   {wanData["PLAN"]}
+    SPID_{idx}              :   {wanData["SPID"]}
                 """
             res = str1 + str2
             res = colorFormatter(res, "ok")
@@ -75,9 +75,3 @@ def existingLookup(comm, command, olt):
             else:
                 fail = colorFormatter(fail, "fail")
                 print(fail)
-        else:
-            resp = f'\nla opcion "{lookupType}" no existe\n'
-            resp = colorFormatter(resp, "warning")
-    else:
-        fail = colorFormatter(data["fail"], "fail")
-        print(fail)

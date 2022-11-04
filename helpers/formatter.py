@@ -2,7 +2,7 @@ color = {
     "activated": "\u001b[38;5;2m",
     "suspended": "\u001b[38;5;8m",
     "success": "\u001b[38;5;46m",
-    "warning": "\u001b[38;5;130m",
+    "warning": "\u001b[38;5;202m",
     "off": "\u001b[38;5;9m",
     "los1": "\u001b[38;5;196m",
     "los1": "\u001b[38;5;196m",
