@@ -15,7 +15,7 @@ existing = {
 }
 
 
-def lookup(comm, command, OLT, lookupType):
+def lookup(comm, command, OLT, lookupType, previous=True):
     FAIL = None
     NAME = None
     FRAME = None
@@ -52,10 +52,11 @@ def lookup(comm, command, OLT, lookupType):
     elif lookupType == "N":
         NAME = input("Ingrese el Nombre del Cliente a buscar : ")
     if FAIL == None:
-        print(colorFormatter("getting wan data", "info"))
-        (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
-        print(colorFormatter("getting optical data", "info"))
-        (TEMP, PWR) = opticalValues(comm, command, FRAME, SLOT, PORT, ID, False)
+        if previous:
+            print(colorFormatter("getting wan data", "info"))
+            (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
+            print(colorFormatter("getting optical data", "info"))
+            (TEMP, PWR) = opticalValues(comm, command, FRAME, SLOT, PORT, ID, False)
         return {
             "fail": FAIL,
             "name": sub(" +", " ", NAME).replace("\n", ""),

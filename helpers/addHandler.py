@@ -32,8 +32,9 @@ def addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP):
         return (ID, vlanProvMap[f"{str(PROVIDER)}"], fail)
 
 
-def addOnuService(command, SPID, PROVIDER, FRAME, SLOT, PORT, ID, PLAN):
+def addOnuService(command, comm, SPID, PROVIDER, FRAME, SLOT, PORT, ID, PLAN):
     command("config")
+    decoder(comm)
     command(
         f" service-port  {SPID}  vlan  {PROVIDER}  gpon  {FRAME}/{SLOT}/{PORT}  ont {ID}  gemport  14  multi-service  user-vlan  {PROVIDER}  tag-transform  transparent  inbound  traffic-table  name  {PLAN}  outbound  traffic-table  name  {PLAN}"
     )

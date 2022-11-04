@@ -7,6 +7,7 @@ from time import sleep
 from re import sub
 from helpers.outputDecoder import check, decoder
 from helpers.failHandler import failChecker
+from helpers.clientDataLookup import lookup
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
@@ -46,44 +47,31 @@ def confirm(comm, command, olt, action):
             print(resp)
             return
     elif action == "IP":
-        lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | D] : ").upper()
-        if lookupType == "S":
-            SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
-            (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
-        elif lookupType == "D":
-            FRAME = input("Ingrese frame de cliente : ").upper()
-            SLOT = input("Ingrese slot de cliente : ").upper()
-            PORT = input("Ingrese puerto de cliente : ").upper()
-            ID = input("Ingrese el id del cliente : ").upper()
-            command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
-            sleep(3)
-            value = decoder(comm)
-            fail = failChecker(value)
-            if fail == None:
-                (_, sDESC) = check(value, existing["DESC"]).span()
-                (eDESC, _) = check(value, existing["LDC"]).span()
-                NAME = value[sDESC:eDESC].replace("\n", "")
-                NAME = sub(" +", " ", NAME).replace("\n", "")
-            else:
-                fail = colorFormatter(fail, "fail")
-                print(fail)
-        res = f"""
-        FRAME               :   {FRAME}
-        SLOT                :   {SLOT}
-        PORT                :   {PORT}
-        ID                  :   {ID}
-        NAME                :   {NAME}
-        """
-        res = colorFormatter(res, "ok")
-        print(res)
-        PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
-        PLAN = input("Ingrese plan de cliente : ").upper()
-        SPID = availableSpid(comm, command)
-        addVlan = input("Se agregara vlan al puerto? (es bridge) [Y | N] : ").upper()
-        if addVlan == "Y":
-            command(f"interface gpon {FRAME}/{SLOT}")
-            command(f" ont  port  native-vlan  {PORT} {ID}  eth  1  vlan  {providerMap[PROVIDER]} ")
-            command("quit")
+        lookupType = input("Buscar cliente por serial o por Datos de OLT [S | D] : ").upper()
+        data = lookup(comm, command, olt, lookupType, False)
+        if data["fail"] == None:
+            if lookupType == "S" or lookupType == "D":
+                str1 = f"""
+    FRAME               :   {data["frame"]}
+    SLOT                :   {data["slot"]}
+    PORT                :   {data["port"]}
+    ID                  :   {data["id"]}
+    NAME                :   {data["name"]}
+                    """
+                print(colorFormatter(str1, "ok"))
+            FRAME = data["frame"]
+            SLOT = data["slot"]
+            PORT = data["port"]
+            ID = data["id"]
+            NAME = data["name"]
+            PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
+            PLAN = input("Ingrese plan de cliente : ").upper()
+            SPID = availableSpid(comm, command)
+            addVlan = input("Se agregara vlan al puerto? (es bridge) [Y | N] : ").upper()
+            if addVlan == "Y":
+                command(f"interface gpon {FRAME}/{SLOT}")
+                command(f" ont  port  native-vlan  {PORT} {ID}  eth  1  vlan  {providerMap[PROVIDER]} ")
+                command("quit")
     if ID != None and ID != "F":
         resp = colorFormatter(f"El SPID que se le agregara al cliente es : {SPID}", "ok")
         print(resp)
@@ -92,7 +80,7 @@ def confirm(comm, command, olt, action):
             f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [Y | N] : "
         ).upper()
         if proceed == "Y":
-            addOnuService(command, SPID, providerMap[PROVIDER], FRAME, SLOT, PORT, ID, PLAN)
+            addOnuService(command, comm, SPID, providerMap[PROVIDER], FRAME, SLOT, PORT, ID, PLAN)
             verifySPID(comm, command, SPID)
             PLAN = PLAN[3:]
             template = """
