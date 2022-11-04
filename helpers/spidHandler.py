@@ -21,6 +21,13 @@ spidCheck = {
 
 planX2Maps = {
     "7": "OZ_FAMILY",
+    "8": "FTTH_INTERNET_10Mbps",
+    "9": "FTTH_INTERNET_15",
+    "15": "FTTH_INTERNET_30Mbps",
+    "16": "FTTH_INTERNET_5Mbps",
+    "18": "FTTH_UNLIMITED",
+    "19": "FTTH_VOIP",
+    "30": "FTTH_INTERNET_MAX",
     "32": "OZ_MAGICAL",
     "33": "OZ_NEXT",
     "34": "OZ_LIFT",
@@ -31,13 +38,18 @@ planX2Maps = {
     "47": "OZ_SKY",
     "48": "OZ_MAX",
     "49": "OZ_PLUS",
+    "50": "DEDICADO 10 Mbps",
 }
 
 planX15Maps = {
     "6": "OZ_LIFT",
-    "9": "FTTH_VOIP",
     "7": "OZ_FAMILY",
+    "9": "FTTH_VOIP",
     "15": "UNLIMITED",
+    "16": "FTTH_INTERNET_10Mbps",
+    "20": "FTTH_INTERNET_5Mbps",
+    "23": "FTTH_INTERNET_15",
+    "25": "FTTH_INTERNET_30Mbps",
     "39": "OZ_MAGICAL",
     "40": "OZ_NEXT",
     "41": "OZ EMPRENDE",
@@ -47,6 +59,7 @@ planX15Maps = {
     "45": "OZ_SKY",
     "46": "OZ_MAX",
     "47": "OZ_PLUS",
+    "48": "DEDICADO 10 Mbps",
     "49": "OZ_UP",
 }
 

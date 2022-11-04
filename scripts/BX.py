@@ -6,18 +6,13 @@ from helpers.opticalCheck import opticalValues
 from helpers.getWanData import wan
 from time import sleep
 import re
+from helpers.clientDataLookup import lookup
 
 
-existingCond = "-----------------------------------------------------------------------------"
+condition = "-----------------------------------------------------------------------------"
 newCond = "----------------------------------------------------------------------------"
 newCondFSP = "F/S/P               : "
 newCondSn = "Ont SN              : "
-existing = {
-    "CF": "Control flag            : ",
-    "RE": "Run state               : ",
-    "DESC": "Description             : ",
-    "LDC": "Last down cause         : ",
-}
 
 
 def newLookup(comm, command, olt):
@@ -44,104 +39,45 @@ def newLookup(comm, command, olt):
 
 def existingLookup(comm, command, olt):
     lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ").upper()
-    if lookupType == "S":
-        SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
-        (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
-        if fail == None:
-            (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, olt)
-            if FAIL == None:
-                (temp, pwr) = opticalValues(comm, command, FRAME, SLOT, PORT, ID, False)
-                NAME = re.sub(" +", " ", NAME).replace("\n", "")
-                str1 = f"""
-        FRAME               :   {FRAME}
-        SLOT                :   {SLOT}
-        PORT                :   {PORT}
-        ID                  :   {ID}
-        NAME                :   {NAME}
-        STATE               :   {STATE}
-        IP                  :   {IPADDRESS}
-        TEMPERATURA         :   {temp}
-        POTENCIA            :   {pwr}
-        """
-                str2 = ""
-                for idx, wanData in enumerate(WAN):
-                    str2 += f"""
-        VLAN_{idx}              :   {wanData["VLAN"]}
-        PLAN_{idx}              :   {wanData["PLAN"]}
-        SPID_{idx}              :   {wanData["SPID"]}
-        """
-                res = str1 + str2
-                res = colorFormatter(res, "ok")
-                print(res)
+    data = lookup(comm, command, olt, lookupType)
+    if data["fail"] == None:
+        if lookupType == "S" or lookupType == "D":
+            str1 = f"""
+                FRAME               :   {data["frame"]}
+                SLOT                :   {data["slot"]}
+                PORT                :   {data["port"]}
+                ID                  :   {data["id"]}
+                NAME                :   {data["name"]}
+                STATE               :   {data["state"]}
+                IP                  :   {data["ipAdd"]}
+                TEMPERATURA         :   {data["temp"]}
+                POTENCIA            :   {data["pwr"]}
+                """
+            str2 = ""
+            for idx, wanData in enumerate(data["wan"]):
+                str2 += f"""
+                VLAN_{idx}              :   {wanData["VLAN"]}
+                PLAN_{idx}              :   {wanData["PLAN"]}
+                SPID_{idx}              :   {wanData["SPID"]}
+                """
+            res = str1 + str2
+            res = colorFormatter(res, "ok")
+            print(res)
+        elif lookupType == "N":
+            command(f'display ont info by-desc "{data["name"]}" | no-more')
+            sleep(3)
+            (value, regex) = parser(comm, condition, "m")
+            fail = failChecker(value)
+            if fail == None:
+                (_, s) = regex[0]
+                (e, _) = regex[len(regex) - 1]
+                print(value[s:e])
             else:
-                fail = colorFormatter(FAIL, "fail")
+                fail = colorFormatter(fail, "fail")
                 print(fail)
         else:
-            fail = colorFormatter(fail, "fail")
-            print(fail)
-
-    elif lookupType == "D":
-        FRAME = input("Ingrese frame de cliente : ").upper()
-        SLOT = input("Ingrese slot de cliente : ").upper()
-        PORT = input("Ingrese puerto de cliente : ").upper()
-        ID = input("Ingrese el id del cliente : ").upper()
-        command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
-        sleep(3)
-        (value, regex) = parser(comm, existingCond, "m")
-        fail = failChecker(value)
-        if fail == None:
-            (_, sDESC) = check(value, existing["DESC"]).span()
-            (_, sCF) = check(value, existing["CF"]).span()
-            (eCF, _) = check(value, existing["RE"]).span()
-            (eDESC, _) = check(value, existing["LDC"]).span()
-            NAME = value[sDESC:eDESC].replace("\n", "")
-            STATE = value[sCF:eCF].replace("\n", "")
-            (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, olt)
-            if FAIL == None:
-                (temp, pwr) = opticalValues(comm, command, FRAME, SLOT, PORT, ID, False)
-                NAME = re.sub(" +", " ", NAME).replace("\n", "")
-                str1 = f"""
-        FRAME               :   {FRAME}
-        SLOT                :   {SLOT}
-        PORT                :   {PORT}
-        ID                  :   {ID}
-        NAME                :   {NAME}
-        STATE               :   {STATE}
-        IP                  :   {IPADDRESS}
-        TEMPERATURA         :   {temp}
-        POTENCIA            :   {pwr}
-        """
-                str2 = ""
-                for idx, wanData in enumerate(WAN):
-                    str2 += f"""
-        VLAN_{idx + 1}              :   {wanData["VLAN"]}
-        PLAN_{idx + 1}              :   {wanData["PLAN"]}
-        SPID_{idx + 1}              :   {wanData["SPID"]}
-        """
-                res = str1 + str2
-                res = colorFormatter(res, "ok")
-                print(res)
-            else:
-                fail = colorFormatter(FAIL, "fail")
-                print(fail)
-        else:
-            fail = colorFormatter(fail, "fail")
-            print(fail)
-
-    elif lookupType == "N":
-        NAME = input("Ingrese el Nombre del Cliente a buscar : ")
-        command(f'display ont info by-desc "{NAME}" | no-more')
-        sleep(3)
-        (value, regex) = parser(comm, existingCond, "m")
-        fail = failChecker(value)
-        if fail == None:
-            (_, s) = regex[0]
-            (e, _) = regex[len(regex) - 1]
-            print(value[s:e])
-        else:
-            fail = colorFormatter(fail, "fail")
-            print(fail)
-
+            resp = f'\nla opcion "{lookupType}" no existe\n'
+            resp = colorFormatter(resp, "warning")
     else:
-        resp = f'\nla opcion "{lookupType}" no existe\n'
-        resp = colorFormatter(resp, "warning")
+        fail = colorFormatter(data["fail"], "fail")
+        print(fail)
