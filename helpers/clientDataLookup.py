@@ -56,7 +56,6 @@ def lookup(comm, command, OLT, lookupType, previous=True):
         return {
             "fail": f"Opcion {lookupType} no existe",
         }
-        return
     if FAIL == None:
         if previous:
             print(colorFormatter("getting wan data", "info"))

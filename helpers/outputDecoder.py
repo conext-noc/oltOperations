@@ -5,7 +5,7 @@ import re
 def decoder(comm):
     data = ""
     chunk = comm.recv(1024000000)
-    chunk = chunk.decode("latin1")
+    chunk = chunk.decode("latin-1")
     data += chunk
     ansi_escape = re.compile(r"\x1B(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~])")
     data = ansi_escape.sub("", data)

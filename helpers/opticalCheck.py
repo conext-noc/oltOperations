@@ -6,9 +6,8 @@ conditionPwr = "Rx optical power\(dBm\)                  : "
 
 
 def opticalValues(comm, command, FRAME, SLOT, PORT, ID, show):
-    decoder(comm)
-    temp = "NA"
-    pwr = "NA"
+    TEMP = None
+    PWR = None
     command(f"interface gpon {FRAME}/{SLOT} ")
     decoder(comm)
     command(f"interface gpon {FRAME}/{SLOT} ")
@@ -24,6 +23,6 @@ def opticalValues(comm, command, FRAME, SLOT, PORT, ID, show):
         reTemp = check(value, conditionTemp)
         (_, eT) = reTemp.span()
         (_, eP) = rePwr.span()
-        pwr = value[eP : eP + 6]
-        temp = value[eT : eT + 4].replace("\n", "").replace(" ", "")
-    return (temp, pwr)
+        PWR = value[eP : eP + 6]
+        TEMP = value[eT : eT + 4].replace("\n", "").replace(" ", "")
+    return (TEMP, PWR)
