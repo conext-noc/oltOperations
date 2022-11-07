@@ -3,7 +3,7 @@ def compare(odoo, drive, olt):
     for odooClient in odoo:
         for driveClient in drive:
             NIF1 = str(driveClient["NIF"])[1:]
-            NIF2 = str(odooClient["Cliente/NIF"]).remove(".0","")
+            NIF2 = str(odooClient["Cliente/NIF"]).replace(".0","")
             if NIF2 == NIF1:
                 if int(driveClient["OLT"]) == int(olt):
                     FRAME = (
