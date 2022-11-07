@@ -17,6 +17,7 @@ def compare(odoo, drive, olt):
                             and driveClient["FRAME"] != "?"
                             and driveClient["FRAME"] != "S/I"
                             and driveClient["FRAME"] != "S/II"
+                            and driveClient["FRAME"] != "nan"
                         )
                         else "NA"
                     )
@@ -30,6 +31,7 @@ def compare(odoo, drive, olt):
                             and driveClient["SLOT"] != "?"
                             and driveClient["SLOT"] != "S/I"
                             and driveClient["SLOT"] != "S/II"
+                            and driveClient["SLOT"] != "nan"
                         )
                         else "NA"
                     )
@@ -43,6 +45,7 @@ def compare(odoo, drive, olt):
                             and driveClient["PORT"] != "?"
                             and driveClient["PORT"] != "S/I"
                             and driveClient["PORT"] != "S/II"
+                            and driveClient["PORT"] != "nan"
                         )
                         else "NA"
                     )
@@ -56,6 +59,7 @@ def compare(odoo, drive, olt):
                             and driveClient["ID"] != "?"
                             and driveClient["ID"] != "S/I"
                             and driveClient["ID"] != "S/II"
+                            and driveClient["ID"] != "nan"
                         )
                         else "NA"
                     )
