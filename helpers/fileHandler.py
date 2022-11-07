@@ -5,10 +5,13 @@ import os
 
 
 def fromCsvALT(path):
+    myList = []
     with open(path) as f:
         reader = csv.DictReader(f)
-        print(reader)
-        return reader
+        for val in reader:
+            print(val)
+            myList.append(val)
+    return myList
 
 def dictConverter(string):
     data = pd.read_csv(StringIO(string), sep=",").to_dict("records")
