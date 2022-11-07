@@ -10,7 +10,7 @@ def fromCsvALT(path):
         with open('file.csv', mode='w') as outfile:
             writer = csv.writer(outfile)
             mydict = {rows[0]:rows[1] for rows in reader}
-            os.remove('file.csv')
+            os.remove('fileXD.csv')
             return mydict
 
 
