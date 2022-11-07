@@ -1,6 +1,6 @@
 from time import sleep
 from tkinter import filedialog
-from helpers.fileHandler import fromCsv
+from helpers.fileHandler import fromCsv, fromCsvALT
 from helpers.failHandler import failChecker
 from helpers.formatter import colorFormatter
 from helpers.listChecker import compare
@@ -18,8 +18,8 @@ def deactivate(comm, command, olt, typeOfList):
         odoo = filedialog.askopenfilename()
         print("Selecciona el archivo de lista de clientes de Drive")
         drive = filedialog.askopenfilename()
-        ODOO = fromCsv(odoo)
-        DRIVE = fromCsv(drive)
+        ODOO = fromCsvALT(odoo)
+        DRIVE = fromCsvALT(drive)
         actionList = compare(ODOO, DRIVE, olt)
         keep = "Y"
     elif typeOfList == "SC":

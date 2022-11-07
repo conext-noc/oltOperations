@@ -2,13 +2,12 @@ def compare(odoo, drive, olt):
     listData = []
     for odooClient in odoo:
         for driveClient in drive:
-            NIF1 = str(driveClient["NIF"])[1:].replace(".0","")
-            NIF2 = str(odooClient["Cliente/NIF"]).replace(".0","")
+            NIF1 = str(driveClient["NIF"])[1:]
+            NIF2 = str(odooClient["Cliente/NIF"])
             if NIF2 == NIF1:
-                print(NIF1, NIF2)
                 if int(driveClient["OLT"]) == int(olt):
                     FRAME = (
-                        int(driveClient["FRAME"])
+                        driveClient["FRAME"]
                         if (
                             driveClient["FRAME"] != "N/A"
                             and driveClient["FRAME"] != ""
@@ -17,12 +16,11 @@ def compare(odoo, drive, olt):
                             and driveClient["FRAME"] != "?"
                             and driveClient["FRAME"] != "S/I"
                             and driveClient["FRAME"] != "S/II"
-                            and driveClient["FRAME"] != "nan"
                         )
                         else "NA"
                     )
                     SLOT = (
-                        int(driveClient["SLOT"])
+                        driveClient["SLOT"]
                         if (
                             driveClient["SLOT"] != "N/A"
                             and driveClient["SLOT"] != ""
@@ -31,12 +29,11 @@ def compare(odoo, drive, olt):
                             and driveClient["SLOT"] != "?"
                             and driveClient["SLOT"] != "S/I"
                             and driveClient["SLOT"] != "S/II"
-                            and driveClient["SLOT"] != "nan"
                         )
                         else "NA"
                     )
                     PORT = (
-                        int(driveClient["PORT"])
+                        driveClient["PORT"]
                         if (
                             driveClient["PORT"] != "N/A"
                             and driveClient["PORT"] != ""
@@ -45,12 +42,11 @@ def compare(odoo, drive, olt):
                             and driveClient["PORT"] != "?"
                             and driveClient["PORT"] != "S/I"
                             and driveClient["PORT"] != "S/II"
-                            and driveClient["PORT"] != "nan"
                         )
                         else "NA"
                     )
                     ID = (
-                        int(driveClient["ID"])
+                        driveClient["ID"]
                         if (
                             driveClient["ID"] != "N/A"
                             and driveClient["ID"] != ""
@@ -59,7 +55,6 @@ def compare(odoo, drive, olt):
                             and driveClient["ID"] != "?"
                             and driveClient["ID"] != "S/I"
                             and driveClient["ID"] != "S/II"
-                            and driveClient["ID"] != "nan"
                         )
                         else "NA"
                     )

@@ -1,5 +1,17 @@
 import pandas as pd
 from io import StringIO
+import csv
+import os
+
+
+def fromCsvALT(path):
+    with open(path, mode='r') as infile:
+        reader = csv.reader(infile)
+        with open('file.csv', mode='w') as outfile:
+            writer = csv.writer(outfile)
+            mydict = {rows[0]:rows[1] for rows in reader}
+            os.remove('file.csv')
+            return mydict
 
 
 def dictConverter(string):
