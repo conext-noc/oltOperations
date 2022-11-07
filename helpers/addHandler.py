@@ -15,7 +15,6 @@ def addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP):
     if fail != None:
         return (None, None, fail)
     else:
-        print(value)
         (_, end) = check(value, conditionONT).span()
         ID = value[end : end + 3].replace(" ", "").replace("\n", "")
         command(f"ont optical-alarm-profile {PORT} {ID} profile-name ALARMAS_OPTICAS")
