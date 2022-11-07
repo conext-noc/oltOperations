@@ -65,10 +65,10 @@ def compare(odoo, drive, olt):
                         odooClient["Cliente/NIF"],
                         odooClient["ID externo"],
                         driveClient["OLT"],
-                        FRAME,
-                        SLOT,
-                        PORT,
-                        ID,
+                        int(FRAME),
+                        int(SLOT),
+                        int(PORT),
+                        int(ID),
                     )
                     listData.append(
                         {
@@ -77,10 +77,10 @@ def compare(odoo, drive, olt):
                             "Cliente/NIF": odooClient["Cliente/NIF"],
                             "ID externo": odooClient["ID externo"],
                             "OLT": driveClient["OLT"],
-                            "FRAME": FRAME,
-                            "SLOT": SLOT,
-                            "PORT": PORT,
-                            "ID": ID,
+                            "FRAME": int(FRAME),
+                            "SLOT": int(SLOT),
+                            "PORT": int(PORT),
+                            "ID": int(ID),
                         }
                     )
     return listData
