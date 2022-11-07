@@ -19,6 +19,7 @@ def deactivate(comm, command, olt, typeOfList):
         print("Selecciona el archivo de lista de clientes de Drive")
         drive = filedialog.askopenfilename()
         ODOO = fromCsv(odoo)
+        print(ODOO)
         DRIVE = fromCsv(drive)
         actionList = compare(ODOO, DRIVE, olt)
         keep = "Y"
