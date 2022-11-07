@@ -8,7 +8,7 @@ def compare(odoo, drive, olt):
                 print(NIF1, NIF2)
                 if int(driveClient["OLT"]) == int(olt):
                     FRAME = (
-                        driveClient["FRAME"]
+                        int(driveClient["FRAME"])
                         if (
                             driveClient["FRAME"] != "N/A"
                             and driveClient["FRAME"] != ""
@@ -22,7 +22,7 @@ def compare(odoo, drive, olt):
                         else "NA"
                     )
                     SLOT = (
-                        driveClient["SLOT"]
+                        int(driveClient["SLOT"])
                         if (
                             driveClient["SLOT"] != "N/A"
                             and driveClient["SLOT"] != ""
@@ -36,7 +36,7 @@ def compare(odoo, drive, olt):
                         else "NA"
                     )
                     PORT = (
-                        driveClient["PORT"]
+                        int(driveClient["PORT"])
                         if (
                             driveClient["PORT"] != "N/A"
                             and driveClient["PORT"] != ""
@@ -50,7 +50,7 @@ def compare(odoo, drive, olt):
                         else "NA"
                     )
                     ID = (
-                        driveClient["ID"]
+                        int(driveClient["ID"])
                         if (
                             driveClient["ID"] != "N/A"
                             and driveClient["ID"] != ""
@@ -81,10 +81,10 @@ def compare(odoo, drive, olt):
                             "Cliente/NIF": odooClient["Cliente/NIF"],
                             "ID externo": odooClient["ID externo"],
                             "OLT": driveClient["OLT"],
-                            "FRAME": int(FRAME) or "NA",
-                            "SLOT": int(SLOT) or "NA",
-                            "PORT": int(PORT) or "NA",
-                            "ID": int(ID) or "NA",
+                            "FRAME": FRAME,
+                            "SLOT": SLOT,
+                            "PORT": PORT,
+                            "ID": ID,
                         }
                     )
     return listData
