@@ -7,7 +7,7 @@ def compare(odoo, drive, olt):
             if NIF2 == NIF1:
                 if int(driveClient["OLT"]) == int(olt):
                     FRAME = (
-                        driveClient["FRAME"]
+                        driveClient["FRAME"].replace(".0", "")
                         if (
                             driveClient["FRAME"] != "N/A"
                             and driveClient["FRAME"] != ""
@@ -20,7 +20,7 @@ def compare(odoo, drive, olt):
                         else "NA"
                     )
                     SLOT = (
-                        driveClient["SLOT"]
+                        driveClient["SLOT"].replace(".0", "")
                         if (
                             driveClient["SLOT"] != "N/A"
                             and driveClient["SLOT"] != ""
@@ -33,7 +33,7 @@ def compare(odoo, drive, olt):
                         else "NA"
                     )
                     PORT = (
-                        driveClient["PORT"]
+                        driveClient["PORT"].replace(".0", "")
                         if (
                             driveClient["PORT"] != "N/A"
                             and driveClient["PORT"] != ""
@@ -46,7 +46,7 @@ def compare(odoo, drive, olt):
                         else "NA"
                     )
                     ID = (
-                        driveClient["ID"]
+                        driveClient["ID"].replace(".0", "")
                         if (
                             driveClient["ID"] != "N/A"
                             and driveClient["ID"] != ""
