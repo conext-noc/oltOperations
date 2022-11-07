@@ -29,6 +29,7 @@ def deactivate(comm, command, olt, typeOfList):
         keep = "Y"
     elif typeOfList == "SU":
         lookupType = input("Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ").upper()
+        # CHANGE TO NEW LOOKUP
         if lookupType == "S":
             SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
             (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
@@ -105,9 +106,9 @@ def deactivate(comm, command, olt, typeOfList):
             PORT = client["PORT"]
             ID = client["ID"]
             OLT = client["OLT"]
-            command(f"interface gpon {FRAME}/{SLOT}")
-            command(f"ont deactivate {PORT} {ID}")
-            command(f"display ont info {PORT} {ID}")
+            command(f"  interface  gpon  {FRAME}/{SLOT}  ")
+            command(f"  ont  deactivate  {PORT}  {ID}  ")
+            command(f"  display  ont   info  {PORT}  {ID}  ")
             resp = (
                 f"{FRAME}/{SLOT}/{PORT}/{ID} Suspendido\n"
                 if "U" in typeOfList
