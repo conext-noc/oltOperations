@@ -6,6 +6,7 @@ from helpers.failHandler import failChecker
 from helpers.spidHandler import ontSpid
 from re import sub
 from time import sleep
+from helpers.clientDataLookup import lookup
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
@@ -29,54 +30,41 @@ Que cambio se realizara?
 $ """
     ).upper()
     lookupType = input("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
-    if lookupType == "S":
-        SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
-        (FRAME, SLOT, PORT, ID, NAME, STATE, FAIL) = serialSearch(comm, command, SN)
-        if FAIL == None:
-            keep = input(
-                f"""
-    NOMBRE              :   {NAME}
-    OLT                 :   {OLT}
+    data = lookup(comm,command,OLT,lookupType)
+    if data["fail"] == None:
+        FRAME = data["frame"]
+        SLOT = data["slot"]
+        PORT = data["port"]
+        ID = data["id"]
+        NAME = data["name"]
+        IPADDRESS = data["ipAdd"]
+        WAN = data["wan"]
+        RUNSTATE = data["runState"]
+        STATE = data["state"]
+        TEMP = data["temp"]
+        PWR = data["pwr"]
+        str1 = f"""
     FRAME               :   {FRAME}
     SLOT                :   {SLOT}
     PORT                :   {PORT}
     ID                  :   {ID}
-    Desea continuar? [Y | N]    :   """
-            ).upper()
-            FAIL = (
-                None
-                if keep == "Y"
-                else ("No se procedera con la operacion..." if keep == "N" else f"opcion {keep} no existe")
-            )
-    if lookupType == "D":
-        FRAME = input("Ingrese frame de cliente : ").upper()
-        SLOT = input("Ingrese slot de cliente : ").upper()
-        PORT = input("Ingrese puerto de cliente : ").upper()
-        ID = input("Ingrese el id del cliente : ").upper()
-        command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
-        sleep(3)
-        value = decoder(comm)
-        fail = failChecker(value)
-        if fail == None:
-            (_, sDESC) = check(value, "Description             : ").span()
-            (eDESC, _) = check(value, "Last down cause         : ").span()
-            NAME = value[sDESC:eDESC].replace("\n", "")
-            keep = input(
-                f"""
-    NOMBRE              :   {NAME}
-    OLT                 :   {OLT}
-    FRAME               :   {FRAME}
-    SLOT                :   {SLOT}
-    PORT                :   {PORT}
-    ID                  :   {ID}
-    Desea continuar? [Y | N]    :   """
-            ).upper()
-            FAIL = (
-                None
-                if keep == "Y"
-                else ("No se procedera con la operacion..." if keep == "N" else f"opcion {keep} no existe")
-            )
-    if FAIL == None:
+    NAME                :   {NAME}
+    STATE               :   {STATE}
+    RUN STATE           :   {RUNSTATE}
+    IP                  :   {IPADDRESS}
+    TEMPERATURA         :   {TEMP}
+    POTENCIA            :   {PWR}
+                """
+        str2 = ""
+        for idx, wanData in enumerate(WAN):
+                str2 += f"""
+    VLAN_{idx}              :   {wanData["VLAN"]}
+    PLAN_{idx}              :   {wanData["PLAN"]}
+    SPID_{idx}              :   {wanData["SPID"]}
+                """
+        res = str1 + str2
+        res = colorFormatter(res, "ok")
+        print(res)
         if action == "CT":
             command(f"interface gpon {FRAME}/{SLOT}")
             NAME = input("Ingrese el nuevo nombre del cliente : ").upper()
@@ -96,30 +84,14 @@ $ """
             print(resp)
             return
         if action == "CV":
-            (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
-            NAME = sub(" +", " ", NAME).replace("\n", "")
-            str1 = f"""
-    NOMBRE DE CLIENTE   :   {NAME}
-    IP DEL CLIENTE      :   {IPADDRESS}
-            """
-            str2 = ""
-            for idx, wanData in enumerate(WAN):
-                str2 += f"""
-    VLAN_{idx}              :   {wanData["VLAN"]}
-    PLAN_{idx}              :   {wanData["PLAN"]}
-    SPID_{idx}              :   {wanData["SPID"]}
-    """
-            res = str1 + str2
-            res = colorFormatter(res, "ok")
-            print(res)
-
+            SPID = WAN[0]["SPID"]
+            PLAN = WAN[0]["PLAN"]
             PROVIDER = input("Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
             prov = providerMap[PROVIDER]
             for wanData in WAN:
                 spid = wanData["SPID"]
                 command(f" undo  service-port  {spid}")
 
-            SPID = WAN[0]["SPID"]
             command(
                 f"service-port {SPID} vlan {prov} gpon {FRAME}/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {prov} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"
             )
@@ -133,27 +105,10 @@ $ """
             print(resp)
             return
         if action == "CP":
-            (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
-            NAME = sub(" +", " ", NAME).replace("\n", "")
-            str1 = f"""
-    NOMBRE DE CLIENTE   :   {NAME}
-    IP DEL CLIENTE      :   {IPADDRESS}
-            """
-            str2 = ""
-            for idx, wanData in enumerate(WAN):
-                str2 += f"""
-    VLAN_{idx}              :   {wanData["VLAN"]}
-    PLAN_{idx}              :   {wanData["PLAN"]}
-    SPID_{idx}              :   {wanData["SPID"]}
-    """
-            res = str1 + str2
-            res = colorFormatter(res, "ok")
-            print(res)
             PLAN = input("Ingrese el nuevo plan de cliente : ").upper()
             for wanData in WAN:
                 spid = wanData["SPID"]
                 command(f" undo  service-port  {spid}")
-
             spid = WAN[0]["SPID"]
             command(f"service-port {spid} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
             resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"

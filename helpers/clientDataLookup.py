@@ -12,6 +12,7 @@ existing = {
     "RE": "Run state               : ",
     "DESC": "Description             : ",
     "LDC": "Last down cause         : ",
+    "CS": "Config state            :"
 }
 
 
@@ -27,6 +28,7 @@ def lookup(comm, command, OLT, lookupType, previous=True):
     WAN = []
     TEMP = None
     PWR = None
+    RUNSTATE = None
     if lookupType == "S":
         SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
         (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
@@ -43,8 +45,10 @@ def lookup(comm, command, OLT, lookupType, previous=True):
         if fail == None:
             (_, sDESC) = check(value, existing["DESC"]).span()
             (_, sCF) = check(value, existing["CF"]).span()
-            (eCF, _) = check(value, existing["RE"]).span()
+            (eCF, sRE) = check(value, existing["RE"]).span()
             (eDESC, _) = check(value, existing["LDC"]).span()
+            (eRE,_) = check(value,existing["CS"]).span()
+            RUNSTATE = value[sRE:eRE].replace("\n", "")
             NAME = value[sDESC:eDESC].replace("\n", "")
             STATE = value[sCF:eCF].replace("\n", "")
         else:
@@ -70,6 +74,7 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             "port": PORT,
             "id": ID,
             "state": STATE,
+            "runState": RUNSTATE,
             "ipAdd": IPADDRESS,
             "wan": WAN,
             "temp": TEMP,
@@ -84,6 +89,7 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             "port": PORT,
             "id": ID,
             "state": STATE,
+            "runState":RUNSTATE,
             "ipAdd": IPADDRESS,
             "wan": WAN,
             "temp": TEMP,

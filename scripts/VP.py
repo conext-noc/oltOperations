@@ -27,11 +27,11 @@ def verifyPort(comm, command):
                 FRAME, SLOT, PORT, ID, NAME, STATUS, CAUSE, TIME, DATE
             )
             CT = f"{DATE} {TIME}"
+            color = "activated"
             if str(TIME) != "nan" and str(TIME) != "-":
                 t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
                 t2 = datetime.fromisoformat(str(datetime.now()))
                 clientTime = t2 - t1
-                color = "activated"
                 if STATUS == "offline":
                     if CAUSE == "LOSi/LOBi" and clientTime.days <= 5:
                         color = "los1"
