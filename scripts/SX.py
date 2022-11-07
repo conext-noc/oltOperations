@@ -18,8 +18,8 @@ def deactivate(comm, command, olt, typeOfList):
         odoo = filedialog.askopenfilename()
         print("Selecciona el archivo de lista de clientes de Drive")
         drive = filedialog.askopenfilename()
-        ODOO = fromCsvALT(odoo)
-        DRIVE = fromCsvALT(drive)
+        ODOO = fromCsv(odoo)
+        DRIVE = fromCsv(drive)
         actionList = compare(ODOO, DRIVE, olt)
         keep = "Y"
     elif typeOfList == "SC":

@@ -21,6 +21,7 @@ def dictConverter(string):
 def fromCsv(path):
     file = pd.read_csv(path, encoding="latin1")
     data = file.to_dict("records")
+    print(data)
     return data
 
 
