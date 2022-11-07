@@ -7,11 +7,8 @@ import os
 def fromCsvALT(path):
     with open(path, mode='r') as infile:
         reader = csv.reader(infile)
-        with open('fileXD.csv', mode='w') as outfile:
-            writer = csv.writer(outfile)
-            mydict = {rows[0]:rows[1] for rows in reader}
-            os.remove('fileXD.csv')
-            return mydict
+        mydict = {rows[0]:rows[1] for rows in reader}
+        return mydict
 
 
 def dictConverter(string):
