@@ -8,6 +8,7 @@ def fromCsvALT(path):
     with open(path, mode='r') as infile:
         reader = csv.reader(infile)
         mydict = {rows[0]:rows[1] for rows in reader}
+        print(mydict)
         return mydict
 
 
