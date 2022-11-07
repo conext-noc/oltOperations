@@ -81,10 +81,10 @@ def compare(odoo, drive, olt):
                             "Cliente/NIF": odooClient["Cliente/NIF"],
                             "ID externo": odooClient["ID externo"],
                             "OLT": driveClient["OLT"],
-                            "FRAME": int(FRAME),
-                            "SLOT": int(SLOT),
-                            "PORT": int(PORT),
-                            "ID": int(ID),
+                            "FRAME": int(FRAME) or "NA",
+                            "SLOT": int(SLOT) or "NA",
+                            "PORT": int(PORT) or "NA",
+                            "ID": int(ID) or "NA",
                         }
                     )
     return listData
