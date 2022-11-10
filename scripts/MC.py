@@ -19,7 +19,7 @@ def deviceModify(comm, command, OLT):
     PORT = ""
     ID = ""
     NAME = ""
-    FAIL = None
+    FAIL = ""
     action = input(
         """
 Que cambio se realizara? 
@@ -31,7 +31,8 @@ $ """
     ).upper()
     lookupType = input("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
     data = lookup(comm,command,OLT,lookupType)
-    if data["fail"] == None:
+    FAIL = data["fail"]
+    if FAIL == None:
         FRAME = data["frame"]
         SLOT = data["slot"]
         PORT = data["port"]
@@ -108,10 +109,10 @@ $ """
             return
         if action == "CP":
             PLAN = input("Ingrese el nuevo plan de cliente : ").upper()
+            spid = None
             for wanData in WAN:
                 spid = wanData["SPID"]
                 command(f" undo  service-port  {spid}")
-            spid = WAN[0]["SPID"]
             command(f"service-port {spid} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
             resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"
             resp = colorFormatter(resp, "ok")

@@ -16,6 +16,6 @@ def typeCheck(comm,command,FRAME,SLOT,PORT,ID):
     (_,tS) = check(value,ontTypeStart).span()
     (tE,_) = check(value, ontTypeEnd).span()
     ONT_TYPE = value[tS:tE]
-    return (ONT_TYPE, FAIL)
+    return ONT_TYPE
   else:
-    return(ONT_TYPE, FAIL)
+    return ONT_TYPE
