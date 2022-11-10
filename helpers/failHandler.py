@@ -30,4 +30,5 @@ def failChecker(value):
         reason = colorFormatter(reason, "fail")
         return reason
     elif fail1 == None and fail2 == None and fail3 != None:
-        return anotherFail
+        reason = colorFormatter(anotherFail, "fail")
+        return reason

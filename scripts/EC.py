@@ -44,7 +44,11 @@ def delete(comm, command, OLT):
     PORT                :   {PORT}
     ID                  :   {ID}
     NAME                :   {NAME}
+    SN                  :   {data["sn"]}
+    ONT TYPE            :   {data["type"]}
     STATE               :   {STATE}
+    STATUS              :   {data["status"]}
+    LAST DOWN CAUSE     :   {data["ldc"]}
     IP                  :   {IPADDRESS}
     TEMPERATURA         :   {TEMP}
     POTENCIA            :   {PWR}

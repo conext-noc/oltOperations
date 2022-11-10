@@ -6,13 +6,16 @@ from helpers.serialLookup import serialSearch
 from helpers.getWanData import wan
 from helpers.opticalCheck import opticalValues
 from helpers.formatter import colorFormatter
+from helpers.ontTypeHandler import typeCheck
 
 existing = {
     "CF": "Control flag            : ",
     "RE": "Run state               : ",
     "DESC": "Description             : ",
     "LDC": "Last down cause         : ",
-    "CS": "Config state            :"
+    "CS": "Config state            :",
+    "SN":"SN                      : ",
+    "LUT": "Last up time            : ",
 }
 
 
@@ -23,16 +26,18 @@ def lookup(comm, command, OLT, lookupType, previous=True):
     SLOT = None
     PORT = None
     ID = None
+    LDC = None
     STATE = None
+    STATUS = None
     IPADDRESS = None
     WAN = []
     TEMP = None
     PWR = None
-    RUNSTATE = None
+    ONT_TYPE = None
+    SN = None
     if lookupType == "S":
         SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
-        (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
-        FAIL = fail
+        (FRAME, SLOT, PORT, ID, NAME,STATUS, STATE,ONT_TYPE,LDC, FAIL) = serialSearch(comm, command, SN)
     elif lookupType == "D":
         FRAME = input("Ingrese frame de cliente  : ").upper()
         SLOT = input("Ingrese slot de cliente   : ").upper()
@@ -46,11 +51,16 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             (_, sDESC) = check(value, existing["DESC"]).span()
             (_, sCF) = check(value, existing["CF"]).span()
             (eCF, sRE) = check(value, existing["RE"]).span()
-            (eDESC, _) = check(value, existing["LDC"]).span()
+            (eDESC, sLDC) = check(value, existing["LDC"]).span()
+            (eLDC, _) = check(value, existing["LUT"]).span()
             (eRE,_) = check(value,existing["CS"]).span()
-            RUNSTATE = value[sRE:eRE].replace("\n", "")
+            (_,sSN) = check(value, existing["SN"]).span
+            STATUS = value[sRE:eRE].replace("\n", "")
             NAME = value[sDESC:eDESC].replace("\n", "")
             STATE = value[sCF:eCF].replace("\n", "")
+            LDC = value[sLDC:eLDC]
+            SN = value[sSN:sSN+16]
+            (ONT_TYPE, FAIL) = typeCheck(comm,command,FRAME,SLOT,PORT,ID)
         else:
             FAIL = fail
     elif lookupType == "N":
@@ -73,8 +83,11 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             "slot": SLOT,
             "port": PORT,
             "id": ID,
+            "sn":SN,
+            "ldc": LDC,
             "state": STATE,
-            "runState": RUNSTATE,
+            "status": STATUS,
+            "type": ONT_TYPE,
             "ipAdd": IPADDRESS,
             "wan": WAN,
             "temp": TEMP,
@@ -88,8 +101,11 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             "slot": SLOT,
             "port": PORT,
             "id": ID,
+            "sn":SN,
+            "ldc": LDC,
             "state": STATE,
-            "runState":RUNSTATE,
+            "status":STATUS,
+            "type": ONT_TYPE,
             "ipAdd": IPADDRESS,
             "wan": WAN,
             "temp": TEMP,

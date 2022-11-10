@@ -38,9 +38,11 @@ def newLookup(comm, command, olt):
 
 
 def existingLookup(comm, command, olt):
+    FAIL = None
     lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ").upper()
     data = lookup(comm, command, olt, lookupType)
-    if data["fail"] == None:
+    FAIL = data["fail"]
+    if FAIL == None:
         if lookupType == "S" or lookupType == "D":
             str1 = f"""
     FRAME               :   {data["frame"]}
@@ -49,6 +51,8 @@ def existingLookup(comm, command, olt):
     ID                  :   {data["id"]}
     NAME                :   {data["name"]}
     STATE               :   {data["state"]}
+    STATUS              :   {data["status"]}
+    ONT TYPE            :   {data["type"]}
     IP                  :   {data["ipAdd"]}
     TEMPERATURA         :   {data["temp"]}
     POTENCIA            :   {data["pwr"]}
@@ -67,11 +71,11 @@ def existingLookup(comm, command, olt):
             command(f'display ont info by-desc "{data["name"]}" | no-more')
             sleep(3)
             (value, regex) = parser(comm, condition, "m")
-            fail = failChecker(value)
-            if fail == None:
+            FAIL = failChecker(value)
+            if FAIL == None:
                 (_, s) = regex[0]
                 (e, _) = regex[len(regex) - 1]
                 print(value[s:e])
-            else:
-                fail = colorFormatter(fail, "fail")
-                print(fail)
+    else:
+        FAIL = colorFormatter(FAIL, "fail")
+        print(FAIL)

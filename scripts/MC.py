@@ -39,7 +39,6 @@ $ """
         NAME = data["name"]
         IPADDRESS = data["ipAdd"]
         WAN = data["wan"]
-        RUNSTATE = data["runState"]
         STATE = data["state"]
         TEMP = data["temp"]
         PWR = data["pwr"]
@@ -49,8 +48,11 @@ $ """
     PORT                :   {PORT}
     ID                  :   {ID}
     NAME                :   {NAME}
+    SN                  :   {data["sn"]}
     STATE               :   {STATE}
-    RUN STATE           :   {RUNSTATE}
+    STATUS              :   {data["status"]}
+    LAST DOWN CAUSE     :   {data["ldc"]}
+    ONT TYPE            :   {data["type"]}
     IP                  :   {IPADDRESS}
     TEMPERATURA         :   {TEMP}
     POTENCIA            :   {PWR}
@@ -66,9 +68,9 @@ $ """
         res = colorFormatter(res, "ok")
         print(res)
         if action == "CT":
-            command(f"interface gpon {FRAME}/{SLOT}")
+            command(f"  interface  gpon  {FRAME}/{SLOT}")
             NAME = input("Ingrese el nuevo nombre del cliente : ").upper()
-            command(f"ont modify {PORT} {ID} desc {NAME}")
+            command(f"  ont  modify  {PORT}  {ID}  desc  '{NAME}'  ")
             command("quit")
             resp = f"Al Cliente {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se ha cambiado de titular a {NAME}"
             resp = colorFormatter(resp, "ok")

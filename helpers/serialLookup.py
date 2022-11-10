@@ -2,6 +2,7 @@ from helpers.outputDecoder import parser, check, checkIter
 from helpers.failHandler import failChecker
 from time import sleep
 from re import sub
+from helpers.ontTypeHandler import typeCheck
 
 existingCond = "-----------------------------------------------------------------------------"
 existing = {
@@ -21,11 +22,12 @@ existing = {
 
 
 def serialSearch(comm, command, SN):
+    FAIL = None
     command(f"display ont info by-sn {SN} | no-more")
     sleep(3)
     (val, regex) = parser(comm, existingCond, "m")
-    fail = failChecker(val)
-    if fail == None:
+    FAIL = failChecker(val)
+    if FAIL == None:
         (_, s) = regex[0]
         (e, _) = regex[len(regex) - 1]
         value = val[s:e]
@@ -38,13 +40,18 @@ def serialSearch(comm, command, SN):
         PORT = valFSP[ePORT : ePORT + 2].replace("\n", "")
         (_, eID) = check(value, existing["ONTID"]).span()
         (_, sDESC) = check(value, existing["DESC"]).span()
-        (eDESC, _) = check(value, existing["LDC"]).span()
+        (eDESC, sLDC) = check(value, existing["LDC"]).span()
+        (eLDC,_) = check(value, existing["LUT"]).span()
         (_, sCF) = check(value, existing["CF"]).span()
-        (eCF, _) = check(value, existing["RE"]).span()
+        (eCF, sRE) = check(value, existing["RE"]).span()
+        (eRE, _) = check(value, existing["CS"]).span()
         FRAME = 0
         ID = value[eID : eID + 3].replace("\n", "")
         NAME = sub(" +", " ", value[sDESC:eDESC]).replace("\n", "")
         STATE = value[sCF:eCF].replace("\n", "")
-        return (FRAME, SLOT, PORT, ID, NAME, STATE, None)
+        STATUS = value[sRE:eRE]
+        LDC = value[sLDC:eLDC]
+        (ONT_TYPE, FAIL) = typeCheck(comm,command,FRAME,SLOT,PORT,ID)
+        return (FRAME, SLOT, PORT, ID, NAME,STATUS, STATE,ONT_TYPE,LDC, FAIL)
     else:
-        return (None, None, None, None, None, None, fail)
+        return (None, None, None, None, None, None,None,None,None, FAIL)

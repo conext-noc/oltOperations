@@ -2,11 +2,6 @@ from helpers.spidHandler import availableSpid, verifySPID
 from helpers.addHandler import addONU, addOnuService
 from helpers.opticalCheck import opticalValues
 from helpers.formatter import colorFormatter
-from helpers.serialLookup import serialSearch
-from time import sleep
-from re import sub
-from helpers.outputDecoder import check, decoder
-from helpers.failHandler import failChecker
 from helpers.clientDataLookup import lookup
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
@@ -56,7 +51,11 @@ def confirm(comm, command, olt, action):
     SLOT                :   {data["slot"]}
     PORT                :   {data["port"]}
     ID                  :   {data["id"]}
+    SN                  :   {data["sn"]}
+    ONT TYPE            :   {data["type"]}
     NAME                :   {data["name"]}
+    STATE               :   {data["state"]}
+    STATUS              :   {data["status"]}
                     """
                 print(colorFormatter(str1, "ok"))
             FRAME = data["frame"]
@@ -84,11 +83,11 @@ def confirm(comm, command, olt, action):
             verifySPID(comm, command, SPID)
             PLAN = PLAN[3:]
             template = """
-    {} {}/{}/{}/{} 
-    OLT {} {} {}
-    TEMPERATURA :   {}
-    POTENCIA    :   {}
-    SPID        :   {}""".format(
+    |{}  |  {}/{}/{}/{} 
+    |OLT  {}  {}  {}
+    |TEMPERATURA :   {}
+    |POTENCIA    :   {}
+    |SPID        :   {}""".format(
                 NAME, FRAME, SLOT, PORT, ID, olt, PROVIDER, PLAN, temp, pwr, SPID
             )
             res = colorFormatter(template, "success")
@@ -98,12 +97,12 @@ def confirm(comm, command, olt, action):
             reason = input("Por que no se le asignara servicio? : ").upper()
             PLAN = PLAN[3:]
             template = """
-    {} {}/{}/{}/{} 
-    OLT {} {} {}
-    TEMPERATURA :   {}
-    POTENCIA    :   {}
-    SPID        :   {}
-    RAZÓN       :   {}""".format(
+    |{}  |  {}/{}/{}/{} 
+    |OLT  {}  {}  {}
+    |TEMPERATURA :   {}
+    |POTENCIA    :   {}
+    |SPID        :   {}
+    |RAZÓN       :   {}""".format(
                 NAME, FRAME, SLOT, PORT, ID, olt, PROVIDER, PLAN, temp, pwr, SPID, reason
             )
             res = colorFormatter(template, "success")
