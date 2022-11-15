@@ -73,7 +73,7 @@ def lookup(comm, command, OLT, lookupType, previous=True):
     if FAIL == None:
         if previous:
             print(colorFormatter("getting wan data", "info"))
-            (IPADDRESS, WAN, FAIL) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
+            (IPADDRESS, WAN) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
             print(colorFormatter("getting optical data", "info"))
             (TEMP, PWR) = opticalValues(comm, command, FRAME, SLOT, PORT, ID, False)
         return {

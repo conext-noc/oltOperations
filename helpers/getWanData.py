@@ -1,6 +1,7 @@
 from helpers.outputDecoder import decoder, parser, check
 from helpers.failHandler import failChecker
 from helpers.spidHandler import ontSpid, planX15Maps, planX2Maps
+from helpers.formatter import colorFormatter
 
 ip = "IPv4 address               : "
 endIp = "Subnet mask"
@@ -40,7 +41,8 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
             (_, s) = check(val, ip).span()
             (e, _) = check(val, endIp).span()
             IPADDRESS = val[s : e - 1].replace(" ", "").replace("\n", "")
-        return (IPADDRESS, WAN, FAIL)
+        return (IPADDRESS, WAN)
     else:
         FAIL = failSpid
-        return (IPADDRESS, WAN, FAIL)
+        print(colorFormatter(FAIL, "info"))
+        return (IPADDRESS, WAN)

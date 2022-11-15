@@ -3,6 +3,8 @@ from helpers.formatter import colorFormatter
 from helpers.outputDecoder import parser, check
 from helpers.clientDataLookup import lookup
 from time import sleep
+from helpers.spidHandler import availableSpid
+from helpers.addHandler import addOnuService
 
 
 condition = "-----------------------------------------------------------------------------"
@@ -56,15 +58,24 @@ def existingLookup(comm, command, olt):
     POTENCIA            :   {data["pwr"]}
                 """
             str2 = ""
-            for idx, wanData in enumerate(data["wan"]):
-                str2 += f"""
+            if(len(data["wan"]) > 0):
+                for idx, wanData in enumerate(data["wan"]):
+                    str2 += f"""
     VLAN_{idx}              :   {wanData["VLAN"]}
     PLAN_{idx}              :   {wanData["PLAN"]}
     SPID_{idx}              :   {wanData["SPID"]}
-                """
+                    """
             res = str1 + str2
             res = colorFormatter(res, "ok")
             print(res)
+            if(len(data["wan"]) <= 0):
+                addSpid = input("desea agregar SPID? [Y | N] : ").upper()
+                if(addSpid == "Y"):
+                    spid = availableSpid(comm, command)
+                    print(colorFormatter(f"El SPID que se le agregara al cliente es : {spid}", "ok"))
+                    PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
+                    PLAN = input("Ingrese plan de cliente : ").upper()
+                    addOnuService(command, comm, spid, PROVIDER, data["frame"], data["slot"], data["port"], data["id"], PLAN)
         elif lookupType == "N":
             command(f'display ont info by-desc "{data["name"]}" | no-more')
             sleep(3)

@@ -37,8 +37,10 @@ def verifyPort(comm, command):
                         color = "los1"
                     if CAUSE == "LOSi/LOBi" and clientTime.days > 5:
                         color = "los2"
-                    elif CAUSE == "dying-gasp":
+                    elif CAUSE == "dying-gasp" and clientTime.days <= 10:
                         color = "off"
+                    elif CAUSE == "dying-gasp" and clientTime.days > 10:
+                        color = "suspended"
                     elif CAUSE == "deactive":
                         color = "suspended"
                     elif CAUSE == "nan":
