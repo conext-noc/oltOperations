@@ -2,7 +2,7 @@ from helpers.outputDecoder import check, decoder
 from helpers.failHandler import failChecker
 
 ontTypeStart = "OntProductDescription    : "
-ontTypeEnd = "GPON Terminal"
+ontTypeEnd = "GPON"
 
 def typeCheck(comm,command,FRAME,SLOT,PORT,ID):
   ONT_TYPE = None
