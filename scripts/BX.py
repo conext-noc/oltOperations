@@ -50,6 +50,7 @@ def existingLookup(comm, command, olt):
     STATUS              :   {data["status"]}
     LAST DOWN CAUSE     :   {data["ldc"]}
     ONT TYPE            :   {data["type"]}
+    SN                  :   {data["sn"]}
     IP                  :   {data["ipAdd"]}
     TEMPERATURA         :   {data["temp"]}
     POTENCIA            :   {data["pwr"]}
