@@ -111,7 +111,7 @@ def clientFault(comm, command, olt):
         CT = f"{DATE} {TIME}"
         if str(TIME) != "nan" and str(TIME) != "-":
             if STATUS == "offline":
-                if CAUSE == "LOSi/LOBi":
+                if CAUSE == "LOSi/LOBi" or CAUSE == "LOS":
                     t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
                     t2 = datetime.fromisoformat(str(datetime.now()))
                     clientTime = t2 - t1

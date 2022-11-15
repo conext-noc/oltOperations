@@ -60,7 +60,7 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             STATE = value[sCF:eCF].replace("\n", "")
             LDC = value[sLDC:eLDC]
             SN = value[sSN:sSN+16]
-            (ONT_TYPE, FAIL) = typeCheck(comm,command,FRAME,SLOT,PORT,ID)
+            ONT_TYPE = typeCheck(comm,command,FRAME,SLOT,PORT,ID)
         else:
             FAIL = fail
     elif lookupType == "N":
@@ -85,8 +85,8 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             "id": ID,
             "sn":SN,
             "ldc": LDC,
-            "state": STATE,
-            "status": STATUS,
+            "state": STATE.replace("\n", ""),
+            "status": STATUS.replace("\n", ""),
             "type": ONT_TYPE,
             "ipAdd": IPADDRESS,
             "wan": WAN,

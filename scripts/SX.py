@@ -1,19 +1,19 @@
-from time import sleep
 from tkinter import filedialog
-from helpers.fileHandler import fromCsv, fromCsvALT
-from helpers.failHandler import failChecker
+from helpers.clientDataLookup import lookup
+from helpers.displayClient import display
+from helpers.fileHandler import fromCsv
 from helpers.formatter import colorFormatter
 from helpers.listChecker import compare
-from helpers.outputDecoder import check, decoder, sshToFile
-from helpers.serialLookup import serialSearch
+from helpers.outputDecoder import sshToFile
 
 existingCond = "-----------------------------------------------------------------------------"
 
 
 def deactivate(comm, command, olt, typeOfList):
     actionList = []
-    keep = ""
-    if typeOfList == "SO":
+    keep = "N"
+    FAIL = None
+    if "O" in typeOfList:
         print("Selecciona el archivo de lista de clientes de ODOO")
         odoo = filedialog.askopenfilename()
         print("Selecciona el archivo de lista de clientes de Drive")
@@ -21,84 +21,36 @@ def deactivate(comm, command, olt, typeOfList):
         ODOO = fromCsv(odoo)
         DRIVE = fromCsv(drive)
         actionList = compare(ODOO, DRIVE, olt)
-        keep = "Y"
-    elif typeOfList == "SC":
+        if(len(actionList) > 0):
+            keep = "Y"
+    elif "C" in typeOfList:
         print("Selecciona la lista de clientes")
         lista = filedialog.askopenfilename()
         actionList = fromCsv(lista)
-        keep = "Y"
-    elif typeOfList == "SU":
+        if(len(actionList) > 0):
+            keep = "Y"
+    elif "U" in typeOfList:
         lookupType = input("Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ").upper()
-        # CHANGE TO NEW LOOKUP
-        if lookupType == "S":
-            SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
-            (FRAME, SLOT, PORT, ID, NAME, STATE, fail) = serialSearch(comm, command, SN)
-            if fail == None:
-                keep = input(
-                    f"""
-    NOMBRE              :   {NAME}
-    OLT                 :   {olt}
-    FRAME               :   {FRAME}
-    SLOT                :   {SLOT}
-    PORT                :   {PORT}
-    ID                  :   {ID}
-    Desea continuar? [Y | N]    :   """
-                ).upper()
-                if keep == "Y":
-                    actionList = [
-                        {
-                            "NOMBRE": NAME,
-                            "OLT": olt,
-                            "FRAME": FRAME,
-                            "SLOT": SLOT,
-                            "PORT": PORT,
-                            "ID": ID,
-                        }
-                    ]
-        elif lookupType == "D":
-            FRAME = input("Ingrese frame de cliente : ").upper()
-            SLOT = input("Ingrese slot de cliente : ").upper()
-            PORT = input("Ingrese puerto de cliente : ").upper()
-            ID = input("Ingrese el id del cliente : ").upper()
-            command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
-            sleep(3)
-            value = decoder(comm)
-            fail = failChecker(value)
-            if fail == None:
-                (_, sDESC) = check(value, "Description             : ").span()
-                (eDESC, _) = check(value, "Last down cause         : ").span()
-                NAME = value[sDESC:eDESC].replace("\n", "")
-                keep = input(
-                    f"""
-    NOMBRE              :   {NAME}
-    OLT                 :   {olt}
-    FRAME               :   {FRAME}
-    SLOT                :   {SLOT}
-    PORT                :   {PORT}
-    ID                  :   {ID}
-    Desea continuar? [Y | N]    :   """
-                ).upper()
-                if keep == "Y":
-                    actionList = [
-                        {
-                            "NOMBRE": NAME,
-                            "OLT": olt,
-                            "FRAME": FRAME,
-                            "SLOT": SLOT,
-                            "PORT": PORT,
-                            "ID": ID,
-                        }
-                    ]
-        else:
-            resp = f'\nla opcion "{lookupType}" no existe\n'
-            resp = colorFormatter(resp, "warning")
+        data = lookup(comm, command, olt, lookupType, False)
+        FAIL = data["fail"]
+        if FAIL == None:
+            NAME = data["name"]
+            FRAME = data["frame"]
+            SLOT = data["slot"]
+            PORT = data["port"]
+            ID = data["id"]
+            OLT = olt
+            proceed = display(data)
+            if(proceed == "Y"):
+                actionList = [{"NOMBRE":NAME,"FRAME":FRAME,"SLOT":SLOT,"PORT":PORT,"ID":ID,"OLT":OLT}]
+                keep = "Y"
     else:
         resp = "\nNingun tipo de lista se ha seleccionado\n"
         resp = colorFormatter(resp, "warning")
         print(resp)
         return
 
-    if len(actionList) > 0 and keep == "Y":
+    if keep == "Y":
         for client in actionList:
             NOMBRE = client["NOMBRE"]
             FRAME = client["FRAME"]
@@ -106,9 +58,9 @@ def deactivate(comm, command, olt, typeOfList):
             PORT = client["PORT"]
             ID = client["ID"]
             OLT = client["OLT"]
-            command(f"  interface  gpon  {FRAME}/{SLOT}  ")
-            command(f"  ont  deactivate  {PORT}  {ID}  ")
-            command(f"  display  ont   info  {PORT}  {ID}  ")
+            command(f"interface gpon {FRAME}/{SLOT}")
+            command(f"ont deactivate {PORT} {ID}")
+            command(f"display ont info {PORT} {ID}")
             resp = (
                 f"{FRAME}/{SLOT}/{PORT}/{ID} Suspendido\n"
                 if "U" in typeOfList
@@ -116,7 +68,7 @@ def deactivate(comm, command, olt, typeOfList):
             )
             resp = colorFormatter(resp, "ok")
             print(resp)
-            if typeOfList != "SU":
+            if "U" not in typeOfList:
                 path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                 sshToFile(comm, path, typeOfList)
         command("quit")

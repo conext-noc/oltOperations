@@ -1,12 +1,8 @@
 from helpers.failHandler import failChecker
-from helpers.serialLookup import serialSearch
 from helpers.formatter import colorFormatter
 from helpers.outputDecoder import parser, check
-from helpers.opticalCheck import opticalValues
-from helpers.getWanData import wan
-from time import sleep
-import re
 from helpers.clientDataLookup import lookup
+from time import sleep
 
 
 condition = "-----------------------------------------------------------------------------"

@@ -1,10 +1,4 @@
 from helpers.formatter import colorFormatter
-from helpers.serialLookup import serialSearch
-from helpers.getWanData import wan
-from time import sleep
-from helpers.outputDecoder import check, decoder
-from helpers.failHandler import failChecker
-from re import sub
 from helpers.clientDataLookup import lookup
 
 existing = {
