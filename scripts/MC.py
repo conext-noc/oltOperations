@@ -1,6 +1,7 @@
 from helpers.formatter import colorFormatter
 from helpers.clientDataLookup import lookup
 from helpers.displayClient import display
+from helpers.spidHandler import availableSpid
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
@@ -33,7 +34,7 @@ $ """
         ID = data["id"]
         NAME = data["name"]
         WAN = data["wan"]
-        SPAN = None
+        SPID = None
         PLAN = None
         proceed = display(data)
         if (proceed == "Y"):
@@ -62,10 +63,11 @@ $ """
                     SPID = wanData["SPID"]
                     PLAN = wanData["PLAN"]
                     command(f" undo  service-port  {SPID}")
-
+                # SPID = availableSpid(comm, command)
                 command(
                     f"service-port {SPID} vlan {prov} gpon {FRAME}/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {prov} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"
                 )
+                print(f"service-port {SPID} vlan {prov} gpon {FRAME}/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {prov} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
                 isBridge = input("ONT es un bridge? [Y | N] : ").upper()
                 if isBridge == "Y":
                     command(f"interface gpon {FRAME}/{SLOT}")
@@ -77,11 +79,12 @@ $ """
                 return
             if action == "CP":
                 PLAN = input("Ingrese el nuevo plan de cliente : ").upper()
-                spid = None
                 for wanData in WAN:
-                    spid = wanData["SPID"]
-                    command(f" undo  service-port  {spid}")
-                command(f"service-port {spid} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+                    SPID = wanData["SPID"]
+                    command(f" undo  service-port  {SPID}")
+                
+                SPID = availableSpid(comm, command)
+                command(f"service-port {SPID} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"
                 resp = colorFormatter(resp, "ok")
                 print(resp)
