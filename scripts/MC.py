@@ -8,7 +8,7 @@ providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 planMap = {"VLANID": "VLAN ID             : ", "PLAN": "Inbound table name  : "}
 
 
-def deviceModify(comm, command, OLT):
+def deviceModify(comm, command, OLT,quit):
     FRAME = ""
     SLOT = ""
     PORT = ""
@@ -46,6 +46,7 @@ $ """
                 resp = f"Al Cliente {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se ha cambiado de titular a {NAME}"
                 resp = colorFormatter(resp, "ok")
                 print(resp)
+                quit(5)
                 return
             if action == "CO":
                 SN = input("Ingrese el nuevo ont del cliente : ").upper()
@@ -55,6 +56,7 @@ $ """
                 resp = f"Al Cliente 0/{SLOT}/{PORT}/{ID} OLT {OLT} se ha sido cambiado el ont a {SN}"
                 resp = colorFormatter(resp, "ok")
                 print(resp)
+                quit(5)
                 return
             if action == "CV":
                 PROVIDER = input("Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
@@ -75,20 +77,25 @@ $ """
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al proveedor {PROVIDER}"
                 resp = colorFormatter(resp, "ok")
                 print(resp)
+                quit(5)
                 return
             if action == "CP":
                 PLAN = input("Ingrese el nuevo plan de cliente : ").upper()
-                SPID = WAN[0]["SPID"]
-                command(f"service-port {SPID} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+                for wanData in WAN:
+                    SPID = wanData["SPID"]
+                    command(f"service-port {SPID} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"
                 resp = colorFormatter(resp, "ok")
                 print(resp)
+                quit(5)
                 return
         else:
             resp = colorFormatter("Cancelando...", "info")
             print(resp)
+            quit(1)
             return
     else:
         resp = colorFormatter(FAIL, "warning")
         print(resp)
+        quit(5)
         return

@@ -10,7 +10,7 @@ condition1 = "Control flag            : "
 condition2 = "Run state"
 
 
-def verify(actList, action, olt):
+def verify(actList, action, olt,quit):
     print("Donde quieres guardar los resultados?")
     result_path = filedialog.askdirectory()
     indexes = []
@@ -54,3 +54,4 @@ def verify(actList, action, olt):
     resp = f'lista "resultados{olt}" creada, operacion finalizada'
     resp = colorFormatter(resp, "success")
     print(resp)
+    quit(2)

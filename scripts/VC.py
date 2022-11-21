@@ -8,7 +8,7 @@ downstream = "Down traffic \(kbps\)        : "
 endCond = "----------------------------------------------------------------"
 
 
-def speedVerify(comm, command):
+def speedVerify(comm, command,quit):
     speedUpArr = []
     speedDownArr = []
     FRAME = input("Ingrese frame de cliente : ").upper()
@@ -61,3 +61,4 @@ def speedVerify(comm, command):
 El consumo promedio del ONT es {upAVG} Kbps [UP] y {downAVG} Kbps [DOWN]
 """
     )
+    quit(5)

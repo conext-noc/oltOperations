@@ -13,7 +13,7 @@ newCondFSP = "F/S/P               : "
 newCondSn = "Ont SN              : "
 
 
-def newLookup(comm, command, olt):
+def newLookup(comm, command, olt,quit):
     client = []
     command("  display  ont  autofind  all  |  no-more  ")
     sleep(5)
@@ -33,9 +33,10 @@ def newLookup(comm, command, olt):
         SN = ont["SN"].replace(" ", "")
         IDX = ont["IDX"] + 1
         print("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
+    quit(90)
 
 
-def existingLookup(comm, command, olt):
+def existingLookup(comm, command, olt,quit):
     FAIL = None
     lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ").upper()
     data = lookup(comm, command, olt, lookupType)
@@ -68,6 +69,7 @@ def existingLookup(comm, command, olt):
             res = str1 + str2
             res = colorFormatter(res, "ok")
             print(res)
+            quit(90)
             if(len(data["wan"]) <= 0):
                 addSpid = input("desea agregar SPID? [Y | N] : ").upper()
                 if(addSpid == "Y"):
@@ -76,6 +78,7 @@ def existingLookup(comm, command, olt):
                     PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
                     PLAN = input("Ingrese plan de cliente : ").upper()
                     addOnuService(command, comm, spid, PROVIDER, data["frame"], data["slot"], data["port"], data["id"], PLAN)
+                    quit(5)
         elif lookupType == "N":
             command(f'display ont info by-desc "{data["name"]}" | no-more')
             sleep(3)
@@ -85,6 +88,14 @@ def existingLookup(comm, command, olt):
                 (_, s) = regex[0]
                 (e, _) = regex[len(regex) - 1]
                 print(value[s:e])
+                quit(90)
+            else:
+                FAIL = colorFormatter(FAIL, "fail")
+                print(FAIL)
+                quit(5)
+                return
     else:
         FAIL = colorFormatter(FAIL, "fail")
         print(FAIL)
+        quit(5)
+        return

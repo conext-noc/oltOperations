@@ -9,7 +9,7 @@ from helpers.outputDecoder import sshToFile
 existingCond = "-----------------------------------------------------------------------------"
 
 
-def deactivate(comm, command, olt, typeOfList):
+def deactivate(comm, command, olt, typeOfList,quit):
     actionList = []
     keep = "N"
     FAIL = None
@@ -44,6 +44,11 @@ def deactivate(comm, command, olt, typeOfList):
             if(proceed == "Y"):
                 actionList = [{"NOMBRE":NAME,"FRAME":FRAME,"SLOT":SLOT,"PORT":PORT,"ID":ID,"OLT":OLT}]
                 keep = "Y"
+        else:
+            resp = colorFormatter(FAIL, "fail")
+            print(resp)
+            quit(5)
+            return
     else:
         resp = "\nNingun tipo de lista se ha seleccionado\n"
         resp = colorFormatter(resp, "warning")
@@ -71,8 +76,11 @@ def deactivate(comm, command, olt, typeOfList):
             if "U" not in typeOfList:
                 path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                 sshToFile(comm, path, typeOfList)
-        command("quit")
-        return actionList
+                command("quit")
+                return actionList
+            else:
+                command("quit")
+                quit(2)
     else:
         resp = "\nla lista no tiene ningun cliente...\n"
         resp = colorFormatter(resp, "warning")

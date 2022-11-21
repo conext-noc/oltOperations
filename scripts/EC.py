@@ -9,7 +9,7 @@ existing = {
 }
 
 
-def delete(comm, command, OLT):
+def delete(comm, command, OLT,quit):
     FRAME = None
     SLOT = None
     PORT = None
@@ -67,6 +67,10 @@ def delete(comm, command, OLT):
             command("quit")
             resp = colorFormatter(f"{NAME} {FRAME}/{SLOT}/{PORT}/{ID} de OLT {OLT} ha sido eliminado", "ok")
             print(resp)
+            quit(3)
+            return
     else:
         fail = colorFormatter(FAIL, "fail")
         print(fail)
+        quit(5)
+        return

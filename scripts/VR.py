@@ -9,7 +9,7 @@ endIp = "Subnet mask"
 vlan = "Manage VLAN                : "
 
 
-def verifyReset(comm, command):
+def verifyReset(comm, command,quit):
     FRAME = ""
     SLOT = ""
     PORT = ""
@@ -53,9 +53,15 @@ def verifyReset(comm, command):
             IP = value[s:e].replace("\n", "").replace(" ", "")
             msg = colorFormatter(f"El cliente tiene la IP : {IP}", "ok")
             print(msg)
+            quit(5)
+            return
         else:
             msg = colorFormatter(FAIL, "warning")
             print(msg)
+            quit(5)
+            return
     else:
         fail = colorFormatter(fail, "warning")
         print(fail)
+        quit(5)
+        return

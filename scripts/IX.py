@@ -14,7 +14,7 @@ existing = {
 }
 
 
-def confirm(comm, command, olt, action):
+def confirm(comm, command, olt, action,quit):
     FRAME = None
     SLOT = None
     PORT = None
@@ -40,6 +40,7 @@ def confirm(comm, command, olt, action):
         if fail != None:
             resp = colorFormatter(fail, "fail")
             print(resp)
+            quit(5)
             return
     elif action == "IP":
         lookupType = input("Buscar cliente por serial o por Datos de OLT [S | D] : ").upper()
@@ -71,6 +72,11 @@ def confirm(comm, command, olt, action):
                 command(f"interface gpon {FRAME}/{SLOT}")
                 command(f" ont  port  native-vlan  {PORT} {ID}  eth  1  vlan  {providerMap[PROVIDER]} ")
                 command("quit")
+        else:
+            resp = colorFormatter(data["fail"], "fail")
+            print(resp)
+            quit(5)
+            return
     if ID != None and ID != "F":
         resp = colorFormatter(f"El SPID que se le agregara al cliente es : {SPID}", "ok")
         print(resp)
@@ -92,6 +98,7 @@ def confirm(comm, command, olt, action):
             )
             res = colorFormatter(template, "success")
             print(res)
+            quit(10)
             return
         if proceed == "N":
             reason = input("Por que no se le asignara servicio? : ").upper()
@@ -107,4 +114,5 @@ def confirm(comm, command, olt, action):
             )
             res = colorFormatter(template, "success")
             print(res)
+            quit(10)
             return

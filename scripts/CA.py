@@ -1,4 +1,4 @@
-from helpers.tableConverter import clientsTable
+from helpers.clientsData import clientsTable
 from helpers.formatter import colorFormatter
 from datetime import datetime
 
@@ -17,8 +17,10 @@ ports = {
         {"fsp": "0/1/9"},
         {"fsp": "0/1/10"},
         {"fsp": "0/1/11"},
+        {"fsp": "0/1/12"},
         {"fsp": "0/1/13"},
         {"fsp": "0/1/14"},
+        {"fsp": "0/1/15"},
         {"fsp": "0/2/0"},
         {"fsp": "0/2/1"},
         {"fsp": "0/2/2"},
@@ -93,20 +95,22 @@ def clientFault(comm, command, olt):
     portToExec = ports[olt]
     clients = clientsTable(comm, command, portToExec)
     print(
-        "| {:^8} | {:^5} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} |".format(
-            "F/S/P", "ID", "NAME", "STATUS", "CAUSE", "TIME", "DATE"
+        "| {:^6} | {:^3} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} | {:^10} | {:^16} |".format(
+            "F/S/P", "ID", "NAME", "STATUS", "CAUSE", "TIME", "DATE", "DEVICE", "SN"
         )
     )
     for client in clients:
         FSP = client["fsp"]
         ID = client["id"]
         NAME = client["name"]
-        STATUS = client["status"]
+        STATUS = str(client["status"]).replace(" ", "").replace(" \n", "")
+        SN = client["sn"]
+        TP = client["ontType"]
+        CAUSE = str(client["cause"]).replace(" ", "").replace(" \n", "")
         TIME = client["ldt"]
         DATE = client["ldd"]
-        CAUSE = client["cause"]
-        resp = "| {:^8} | {:^5} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} |".format(
-            FSP, ID, NAME, STATUS, CAUSE, TIME, DATE
+        resp = "| {:^6} | {:^3} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} | {:^10} |{:^16} |".format(
+            FSP, ID, NAME, STATUS, CAUSE, TIME, DATE, TP,SN
         )
         CT = f"{DATE} {TIME}"
         if str(TIME) != "nan" and str(TIME) != "-":
