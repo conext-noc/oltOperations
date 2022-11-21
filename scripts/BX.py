@@ -12,6 +12,8 @@ newCond = "---------------------------------------------------------------------
 newCondFSP = "F/S/P               : "
 newCondSn = "Ont SN              : "
 
+providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
+
 
 def newLookup(comm, command, olt,quit):
     client = []
@@ -70,16 +72,23 @@ def existingLookup(comm, command, olt,quit):
             res = str1 + str2
             res = colorFormatter(res, "ok")
             print(res)
-            quit(90)
             if(len(data["wan"]) <= 0):
                 addSpid = input("desea agregar SPID? [Y | N] : ").upper()
                 if(addSpid == "Y"):
+                    NAME = data["name"]
+                    FRAME = data["frame"]
+                    SLOT = data["slot"]
+                    PORT = data["port"]
+                    ID = data["id"]
                     spid = availableSpid(comm, command)
                     print(colorFormatter(f"El SPID que se le agregara al cliente es : {spid}", "ok"))
                     PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
                     PLAN = input("Ingrese plan de cliente : ").upper()
-                    addOnuService(command, comm, spid, PROVIDER, data["frame"], data["slot"], data["port"], data["id"], PLAN)
+                    addOnuService(command, comm, spid, providerMap[PROVIDER], FRAME, SLOT, PORT, ID, PLAN)
+                    res = colorFormatter(f"Cliente : {NAME} @ {FRAME}/{SLOT}/{PORT}/{ID} en OLT {olt} se le ha agregado en el SPID {spid} con proveedor {PROVIDER} y con plan {PLAN}", "ok")
+                    print(res)
                     quit(5)
+            quit(90)
         elif lookupType == "N":
             command(f'display ont info by-desc "{data["name"]}" | no-more')
             sleep(3)
