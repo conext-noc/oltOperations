@@ -28,12 +28,21 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
     IPADDRESS = None
     FAIL = None
     WAN = []
+    activeVlan = None
     planMap = planX15Maps if OLT == "15" else planX2Maps
     (result, failSpid) = ontSpid(comm, command, FRAME, SLOT, PORT, ID)
     if failSpid == None:
+        command(f"display ont wan-info {FRAME}/{SLOT} {PORT} {ID} | exclude IPv6 | exclude Prefix | exclude DS | exclude NAT | exclude type | exclude address | exclude Default | exclude DNS | exclude 60 | exclude mask")
+        value = decoder(comm)
+        fail = failChecker(value)
+        data = check(value, "IPv4 Connection status     : Connected")
+        if(data != None and fail == None):
+            (_,s) = data.span()
+            activeVlan = int(value[s+33:s+37])
         for wanData in result:
             plan = planMap[str(wanData["RX"])]
-            WAN.append({"VLAN": wanData["ID"], "SPID": wanData["SPID"], "PLAN": plan, "STATE": wanData["STATE"]})
+            STATE = wanData["STATE"] if activeVlan == None else ("used" if wanData["ID"] == activeVlan else "not used")
+            WAN.append({"VLAN": wanData["ID"], "SPID": wanData["SPID"], "PLAN": plan, "STATE": STATE})
         command(f" display  ont  wan-info  {FRAME}/{SLOT}  {PORT}  {ID}")
         val = decoder(comm)
         failIp = failChecker(val)

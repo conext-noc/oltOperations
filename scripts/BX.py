@@ -65,6 +65,7 @@ def existingLookup(comm, command, olt,quit):
     VLAN_{idx}              :   {wanData["VLAN"]}
     PLAN_{idx}              :   {wanData["PLAN"]}
     SPID_{idx}              :   {wanData["SPID"]}
+    STATE_{idx}             :   {wanData["STATE"]}
                     """
             res = str1 + str2
             res = colorFormatter(res, "ok")
