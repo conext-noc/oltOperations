@@ -35,18 +35,19 @@ def verifyPort(comm, command):
                 t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
                 t2 = datetime.fromisoformat(str(datetime.now()))
                 clientTime = t2 - t1
+                color = "activated"
                 if CF == "active":
-                    if (CAUSE == "LOSi/LOBi" or CAUSE == "LOS") and clientTime.days <= 5:
+                    if STATUS == "offline" and (CAUSE == "LOSi/LOBi" or CAUSE == "LOS") and clientTime.days <= 5:
                         color = "los1"
-                    if (CAUSE == "LOSi/LOBi" or CAUSE == "LOS") and clientTime.days > 5:
+                    if STATUS == "offline" and (CAUSE == "LOSi/LOBi" or CAUSE == "LOS") and clientTime.days > 5:
                         color = "los2"
-                    elif CAUSE == "dying-gasp" and clientTime.days <= 10:
+                    elif STATUS == "offline" and CAUSE == "dying-gasp" and clientTime.days <= 10:
                         color = "off"
-                    elif CAUSE == "dying-gasp" and clientTime.days > 10:
+                    elif STATUS == "offline" and CAUSE == "dying-gasp" and clientTime.days > 10:
                         color = "suspended"
-                    elif CAUSE == "nan":
+                    elif STATUS == "offline" and CAUSE == "nan":
                         color = "problems"
-                    elif CAUSE != "LOSi/LOBi" and CAUSE != "dying-gasp" and CAUSE != "deactive" and CAUSE != "nan":
+                    elif STATUS == "offline" and CAUSE != "LOSi/LOBi" and CAUSE != "dying-gasp" and CAUSE != "deactive" and CAUSE != "nan":
                         color = "unknown"
                     else:
                         color = "activated"
