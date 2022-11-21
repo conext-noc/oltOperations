@@ -45,7 +45,7 @@ def verifyPort(comm, command):
                             color = "off"
                         elif CAUSE == "nan":
                             color = "problems"
-                        else:
+                        elif CAUSE != "LOSi/LOBi" and CAUSE != "dying-gasp" and CAUSE != "deactive" and CAUSE != "nan":
                             color = "unknown"
                     else:
                         color = "activated"
