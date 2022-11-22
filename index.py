@@ -31,7 +31,7 @@ def main():
                 def quit(delay):
                     close()
                     sleep(delay)
-                    sys.exit(0)
+                    # sys.exit(0)
 
                 command("enable")
                 command("config")
@@ -39,24 +39,24 @@ def main():
 
                 action = input(
                     """
-    Que accion se realizara? 
-        > (RC)  :  Reactivar Clientes (lista)
-        > (RO)  :  Reactivar con lista de Odoo
-        > (RU)  :  Reactivar uno
-        > (SC)  :  Suspender Clientes
-        > (SO)  :  Suspender con lista de Odoo
-        > (SU)  :  Suspender uno
-        > (IN)  :  Instalar nuevo
-        > (IP)  :  Instalar previo
-        > (EC)  :  Eliminar Cliente
-        > (BN)  :  Buscar cliente en OLT (no agregado)
-        > (BE)  :  Buscar cliente en OLT (ya agregado)
-        > (MC)  :  Modificar Cliente
-        > (VC)  :  Verificar consumo
-        > (VR)  :  Verificar reset
-        > (VP)  :  Verificacion de puerto
-        > (CA)  :  Clientes con averias (corte de fibra)
-    $ """
+Que accion se realizara? 
+    > (RC)  :  Reactivar Clientes (lista)
+    > (RO)  :  Reactivar con lista de Odoo
+    > (RU)  :  Reactivar uno
+    > (SC)  :  Suspender Clientes
+    > (SO)  :  Suspender con lista de Odoo
+    > (SU)  :  Suspender uno
+    > (IN)  :  Instalar nuevo
+    > (IP)  :  Instalar previo
+    > (EC)  :  Eliminar Cliente
+    > (BN)  :  Buscar cliente en OLT (no agregado)
+    > (BE)  :  Buscar cliente en OLT (ya agregado)
+    > (MC)  :  Modificar Cliente
+    > (VC)  :  Verificar consumo
+    > (VR)  :  Verificar reset
+    > (VP)  :  Verificacion de puerto
+    > (CA)  :  Clientes con averias (corte de fibra)
+$ """
                 ).upper()
 
                 if action == "RC":
@@ -105,17 +105,17 @@ def main():
                 resp = colorFormatter(f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")
                 print(resp)
                 sleep(1)
-                sys.exit(0)
+                # sys.exit(0)
     except KeyboardInterrupt:
         resp = colorFormatter("Saliendo...", "warning")
         print(resp)
         sleep(0.5)
-        sys.exit(0)
+        # sys.exit(0)
     except Exception:
         resp = colorFormatter(f"Error At : {traceback.format_exc()}", "fail")
         print(resp)
         sleep(10)
-        sys.exit(1)
+        # sys.exit(1)
 
 
 if __name__ == "__main__":

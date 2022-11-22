@@ -79,7 +79,7 @@ def clientsTable(comm, command, lst):
             valueStatePort = fromCsv(f"state{idx}port.csv")
             valueNamesPort = fromCsv(f"names{idx}port.csv")
             for (status, names) in zip(valueStateSumm, valueNamesSumm):
-                if status["ID"] == names["ID"]:
+                if int(status["ID"]) == int(names["ID"]):
                     name = ""
                     for i in range(1, 11):
                         NAME = str(names[f"NAME{i}"]) if str(
@@ -99,13 +99,14 @@ def clientsTable(comm, command, lst):
                         }
                     )
             for (status, names) in zip(valueStatePort, valueNamesPort):
-                if status["ID"] == names["ID"]:
+                if int(status["ID"]) == int(names["ID"]):
                     clientsPort.append(
                         {
                             "id": status["ID"],
                             "controlFlag": status["controlFlag"],
                         }
                     )
+            print(clientsPort)
             for (summ, port) in zip(clientsSummary, clientsPort):
                 if (summ["id"] == port["id"]):
                     CLIENTS.append({
