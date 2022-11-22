@@ -106,7 +106,6 @@ def clientsTable(comm, command, lst):
                             "controlFlag": status["controlFlag"],
                         }
                     )
-            print(clientsPort)
             for (summ, port) in zip(clientsSummary, clientsPort):
                 if (summ["id"] == port["id"]):
                     CLIENTS.append({
