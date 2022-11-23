@@ -1,5 +1,8 @@
 from helpers.formatter import colorFormatter
 from helpers.clientDataLookup import lookup
+import gspread
+import pandas as pd
+from helpers.finder import finder
 
 existing = {
     "CF": "Control flag            : ",
@@ -9,7 +12,11 @@ existing = {
 }
 
 
-def delete(comm, command, OLT,quit):
+def delete(comm, command, OLT, quit):
+    sa = gspread.service_account(
+        filename="service_account_olt_operations.json")
+    sh = sa.open("CPDC")
+    wks = sh.worksheet("DATOS")
     FRAME = None
     SLOT = None
     PORT = None
@@ -20,7 +27,8 @@ def delete(comm, command, OLT,quit):
     IPADDRESS = None
     TEMP = None
     PWR = None
-    lookupType = input("Buscar cliente por serial o por Datos de OLT [S | D] : ").upper()
+    lookupType = input(
+        "Buscar cliente por serial o por Datos de OLT [S | D] : ").upper()
     data = lookup(comm, command, OLT, lookupType)
     if data["fail"] == None:
         FRAME = data["frame"]
@@ -50,9 +58,9 @@ def delete(comm, command, OLT,quit):
         str2 = ""
         for idx, wanData in enumerate(data["wan"]):
             str2 += f"""
-            VLAN_{idx}              :   {wanData["VLAN"]}
-            PLAN_{idx}              :   {wanData["PLAN"]}
-            SPID_{idx}              :   {wanData["SPID"]}
+        VLAN_{idx}              :   {wanData["VLAN"]}
+        PLAN_{idx}              :   {wanData["PLAN"]}
+        SPID_{idx}              :   {wanData["SPID"]}
             """
         res = str1 + str2
         res = colorFormatter(res, "ok")
@@ -65,7 +73,10 @@ def delete(comm, command, OLT,quit):
             command(f"interface gpon {FRAME}/{SLOT}")
             command(f"ont delete {PORT} {ID}")
             command("quit")
-            resp = colorFormatter(f"{NAME} {FRAME}/{SLOT}/{PORT}/{ID} de OLT {OLT} ha sido eliminado", "ok")
+            resp = colorFormatter(
+                f"{NAME} {FRAME}/{SLOT}/{PORT}/{ID} de OLT {OLT} ha sido eliminado", "ok")
+            cell = wks.find(data["sn"])
+            wks.delete_row(cell.row + 2)
             print(resp)
             quit(3)
             return

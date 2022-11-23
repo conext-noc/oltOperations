@@ -27,7 +27,7 @@ def verifyPort(comm, command):
             CAUSE = str(client["cause"]).replace(" ", "").replace(" \n", "")
             TIME = client["ldt"]
             DATE = client["ldd"]
-            resp = "| {:^6} | {:^3} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} | {:^10} |{:^16} |".format(
+            resp = "| {:^6} | {:^3} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} | {:^10} | {:^16} |".format(
                 FSP, ID, NAME, STATUS, CAUSE, TIME, DATE, TP, SN
             )
             if CF == "active":

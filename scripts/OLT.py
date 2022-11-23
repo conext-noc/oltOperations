@@ -13,7 +13,6 @@ from scripts.VC import speedVerify
 from scripts.VP import verifyPort
 from scripts.VR import verifyReset
 from time import sleep
-import traceback
 
 def olt():
     # try:
