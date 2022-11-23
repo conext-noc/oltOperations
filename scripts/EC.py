@@ -76,7 +76,7 @@ def delete(comm, command, OLT, quit):
             resp = colorFormatter(
                 f"{NAME} {FRAME}/{SLOT}/{PORT}/{ID} de OLT {OLT} ha sido eliminado", "ok")
             cell = wks.find(data["sn"])
-            wks.delete_row(cell.row + 2)
+            wks.delete_row(cell.row)
             print(resp)
             quit(3)
             return
