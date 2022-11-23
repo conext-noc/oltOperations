@@ -27,7 +27,12 @@ def ssh(ip):
         sleep(delay)
         enter()
 
-    def close():
+    def quit(d):
         conn.close()
+        sleep(d)
 
-    return (comm, command, close)
+    if ip == "181.232.180.5" or ip == "181.232.180.6" or ip == "181.232.180.7":
+        command("enable")
+        command("config")
+
+    return (comm, command, quit)

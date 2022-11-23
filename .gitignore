@@ -1,5 +1,6 @@
 .env
 .vscode/
 **/__pycache__/
+service_account_olt_operations.json
 notes.txt
 testing.txt

@@ -14,7 +14,6 @@ from scripts.VP import verifyPort
 from scripts.BX import existingLookup, newLookup
 from scripts.CA import clientFault
 import traceback
-import sys
 from helpers.formatter import colorFormatter
 
 root = tk.Tk()
@@ -27,14 +26,7 @@ def main():
             olt = input("Seleccione la OLT [15|2] : ").upper()
             if olt == "15" or olt == "2":
                 ip = "181.232.180.5" if olt == "15" else "181.232.180.6"
-                (comm, command, close) = ssh(ip)
-                def quit(delay):
-                    close()
-                    sleep(delay)
-                    # sys.exit(0)
-
-                command("enable")
-                command("config")
+                (comm, command, quit) = ssh(ip)
                 decoder(comm)
 
                 action = input(
@@ -98,24 +90,24 @@ $ """
                     clientFault(comm, command, olt)
                     quit(180)
                 else:
-                    resp = colorFormatter(f"Error @ : opcion {action} no existe", "warning")
+                    resp = colorFormatter(
+                        f"Error @ : opcion {action} no existe", "warning")
                     print(resp)
                     quit(2)
             else:
-                resp = colorFormatter(f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")
+                resp = colorFormatter(
+                    f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")
                 print(resp)
                 sleep(1)
-                # sys.exit(0)
+
     except KeyboardInterrupt:
         resp = colorFormatter("Saliendo...", "warning")
         print(resp)
         sleep(0.5)
-        # sys.exit(0)
     except Exception:
         resp = colorFormatter(f"Error At : {traceback.format_exc()}", "fail")
         print(resp)
         sleep(10)
-        # sys.exit(1)
 
 
 if __name__ == "__main__":

@@ -19,16 +19,8 @@ def addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP):
         ID = value[end : end + 3].replace(" ", "").replace("\n", "")
         command(f"ont optical-alarm-profile {PORT} {ID} profile-name ALARMAS_OPTICAS")
         command(f"ont alarm-policy {PORT} {ID} policy-name FAULT_ALARMS")
-        preg = input("Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : ").upper()
-        if preg == "Y":
-            preWan(comm, command, SLOT, PORT, ID)
-        Prov = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
-        PROVIDER = providerMap[Prov]
-        addVlan = input("Se agregara vlan al puerto? (es bridge) [Y | N] : ").upper()
-        if addVlan == "Y":
-            command(f" ont  port  native-vlan  {PORT} {ID}  eth  1  vlan  {PROVIDER} ")
         command("quit")
-        return (ID, vlanProvMap[f"{str(PROVIDER)}"], fail)
+        return (ID, fail)
 
 
 def addOnuService(command, comm, SPID, PROVIDER, FRAME, SLOT, PORT, ID, PLAN):
