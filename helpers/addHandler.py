@@ -13,7 +13,7 @@ def addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP):
     value = decoder(comm)
     fail = failChecker(value)
     if fail != None:
-        return (None, None, fail)
+        return (None, fail)
     else:
         (_, end) = check(value, conditionONT).span()
         ID = value[end : end + 3].replace(" ", "").replace("\n", "")
