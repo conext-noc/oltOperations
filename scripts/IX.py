@@ -78,6 +78,7 @@ def confirm(comm, command, olt, action, quit):
             SLOT = data["slot"]
             PORT = data["port"]
             ID = data["id"]
+            SN = data["sn"]
             NAME = data["name"]
             PROVIDER = input(
                 "Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
@@ -136,11 +137,11 @@ def confirm(comm, command, olt, action, quit):
     |TEMPERATURA :   {}
     |POTENCIA    :   {}
     |SPID        :   {}""".format(
-                NAME, FRAME, SLOT, PORT, ID, olt, PROVIDER, PLAN, temp, pwr, SPID
+                NAME, FRAME, SLOT, PORT, ID, olt, Prov, PLAN, temp, pwr, SPID
             )
             res = colorFormatter(template, "success")
             wks.insert_row([SN, NAME, olt, FRAME, SLOT, PORT,
-                           ID, ONT_TYPE, PROVIDER, PLAN, SPID], lstRow)
+                           ID, ONT_TYPE, Prov, PLAN, SPID], lstRow)
             print(res)
             quit(10)
             return
