@@ -124,8 +124,7 @@ def confirm(comm, command, olt, action, quit):
                     f" ont  port  native-vlan  {PORT} {ID}  eth  1  vlan  {PROVIDER} ")
                 command("quit")
 
-            addOnuService(command, comm, SPID,
-                          providerMap[PROVIDER], FRAME, SLOT, PORT, ID, PLAN)
+            addOnuService(command, comm, SPID,PROVIDER, FRAME, SLOT, PORT, ID, PLAN)
             
             verifySPID(comm, command, SPID)
             
