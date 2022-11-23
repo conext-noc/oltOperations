@@ -1,6 +1,7 @@
 from helpers.outputDecoder import txt2csvFormatter
 import re
 import os
+from helpers.fileHandler import fromCsv
 
 
 def table2Dict(header,data, name,idx, tp):
@@ -13,3 +14,10 @@ def table2Dict(header,data, name,idx, tp):
     data = open("data.txt", "r").read().replace(" +", "")
     os.remove("data.txt")
     print(data, file=open(f"{name}{idx}{tp}.csv", "w"))
+    
+def toDict(header,data):
+    value = re.sub(" +", " ", data).replace(" ", ",")
+    print(header + value, file=open("data.csv", "w"))
+    result = fromCsv("data.csv")
+    os.remove("data.csv")
+    return result

@@ -3,6 +3,7 @@ from time import sleep
 import tkinter as tk
 import traceback
 from scripts.OLT import olt
+from scripts.RTR import rtr
 
 root = tk.Tk()
 root.withdraw()
@@ -16,7 +17,7 @@ def main():
             if device == "OLT":
                 olt()
             elif device == "ROUTER":
-                print("Comming Soon!")
+                rtr()
             else:
               resp = colorFormatter(
                 f"Error @ : opcion {device} no existe", "warning")
