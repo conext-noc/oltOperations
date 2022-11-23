@@ -1,8 +1,6 @@
 from helpers.formatter import colorFormatter
 from helpers.clientDataLookup import lookup
 import gspread
-import pandas as pd
-from helpers.finder import finder
 
 existing = {
     "CF": "Control flag            : ",

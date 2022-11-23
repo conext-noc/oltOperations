@@ -2,13 +2,35 @@ from helpers.formatter import colorFormatter
 from helpers.clientDataLookup import lookup
 from helpers.displayClient import display
 from helpers.spidHandler import availableSpid
+import gspread
+from helpers.outputDecoder import decoder
+from helpers.ontTypeHandler import typeCheck
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
 planMap = {"VLANID": "VLAN ID             : ", "PLAN": "Inbound table name  : "}
 
+cellMap = {
+    'SN': 1,
+    'NAME': 2,
+    'OLT': 3,
+    'FRAME': 4,
+    'SLOT': 5,
+    'PORT': 6,
+    'ID': 7,
+    'ONT': 8,
+    'VLAN1': 9,
+    'PLAN1': 10,
+    'SPID1': 11,
+}
+
 
 def deviceModify(comm, command, OLT,quit):
+    sa = gspread.service_account(
+        filename="service_account_olt_operations.json")
+    sh = sa.open("CPDC")
+    wks = sh.worksheet("DATOS")
+    allClients = wks.get_all_records()
     FRAME = ""
     SLOT = ""
     PORT = ""
@@ -46,6 +68,8 @@ $ """
                 resp = f"Al Cliente {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se ha cambiado de titular a {NAME}"
                 resp = colorFormatter(resp, "ok")
                 print(resp)
+                cell = wks.find(data["sn"])
+                wks.update_cell(cell.row, cellMap["NAME"], NAME)
                 quit(5)
                 return
             if action == "CO":
@@ -53,9 +77,14 @@ $ """
                 command(f"interface gpon {FRAME}/{SLOT}")
                 command(f"ont modify {PORT} {ID} sn {SN}")
                 command("quit")
+                decoder(comm)
+                ONT_TYPE = typeCheck(comm,command,FRAME,SLOT,PORT,ID)
                 resp = f"Al Cliente 0/{SLOT}/{PORT}/{ID} OLT {OLT} se ha sido cambiado el ont a {SN}"
                 resp = colorFormatter(resp, "ok")
                 print(resp)
+                cell = wks.find(data["sn"])
+                wks.update_cell(cell.row, cellMap["SN"], SN)
+                wks.update_cell(cell.row, cellMap["ONT"], ONT_TYPE)
                 quit(5)
                 return
             if action == "CV":
@@ -77,6 +106,9 @@ $ """
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al proveedor {PROVIDER}"
                 resp = colorFormatter(resp, "ok")
                 print(resp)
+                cell = wks.find(data["sn"])
+                wks.update_cell(cell.row, cellMap["VLAN1"], PROVIDER)
+                wks.update_cell(cell.row, cellMap["SPID1"], SPID)
                 quit(5)
                 return
             if action == "CP":
@@ -87,6 +119,8 @@ $ """
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"
                 resp = colorFormatter(resp, "ok")
                 print(resp)
+                cell = wks.find(data["sn"])
+                wks.update_cell(cell.row, cellMap["PLAN1"], PLAN[3:])
                 quit(5)
                 return
         else:
