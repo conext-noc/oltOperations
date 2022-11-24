@@ -2,7 +2,7 @@ from datetime import datetime
 import userpaths
 docs = userpaths.get_my_documents()
 date = datetime.now()
-fl = f"{date.year}-{date.month}-{date.day}_{date.hour}-{date.minute}.txt"
+fl = f"{date.year}-{date.month}-{date.day}.txt"
 
 def log(value):
   print(value)
