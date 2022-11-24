@@ -1,5 +1,6 @@
 import os
 import re
+from helpers.printer import log
 
 
 def decoder(comm):
@@ -15,7 +16,7 @@ def decoder(comm):
 def parser(comm, condition, count):
     if count == "s":
         output = decoder(comm)
-        print(output, file=open("Result.txt", "w"))
+        log(output, file=open("Result.txt", "w"))
         value = open("Result.txt", "r").read()
         regex = re.search(condition, value)
         os.remove("Result.txt")
@@ -23,7 +24,7 @@ def parser(comm, condition, count):
 
     if count == "m":
         output = decoder(comm)
-        print(output, file=open(f"Result.txt", "w"))
+        log(output, file=open(f"Result.txt", "w"))
         value = open(f"Result.txt", "r").read()
         result = []
         res = re.finditer(condition, value)
@@ -59,4 +60,4 @@ def txt2csvFormatter(file):
 def sshToFile(comm, file, typeOfList):
     output = decoder(comm)
     if "U" not in typeOfList:
-        print(output, file=open(f"{file}", "w"))
+        log(output, file=open(f"{file}", "w"))

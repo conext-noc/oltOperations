@@ -2,6 +2,7 @@ import pandas as pd
 from io import StringIO
 import csv
 import os
+from helpers.printer import log
 
 
 def fromCsvALT(path):
@@ -9,7 +10,7 @@ def fromCsvALT(path):
     with open(path) as f:
         reader = csv.DictReader(f)
         for val in reader:
-            print(val)
+            log(val)
             myList.append(val)
     return myList
 

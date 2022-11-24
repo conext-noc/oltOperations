@@ -7,6 +7,7 @@ from helpers.getWanData import wan
 from helpers.opticalCheck import opticalValues
 from helpers.formatter import colorFormatter
 from helpers.ontTypeHandler import typeCheck
+from helpers.printer import inp, log
 
 existing = {
     "CF": "Control flag            : ",
@@ -36,13 +37,13 @@ def lookup(comm, command, OLT, lookupType, previous=True):
     ONT_TYPE = None
     SN = None
     if lookupType == "S":
-        SN = input("Ingrese el Serial del Cliente a buscar : ").upper()
+        SN = inp("Ingrese el Serial del Cliente a buscar : ").upper()
         (FRAME, SLOT, PORT, ID, NAME,STATUS, STATE,ONT_TYPE,LDC, FAIL) = serialSearch(comm, command, SN)
     elif lookupType == "D":
-        FRAME = input("Ingrese frame de cliente  : ").upper()
-        SLOT = input("Ingrese slot de cliente   : ").upper()
-        PORT = input("Ingrese puerto de cliente : ").upper()
-        ID = input("Ingrese el id del cliente : ").upper()
+        FRAME = inp("Ingrese frame de cliente  : ").upper()
+        SLOT = inp("Ingrese slot de cliente   : ").upper()
+        PORT = inp("Ingrese puerto de cliente : ").upper()
+        ID = inp("Ingrese el id del cliente : ").upper()
         command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
         sleep(3)
         value = decoder(comm)
@@ -64,17 +65,17 @@ def lookup(comm, command, OLT, lookupType, previous=True):
         else:
             FAIL = fail
     elif lookupType == "N":
-        NAME = input("Ingrese el Nombre del Cliente a buscar : ")
+        NAME = inp("Ingrese el Nombre del Cliente a buscar : ")
     else:
-        print(colorFormatter(f"Opcion {lookupType} no existe", "fail"))
+        log(colorFormatter(f"Opcion {lookupType} no existe", "fail"))
         return {
             "fail": f"Opcion {lookupType} no existe",
         }
     if FAIL == None:
         if previous:
-            print(colorFormatter("getting wan data", "info"))
+            log(colorFormatter("getting wan data", "info"))
             (IPADDRESS, WAN) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
-            print(colorFormatter("getting optical data", "info"))
+            log(colorFormatter("getting optical data", "info"))
             (TEMP, PWR) = opticalValues(comm, command, FRAME, SLOT, PORT, ID, False)
         return {
             "fail": FAIL,

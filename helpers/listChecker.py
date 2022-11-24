@@ -1,3 +1,5 @@
+from helpers.printer import log
+
 def compare(odoo, drive, olt):
     listData = []
     for odooClient in odoo:
@@ -58,7 +60,7 @@ def compare(odoo, drive, olt):
                         )
                         else "NA"
                     )
-                    print(
+                    log(
                         odooClient["Cliente"],
                         driveClient["NOMBRE"],
                         odooClient["Cliente/NIF"],

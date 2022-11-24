@@ -1,5 +1,6 @@
 from helpers.outputDecoder import decoder, parser, check
 from helpers.failHandler import failChecker
+from helpers.printer import log
 
 conditionTemp = "Temperature\(C\)                         : "
 conditionPwr = "Rx optical power\(dBm\)                  : "
@@ -15,7 +16,7 @@ def opticalValues(comm, command, FRAME, SLOT, PORT, ID, show):
     fail = failChecker(value)
     if fail != None:
         if show:
-            print(fail)
+            log(fail)
     else:
         rePwr = check(value, conditionPwr)
         reTemp = check(value, conditionTemp)

@@ -1,6 +1,7 @@
 from helpers.clientsData import clientsTable
 from helpers.formatter import colorFormatter
 from datetime import datetime
+from helpers.printer import log
 
 
 ports = {
@@ -94,7 +95,7 @@ ports = {
 def clientFault(comm, command, olt):
     portToExec = ports[olt]
     clients = clientsTable(comm, command, portToExec)
-    print(
+    log(
         "| {:^6} | {:^3} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} | {:^10} | {:^16} |".format(
             "F/S/P", "ID", "NAME", "STATUS", "CAUSE", "TIME", "DATE", "DEVICE", "SN"
         )
@@ -125,4 +126,4 @@ def clientFault(comm, command, olt):
                     if clientTime.days > 5:
                         color = "los2"
                     resp = colorFormatter(resp, color)
-                    print(resp)
+                    log(resp)

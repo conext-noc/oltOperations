@@ -1,4 +1,5 @@
 from helpers.formatter import colorFormatter
+from helpers.printer import inp, log
 
 def display(data,ALL=True,i=False):
   if ALL:
@@ -26,6 +27,6 @@ def display(data,ALL=True,i=False):
                 """
     res = str1 + str2
     res = colorFormatter(res, "ok")
-    print(res)
-  proceed = input("desea continuar? [Y|N] : ").upper()
+    log(res)
+  proceed = inp("desea continuar? [Y|N] : ").upper()
   return proceed

@@ -1,6 +1,7 @@
 from helpers.formatter import colorFormatter
 from helpers.clientDataLookup import lookup
 import gspread
+from helpers.printer import inp, log
 
 existing = {
     "CF": "Control flag            : ",
@@ -25,7 +26,7 @@ def delete(comm, command, OLT, quit):
     IPADDRESS = None
     TEMP = None
     PWR = None
-    lookupType = input(
+    lookupType = inp(
         "Buscar cliente por serial o por Datos de OLT [S | D] : ").upper()
     data = lookup(comm, command, OLT, lookupType)
     if data["fail"] == None:
@@ -62,8 +63,8 @@ def delete(comm, command, OLT, quit):
             """
         res = str1 + str2
         res = colorFormatter(res, "ok")
-        print(res)
-        proceed = input("Desea continuar? [Y | N]   :   ").upper()
+        log(res)
+        proceed = inp("Desea continuar? [Y | N]   :   ").upper()
         if proceed == "Y":
             for wanData in data["wan"]:
                 spid = wanData["SPID"]
@@ -75,11 +76,11 @@ def delete(comm, command, OLT, quit):
                 f"{NAME} {FRAME}/{SLOT}/{PORT}/{ID} de OLT {OLT} ha sido eliminado", "ok")
             cell = wks.find(data["sn"])
             wks.delete_row(cell.row)
-            print(resp)
+            log(resp)
             quit(3)
             return
     else:
         fail = colorFormatter(data["fail"], "fail")
-        print(fail)
+        log(fail)
         quit(5)
         return

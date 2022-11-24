@@ -2,6 +2,7 @@ import os
 import time
 from helpers.outputDecoder import decoder, check, checkIter
 from helpers.failHandler import failChecker
+from helpers.printer import inp, log
 
 upstream = "Up traffic \(kbps\)          : "
 downstream = "Down traffic \(kbps\)        : "
@@ -11,10 +12,10 @@ endCond = "----------------------------------------------------------------"
 def speedVerify(comm, command,quit):
     speedUpArr = []
     speedDownArr = []
-    FRAME = input("Ingrese frame de cliente : ").upper()
-    SLOT = input("Ingrese slot de cliente : ").upper()
-    PORT = input("Ingrese puerto de cliente : ").upper()
-    ID = input("Ingrese el id del cliente : ").upper()
+    FRAME = inp("Ingrese frame de cliente : ").upper()
+    SLOT = inp("Ingrese slot de cliente : ").upper()
+    PORT = inp("Ingrese puerto de cliente : ").upper()
+    ID = inp("Ingrese el id del cliente : ").upper()
     command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
     time.sleep(3)
     value = decoder(comm)
@@ -23,7 +24,7 @@ def speedVerify(comm, command,quit):
         (_, sDESC) = check(value, "Description             : ").span()
         (eDESC, _) = check(value, "Last down cause         : ").span()
         NAME = value[sDESC:eDESC].replace("\n", "")
-        print(
+        log(
             f"""
   NOMBRE              :   {NAME}
   FRAME               :   {FRAME}
@@ -56,7 +57,7 @@ def speedVerify(comm, command,quit):
     downLen = len(speedDownArr)
     downSum = sum(speedDownArr)
     downAVG = downSum / downLen
-    print(
+    log(
         f"""
 El consumo promedio del ONT es {upAVG} Kbps [UP] y {downAVG} Kbps [DOWN]
 """

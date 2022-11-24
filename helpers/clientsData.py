@@ -6,6 +6,7 @@ import os
 from helpers.failHandler import failChecker
 from helpers.formatter import colorFormatter
 from helpers.tableConverter import table2Dict
+from helpers.printer import log
 
 conditionSummary = "------------------------------------------------------------------------------"
 conditionPort = "-----------------------------------------------------------------------------"
@@ -121,12 +122,12 @@ def clientsTable(comm, command, lst):
                         "sn": summ["sn"],
                         "ontType": summ["ontType"],
                     })
-            print(idx, fsp, "done")
+            log(idx, fsp, "done")
             os.remove(f"state{idx}summ.csv")
             os.remove(f"names{idx}summ.csv")
             os.remove(f"state{idx}port.csv")
             os.remove(f"names{idx}port.csv")
         else:
             resp = colorFormatter(fail, "fail")
-            print(resp)
+            log(resp)
     return CLIENTS

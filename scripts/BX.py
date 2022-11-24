@@ -5,6 +5,7 @@ from helpers.clientDataLookup import lookup
 from time import sleep
 from helpers.spidHandler import availableSpid
 from helpers.addHandler import addOnuService
+from helpers.printer import inp, log
 
 
 condition = "-----------------------------------------------------------------------------"
@@ -29,18 +30,18 @@ def newLookup(comm, command, olt,quit):
         aSN = result[eSN : eSN + 16].replace("\n", "").replace(" ", "")
         aFSP = result[eFSP : eFSP + 6].replace("\n", "").replace(" ", "")
         client.append({"FSP": aFSP, "SN": aSN, "IDX": ont})
-    print("| {:^3} | {:^6} | {:^16} |".format("IDX", "F/S/P", "SN"))
+    log("| {:^3} | {:^6} | {:^16} |".format("IDX", "F/S/P", "SN"))
     for ont in client:
         FSP = ont["FSP"].replace(" ", "")
         SN = ont["SN"].replace(" ", "")
         IDX = ont["IDX"] + 1
-        print("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
+        log("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
     quit(90)
 
 
 def existingLookup(comm, command, olt,quit):
     FAIL = None
-    lookupType = input("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ").upper()
+    lookupType = inp("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ").upper()
     data = lookup(comm, command, olt, lookupType)
     FAIL = data["fail"]
     if FAIL == None:
@@ -71,9 +72,9 @@ def existingLookup(comm, command, olt,quit):
                     """
             res = str1 + str2
             res = colorFormatter(res, "ok")
-            print(res)
+            log(res)
             if(len(data["wan"]) <= 0):
-                addSpid = input("desea agregar SPID? [Y | N] : ").upper()
+                addSpid = inp("desea agregar SPID? [Y | N] : ").upper()
                 if(addSpid == "Y"):
                     NAME = data["name"]
                     FRAME = data["frame"]
@@ -81,12 +82,12 @@ def existingLookup(comm, command, olt,quit):
                     PORT = data["port"]
                     ID = data["id"]
                     spid = availableSpid(comm, command)
-                    print(colorFormatter(f"El SPID que se le agregara al cliente es : {spid}", "ok"))
-                    PROVIDER = input("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
-                    PLAN = input("Ingrese plan de cliente : ").upper()
+                    log(colorFormatter(f"El SPID que se le agregara al cliente es : {spid}", "ok"))
+                    PROVIDER = inp("Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
+                    PLAN = inp("Ingrese plan de cliente : ").upper()
                     addOnuService(command, comm, spid, providerMap[PROVIDER], FRAME, SLOT, PORT, ID, PLAN)
                     res = colorFormatter(f"Cliente : {NAME} @ {FRAME}/{SLOT}/{PORT}/{ID} en OLT {olt} se le ha agregado en el SPID {spid} con proveedor {PROVIDER} y con plan {PLAN}", "ok")
-                    print(res)
+                    log(res)
                     quit(5)
             quit(90)
         elif lookupType == "N":
@@ -97,15 +98,15 @@ def existingLookup(comm, command, olt,quit):
             if FAIL == None:
                 (_, s) = regex[0]
                 (e, _) = regex[len(regex) - 1]
-                print(value[s:e])
+                log(value[s:e])
                 quit(90)
             else:
                 FAIL = colorFormatter(FAIL, "fail")
-                print(FAIL)
+                log(FAIL)
                 quit(5)
                 return
     else:
         FAIL = colorFormatter(FAIL, "fail")
-        print(FAIL)
+        log(FAIL)
         quit(5)
         return

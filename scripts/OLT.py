@@ -13,16 +13,17 @@ from scripts.VC import speedVerify
 from scripts.VP import verifyPort
 from scripts.VR import verifyReset
 from time import sleep
+from helpers.printer import inp, log
 
 def olt():
     # try:
-    olt = input("Seleccione la OLT [15|2] : ").upper()
+    olt = inp("Seleccione la OLT [15|2] : ").upper()
     if olt == "15" or olt == "2":
         ip = "181.232.180.5" if olt == "15" else "181.232.180.6"
         (comm, command, quit) = ssh(ip)
         decoder(comm)
 
-        action = input(
+        action = inp(
                 """
 Que accion se realizara? 
 > (RC)  :  Reactivar Clientes (lista)
@@ -85,19 +86,19 @@ $ """
         else:
             resp = colorFormatter(
                 f"Error @ : opcion {action} no existe", "warning")
-            print(resp)
+            log(resp)
             quit(2)
     else:
         resp = colorFormatter(
             f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")
-        print(resp)
+        log(resp)
         sleep(1)
 
     # except KeyboardInterrupt:
     #     resp = colorFormatter("Saliendo...", "warning")
-    #     print(resp)
+    #     log(resp)
     #     sleep(0.5)
     # except Exception:
     #     resp = colorFormatter(f"Error At : {traceback.format_exc()}", "fail")
-    #     print(resp)
+    #     log(resp)
     #     sleep(10)

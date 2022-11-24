@@ -1,17 +1,18 @@
 from datetime import datetime
 from helpers.formatter import colorFormatter
 from helpers.clientsData import clientsTable
+from helpers.printer import inp, log
 
 
 def verifyPort(comm, command):
     keep = True
     while keep == True:
-        FRAME = input("Ingrese frame de clientes : ").upper()
-        SLOT = input("Ingrese slot de clientes : ").upper()
-        PORT = input("Ingrese puerto de los clientes : ").upper()
+        FRAME = inp("Ingrese frame de clientes : ").upper()
+        SLOT = inp("Ingrese slot de clientes : ").upper()
+        PORT = inp("Ingrese puerto de los clientes : ").upper()
         lst = [{"fsp": f"{FRAME}/{SLOT}/{PORT}"}]
         clients = clientsTable(comm, command, lst)
-        print(
+        log(
             "| {:^6} | {:^3} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} | {:^10} | {:^16} |".format(
                 "F/S/P", "ID", "NAME", "STATUS", "CAUSE", "TIME", "DATE", "DEVICE", "SN"
             )
@@ -52,7 +53,7 @@ def verifyPort(comm, command):
             else:
                 color = "suspended"
             resp = colorFormatter(resp, color)
-            print(resp)
+            log(resp)
 
-        preg = input("continuar? [Y | N] : ").upper()
+        preg = inp("continuar? [Y | N] : ").upper()
         keep = True if preg == "Y" else False

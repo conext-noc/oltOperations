@@ -3,6 +3,7 @@ from helpers.formatter import colorFormatter
 from helpers.ssh import ssh
 from helpers.outputDecoder import decoder
 from helpers.interfaceData import intFormatter
+from helpers.printer import inp, log
 
 intfacesC1 = ["GigabitEthernet0/3/7(10G)"]
 intfacesC2 = ["GigabitEthernet0/3/7(10G)", "GigabitEthernet0/3/8(10G)"]
@@ -10,9 +11,8 @@ intfacesC2 = ["GigabitEthernet0/3/7(10G)", "GigabitEthernet0/3/8(10G)"]
 
 def rtr():
     ip = ""
-    avgStatus = []
     interfaces = []
-    rt = input(
+    rt = inp(
         "Selecciona el router de borde a monitorear [INTER | VNET] : ").upper()
     if rt == "INTER" or rt == "VNET":
         ip = "181.232.180.1" if rt == "INTER" else "181.232.180.2"
@@ -25,7 +25,7 @@ def rtr():
             for interface in intList:
                 interfaces.append(intFormatter(value, interface))
 
-        print(
+        log(
             "| {:^25} | {:^4} | {:^8} | {:^8} | {:^8} | {:^8} | {:^9} |".format(
                 "Interface", "PHY", "Protocol", "InUti", "OutUti", "inErrors", "outErrors"
             )
@@ -37,11 +37,11 @@ def rtr():
                 interface["Interface"], interface["PHY"], interface["Protocol"], interface[
                     "InUti"], interface["OutUti"], interface["inErrors"], interface["outErrors"]
             ), color)
-            print(res)
+            log(res)
         quit(5)
 
     else:
         resp = colorFormatter(
             f"No se puede Conectar al router de borde, Error Router {rt} no existe", "warning")
-        print(resp)
+        log(resp)
         sleep(1)

@@ -5,13 +5,14 @@ from helpers.outputDecoder import check
 from helpers.failHandler import failChecker
 import os
 from tkinter import filedialog
+from helpers.printer import log
 
 condition1 = "Control flag            : "
 condition2 = "Run state"
 
 
 def verify(actList, action, olt,quit):
-    print("Donde quieres guardar los resultados?")
+    log("Donde quieres guardar los resultados?")
     result_path = filedialog.askdirectory()
     indexes = []
     for client in actList:
@@ -53,5 +54,5 @@ def verify(actList, action, olt,quit):
     toCsv(result_path, f"resultados{olt}", indexes, True)
     resp = f'lista "resultados{olt}" creada, operacion finalizada'
     resp = colorFormatter(resp, "success")
-    print(resp)
+    log(resp)
     quit(2)

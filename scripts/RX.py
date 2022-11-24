@@ -5,6 +5,7 @@ from helpers.fileHandler import fromCsv
 from helpers.formatter import colorFormatter
 from helpers.listChecker import compare
 from helpers.outputDecoder import sshToFile
+from helpers.printer import inp, log
 
 existingCond = "-----------------------------------------------------------------------------"
 
@@ -14,9 +15,9 @@ def activate(comm, command, olt, typeOfList, quit):
     keep = "N"
     FAIL = None
     if "O" in typeOfList:
-        print("Selecciona el archivo de lista de clientes de ODOO")
+        log("Selecciona el archivo de lista de clientes de ODOO")
         odoo = filedialog.askopenfilename()
-        print("Selecciona el archivo de lista de clientes de Drive")
+        log("Selecciona el archivo de lista de clientes de Drive")
         drive = filedialog.askopenfilename()
         ODOO = fromCsv(odoo)
         DRIVE = fromCsv(drive)
@@ -24,13 +25,13 @@ def activate(comm, command, olt, typeOfList, quit):
         if(len(actionList) > 0):
             keep = "Y"
     elif "C" in typeOfList:
-        print("Selecciona la lista de clientes")
+        log("Selecciona la lista de clientes")
         lista = filedialog.askopenfilename()
         actionList = fromCsv(lista)
         if(len(actionList) > 0):
             keep = "Y"
     elif "U" in typeOfList:
-        lookupType = input("Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ").upper()
+        lookupType = inp("Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ").upper()
         data = lookup(comm, command, olt, lookupType, False)
         FAIL = data["fail"]
         if FAIL == None:
@@ -46,13 +47,13 @@ def activate(comm, command, olt, typeOfList, quit):
                 keep = "Y"
         else:
             resp = colorFormatter(FAIL, "fail")
-            print(resp)
+            log(resp)
             quit(5)
             return
     else:
         resp = "\nNingun tipo de lista se ha seleccionado\n"
         resp = colorFormatter(resp, "warning")
-        print(resp)
+        log(resp)
         return
 
     if keep == "Y":
@@ -72,7 +73,7 @@ def activate(comm, command, olt, typeOfList, quit):
                 else f"{NOMBRE} {FRAME}/{SLOT}/{PORT}/{ID} Reactivado\n"
             )
             resp = colorFormatter(resp, "ok")
-            print(resp)
+            log(resp)
             if "U" not in typeOfList:
                 path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                 sshToFile(comm, path, typeOfList)
@@ -84,5 +85,5 @@ def activate(comm, command, olt, typeOfList, quit):
     else:
         resp = "\nla lista no tiene ningun cliente...\n"
         resp = colorFormatter(resp, "warning")
-        print(resp)
+        log(resp)
         return

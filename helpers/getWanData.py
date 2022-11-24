@@ -2,6 +2,7 @@ from helpers.outputDecoder import decoder, parser, check
 from helpers.failHandler import failChecker
 from helpers.spidHandler import ontSpid, planX15Maps, planX2Maps
 from helpers.formatter import colorFormatter
+from helpers.printer import log
 
 ip = "IPv4 address               : "
 endIp = "Subnet mask"
@@ -17,10 +18,10 @@ def preWan(comm, command, SLOT, PORT, ID):
     if fail == None:
         (_, e) = re.span()
         vUsed = value[e : e + 4]
-        print(f"Al ONT se le ha agregado la vlan {vUsed}")
+        log(f"Al ONT se le ha agregado la vlan {vUsed}")
         return vUsed
     else:
-        print(fail)
+        log(fail)
         return fail
 
 
@@ -53,5 +54,5 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
         return (IPADDRESS, WAN)
     else:
         FAIL = failSpid
-        print(colorFormatter(FAIL, "info"))
+        log(colorFormatter(FAIL, "info"))
         return (IPADDRESS, WAN)

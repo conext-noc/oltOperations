@@ -3,6 +3,7 @@ from helpers.failHandler import failChecker
 from helpers.formatter import colorFormatter
 from helpers.fileHandler import dictConverter
 from re import sub
+from helpers.printer import log
 
 conditionSpidOnt = "CTRL_C to break"
 condition = "-----------------------------------------------------------------------------"
@@ -118,10 +119,10 @@ STATE           :   {}
             INDEX, VLAN, ATTR, PLAN, ADMIN_STATE, STATE
         )
         msg = colorFormatter(val, "ok")
-        print(msg)
+        log(msg)
     else:
         fail = colorFormatter(value, "fail")
-        print(fail)
+        log(fail)
         spid = availableSpid(comm, command)
         msg = colorFormatter(f"No se agrego el SPID, el siguiente SPID libre es {spid}", "warning")
-        print(msg)
+        log(msg)
