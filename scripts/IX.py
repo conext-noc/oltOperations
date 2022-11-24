@@ -44,7 +44,6 @@ def confirm(comm, command, olt, action, quit):
             SLOT = int(FSP.split("/")[1])
             PORT = int(FSP.split("/")[2])
             NAME = inp("Ingrese nombre del cliente : ").upper()
-            PLAN = inp("Ingrese plan de cliente : ").upper()
             LP = inp(
                 "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ")
             SRV = inp("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
@@ -92,9 +91,6 @@ def confirm(comm, command, olt, action, quit):
             ID = data["id"]
             SN = data["sn"]
             NAME = data["name"]
-            PROVIDER = inp(
-                "Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
-            PLAN = inp("Ingrese plan de cliente : ").upper()
             SPID = availableSpid(comm, command)
         else:
             resp = colorFormatter(data["fail"], "fail")
@@ -120,7 +116,7 @@ def confirm(comm, command, olt, action, quit):
                 preWan(comm, command, SLOT, PORT, ID)
             Prov = inp(
                 "Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
-
+            PLAN = inp("Ingrese plan de cliente : ").upper()
             PROVIDER = providerMap[Prov]
             ONT_TYPE = typeCheck(comm, command, FRAME, SLOT, PORT, ID)
 
