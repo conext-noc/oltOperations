@@ -60,17 +60,12 @@ def compare(odoo, drive, olt):
                         )
                         else "NA"
                     )
-                    log(
-                        odooClient["Cliente"],
-                        driveClient["NOMBRE"],
-                        odooClient["Cliente/NIF"],
-                        odooClient["ID externo"],
-                        driveClient["OLT"],
-                        FRAME,
-                        SLOT,
-                        PORT,
-                        ID,
-                    )
+                    cliente = odooClient["Cliente"]
+                    nombre = driveClient["NOMBRE"]
+                    clienteNIF = odooClient["Cliente/NIF"]
+                    idExterno = odooClient["ID externo"]
+                    driveOLT = driveClient["OLT"]
+                    log(f"{cliente} {nombre} {clienteNIF} {idExterno} {driveOLT} {FRAME} {SLOT} {PORT} {ID}")
                     listData.append(
                         {
                             "Cliente": odooClient["Cliente"],

@@ -122,7 +122,7 @@ def clientsTable(comm, command, lst):
                         "sn": summ["sn"],
                         "ontType": summ["ontType"],
                     })
-            log(idx, fsp, "done")
+            log(f"{idx} {fsp} done")
             os.remove(f"state{idx}summ.csv")
             os.remove(f"names{idx}summ.csv")
             os.remove(f"state{idx}port.csv")
