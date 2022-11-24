@@ -1,6 +1,6 @@
 import gspread
 from helpers.addHandler import addONU, addOnuService
-from helpers.clientDataLookup import lookup
+from helpers.clientDataLookup import lookup, newLookup
 from helpers.formatter import colorFormatter
 from helpers.opticalCheck import opticalValues
 from helpers.spidHandler import availableSpid, verifySPID
@@ -37,26 +37,37 @@ def confirm(comm, command, olt, action, quit):
     ID = None
     ONT_TYPE = None
     if action == "IN":
-        FRAME = inp("Ingrese frame de cliente : ").upper()
-        SLOT = inp("Ingrese slot de cliente : ").upper()
-        PORT = inp("Ingrese puerto de cliente : ").upper()
-        NAME = inp("Ingrese nombre del cliente : ").upper()
-        SN = inp("Ingrese serial de cliente : ").upper()
-        PLAN = inp("Ingrese plan de cliente : ").upper()
-        LP = inp(
-            "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ")
-        SRV = inp("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
+        (SN,FSP) = newLookup(comm,command,olt,quit)
+        keep = inp("Quiere continuar? [Y | N] : ").upper()
+        if (keep == "Y"):
+            FRAME = int(FSP.split("/")[0])
+            SLOT = int(FSP.split("/")[1])
+            PORT = int(FSP.split("/")[2])
+            NAME = inp("Ingrese nombre del cliente : ").upper()
+            PLAN = inp("Ingrese plan de cliente : ").upper()
+            LP = inp(
+                "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ")
+            SRV = inp("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
 
-        SPID = availableSpid(comm, command)
+            SPID = availableSpid(comm, command)
 
-        (ID, fail) = addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP)
+            (ID, fail) = addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP)
 
-        if fail != None:
-            resp = colorFormatter(fail, "fail")
+            if fail != None:
+                resp = colorFormatter(fail, "fail")
+                log(resp)
+                quit(2)
+                return
+        elif (keep == "N"):
+            resp = colorFormatter("SN no aparece en OLT, Saliendo...", "warning")
             log(resp)
-            quit(5)
+            quit(2)
             return
-
+        else:
+            resp = colorFormatter(f"Opcion {keep} no existe", "fail")
+            log(resp)
+            quit(2)
+            return
     elif action == "IP":
         lookupType = inp(
             "Buscar cliente por serial o por Datos de OLT [S | D] : ").upper()

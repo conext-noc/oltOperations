@@ -1,6 +1,6 @@
 from re import sub
 from time import sleep
-from helpers.outputDecoder import check, decoder
+from helpers.outputDecoder import check, decoder, parser
 from helpers.failHandler import failChecker
 from helpers.serialLookup import serialSearch
 from helpers.getWanData import wan
@@ -18,6 +18,13 @@ existing = {
     "SN":"SN                      : ",
     "LUT": "Last up time            : ",
 }
+
+
+newCond = "----------------------------------------------------------------------------"
+newCondFSP = "F/S/P               : "
+newCondSn = "Ont SN              : "
+
+providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
 
 def lookup(comm, command, OLT, lookupType, previous=True):
@@ -112,3 +119,35 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             "temp": TEMP,
             "pwr": PWR,
         }
+
+
+def newLookup(comm, command, olt,quit):
+    SN_NEW = inp("Ingrese el Serial del Cliente a buscar : ").upper()
+    SN_FINAL = None
+    FSP_FINAL = None
+    client = []
+    command("  display  ont  autofind  all  |  no-more  ")
+    sleep(5)
+    (value, regex) = parser(comm, newCond, "m")
+    for ont in range(len(regex) - 1):
+        (_, s) = regex[ont]
+        (e, _) = regex[ont + 1]
+        result = value[s:e]
+        (_, eFSP) = check(result, newCondFSP).span()
+        (_, eSN) = check(result, newCondSn).span()
+        aSN = result[eSN : eSN + 16].replace("\n", "").replace(" ", "")
+        aFSP = result[eFSP : eFSP + 6].replace("\n", "").replace(" ", "")
+        client.append({"FSP": aFSP, "SN": aSN, "IDX": ont})
+    log("| {:^3} | {:^6} | {:^16} |".format("IDX", "F/S/P", "SN"))
+    for ont in client:
+        FSP = ont["FSP"].replace(" ", "")
+        SN = ont["SN"].replace(" ", "")
+        IDX = ont["IDX"] + 1
+        if SN_NEW == SN:
+            SN_FINAL = SN
+            FSP_FINAL = FSP
+            log(colorFormatter("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "ok"))
+        else:
+            log("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
+    return(SN_FINAL,FSP_FINAL)
+    quit(90)
