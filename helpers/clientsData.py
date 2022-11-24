@@ -41,10 +41,11 @@ optionsPort = [
 
 
 def clientsTable(comm, command, lst):
-    clientsSummary = []
-    clientsPort = []
+    
     CLIENTS = []
     for idx, lt in enumerate(lst):
+        clientsSummary = []
+        clientsPort = []
         fsp = lt["fsp"]
         command(f"display ont info summary {fsp} | no-more")
         sleep(3)
