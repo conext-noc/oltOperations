@@ -79,7 +79,7 @@ def delete(comm, command, OLT, quit):
             quit(3)
             return
     else:
-        fail = colorFormatter(FAIL, "fail")
+        fail = colorFormatter(data["fail"], "fail")
         print(fail)
         quit(5)
         return
