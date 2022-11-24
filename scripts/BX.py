@@ -17,6 +17,7 @@ providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
 
 def newLookup(comm, command, olt,quit):
+    SN_NEW = inp("Ingrese el Serial del Cliente a buscar : ").upper()
     client = []
     command("  display  ont  autofind  all  |  no-more  ")
     sleep(5)
@@ -35,7 +36,10 @@ def newLookup(comm, command, olt,quit):
         FSP = ont["FSP"].replace(" ", "")
         SN = ont["SN"].replace(" ", "")
         IDX = ont["IDX"] + 1
-        log("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
+        if SN_NEW == SN:
+            log(colorFormatter("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "ok"))
+        else:
+            log("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
     quit(90)
 
 
