@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime
 from re import sub
 from time import sleep
 from helpers.outputDecoder import check, decoder, parser
@@ -140,7 +140,7 @@ def newLookup(comm, command, olt,quit):
         (_, eT) = check(result, newCondTime).span()
         aSN = result[eSN : eSN + 16].replace("\n", "").replace(" ", "")
         aFSP = result[eFSP : eFSP + 6].replace("\n", "").replace(" ", "")
-        aT = result[eT : eT + 19].replace("\n", "").replace(" ", "")
+        aT = result[eT : eT + 19].replace("\n", "")
         t1 = datetime.strptime(aT, "%Y-%m-%d %H:%M:%S")
         t2 = datetime.fromisoformat(str(datetime.now()))
         clientTime = t2 - t1
@@ -151,11 +151,11 @@ def newLookup(comm, command, olt,quit):
         SN = ont["SN"].replace(" ", "")
         IDX = ont["IDX"] + 1
         TIME = ont["TIME"]
-        if SN_NEW == SN and TIME <= 5:
+        if SN_NEW == SN and TIME <= 10:
             SN_FINAL = SN
             FSP_FINAL = FSP
             log(colorFormatter("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "ok"))
-        elif SN_NEW == SN and TIME > 5:
+        elif SN_NEW == SN and TIME > 10:
             log(colorFormatter("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "warning"))
         else:
             log("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
