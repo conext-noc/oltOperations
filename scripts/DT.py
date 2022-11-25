@@ -91,7 +91,9 @@ ports = {
     ],
 }
 
-
+portCount = {
+  
+}
 def totalDeacts(comm, command, olt):
     portToExec = ports[olt]
     clients = clientsTable(comm, command, portToExec)
@@ -101,7 +103,7 @@ def totalDeacts(comm, command, olt):
         )
     )
     totalClients = len(clients)
-    totalDeactClients = None
+    totalDeactClients = 0
     for client in clients:
         FSP = client["fsp"]
         ID = client["id"]
@@ -112,20 +114,21 @@ def totalDeacts(comm, command, olt):
         CAUSE = str(client["cause"]).replace(" ", "").replace(" \n", "")
         TIME = client["ldt"]
         DATE = client["ldd"]
+        STATE = client["controlFlag"]
         resp = "| {:^6} | {:^3} | {:^35} | {:^10} | {:^15} | {:^10} | {:^10} | {:^10} |{:^16} |".format(
             FSP, ID, NAME, STATUS, CAUSE, TIME, DATE, TP,SN
         )
         CT = f"{DATE} {TIME}"
-        if str(TIME) != "nan" and str(TIME) != "-":
-            if STATUS == "offline":
-                if CAUSE == "LOSi/LOBi" or CAUSE == "LOS":
-                    t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
-                    t2 = datetime.fromisoformat(str(datetime.now()))
-                    clientTime = t2 - t1
-                    color = ""
-                    if clientTime.days <= 5:
-                        color = "los1"
-                    if clientTime.days > 5:
-                        color = "los2"
-                    resp = colorFormatter(resp, color)
-                    log(resp)
+        if STATE == "deactivated":
+          totalDeactClients += 1
+          if str(TIME) != "nan" and str(TIME) != "-":
+                t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
+                t2 = datetime.fromisoformat(str(datetime.now()))
+                clientTime = t2 - t1
+                color = ""
+                if clientTime.days <= 5:
+                    color = "los1"
+                if clientTime.days > 5:
+                    color = "los2"
+          resp = colorFormatter(resp, color)
+          log(resp)

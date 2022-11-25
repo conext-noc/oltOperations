@@ -1,3 +1,4 @@
+import datetime
 from re import sub
 from time import sleep
 from helpers.outputDecoder import check, decoder, parser
@@ -23,6 +24,7 @@ existing = {
 newCond = "----------------------------------------------------------------------------"
 newCondFSP = "F/S/P               : "
 newCondSn = "Ont SN              : "
+newCondTime = "Ont autofind time   : "
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
@@ -135,18 +137,26 @@ def newLookup(comm, command, olt,quit):
         result = value[s:e]
         (_, eFSP) = check(result, newCondFSP).span()
         (_, eSN) = check(result, newCondSn).span()
+        (_, eT) = check(result, newCondTime).span()
         aSN = result[eSN : eSN + 16].replace("\n", "").replace(" ", "")
         aFSP = result[eFSP : eFSP + 6].replace("\n", "").replace(" ", "")
-        client.append({"FSP": aFSP, "SN": aSN, "IDX": ont})
+        aT = result[eT : eT + 19].replace("\n", "").replace(" ", "")
+        t1 = datetime.strptime(aT, "%Y-%m-%d %H:%M:%S")
+        t2 = datetime.fromisoformat(str(datetime.now()))
+        clientTime = t2 - t1
+        client.append({"FSP": aFSP, "SN": aSN, "IDX": ont, "TIME": clientTime.days})
     log("| {:^3} | {:^6} | {:^16} |".format("IDX", "F/S/P", "SN"))
     for ont in client:
         FSP = ont["FSP"].replace(" ", "")
         SN = ont["SN"].replace(" ", "")
         IDX = ont["IDX"] + 1
-        if SN_NEW == SN:
+        TIME = ont["TIME"]
+        if SN_NEW == SN and TIME <= 5:
             SN_FINAL = SN
             FSP_FINAL = FSP
             log(colorFormatter("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "ok"))
+        elif SN_NEW == SN and TIME > 5:
+            log(colorFormatter("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "warning"))
         else:
             log("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
     return(SN_FINAL,FSP_FINAL)

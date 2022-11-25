@@ -51,6 +51,8 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
             (_, s) = check(val, ip).span()
             (e, _) = check(val, endIp).span()
             IPADDRESS = val[s : e - 1].replace(" ", "").replace("\n", "")
+        else:
+            IPADDRESS = failIp
         return (IPADDRESS, WAN)
     else:
         FAIL = failSpid

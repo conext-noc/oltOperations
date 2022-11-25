@@ -76,7 +76,7 @@ $ """
         elif action == "VC":
             speedVerify(comm, command, quit)
         elif action == "VR":
-            verifyReset(comm, command, quit)
+            verifyReset(comm, command,olt, quit)
         elif action == "VP":
             verifyPort(comm, command)
             quit(10)
