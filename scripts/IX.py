@@ -36,37 +36,41 @@ def confirm(comm, command, olt, action, quit):
     SPID = None
     ID = None
     ONT_TYPE = None
+
     if action == "IN":
-        (SN,FSP) = newLookup(comm,command,olt,quit)
+        (SN, FSP) = newLookup(comm, command, olt)
         keep = inp("Quiere continuar? [Y | N] : ").upper()
         if (keep == "Y"):
             FRAME = int(FSP.split("/")[0])
             SLOT = int(FSP.split("/")[1])
             PORT = int(FSP.split("/")[2])
-            NAME = inp("Ingrese nombre del cliente : ").upper()
+            NAME = inp("Ingrese nombre del cliente : ").upper()[:56]
             LP = inp(
                 "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ")
             SRV = inp("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
 
             SPID = availableSpid(comm, command)
 
-            (ID, fail) = addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP)
+            (ID, fail) = addONU(comm, command, FRAME,
+                                SLOT, PORT, SN, NAME, SRV, LP)
 
             if fail != None:
                 resp = colorFormatter(fail, "fail")
                 log(resp)
-                quit(2)
+                quit()
                 return
         elif (keep == "N"):
-            resp = colorFormatter("SN no aparece en OLT, Saliendo...", "warning")
+            resp = colorFormatter(
+                "SN no aparece en OLT, Saliendo...", "warning")
             log(resp)
-            quit(2)
+            quit()
             return
         else:
             resp = colorFormatter(f"Opcion {keep} no existe", "fail")
             log(resp)
-            quit(2)
+            quit()
             return
+
     elif action == "IP":
         lookupType = inp(
             "Buscar cliente por serial o por Datos de OLT [S | D] : ").upper()
@@ -95,7 +99,7 @@ def confirm(comm, command, olt, action, quit):
         else:
             resp = colorFormatter(data["fail"], "fail")
             log(resp)
-            quit(5)
+            quit()
             return
 
     if ID != None and ID != "F":
@@ -133,12 +137,13 @@ def confirm(comm, command, olt, action, quit):
                     f" ont  port  native-vlan  {PORT} {ID}  eth  1  vlan  {PROVIDER} ")
                 command("quit")
 
-            addOnuService(command, comm, SPID,PROVIDER, FRAME, SLOT, PORT, ID, PLAN)
-            
+            addOnuService(command, comm, SPID, PROVIDER,
+                          FRAME, SLOT, PORT, ID, PLAN)
+
             verifySPID(comm, command, SPID)
-            
+
             PLAN = PLAN[3:]
-            
+
             template = """
     |{}  |  {}/{}/{}/{} 
     |OLT  {}  {}  {}
@@ -151,9 +156,9 @@ def confirm(comm, command, olt, action, quit):
             wks.insert_row([SN, NAME, olt, FRAME, SLOT, PORT,
                            ID, ONT_TYPE, Prov, PLAN, SPID], lstRow)
             log(res)
-            quit(10)
+            quit()
             return
-        
+
         if proceed == "N":
             reason = inp("Por que no se le asignara servicio? : ").upper()
             PLAN = PLAN[3:]
@@ -168,5 +173,5 @@ def confirm(comm, command, olt, action, quit):
             )
             res = colorFormatter(template, "success")
             log(res)
-            quit(5)
+            quit()
             return

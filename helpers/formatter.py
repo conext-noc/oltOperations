@@ -1,6 +1,7 @@
 color = {
     "activated": "\u001b[38;5;2m",
     "suspended": "\u001b[38;5;8m",
+    "suspended+": "\u001b[38;5;235m",
     "success": "\u001b[38;5;46m",
     "warning": "\u001b[38;5;202m",
     "off": "\u001b[38;5;9m",

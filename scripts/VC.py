@@ -62,4 +62,4 @@ def speedVerify(comm, command,quit):
 El consumo promedio del ONT es {upAVG} Kbps [UP] y {downAVG} Kbps [DOWN]
 """
     )
-    quit(5)
+    quit()

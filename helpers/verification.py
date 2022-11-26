@@ -55,4 +55,4 @@ def verify(actList, action, olt,quit):
     resp = f'lista "resultados{olt}" creada, operacion finalizada'
     resp = colorFormatter(resp, "success")
     log(resp)
-    quit(2)
+    quit()

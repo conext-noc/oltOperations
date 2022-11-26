@@ -48,7 +48,7 @@ def activate(comm, command, olt, typeOfList, quit):
         else:
             resp = colorFormatter(FAIL, "fail")
             log(resp)
-            quit(5)
+            quit()
             return
     else:
         resp = "\nNingun tipo de lista se ha seleccionado\n"
@@ -81,7 +81,7 @@ def activate(comm, command, olt, typeOfList, quit):
                 return actionList
             else:
                 command("quit")
-                quit(2)
+                quit()
     else:
         resp = "\nla lista no tiene ningun cliente...\n"
         resp = colorFormatter(resp, "warning")

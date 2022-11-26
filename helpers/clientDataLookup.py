@@ -123,7 +123,7 @@ def lookup(comm, command, OLT, lookupType, previous=True):
         }
 
 
-def newLookup(comm, command, olt,quit):
+def newLookup(comm, command, olt):
     SN_NEW = inp("Ingrese el Serial del Cliente a buscar : ").upper()
     SN_FINAL = None
     FSP_FINAL = None
@@ -160,4 +160,3 @@ def newLookup(comm, command, olt,quit):
         else:
             log("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
     return(SN_FINAL,FSP_FINAL)
-    quit(90)

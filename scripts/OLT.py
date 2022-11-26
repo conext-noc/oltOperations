@@ -1,9 +1,11 @@
 from helpers.formatter import colorFormatter
 from helpers.outputDecoder import decoder
+from helpers.printer import inp, log
 from helpers.ssh import ssh
 from helpers.verification import verify
-from scripts.BX import existingLookup, newLookup
+from scripts.BC import existingLookup
 from scripts.CA import clientFault
+from scripts.DT import totalDeacts
 from scripts.EC import delete
 from scripts.IX import confirm
 from scripts.MC import deviceModify
@@ -13,10 +15,8 @@ from scripts.VC import speedVerify
 from scripts.VP import verifyPort
 from scripts.VR import verifyReset
 from time import sleep
-from helpers.printer import inp, log
 
 def olt():
-    # try:
     olt = inp("Seleccione la OLT [15|2] : ").upper()
     if olt == "15" or olt == "2":
         ip = "181.232.180.5" if olt == "15" else "181.232.180.6"
@@ -26,22 +26,22 @@ def olt():
         action = inp(
                 """
 Que accion se realizara? 
-> (RC)  :  Reactivar Clientes (lista)
-> (RO)  :  Reactivar con lista de Odoo
-> (RU)  :  Reactivar uno
-> (SC)  :  Suspender Clientes
-> (SO)  :  Suspender con lista de Odoo
-> (SU)  :  Suspender uno
-> (IN)  :  Instalar nuevo
-> (IP)  :  Instalar previo
-> (EC)  :  Eliminar Cliente
-> (BN)  :  Buscar cliente en OLT (no agregado)
-> (BE)  :  Buscar cliente en OLT (ya agregado)
-> (MC)  :  Modificar Cliente
-> (VC)  :  Verificar consumo
-> (VR)  :  Verificar reset
-> (VP)  :  Verificacion de puerto
-> (CA)  :  Clientes con averias (corte de fibra)
+    > (RC)  :   Reactivar Clientes (lista)
+    > (RO)  :   Reactivar con lista de Odoo
+    > (RU)  :   Reactivar uno
+    > (SC)  :   Suspender Clientes
+    > (SO)  :   Suspender con lista de Odoo
+    > (SU)  :   Suspender uno
+    > (IN)  :   Instalar nuevo
+    > (IP)  :   Instalar previo
+    > (EC)  :   Eliminar Cliente
+    > (BC)  :   Buscar cliente en OLT
+    > (MC)  :   Modificar Cliente
+    > (VC)  :   Verificar consumo
+    > (VR)  :   Verificar reset
+    > (VP)  :   Verificacion de puerto
+    > (CA)  :   Clientes con averias (corte de fibra)
+    > (DT)  :   Desactivados Totales
 $ """
             ).upper()
 
@@ -67,9 +67,7 @@ $ """
             confirm(comm, command, olt, action, quit)
         elif action == "EC":
             delete(comm, command, olt, quit)
-        elif action == "BN":
-            newLookup(comm, command, olt, quit)
-        elif action == "BE":
+        elif action == "BC":
             existingLookup(comm, command, olt, quit)
         elif action == "MC":
             deviceModify(comm, command, olt, quit)
@@ -79,26 +77,19 @@ $ """
             verifyReset(comm, command,olt, quit)
         elif action == "VP":
             verifyPort(comm, command)
-            quit(10)
+            quit()
         elif action == "CA":
             clientFault(comm, command, olt)
-            quit(180)
+            quit()
+        elif action == "DT":
+            totalDeacts(comm, command,olt, quit)
         else:
             resp = colorFormatter(
                 f"Error @ : opcion {action} no existe", "warning")
             log(resp)
-            quit(2)
+            quit()
     else:
         resp = colorFormatter(
             f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")
         log(resp)
         sleep(1)
-
-    # except KeyboardInterrupt:
-    #     resp = colorFormatter("Saliendo...", "warning")
-    #     log(resp)
-    #     sleep(0.5)
-    # except Exception:
-    #     resp = colorFormatter(f"Error At : {traceback.format_exc()}", "fail")
-    #     log(resp)
-    #     sleep(10)

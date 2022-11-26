@@ -38,7 +38,7 @@ def rtr():
                     "InUti"], interface["OutUti"], interface["inErrors"], interface["outErrors"]
             ), color)
             log(res)
-        quit(5)
+        quit()
 
     else:
         resp = colorFormatter(

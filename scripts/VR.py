@@ -54,15 +54,15 @@ def verifyReset(comm, command,quit):
             IP = value[s:e].replace("\n", "").replace(" ", "")
             msg = colorFormatter(f"El cliente tiene la IP : {IP}", "ok")
             log(msg)
-            quit(5)
+            quit()
             return
         else:
             msg = colorFormatter(FAIL, "warning")
             log(msg)
-            quit(5)
+            quit()
             return
     else:
         fail = colorFormatter(fail, "warning")
         log(fail)
-        quit(5)
+        quit()
         return

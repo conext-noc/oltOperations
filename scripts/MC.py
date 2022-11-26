@@ -31,7 +31,6 @@ def deviceModify(comm, command, OLT,quit):
         filename="service_account_olt_operations.json")
     sh = sa.open("CPDC")
     wks = sh.worksheet("DATOS")
-    allClients = wks.get_all_records()
     FRAME = ""
     SLOT = ""
     PORT = ""
@@ -62,7 +61,7 @@ $ """
         proceed = display(data)
         if (proceed == "Y"):
             if action == "CT":
-                NAME = inp("Ingrese el nuevo nombre del cliente : ").upper()
+                NAME = inp("Ingrese el nuevo nombre del cliente : ").upper()[:56]
                 command(f" interface gpon {FRAME}/{SLOT}")
                 command(f' ont modify {PORT} {ID} desc "{NAME}" ')
                 command("quit")
@@ -71,7 +70,7 @@ $ """
                 log(resp)
                 cell = wks.find(data["sn"])
                 wks.update_cell(cell.row, cellMap["NAME"], NAME)
-                quit(5)
+                quit()
                 return
             if action == "CO":
                 SN = inp("Ingrese el nuevo ont del cliente : ").upper()
@@ -86,7 +85,7 @@ $ """
                 cell = wks.find(data["sn"])
                 wks.update_cell(cell.row, cellMap["SN"], SN)
                 wks.update_cell(cell.row, cellMap["ONT"], ONT_TYPE)
-                quit(5)
+                quit()
                 return
             if action == "CV":
                 PROVIDER = inp("Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
@@ -110,7 +109,7 @@ $ """
                 cell = wks.find(data["sn"])
                 wks.update_cell(cell.row, cellMap["VLAN1"], PROVIDER)
                 wks.update_cell(cell.row, cellMap["SPID1"], SPID)
-                quit(5)
+                quit()
                 return
             if action == "CP":
                 PLAN = inp("Ingrese el nuevo plan de cliente : ").upper()
@@ -122,15 +121,15 @@ $ """
                 log(resp)
                 cell = wks.find(data["sn"])
                 wks.update_cell(cell.row, cellMap["PLAN1"], PLAN[3:])
-                quit(5)
+                quit()
                 return
         else:
             resp = colorFormatter("Cancelando...", "info")
             log(resp)
-            quit(1)
+            quit()
             return
     else:
         resp = colorFormatter(FAIL, "warning")
         log(resp)
-        quit(5)
+        quit()
         return

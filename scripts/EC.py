@@ -77,10 +77,10 @@ def delete(comm, command, OLT, quit):
             cell = wks.find(data["sn"])
             wks.delete_row(cell.row)
             log(resp)
-            quit(3)
+            quit()
             return
     else:
         fail = colorFormatter(data["fail"], "fail")
         log(fail)
-        quit(5)
+        quit()
         return
