@@ -6,7 +6,7 @@ from helpers.failHandler import failChecker
 from helpers.serialLookup import serialSearch
 from helpers.getWanData import wan
 from helpers.opticalCheck import opticalValues
-from helpers.formatter import colorFormatter
+from helpers.printer import colorFormatter
 from helpers.ontTypeHandler import typeCheck
 from helpers.printer import inp, log
 

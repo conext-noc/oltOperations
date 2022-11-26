@@ -1,11 +1,10 @@
 from helpers.failHandler import failChecker
-from helpers.formatter import colorFormatter
+from helpers.printer import inp, log, colorFormatter
 from helpers.outputDecoder import parser, check
 from helpers.clientDataLookup import lookup
 from time import sleep
 from helpers.spidHandler import availableSpid
 from helpers.addHandler import addOnuService
-from helpers.printer import inp, log
 
 
 condition = "-----------------------------------------------------------------------------"

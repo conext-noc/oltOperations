@@ -4,7 +4,7 @@ import re
 from time import sleep
 import os
 from helpers.failHandler import failChecker
-from helpers.formatter import colorFormatter
+from helpers.printer import colorFormatter
 from helpers.tableConverter import table2Dict
 from helpers.printer import log
 

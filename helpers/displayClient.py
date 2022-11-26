@@ -1,5 +1,4 @@
-from helpers.formatter import colorFormatter
-from helpers.printer import inp, log
+from helpers.printer import colorFormatter, inp, log
 
 def display(data,ALL=True,i=False):
   if ALL:

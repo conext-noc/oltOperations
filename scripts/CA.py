@@ -1,7 +1,6 @@
 from helpers.clientsData import clientsTable
-from helpers.formatter import colorFormatter
+from helpers.printer import log,colorFormatter
 from datetime import datetime
-from helpers.printer import log
 
 
 ports = {

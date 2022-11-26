@@ -1,12 +1,11 @@
 import gspread
 from helpers.addHandler import addONU, addOnuService
 from helpers.clientDataLookup import lookup, newLookup
-from helpers.formatter import colorFormatter
+from helpers.printer import inp, log,colorFormatter
 from helpers.opticalCheck import opticalValues
 from helpers.spidHandler import availableSpid, verifySPID
 from helpers.getWanData import preWan
 from helpers.ontTypeHandler import typeCheck
-from helpers.printer import inp, log
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 

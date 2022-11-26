@@ -1,6 +1,5 @@
-from helpers.formatter import colorFormatter
+from helpers.printer import inp, log, colorFormatter
 from helpers.outputDecoder import decoder
-from helpers.printer import inp, log
 from helpers.ssh import ssh
 from helpers.verification import verify
 from scripts.BC import existingLookup

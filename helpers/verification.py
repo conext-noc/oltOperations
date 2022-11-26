@@ -1,11 +1,10 @@
 import re
 from helpers.fileHandler import toCsv
-from helpers.formatter import colorFormatter
+from helpers.printer import log, colorFormatter
 from helpers.outputDecoder import check
 from helpers.failHandler import failChecker
 import os
 from tkinter import filedialog
-from helpers.printer import log
 
 condition1 = "Control flag            : "
 condition2 = "Run state"

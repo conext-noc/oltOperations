@@ -1,23 +1,23 @@
-from helpers.formatter import colorFormatter
+from helpers.printer import inp, log, colorFormatter
 from helpers.outputDecoder import decoder, check
 from helpers.failHandler import failChecker
 from helpers.serialLookup import serialSearch
 from time import sleep
-from helpers.printer import inp, log
 
 ip = "IPv4 address               : "
 endIp = "Subnet mask"
 vlan = "Manage VLAN                : "
 
 
-def verifyReset(comm, command,quit):
+def verifyReset(comm, command, quit):
     FRAME = ""
     SLOT = ""
     PORT = ""
     ID = ""
     NAME = ""
     FAIL = None
-    lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
+    lookupType = inp(
+        "Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
     if lookupType == "D":
         FRAME = inp("Ingrese frame de cliente : ").upper()
         SLOT = inp("Ingrese slot de cliente : ").upper()
@@ -41,7 +41,8 @@ def verifyReset(comm, command,quit):
             )
     elif lookupType == "S":
         SN = inp("Ingrese serial de cliente : ").upper()
-        (FRAME, SLOT, PORT, ID, NAME, STATE, FAIL) = serialSearch(comm, command, SN)
+        (FRAME, SLOT, PORT, ID, NAME, STATUS, STATE, ONT_TYPE,
+         LDC, FAIL) = serialSearch(comm, command, SN)
 
     command(f"display ont wan-info  {FRAME}/{SLOT}  {PORT} {ID}  ")
 

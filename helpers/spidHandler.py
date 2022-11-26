@@ -1,9 +1,8 @@
 from helpers.outputDecoder import decoder, check, checkIter
 from helpers.failHandler import failChecker
-from helpers.formatter import colorFormatter
 from helpers.fileHandler import dictConverter
 from re import sub
-from helpers.printer import log
+from helpers.printer import log, colorFormatter
 
 conditionSpidOnt = "CTRL_C to break"
 condition = "-----------------------------------------------------------------------------"

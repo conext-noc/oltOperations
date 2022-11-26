@@ -1,15 +1,15 @@
-from helpers.formatter import colorFormatter
+from helpers.printer import inp, log, colorFormatter
 from helpers.clientDataLookup import lookup
 from helpers.displayClient import display
 from helpers.spidHandler import availableSpid
 import gspread
 from helpers.outputDecoder import decoder
 from helpers.ontTypeHandler import typeCheck
-from helpers.printer import inp, log
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
-planMap = {"VLANID": "VLAN ID             : ", "PLAN": "Inbound table name  : "}
+planMap = {"VLANID": "VLAN ID             : ",
+           "PLAN": "Inbound table name  : "}
 
 cellMap = {
     'SN': 1,
@@ -26,7 +26,7 @@ cellMap = {
 }
 
 
-def deviceModify(comm, command, OLT,quit):
+def deviceModify(comm, command, OLT, quit):
     sa = gspread.service_account(
         filename="service_account_olt_operations.json")
     sh = sa.open("CPDC")
@@ -46,8 +46,9 @@ Que cambio se realizara?
   > (CV)    :   Cambiar Vlan (Proveedor)
 $ """
     ).upper()
-    lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
-    data = lookup(comm,command,OLT,lookupType)
+    lookupType = inp(
+        "Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ").upper()
+    data = lookup(comm, command, OLT, lookupType)
     FAIL = data["fail"]
     if FAIL == None:
         FRAME = data["frame"]
@@ -61,7 +62,8 @@ $ """
         proceed = display(data)
         if (proceed == "Y"):
             if action == "CT":
-                NAME = inp("Ingrese el nuevo nombre del cliente : ").upper()[:56]
+                NAME = inp("Ingrese el nuevo nombre del cliente : ").upper()[
+                    :56]
                 command(f" interface gpon {FRAME}/{SLOT}")
                 command(f' ont modify {PORT} {ID} desc "{NAME}" ')
                 command("quit")
@@ -78,7 +80,7 @@ $ """
                 command(f"ont modify {PORT} {ID} sn {SN}")
                 command("quit")
                 decoder(comm)
-                ONT_TYPE = typeCheck(comm,command,FRAME,SLOT,PORT,ID)
+                ONT_TYPE = typeCheck(comm, command, FRAME, SLOT, PORT, ID)
                 resp = f"Al Cliente 0/{SLOT}/{PORT}/{ID} OLT {OLT} se ha sido cambiado el ont a {SN}"
                 resp = colorFormatter(resp, "ok")
                 log(resp)
@@ -88,7 +90,8 @@ $ """
                 quit()
                 return
             if action == "CV":
-                PROVIDER = inp("Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
+                PROVIDER = inp(
+                    "Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
                 prov = providerMap[PROVIDER]
                 for wanData in WAN:
                     SPID = wanData["SPID"]
@@ -101,7 +104,8 @@ $ """
                 isBridge = inp("ONT es un bridge? [Y | N] : ").upper()
                 if isBridge == "Y":
                     command(f"interface gpon {FRAME}/{SLOT}")
-                    command(f"ont port native-vlan {PORT} {ID} eth 1 vlan {prov}")
+                    command(
+                        f"ont port native-vlan {PORT} {ID} eth 1 vlan {prov}")
                     command("quit")
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al proveedor {PROVIDER}"
                 resp = colorFormatter(resp, "ok")
@@ -115,7 +119,8 @@ $ """
                 PLAN = inp("Ingrese el nuevo plan de cliente : ").upper()
                 for wanData in WAN:
                     SPID = wanData["SPID"]
-                    command(f"service-port {SPID} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+                    command(
+                        f"service-port {SPID} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"
                 resp = colorFormatter(resp, "ok")
                 log(resp)

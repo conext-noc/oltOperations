@@ -1,10 +1,9 @@
-from helpers.formatter import colorFormatter
+from helpers.printer import colorFormatter, inp, log
 from time import sleep
 import tkinter as tk
 import traceback
 from scripts.OLT import olt
 from scripts.RTR import rtr
-from helpers.printer import inp, log
 
 root = tk.Tk()
 root.withdraw()

@@ -2,10 +2,9 @@ from tkinter import filedialog
 from helpers.clientDataLookup import lookup
 from helpers.displayClient import display
 from helpers.fileHandler import fromCsv
-from helpers.formatter import colorFormatter
+from helpers.printer import inp, log, colorFormatter
 from helpers.listChecker import compare
 from helpers.outputDecoder import sshToFile
-from helpers.printer import inp, log
 
 existingCond = "-----------------------------------------------------------------------------"
 

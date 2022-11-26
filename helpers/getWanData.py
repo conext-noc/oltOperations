@@ -1,8 +1,7 @@
 from helpers.outputDecoder import decoder, parser, check
 from helpers.failHandler import failChecker
 from helpers.spidHandler import ontSpid, planX15Maps, planX2Maps
-from helpers.formatter import colorFormatter
-from helpers.printer import log
+from helpers.printer import colorFormatter,log
 
 ip = "IPv4 address               : "
 endIp = "Subnet mask"

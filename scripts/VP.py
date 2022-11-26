@@ -1,7 +1,6 @@
 from datetime import datetime
-from helpers.formatter import colorFormatter
+from helpers.printer import inp, log, colorFormatter
 from helpers.clientsData import clientsTable
-from helpers.printer import inp, log
 
 
 def verifyPort(comm, command):

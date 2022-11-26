@@ -1,9 +1,8 @@
 from time import sleep
-from helpers.formatter import colorFormatter
+from helpers.printer import inp, log, colorFormatter
 from helpers.ssh import ssh
 from helpers.outputDecoder import decoder
 from helpers.interfaceData import intFormatter
-from helpers.printer import inp, log
 
 intfacesC1 = ["GigabitEthernet0/3/7(10G)"]
 intfacesC2 = ["GigabitEthernet0/3/7(10G)", "GigabitEthernet0/3/8(10G)"]

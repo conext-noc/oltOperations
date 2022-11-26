@@ -1,5 +1,5 @@
 from helpers.outputDecoder import check, checkIter
-from helpers.formatter import colorFormatter
+from helpers.printer import colorFormatter
 
 failSTR = "Failure: "
 failTp1 = "% "

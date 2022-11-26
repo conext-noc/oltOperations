@@ -1,7 +1,6 @@
-from helpers.formatter import colorFormatter
+from helpers.printer import inp, log,colorFormatter
 from helpers.clientDataLookup import lookup
 import gspread
-from helpers.printer import inp, log
 
 existing = {
     "CF": "Control flag            : ",
