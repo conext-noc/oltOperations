@@ -1,4 +1,4 @@
-from tkinter import filedialog
+# from tkinter import filedialog
 from helpers.clientDataLookup import lookup
 from helpers.displayClient import display
 from helpers.fileHandler import fromCsv
@@ -15,18 +15,18 @@ def activate(comm, command, olt, typeOfList, quit):
     FAIL = None
     if "O" in typeOfList:
         log("Selecciona el archivo de lista de clientes de ODOO")
-        odoo = filedialog.askopenfilename()
+        # odoo = filedialog.askopenfilename()
         log("Selecciona el archivo de lista de clientes de Drive")
-        drive = filedialog.askopenfilename()
-        ODOO = fromCsv(odoo)
-        DRIVE = fromCsv(drive)
-        actionList = compare(ODOO, DRIVE, olt)
+        # drive = filedialog.askopenfilename()
+        # ODOO = fromCsv(odoo)
+        # DRIVE = fromCsv(drive)
+        # actionList = compare(ODOO, DRIVE, olt)
         if(len(actionList) > 0):
             keep = "Y"
     elif "C" in typeOfList:
         log("Selecciona la lista de clientes")
-        lista = filedialog.askopenfilename()
-        actionList = fromCsv(lista)
+        # lista = filedialog.askopenfilename()
+        # actionList = fromCsv(lista)
         if(len(actionList) > 0):
             keep = "Y"
     elif "U" in typeOfList:

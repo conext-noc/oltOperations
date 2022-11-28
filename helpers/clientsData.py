@@ -16,13 +16,13 @@ optionsSummary = [
         "name": "state",
         "start": 2,
         "end": 3,
-        "header": "ID,State,UpDate,UpTime,DownDate,DownTime,DownCause1,DownCause2,DownCause3,DownCause4,DownCause5,DownCause6,DownCause7,DownCause8\n",
+        "header": ",ID,State,UpDate,UpTime,DownDate,DownTime,DownCause1,DownCause2,DownCause3,DownCause4,DownCause5,DownCause6,DownCause7,DownCause8",
     },
     {
         "name": "names",
         "start": 4,
         "end": 5,
-        "header": "ID,SN,Type,Distance,Rx/Tx power,NAME1,NAME2,NAME3,NAME4,NAME5,NAME6,NAME7,NAME8,NAME9,NAME10\n",
+        "header": ",ID,SN,Type,Distance,Rx/Tx power,NAME1,NAME2,NAME3,NAME4,NAME5,NAME6,NAME7,NAME8,NAME9,NAME10",
     },
 ]
 optionsPort = [
@@ -30,13 +30,13 @@ optionsPort = [
         "name": "state",
         "start": 7,
         "end": 8,
-        "header": "F/,S/P,ID,SN,controlFlag,runState,configState,matchState,protectSide,na\n",
+        "header": ",F/,S/P,ID,SN,controlFlag,runState,configState,matchState,protectSide,na",
     },
     {
         "name": "names",
         "start": 9,
         "end": 10,
-        "header": "F/,S/P,ID,SN,NAME1,NAME2,NAME3,NAME4,NAME5,NAME6,NAME7,NAME8,NAME9,NAME10,NAME11,NAME12,NAME13,NAME14,NAME15,NAME16,NAME17,NAME18,NAME19,NAME20\n",
+        "header": ",F/,S/P,ID,SN,NAME1,NAME2,NAME3,NAME4,NAME5,NAME6,NAME7,NAME8,NAME9,NAME10,NAME11,NAME12,NAME13,NAME14,NAME15,NAME16,NAME17,NAME18,NAME19,NAME20",
     },
 ]
 
