@@ -16,7 +16,7 @@ existing = {
     "DESC": "Description             : ",
     "LDC": "Last down cause         : ",
     "CS": "Config state            :",
-    "SN":"SN                      : ",
+    "SN": "SN                      : ",
     "LUT": "Last up time            : ",
 }
 
@@ -47,7 +47,8 @@ def lookup(comm, command, OLT, lookupType, previous=True):
     SN = None
     if lookupType == "S":
         SN = inp("Ingrese el Serial del Cliente a buscar : ").upper()
-        (FRAME, SLOT, PORT, ID, NAME,STATUS, STATE,ONT_TYPE,LDC, FAIL) = serialSearch(comm, command, SN)
+        (FRAME, SLOT, PORT, ID, NAME, STATUS, STATE, ONT_TYPE,
+         LDC, FAIL) = serialSearch(comm, command, SN)
     elif lookupType == "D":
         FRAME = inp("Ingrese frame de cliente  : ").upper()
         SLOT = inp("Ingrese slot de cliente   : ").upper()
@@ -63,14 +64,14 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             (eCF, sRE) = check(value, existing["RE"]).span()
             (eDESC, sLDC) = check(value, existing["LDC"]).span()
             (eLDC, _) = check(value, existing["LUT"]).span()
-            (eRE,_) = check(value,existing["CS"]).span()
-            (_,sSN) = check(value, existing["SN"]).span()
+            (eRE, _) = check(value, existing["CS"]).span()
+            (_, sSN) = check(value, existing["SN"]).span()
             STATUS = value[sRE:eRE].replace("\n", "")
             NAME = value[sDESC:eDESC].replace("\n", "")
             STATE = value[sCF:eCF].replace("\n", "")
             LDC = value[sLDC:eLDC]
             SN = value[sSN:sSN+16]
-            ONT_TYPE = typeCheck(comm,command,FRAME,SLOT,PORT,ID)
+            ONT_TYPE = typeCheck(comm, command, FRAME, SLOT, PORT, ID)
         else:
             FAIL = fail
     elif lookupType == "N":
@@ -85,7 +86,8 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             log(colorFormatter("getting wan data", "info"))
             (IPADDRESS, WAN) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
             log(colorFormatter("getting optical data", "info"))
-            (TEMP, PWR) = opticalValues(comm, command, FRAME, SLOT, PORT, ID, False)
+            (TEMP, PWR) = opticalValues(
+                comm, command, FRAME, SLOT, PORT, ID, False)
         return {
             "fail": FAIL,
             "name": sub(" +", " ", NAME).replace("\n", ""),
@@ -93,7 +95,7 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             "slot": SLOT,
             "port": PORT,
             "id": ID,
-            "sn":SN,
+            "sn": SN,
             "ldc": LDC,
             "state": STATE.replace("\n", ""),
             "status": STATUS.replace("\n", ""),
@@ -111,10 +113,10 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             "slot": SLOT,
             "port": PORT,
             "id": ID,
-            "sn":SN,
+            "sn": SN,
             "ldc": LDC,
             "state": STATE,
-            "status":STATUS,
+            "status": STATUS,
             "type": ONT_TYPE,
             "ipAdd": IPADDRESS,
             "wan": WAN,
@@ -138,15 +140,17 @@ def newLookup(comm, command, olt):
         (_, eFSP) = check(result, newCondFSP).span()
         (_, eSN) = check(result, newCondSn).span()
         (_, eT) = check(result, newCondTime).span()
-        aSN = result[eSN : eSN + 16].replace("\n", "").replace(" ", "")
-        aFSP = result[eFSP : eFSP + 6].replace("\n", "").replace(" ", "")
-        aT = result[eT : eT + 19].replace("\n", "")
+        aSN = result[eSN: eSN + 16].replace("\n", "").replace(" ", "")
+        aFSP = result[eFSP: eFSP + 6].replace("\n", "").replace(" ", "")
+        aT = result[eT: eT + 19].replace("\n", "")
         t1 = datetime.strptime(aT, "%Y-%m-%d %H:%M:%S")
         t2 = datetime.fromisoformat(str(datetime.now()))
         clientTime = t2 - t1
-        client.append({"FSP": aFSP, "SN": aSN, "IDX": ont, "TIME": clientTime.days})
+        client.append({"FSP": aFSP, "SN": aSN, "IDX": ont,
+                      "TIME": clientTime.days})
     log("| {:^3} | {:^6} | {:^16} |".format("IDX", "F/S/P", "SN"))
     for ont in client:
+        count = []
         FSP = ont["FSP"].replace(" ", "")
         SN = ont["SN"].replace(" ", "")
         IDX = ont["IDX"] + 1
@@ -154,9 +158,21 @@ def newLookup(comm, command, olt):
         if SN_NEW == SN and TIME <= 10:
             SN_FINAL = SN
             FSP_FINAL = FSP
-            log(colorFormatter("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "ok"))
+            log(colorFormatter(
+                "| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "ok"))
+            count.append({"SN": SN_FINAL, "FSP": FSP_FINAL})
         elif SN_NEW == SN and TIME > 10:
-            log(colorFormatter("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "warning"))
+            log(colorFormatter("| {:^3} | {:^6} | {:^16} |".format(
+                IDX, FSP, SN), "warning"))
         else:
             log("| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN))
-    return(SN_FINAL,FSP_FINAL)
+        if (len(count) > 1):
+            log("| {:^3} | {:^6} | {:^16} |".format(
+                "IDX", "F/S/P", "SN"
+            ))
+            for idx, res in enumerate(count):
+                log("| {:^3} | {:^6} | {:^16} |".format(idx,res["FSP"],res["SN"]))
+            ix = inp("SELECCIONE EL INDEX DEL SERIAL A UTILIZAR : ")
+            SN_FINAL = res[ix]["SN"]
+            FSP_FINAL = res[ix]["FSP"]
+    return (SN_FINAL, FSP_FINAL)

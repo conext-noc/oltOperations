@@ -1,12 +1,12 @@
 from helpers.printer import colorFormatter, inp, log
 from time import sleep
-# import tkinter as tk
+import tkinter as tk
 import traceback
 from scripts.OLT import olt
 from scripts.RTR import rtr
 
-# root = tk.Tk()
-# root.withdraw()
+root = tk.Tk()
+root.withdraw()
 
 
 def main():
