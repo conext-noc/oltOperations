@@ -76,6 +76,11 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             FAIL = fail
     elif lookupType == "N":
         NAME = inp("Ingrese el Nombre del Cliente a buscar : ")
+        command(f'display ont info by-desc "{NAME}" | no-more ')
+        sleep(5)
+        value = decoder(comm)
+        log(value)
+        return
     else:
         log(colorFormatter(f"Opcion {lookupType} no existe", "fail"))
         return {

@@ -13,6 +13,9 @@ providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 def existingLookup(comm, command, olt,quit):
     FAIL = None
     lookupType = inp("Buscar cliente por serial, por nombre o por Datos de OLT [S | N | D] : ").upper()
+    if lookupType == "D":
+        lookup(comm, command, olt, lookupType)
+        return
     data = lookup(comm, command, olt, lookupType)
     FAIL = data["fail"]
     if FAIL == None:
