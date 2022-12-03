@@ -27,10 +27,14 @@ def colorFormatter(txt, variant):
     return color[variant] + txt + color["end"]
 
 def log(value):
+  currTime = datetime.now()
+  now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
   print(value)
-  print(value, file=open(f"{docs}/logs/{fl}","a"))
+  print(f"{now}\n{value}", file=open(f"{docs}/logs/{fl}","a"))
 
 def inp(message):
+  currTime = datetime.now()
+  now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
   data = input(message)
-  print(f"{message} {data}", file=open(f"{docs}/logs/{fl}","a"))
+  print(f"{now}\n{message} {data}", file=open(f"{docs}/logs/{fl}","a"))
   return data

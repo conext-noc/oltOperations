@@ -5,6 +5,7 @@ from helpers.spidHandler import availableSpid
 import gspread
 from helpers.outputDecoder import decoder
 from helpers.ontTypeHandler import typeCheck
+from helpers.addHandler import addOnuService
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
@@ -20,9 +21,10 @@ cellMap = {
     'PORT': 6,
     'ID': 7,
     'ONT': 8,
-    'VLAN1': 9,
-    'PLAN1': 10,
-    'SPID1': 11,
+    'STATE':9,
+    'PROVIDER': 10,
+    'PLAN': 11,
+    'SPID': 12,
 }
 
 
@@ -44,6 +46,8 @@ Que cambio se realizara?
   > (CO)    :   Cambiar ONT
   > (CP)    :   Cambiar Plan
   > (CV)    :   Cambiar Vlan (Proveedor)
+  > (ES)    :   Eliminar Service Port
+  > (AS)    :   Agregar Service Port
 $ """
     ).upper()
     lookupType = inp(
@@ -111,8 +115,9 @@ $ """
                 resp = colorFormatter(resp, "ok")
                 log(resp)
                 cell = wks.find(data["sn"])
-                wks.update_cell(cell.row, cellMap["VLAN1"], PROVIDER)
-                wks.update_cell(cell.row, cellMap["SPID1"], SPID)
+                wks.update_cell(cell.row, cellMap["PROVIDER"], PROVIDER)
+                wks.update_cell(cell.row, cellMap["PLAN"], PLAN)
+                wks.update_cell(cell.row, cellMap["SPID"], SPID)
                 quit()
                 return
             if action == "CP":
@@ -125,11 +130,38 @@ $ """
                 resp = colorFormatter(resp, "ok")
                 log(resp)
                 cell = wks.find(data["sn"])
-                wks.update_cell(cell.row, cellMap["PLAN1"], PLAN[3:])
+                wks.update_cell(cell.row, cellMap["PLAN"], PLAN[3:])
+                quit()
+                return
+            if action == "ES":
+                log("| {:^3}| {:^4} | {:^4} | {:^10} |".format("IDX","SPID","VLAN","PLAN"))
+                for idx, wanData in enumerate(data["wan"]):
+                    res = colorFormatter("| {:^3}| {:^4} | {:^4} | {:^10} |".format(idx,wanData["SPID"],wanData["VLAN"],wanData["PLAN"]), "info")
+                    log(res)
+                spidDel = inp("Ingrese el index del SPID a eliminar : ")
+                SPID_DEL = data["wan"][int(spidDel)]["SPID"]
+                command(f"undo service-port {SPID_DEL}")
+                
+                resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se le ha eliminado el SPID {SPID_DEL}"
+                resp = colorFormatter(resp, "ok")
+                quit()
+                return
+            if action == "AS":
+                spidNew = availableSpid(comm, command)
+                resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se le agregara el SPID {spidNew}"
+                resp = colorFormatter(resp, "info")
+                PLAN = inp("Ingrese el nuevo plan de cliente : ").upper()
+                PROVIDER = inp(
+                    "Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
+                prov = providerMap[PROVIDER]
+                
+                addOnuService(command,comm,spidNew,PROVIDER,FRAME,SLOT,PORT,ID,PLAN)
+                resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se le ha agregado el SPID {spidNew} con plan {PLAN} y proveedor {PROVIDER}"
+                resp = colorFormatter(resp, "ok")
                 quit()
                 return
         else:
-            resp = colorFormatter("Cancelando...", "info")
+            resp = colorFormatter("Cancelando...", "warning")
             log(resp)
             quit()
             return
