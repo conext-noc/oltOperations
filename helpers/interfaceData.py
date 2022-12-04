@@ -1,5 +1,4 @@
 from helpers.outputDecoder import check
-import pandas as pd
 from helpers.tableConverter import toDict
 condStart = "InUti/OutUti: input utility/output utility"
 condEnd  = "NULL0"
