@@ -8,17 +8,19 @@ from helpers.sheets import modifier
 
 existingCond = "-----------------------------------------------------------------------------"
 
-def activate(comm, command, olt, typeOfList, quit):
+def operate(comm, command, olt, action, quit):
+    operation = "activate" if "R" in action else ("deactivate" if "S" in action else "")
+    resultedAction = "Reactivado" if "R" in action else ("Suspendido" if "S" in action else "")
     actionList = []
     keep = "N"
     FAIL = None
-    if "L" in typeOfList:
+    if "L" in action:
         fileType = inp("Es un archivo CSV o EXCEL? [C : E]: ")
         log("Selecciona la lista de clientes")
         fileName = filedialog.askopenfilename()
         actionList = fileToDict(fileName, fileType)
         keep = "Y"
-    elif "U" in typeOfList:
+    elif "U" in action:
         lookupType = inp(
             "Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ")
         data = lookup(comm, command, olt, lookupType, False)
@@ -56,18 +58,18 @@ def activate(comm, command, olt, typeOfList, quit):
             ID = client["ID"]
             OLT = client["OLT"]
             command(f"interface gpon {FRAME}/{SLOT}")
-            command(f"ont activate {PORT} {ID}")
+            command(f"ont {operation} {PORT} {ID}")
             command(f"display ont info {PORT} {ID}")
             resp = (
-                f"{FRAME}/{SLOT}/{PORT}/{ID} Reactivado\n"
-                if "U" in typeOfList
-                else f"{NOMBRE} {FRAME}/{SLOT}/{PORT}/{ID} Reactivado\n"
+                f"{FRAME}/{SLOT}/{PORT}/{ID} {resultedAction}\n"
+                if "U" in action
+                else f"{NOMBRE} {FRAME}/{SLOT}/{PORT}/{ID} {resultedAction}\n"
             )
             resp = colorFormatter(resp, "ok")
             log(resp)
             modifier("STATUS",client["SN"],"active")
-            if "U" not in typeOfList:
-                path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
+            if "U" not in action:
+                path = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                 command("quit")
                 output = decoder(comm)
                 print(output, file=open(path, "w"))

@@ -3,8 +3,8 @@ import re
 from time import sleep
 from helpers.failHandler import failChecker
 from helpers.printer import colorFormatter
-from helpers.tableConverter import toDict
 from helpers.printer import log
+from helpers.fileHandler import dataToDict
 
 conditionSummary = "------------------------------------------------------------------------------"
 conditionPort = "-----------------------------------------------------------------------------"
@@ -69,9 +69,9 @@ def clientsTable(comm, command, lst):
                 (_, s) = reSumm[start]
                 (e, _) = reSumm[end]
                 if name == "names":
-                    valueNamesSumm = toDict(header, value[s:e])
+                    valueNamesSumm = dataToDict(header, value[s:e])
                 else:
-                    valueStateSumm = toDict(header, value[s:e])
+                    valueStateSumm = dataToDict(header, value[s:e])
             for op in optionsPort:
                 name = op["name"]
                 start = op["start"]
@@ -80,9 +80,9 @@ def clientsTable(comm, command, lst):
                 (_, s) = rePort[start]
                 (e, _) = rePort[end]
                 if name == "names":
-                    valueNamesPort = toDict(header, value[s:e])
+                    valueNamesPort = dataToDict(header, value[s:e])
                 else:
-                    valueStatePort = toDict(header, value[s:e])
+                    valueStatePort = dataToDict(header, value[s:e])
 
             for (status, names) in zip(valueStateSumm, valueNamesSumm):
                 if int(status["ID"]) == int(names["ID"]):

@@ -4,9 +4,9 @@ from helpers.displayClient import display
 from helpers.fileHandler import fileToDict
 from helpers.printer import inp, log, colorFormatter
 from helpers.outputDecoder import decoder
+from helpers.sheets import modifier
 
 existingCond = "-----------------------------------------------------------------------------"
-
 
 def deactivate(comm, command, olt, typeOfList, quit):
     actionList = []
@@ -24,16 +24,17 @@ def deactivate(comm, command, olt, typeOfList, quit):
         data = lookup(comm, command, olt, lookupType, False)
         FAIL = data["fail"]
         if FAIL == None:
-            NAME = data["name"]
-            FRAME = data["frame"]
-            SLOT = data["slot"]
-            PORT = data["port"]
-            ID = data["id"]
-            OLT = olt
             proceed = display(data)
             if (proceed == "Y"):
-                actionList = [{"NOMBRE": NAME, "FRAME": FRAME,
-                               "SLOT": SLOT, "PORT": PORT, "ID": ID, "OLT": OLT}]
+                actionList = [{
+                    "NOMBRE": data["name"],
+                    "FRAME": data["frame"],
+                    "SLOT": data["slot"],
+                    "PORT": data["port"],
+                    "ID": data["id"],
+                    "OLT": olt,
+                    "SN": data["sn"]
+                }]
                 keep = "Y"
         else:
             resp = colorFormatter(FAIL, "fail")
@@ -58,12 +59,13 @@ def deactivate(comm, command, olt, typeOfList, quit):
             command(f"ont deactivate {PORT} {ID}")
             command(f"display ont info {PORT} {ID}")
             resp = (
-                f"{FRAME}/{SLOT}/{PORT}/{ID} Reactivado\n"
+                f"{FRAME}/{SLOT}/{PORT}/{ID} Suspendido\n"
                 if "U" in typeOfList
                 else f"{NOMBRE} {FRAME}/{SLOT}/{PORT}/{ID} Suspendido\n"
             )
             resp = colorFormatter(resp, "ok")
             log(resp)
+            modifier("STATUS",client["SN"],"active")
             if "U" not in typeOfList:
                 path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                 command("quit")

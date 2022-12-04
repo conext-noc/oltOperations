@@ -1,5 +1,7 @@
 import pandas as pd
 from io import StringIO
+import re
+import os
 
 
 def dictConverter(string):
@@ -19,3 +21,11 @@ def dictToFile(fileName, fileType, path, data, show):
     resPath = f"{path}/" if show else ""
     value.to_csv(f"{resPath}/{fileName}.csv",
                  index=None) if fileType == "C" else value.to_excel(f"{resPath}/{fileName}.xlsx")
+
+def dataToDict(header, data):
+    value = re.sub(" +", " ", data).replace(" ", ",")
+    res = header + value
+    print(res[:-1], file=open("data.csv", "w"))
+    result = fileToDict("data.csv","C")
+    os.remove("data.csv")
+    return result
