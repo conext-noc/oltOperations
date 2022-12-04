@@ -1,11 +1,10 @@
 from helpers.outputDecoder import checkIter, decoder
-from helpers.fileHandler import fromCsv
 import re
 from time import sleep
 import os
 from helpers.failHandler import failChecker
 from helpers.printer import colorFormatter
-from helpers.tableConverter import table2Dict
+from helpers.tableConverter import toDict
 from helpers.printer import log
 
 conditionSummary = "------------------------------------------------------------------------------"
@@ -42,7 +41,6 @@ optionsPort = [
 
 
 def clientsTable(comm, command, lst):
-    
     CLIENTS = []
     for idx, lt in enumerate(lst):
         clientsSummary = []
@@ -58,6 +56,10 @@ def clientsTable(comm, command, lst):
         value = decoder(comm)
         fail = failChecker(value)
         if fail == None:
+            valueStatePort = []
+            valueNamesPort = []
+            valueNamesSumm = []
+            valueStateSumm = []
             reSumm = checkIter(value, conditionSummary)
             rePort = checkIter(value, conditionPort)
             for op in optionsSummary:
@@ -67,7 +69,10 @@ def clientsTable(comm, command, lst):
                 header = op["header"]
                 (_, s) = reSumm[start]
                 (e, _) = reSumm[end]
-                table2Dict(header, value[s:e], name, idx, "summ")
+                if name == "names":
+                    valueNamesSumm = toDict(header, value[s:e])
+                else:
+                    valueStateSumm = toDict(header, value[s:e])
             for op in optionsPort:
                 name = op["name"]
                 start = op["start"]
@@ -75,11 +80,11 @@ def clientsTable(comm, command, lst):
                 header = op["header"]
                 (_, s) = rePort[start]
                 (e, _) = rePort[end]
-                table2Dict(header, value[s:e], name, idx, "port")
-            valueStateSumm = fromCsv(f"state{idx}summ.csv")
-            valueNamesSumm = fromCsv(f"names{idx}summ.csv")
-            valueStatePort = fromCsv(f"state{idx}port.csv")
-            valueNamesPort = fromCsv(f"names{idx}port.csv")
+                if name == "names":
+                    valueNamesPort = toDict(header, value[s:e])
+                else:
+                    valueStatePort = toDict(header, value[s:e])
+
             for (status, names) in zip(valueStateSumm, valueNamesSumm):
                 if int(status["ID"]) == int(names["ID"]):
                     name = ""
@@ -123,10 +128,10 @@ def clientsTable(comm, command, lst):
                         "ontType": summ["ontType"],
                     })
             log(f"{idx} {fsp} done")
-            os.remove(f"state{idx}summ.csv")
-            os.remove(f"names{idx}summ.csv")
-            os.remove(f"state{idx}port.csv")
-            os.remove(f"names{idx}port.csv")
+            # os.remove(f"state{idx}summ.csv")
+            # os.remove(f"names{idx}summ.csv")
+            # os.remove(f"state{idx}port.csv")
+            # os.remove(f"names{idx}port.csv")
         else:
             resp = colorFormatter(fail, "fail")
             log(resp)

@@ -1,4 +1,4 @@
-from helpers.outputDecoder import decoder, parser, check
+from helpers.outputDecoder import decoder, check
 from helpers.failHandler import failChecker
 from helpers.printer import log
 
@@ -22,6 +22,6 @@ def opticalValues(comm, command, FRAME, SLOT, PORT, ID, show):
         reTemp = check(value, conditionTemp)
         (_, eT) = reTemp.span()
         (_, eP) = rePwr.span()
-        PWR = value[eP : eP + 6]
-        TEMP = value[eT : eT + 4].replace("\n", "").replace(" ", "")
+        PWR = value[eP: eP + 6]
+        TEMP = value[eT: eT + 4].replace("\n", "").replace(" ", "")
     return (TEMP, PWR)

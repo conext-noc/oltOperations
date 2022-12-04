@@ -15,6 +15,7 @@ from scripts.VP import verifyPort
 from scripts.VR import verifyReset
 from time import sleep
 
+
 def olt():
     olt = inp("Seleccione la OLT [15|2] : ").upper()
     if olt == "15" or olt == "2":
@@ -23,13 +24,11 @@ def olt():
         decoder(comm)
 
         action = inp(
-                """
+            """
 Que accion se realizara? 
-    > (RC)  :   Reactivar Clientes (lista)
-    > (RO)  :   Reactivar con lista de Odoo
+    > (RL)  :   Reactivar con lista
     > (RU)  :   Reactivar uno
-    > (SC)  :   Suspender Clientes
-    > (SO)  :   Suspender con lista de Odoo
+    > (SL)  :   Suspender con lista
     > (SU)  :   Suspender uno
     > (IN)  :   Instalar nuevo
     > (IP)  :   Instalar previo
@@ -42,20 +41,14 @@ Que accion se realizara?
     > (CA)  :   Clientes con averias (corte de fibra)
     > (DT)  :   Desactivados Totales
 $ """
-            ).upper()
+        ).upper()
 
-        if action == "RC":
-            result = activate(comm, command, olt, action, quit)
-            verify(result, action, olt, quit)
-        elif action == "RO":
+        if action == "RL":
             result = activate(comm, command, olt, action, quit)
             verify(result, action, olt, quit)
         elif action == "RU":
             result = activate(comm, command, olt, action, quit)
-        elif action == "SC":
-            result = deactivate(comm, command, olt, action, quit)
-            verify(result, action, olt, quit)
-        elif action == "SO":
+        elif action == "SL":
             result = deactivate(comm, command, olt, action, quit)
             verify(result, action, olt, quit)
         elif action == "SU":
@@ -73,7 +66,7 @@ $ """
         elif action == "VC":
             speedVerify(comm, command, quit)
         elif action == "VR":
-            verifyReset(comm, command,olt, quit)
+            verifyReset(comm, command, olt, quit)
         elif action == "VP":
             verifyPort(comm, command)
             quit()
@@ -81,7 +74,7 @@ $ """
             clientFault(comm, command, olt)
             quit()
         elif action == "DT":
-            totalDeacts(comm, command,olt, quit)
+            totalDeacts(comm, command, olt, quit)
         else:
             resp = colorFormatter(
                 f"Error @ : opcion {action} no existe", "warning")

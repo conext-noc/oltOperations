@@ -1,8 +1,7 @@
 from helpers.outputDecoder import decoder, check, checkIter
 from helpers.failHandler import failChecker
-from helpers.fileHandler import dictConverter
-from re import sub
 from helpers.printer import log, colorFormatter
+from helpers.tableConverter import toDict
 
 conditionSpidOnt = "CTRL_C to break"
 condition = "-----------------------------------------------------------------------------"
@@ -72,8 +71,7 @@ def ontSpid(comm, command, FRAME, SLOT, PORT, ID):
         limits = checkIter(value, condition)
         (_, s) = limits[1]
         (e, _) = limits[2]
-        data = spidHeader + sub(" +", " ", value[s : e - 2]).replace(" ", ",")
-        data = dictConverter(data)
+        data = toDict(spidHeader, value[s : e - 2])
         return (data, None)
     else:
         return (None, fail)

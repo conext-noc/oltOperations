@@ -44,19 +44,3 @@ def checkIter(value, condition):
     for match in res:
         result.append(match.span())
     return result
-
-
-def txt2csvFormatter(file):
-    f = open(file)
-    lines = f.readlines()
-    f.close()
-    f = open(file, "w")
-    for line in lines:
-        f.write(line[1:].replace(" +", ""))
-    f.close()
-
-
-def sshToFile(comm, file, typeOfList):
-    output = decoder(comm)
-    if "U" not in typeOfList:
-        print(output, file=open(f"{file}", "w"))

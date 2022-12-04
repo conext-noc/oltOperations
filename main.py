@@ -1,12 +1,8 @@
 from helpers.printer import colorFormatter, inp, log
 from time import sleep
-import tkinter as tk
 import traceback
 from scripts.OLT import olt
 from scripts.RTR import rtr
-
-root = tk.Tk()
-root.withdraw()
 
 
 def main():
@@ -19,10 +15,10 @@ def main():
             elif device == "ROUTER":
                 rtr()
             else:
-              resp = colorFormatter(
-                f"Error @ : opcion {device} no existe", "warning")
-              log(resp)
-              sleep(0.5)
+                resp = colorFormatter(
+                    f"Error @ : opcion {device} no existe", "warning")
+                log(resp)
+                sleep(0.5)
 
     except KeyboardInterrupt:
         resp = colorFormatter("Saliendo...", "warning")

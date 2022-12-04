@@ -1,10 +1,9 @@
 from tkinter import filedialog
 from helpers.clientDataLookup import lookup
 from helpers.displayClient import display
-from helpers.fileHandler import fromCsv
+from helpers.fileHandler import fileToDict
 from helpers.printer import inp, log, colorFormatter
-from helpers.listChecker import compare
-from helpers.outputDecoder import sshToFile
+from helpers.outputDecoder import decoder
 
 existingCond = "-----------------------------------------------------------------------------"
 
@@ -13,24 +12,15 @@ def activate(comm, command, olt, typeOfList, quit):
     actionList = []
     keep = "N"
     FAIL = None
-    if "O" in typeOfList:
-        log("Selecciona el archivo de lista de clientes de ODOO")
-        odoo = filedialog.askopenfilename()
-        log("Selecciona el archivo de lista de clientes de Drive")
-        drive = filedialog.askopenfilename()
-        ODOO = fromCsv(odoo)
-        DRIVE = fromCsv(drive)
-        actionList = compare(ODOO, DRIVE, olt)
-        if(len(actionList) > 0):
-            keep = "Y"
-    elif "C" in typeOfList:
+    if "L" in typeOfList:
+        fileType = inp("Es un archivo CSV o EXCEL? [C : E]: ")
         log("Selecciona la lista de clientes")
-        lista = filedialog.askopenfilename()
-        actionList = fromCsv(lista)
-        if(len(actionList) > 0):
-            keep = "Y"
+        fileName = filedialog.askopenfilename()
+        actionList = fileToDict(fileName, fileType)
+        keep = "Y"
     elif "U" in typeOfList:
-        lookupType = inp("Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ").upper()
+        lookupType = inp(
+            "Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ")
         data = lookup(comm, command, olt, lookupType, False)
         FAIL = data["fail"]
         if FAIL == None:
@@ -41,8 +31,9 @@ def activate(comm, command, olt, typeOfList, quit):
             ID = data["id"]
             OLT = olt
             proceed = display(data)
-            if(proceed == "Y"):
-                actionList = [{"NOMBRE":NAME,"FRAME":FRAME,"SLOT":SLOT,"PORT":PORT,"ID":ID,"OLT":OLT}]
+            if (proceed == "Y"):
+                actionList = [{"NOMBRE": NAME, "FRAME": FRAME,
+                               "SLOT": SLOT, "PORT": PORT, "ID": ID, "OLT": OLT}]
                 keep = "Y"
         else:
             resp = colorFormatter(FAIL, "fail")
@@ -75,8 +66,9 @@ def activate(comm, command, olt, typeOfList, quit):
             log(resp)
             if "U" not in typeOfList:
                 path = f"{typeOfList}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
-                sshToFile(comm, path, typeOfList)
                 command("quit")
+                output = decoder(comm)
+                print(output, file=open(path, "w"))
                 return actionList
             else:
                 command("quit")

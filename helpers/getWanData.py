@@ -1,12 +1,13 @@
 from helpers.outputDecoder import decoder, parser, check
 from helpers.failHandler import failChecker
 from helpers.spidHandler import ontSpid, planX15Maps, planX2Maps
-from helpers.printer import colorFormatter,log
+from helpers.printer import colorFormatter, log
 
 ip = "IPv4 address               : "
 endIp = "Subnet mask"
 vlan = "Manage VLAN                : "
-planMap = {"VLANID": "VLAN ID             : ", "PLAN": "Inbound table name  : "}
+planMap = {"VLANID": "VLAN ID             : ",
+           "PLAN": "Inbound table name  : "}
 
 
 def preWan(comm, command, SLOT, PORT, ID):
@@ -16,7 +17,7 @@ def preWan(comm, command, SLOT, PORT, ID):
     fail = failChecker(value)
     if fail == None:
         (_, e) = re.span()
-        vUsed = value[e : e + 4]
+        vUsed = value[e: e + 4]
         log(f"Al ONT se le ha agregado la vlan {vUsed}")
         return vUsed
     else:
@@ -36,22 +37,24 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
         value = decoder(comm)
         fail = failChecker(value)
         data = check(value, "IPv4 Connection status     : Connected")
-        if(data != None and fail == None):
-            (_,s) = data.span()
+        if (data != None and fail == None):
+            (_, s) = data.span()
             activeVlan = int(value[s+33:s+37])
         for wanData in result:
             plan = planMap[str(wanData["RX"])]
-            STATE = wanData["STATE"] if activeVlan == None else ("used" if wanData["ID"] == activeVlan else "not used")
-            WAN.append({"VLAN": wanData["ID"], "SPID": wanData["SPID"], "PLAN": plan, "STATE": STATE})
+            STATE = wanData["STATE"] if activeVlan == None else (
+                "used" if wanData["ID"] == activeVlan else "not used")
+            WAN.append(
+                {"VLAN": wanData["ID"], "SPID": wanData["SPID"], "PLAN": plan, "STATE": STATE})
         command(f" display  ont  wan-info  {FRAME}/{SLOT}  {PORT}  {ID}")
         val = decoder(comm)
         failIp = failChecker(val)
         if failIp == None:
             (_, s) = check(val, ip).span()
             (e, _) = check(val, endIp).span()
-            IPADDRESS = val[s : e - 1].replace(" ", "").replace("\n", "")
+            IPADDRESS = val[s: e - 1].replace(" ", "").replace("\n", "")
         else:
-            IPADDRESS = "No IP Address"
+            IPADDRESS = failIp
         return (IPADDRESS, WAN)
     else:
         FAIL = failSpid

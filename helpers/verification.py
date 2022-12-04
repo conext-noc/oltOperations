@@ -1,5 +1,5 @@
 import re
-from helpers.fileHandler import toCsv
+from helpers.fileHandler import dictToFile
 from helpers.printer import log, colorFormatter
 from helpers.outputDecoder import check
 from helpers.failHandler import failChecker
@@ -10,7 +10,7 @@ condition1 = "Control flag            : "
 condition2 = "Run state"
 
 
-def verify(actList, action, olt,quit):
+def verify(actList, action, olt, quit):
     log("Donde quieres guardar los resultados?")
     result_path = filedialog.askdirectory()
     indexes = []
@@ -19,7 +19,8 @@ def verify(actList, action, olt,quit):
         SLOT = client["SLOT"]
         PORT = client["PORT"]
         ID = client["ID"]
-        value = open(f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{olt}.txt", "r").read()
+        value = open(
+            f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{olt}.txt", "r").read()
         fail = failChecker(value)
         os.remove(f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{olt}.txt")
         if fail == None:
@@ -50,7 +51,7 @@ def verify(actList, action, olt,quit):
                 }
             )
             indexes.append(clientValue)
-    toCsv(result_path, f"resultados{olt}", indexes, True)
+    dictToFile(result_path, "C", f"resultados{olt}", indexes, True)
     resp = f'lista "resultados{olt}" creada, operacion finalizada'
     resp = colorFormatter(resp, "success")
     log(resp)
