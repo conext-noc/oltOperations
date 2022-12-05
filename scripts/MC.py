@@ -6,6 +6,7 @@ import gspread
 from helpers.outputDecoder import decoder
 from helpers.ontTypeHandler import typeCheck
 from helpers.addHandler import addOnuService
+from helpers.sheets import modifier
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104, "VOIP": 101}
 
@@ -75,8 +76,7 @@ $ """
                 resp = f"Al Cliente {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se ha cambiado de titular a {NAME}"
                 resp = colorFormatter(resp, "ok")
                 log(resp)
-                cell = wks.find(data["sn"])
-                wks.update_cell(cell.row, cellMap["NAME"], NAME)
+                modifier("NAME", data["sn"], NAME)
                 quit()
                 return
             if action == "CO":
@@ -89,9 +89,8 @@ $ """
                 resp = f"Al Cliente 0/{SLOT}/{PORT}/{ID} OLT {OLT} se ha sido cambiado el ont a {SN}"
                 resp = colorFormatter(resp, "ok")
                 log(resp)
-                cell = wks.find(data["sn"])
-                wks.update_cell(cell.row, cellMap["SN"], SN)
-                wks.update_cell(cell.row, cellMap["ONT"], ONT_TYPE)
+                modifier("SN", data["sn"], SN)
+                modifier("ONT", data["sn"], ONT_TYPE)
                 quit()
                 return
             if action == "CV":
@@ -115,10 +114,9 @@ $ """
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al proveedor {PROVIDER}"
                 resp = colorFormatter(resp, "ok")
                 log(resp)
-                cell = wks.find(data["sn"])
-                wks.update_cell(cell.row, cellMap["PROVIDER"], PROVIDER)
-                wks.update_cell(cell.row, cellMap["PLAN"], PLAN)
-                wks.update_cell(cell.row, cellMap["SPID"], SPID)
+                modifier("PROVIDER", data["sn"], PROVIDER)
+                modifier("PLAN", data["sn"], PLAN[3:])
+                modifier("SPID", data["sn"], SPID)
                 quit()
                 return
             if action == "CP":
@@ -130,8 +128,7 @@ $ """
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"
                 resp = colorFormatter(resp, "ok")
                 log(resp)
-                cell = wks.find(data["sn"])
-                wks.update_cell(cell.row, cellMap["PLAN"], PLAN[3:])
+                modifier("PLAN", data["sn"], PLAN[3:])
                 quit()
                 return
             if action == "ES":
@@ -145,6 +142,9 @@ $ """
                 
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se le ha eliminado el SPID {SPID_DEL}"
                 resp = colorFormatter(resp, "ok")
+                modifier("PLAN", data["sn"], "")
+                modifier("SPID", data["sn"], "")
+                modifier("PROVIDER", data["sn"], "")
                 quit()
                 return
             if action == "AS":
@@ -159,6 +159,9 @@ $ """
                 addOnuService(command,comm,spidNew,PROVIDER,FRAME,SLOT,PORT,ID,PLAN)
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} se le ha agregado el SPID {spidNew} con plan {PLAN} y proveedor {PROVIDER}"
                 resp = colorFormatter(resp, "ok")
+                modifier("PLAN", data["sn"], PLAN[3:])
+                modifier("SPID", data["sn"], spidNew)
+                modifier("PROVIDER", data["sn"], PROVIDER)
                 quit()
                 return
         else:
