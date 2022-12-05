@@ -65,6 +65,7 @@ $ """
         PLAN = None
         proceed = display(data)
         if (proceed == "Y"):
+            command("config")
             if action == "CT":
                 NAME = inp("Ingrese el nuevo nombre del cliente : ").upper()[
                     :56]
@@ -126,7 +127,6 @@ $ """
                     SPID = wanData["SPID"]
                     command(
                         f"service-port {SPID} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
-                    print(f"service-port {SPID} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"
                 resp = colorFormatter(resp, "ok")
                 log(resp)
