@@ -67,7 +67,7 @@ def operate(comm, command, olt, action, quit):
             )
             resp = colorFormatter(resp, "ok")
             log(resp)
-            modifier("STATUS",client["SN"],"active")
+            modifier("STATUS",client["SN"],operation)
             if "U" not in action:
                 path = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                 command("quit")
