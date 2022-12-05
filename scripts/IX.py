@@ -163,7 +163,6 @@ def confirm(comm, command, olt, action, quit):
 
         if proceed == "N":
             reason = inp("Por que no se le asignara servicio? : ").upper()
-            PLAN = PLAN[3:]
             template = """
     |{}  |  {}/{}/{}/{} 
     |OLT  {}  {}  {}
