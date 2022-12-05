@@ -7,7 +7,7 @@ from helpers.outputDecoder import decoder
 from helpers.ontTypeHandler import typeCheck
 from helpers.addHandler import addOnuService
 
-providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
+providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104, "VOIP": 101}
 
 planMap = {"VLANID": "VLAN ID             : ",
            "PLAN": "Inbound table name  : "}
@@ -126,6 +126,7 @@ $ """
                     SPID = wanData["SPID"]
                     command(
                         f"service-port {SPID} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
+                    print(f"service-port {SPID} inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}")
                 resp = f"El Cliente {NAME} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} ha sido cambiado al plan {PLAN}"
                 resp = colorFormatter(resp, "ok")
                 log(resp)
@@ -152,7 +153,7 @@ $ """
                 resp = colorFormatter(resp, "info")
                 PLAN = inp("Ingrese el nuevo plan de cliente : ").upper()
                 PROVIDER = inp(
-                    "Ingrese el nuevo proveedor de cliente [INTER | VNET] : ").upper()
+                    "Ingrese el nuevo proveedor de cliente [INTER | VNET | PUBLICAS | VOIP] : ").upper()
                 prov = providerMap[PROVIDER]
                 
                 addOnuService(command,comm,spidNew,PROVIDER,FRAME,SLOT,PORT,ID,PLAN)

@@ -7,7 +7,7 @@ from helpers.spidHandler import availableSpid, verifySPID
 from helpers.getWanData import preWan
 from helpers.ontTypeHandler import typeCheck
 
-providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
+providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104, "VOIP": 101}
 
 existing = {
     "CF": "Control flag            : ",
@@ -35,6 +35,7 @@ def confirm(comm, command, olt, action, quit):
     SPID = None
     ID = None
     ONT_TYPE = None
+    CI = None
 
     if action == "IN":
         (SN, FSP) = newLookup(comm, command, olt)
@@ -44,6 +45,7 @@ def confirm(comm, command, olt, action, quit):
             SLOT = int(FSP.split("/")[1])
             PORT = int(FSP.split("/")[2])
             NAME = inp("Ingrese nombre del cliente : ").upper()[:56]
+            CI = inp("Ingrese el NIF del cliente [V123 | J123]: ").upper()
             LP = inp(
                 "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ")
             SRV = inp("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
@@ -95,6 +97,7 @@ def confirm(comm, command, olt, action, quit):
             SN = data["sn"]
             NAME = data["name"]
             SPID = availableSpid(comm, command)
+            CI = inp("Ingrese el NIF del cliente [V123 | J123]: ").upper()
         else:
             resp = colorFormatter(data["fail"], "fail")
             log(resp)
@@ -118,7 +121,7 @@ def confirm(comm, command, olt, action, quit):
             if preg == "Y":
                 preWan(comm, command, SLOT, PORT, ID)
             Prov = inp(
-                "Ingrese proevedor de cliente [INTER | VNET | PUBLICAS] : ").upper()
+                "Ingrese proevedor de cliente [INTER | VNET | PUBLICAS | VOIP] : ").upper()
             PLAN = inp("Ingrese plan de cliente : ").upper()
             PROVIDER = providerMap[Prov]
             ONT_TYPE = typeCheck(comm, command, FRAME, SLOT, PORT, ID)
@@ -152,7 +155,7 @@ def confirm(comm, command, olt, action, quit):
                 NAME, FRAME, SLOT, PORT, ID, olt, Prov, PLAN, temp, pwr, SPID
             )
             res = colorFormatter(template, "success")
-            wks.insert_row([SN, NAME, olt, FRAME, SLOT, PORT,
+            wks.insert_row([SN, NAME,CI, olt, FRAME, SLOT, PORT,
                            ID, ONT_TYPE, Prov,"active", PLAN, SPID,"used"], lstRow)
             log(res)
             quit()

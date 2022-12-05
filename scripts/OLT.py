@@ -8,8 +8,7 @@ from scripts.DT import totalDeacts
 from scripts.EC import delete
 from scripts.IX import confirm
 from scripts.MC import deviceModify
-from scripts.RX import activate
-from scripts.SX import deactivate
+from scripts.OX import operate
 from scripts.VC import speedVerify
 from scripts.VP import verifyPort
 from scripts.VR import verifyReset
@@ -44,15 +43,15 @@ $ """
         ).upper()
 
         if action == "RL":
-            result = activate(comm, command, olt, action, quit)
+            result = operate(comm, command, olt, action, quit)
             verify(result, action, olt, quit)
         elif action == "RU":
-            result = activate(comm, command, olt, action, quit)
+            result = operate(comm, command, olt, action, quit)
         elif action == "SL":
-            result = deactivate(comm, command, olt, action, quit)
+            result = operate(comm, command, olt, action, quit)
             verify(result, action, olt, quit)
         elif action == "SU":
-            result = deactivate(comm, command, olt, action, quit)
+            result = operate(comm, command, olt, action, quit)
         elif action == "IN":
             confirm(comm, command, olt, action, quit)
         elif action == "IP":
