@@ -72,7 +72,7 @@ def operate(comm, command, olt, action, quit):
                 path = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                 command("quit")
                 output = decoder(comm)
-                print(output, file=open(path, "w"))
+                print(output, file=open(path, "w",encoding="utf-8"))
                 return actionList
             else:
                 command("quit")

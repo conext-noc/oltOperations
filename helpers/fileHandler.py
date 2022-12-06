@@ -25,7 +25,7 @@ def dictToFile(fileName, fileType, path, data, show):
 def dataToDict(header, data):
     value = re.sub(" +", " ", data).replace(" ", ",")
     res = header + value
-    print(res[:-1], file=open("data.csv", "w"))
+    print(res[:-1], file=open("data.csv", "w",encoding="utf-8"))
     result = fileToDict("data.csv","C")
     os.remove("data.csv")
     return result
