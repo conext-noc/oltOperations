@@ -156,7 +156,7 @@ def confirm(comm, command, olt, action, quit):
             )
             res = colorFormatter(template, "success")
             wks.insert_row([SN, NAME, CI, olt, FRAME, SLOT, PORT,
-                           ID, ONT_TYPE, Prov,"active", PLAN, SPID,"used"], lstRow)
+                           ID, ONT_TYPE,"active", Prov, PLAN, SPID,"used"], lstRow)
             log(res)
             quit()
             return
