@@ -57,26 +57,27 @@ def operate(comm, command, olt, action, quit):
             PORT = client["PORT"]
             ID = client["ID"]
             OLT = client["OLT"]
-            command(f"interface gpon {FRAME}/{SLOT}")
-            command(f"ont {operation} {PORT} {ID}")
-            command(f"display ont info {PORT} {ID}")
-            resp = (
-                f"{FRAME}/{SLOT}/{PORT}/{ID} {resultedAction}\n"
-                if "U" in action
-                else f"{NOMBRE} {FRAME}/{SLOT}/{PORT}/{ID} {resultedAction}\n"
-            )
-            resp = colorFormatter(resp, "ok")
-            log(resp)
-            modifier("STATUS",client["SN"],operation)
-            if "U" not in action:
-                path = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
-                command("quit")
-                output = decoder(comm)
-                print(output, file=open(path, "w",encoding="utf-8"))
-                return actionList
-            else:
-                command("quit")
-                quit()
+            if OLT == olt:
+                command(f"interface gpon {FRAME}/{SLOT}")
+                command(f"ont {operation} {PORT} {ID}")
+                command(f"display ont info {PORT} {ID}")
+                resp = (
+                    f"{FRAME}/{SLOT}/{PORT}/{ID} {resultedAction}\n"
+                    if "U" in action
+                    else f"{NOMBRE} {FRAME}/{SLOT}/{PORT}/{ID} {resultedAction}\n"
+                )
+                resp = colorFormatter(resp, "ok")
+                log(resp)
+                modifier("STATUS",client["SN"],operation)
+                if "U" not in action:
+                    path = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
+                    command("quit")
+                    output = decoder(comm)
+                    print(output, file=open(path, "w",encoding="utf-8"))
+                    return actionList
+                else:
+                    command("quit")
+                    quit()
     else:
         resp = "\nla lista no tiene ningun cliente...\n"
         resp = colorFormatter(resp, "warning")
