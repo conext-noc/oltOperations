@@ -31,12 +31,12 @@ def log(value):
     currTime = datetime.now()
     now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
     print(value)
-    print(f"{now}\n{value}", file=open(f"{docs}/logs/{fl}", "a"))
+    print(f"{now}\n{value}", file=open(f"{docs}/logs/{fl}", "a",encoding="utf-8"))
 
 
 def inp(message):
     currTime = datetime.now()
     now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
     data = input(message).upper()
-    print(f"{now}\n{message} {data}", file=open(f"{docs}/logs/{fl}", "a"))
+    print(f"{now}\n{message} {data}", file=open(f"{docs}/logs/{fl}", "a",encoding="utf-8"))
     return data
