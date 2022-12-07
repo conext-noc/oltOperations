@@ -51,7 +51,7 @@ def operate(comm, command, olt, action, quit):
 
     if keep == "Y":
         for client in actionList:
-            NOMBRE = client["NAME"]
+            NOMBRE = client["NOMBRE"]
             FRAME = client["FRAME"]
             SLOT = client["SLOT"]
             PORT = client["PORT"]
