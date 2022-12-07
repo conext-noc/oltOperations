@@ -23,7 +23,7 @@ def listCompare():
                       "ID externo": odooClient["ID externo"],
                       "NIF_CPDC": cpdcClient["CI"],
                       "NIF_ODOO": odooClient["NIF"],
-                      "NOMBRE_ODOO": odooClient["Cliente"],
+                      "NOMBRE": odooClient["Cliente"],
                       "NOMBRE_CPDC": cpdcClient["NAME"],
                       "OLT":cpdcClient["OLT"],
                       "SN":cpdcClient["SN"],

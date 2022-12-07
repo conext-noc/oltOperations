@@ -1,6 +1,7 @@
 import gspread
 from helpers.printer import inp
 from scripts.CL import listCompare
+from scripts.PL import planChanger
 
 
 def utils(comm,command,quit,olt):
@@ -18,3 +19,6 @@ $ """
     
     if action == "CL":
       listCompare()
+    elif action == "PL":
+      planChanger(comm, command, quit, olt)
+    

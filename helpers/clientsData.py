@@ -127,10 +127,6 @@ def clientsTable(comm, command, lst):
                         "ontType": summ["ontType"],
                     })
             log(f"{idx} {fsp} done")
-            # os.remove(f"state{idx}summ.csv")
-            # os.remove(f"names{idx}summ.csv")
-            # os.remove(f"state{idx}port.csv")
-            # os.remove(f"names{idx}port.csv")
         else:
             resp = colorFormatter(fail, "fail")
             log(resp)
