@@ -28,7 +28,7 @@ def operate(comm, command, olt, action, quit):
     elif "U" in action:
         lookupType = inp(
             "Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ")
-        data = lookup(comm, command, olt, lookupType, False)
+        data = lookup(comm, command, olt, lookupType)
         FAIL = data["fail"]
         if FAIL == None:
             proceed = display(data,"A")

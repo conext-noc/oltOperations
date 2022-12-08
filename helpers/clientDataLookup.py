@@ -29,7 +29,10 @@ newCondTime = "Ont autofind time   : "
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104}
 
 
-def lookup(comm, command, OLT, lookupType, previous=True):
+def lookup(comm, command, OLT, lookupType, all=True):
+    """
+    all ==> display all the data available | false = for installation data concern
+    """
     FAIL = None
     NAME = None
     FRAME = None
@@ -87,7 +90,7 @@ def lookup(comm, command, OLT, lookupType, previous=True):
             "fail": f"Opcion {lookupType} no existe",
         }
     if FAIL == None:
-        if previous:
+        if all:
             log(colorFormatter("getting wan data", "info"))
             (IPADDRESS, WAN) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
             log(colorFormatter("getting optical data", "info"))
