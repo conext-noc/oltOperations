@@ -13,7 +13,7 @@ from scripts.VC import speedVerify
 from scripts.VP import verifyPort
 from scripts.VR import verifyReset
 from time import sleep
-from scripts.EX import utils
+from scripts.FE import utils
 
 
 def olt():
@@ -40,7 +40,7 @@ Que accion se realizara?
     > (VP)  :   Verificacion de puerto
     > (CA)  :   Clientes con averias (corte de fibra)
     > (DT)  :   Desactivados Totales
-    > (EX)  :   Extras
+    > (FE)  :   Funciones Extras
 $ """
         ).upper()
 
@@ -76,7 +76,7 @@ $ """
             quit()
         elif action == "DT":
             totalDeacts(comm, command, olt, quit)
-        elif action == "EX":
+        elif action == "FE":
             utils(comm,command,quit,olt)
         else:
             resp = colorFormatter(
