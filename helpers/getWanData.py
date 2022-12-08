@@ -48,7 +48,6 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
             WAN.append(
                 {"VLAN": wanData["ID"], "SPID": wanData["SPID"], "PLAN": plan, "STATE": STATE})
         command(f" display  ont  wan-info  {FRAME}/{SLOT}  {PORT}  {ID}")
-        command("q")
         val = decoder(comm)
         failIp = failChecker(val)
         if failIp == None:
