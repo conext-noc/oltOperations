@@ -1,0 +1,168 @@
+interface gpon 0/2 
+
+MARLLM03(config-if-gpon-0/2)# 
+
+MARLLM03(config-if-gpon-0/2)#ont activate 4 52 
+
+MARLLM03(config-if-gpon-0/2)# 
+
+MARLLM03(config-if-gpon-0/2)#display ont info 4 52 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 4 52
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/2/4
+  ONT-ID                  : 52
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 12627
+  ONT last distance(m)    : 12626
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 44%
+  CPU occupation          : 3%
+  Temperature             : 50(C)
+  Authentic type          : SN-auth
+  SN                      : 485754438839B768 (HWTC-8839B768)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : MARIA MAGDALENA ALVAREZ GONZALEZ
+  Last down cause         : dying-gasp
+---- More ( Press 'Q' to break ) ----                                     
+MARLLM03(config-if-gpon-0/2)# 
+
+MARLLM03(config-if-gpon-0/2)# 
+
+MARLLM03(config-if-gpon-0/2)#
+interface gpon 0/1 
+
+MARLLM03(config-if-gpon-0/1)# 
+
+MARLLM03(config-if-gpon-0/1)#ont activate 0 59 
+
+MARLLM03(config-if-gpon-0/1)# 
+
+MARLLM03(config-if-gpon-0/1)#display ont info 0 59 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 0 59
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/1/0
+  ONT-ID                  : 59
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 9099
+  ONT last distance(m)    : 9100
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 78%
+  CPU occupation          : 6%
+  Temperature             : 59(C)
+  Authentic type          : SN-auth
+  SN                      : 485754439E17717D (HWTC-9E17717D)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : SERVI CENTER CA
+  Last down cause         : deactive
+---- More ( Press 'Q' to break ) ----                                     
+MARLLM03(config-if-gpon-0/1)# 
+
+MARLLM03(config-if-gpon-0/1)# 
+
+MARLLM03(config-if-gpon-0/1)#
+interface gpon 0/2 
+
+MARLLM03(config-if-gpon-0/2)# 
+
+MARLLM03(config-if-gpon-0/2)#ont activate 0 5 
+
+MARLLM03(config-if-gpon-0/2)# 
+
+MARLLM03(config-if-gpon-0/2)#display ont info 0 5 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 0 5
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/2/0
+  ONT-ID                  : 5
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 10993
+  ONT last distance(m)    : 10993
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 73%
+  CPU occupation          : 3%
+  Temperature             : 52(C)
+  Authentic type          : SN-auth
+  SN                      : 485754439E20797D (HWTC-9E20797D)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : MISTICA ELENA TROCONIS RONDON 
+  Last down cause         : dying-gasp
+---- More ( Press 'Q' to break ) ----                                     
+MARLLM03(config-if-gpon-0/2)# 
+
+MARLLM03(config-if-gpon-0/2)# 
+
+MARLLM03(config-if-gpon-0/2)#
+interface gpon 0/1 
+
+MARLLM03(config-if-gpon-0/1)# 
+
+MARLLM03(config-if-gpon-0/1)#ont activate 10 100 
+
+MARLLM03(config-if-gpon-0/1)# 
+
+MARLLM03(config-if-gpon-0/1)#display ont info 10 100 
+{ <cr>||<K> }:  
+
+  Command:
+          display ont info 10 100
+  -----------------------------------------------------------------------------
+  F/S/P                   : 0/1/10
+  ONT-ID                  : 100
+  Control flag            : active
+  Run state               : online
+  Config state            : normal
+  Match state             : match
+  DBA type                : SR
+  ONT distance(m)         : 10501
+  ONT last distance(m)    : 10501
+  ONT battery state       : not support
+  ONT power type          : -
+  Memory occupation       : 44%
+  CPU occupation          : 5%
+  Temperature             : 50(C)
+  Authentic type          : SN-auth
+  SN                      : 48575443B6EB2E47 (HWTC-B6EB2E47)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  Description             : MAGLIS VICTORIA RAMIREZ INFANTE
+  Last down cause         : deactive
+---- More ( Press 'Q' to break ) ----                                     
+MARLLM03(config-if-gpon-0/1)# 
+
+MARLLM03(config-if-gpon-0/1)# 
+
+MARLLM03(config-if-gpon-0/1)#

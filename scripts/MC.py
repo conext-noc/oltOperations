@@ -64,7 +64,7 @@ $ """
         WAN = data["wan"]
         SPID = None
         PLAN = None
-        proceed = display(data)
+        proceed = display(data,"A")
         if (proceed == "Y"):
             command("config")
             if action == "CT":

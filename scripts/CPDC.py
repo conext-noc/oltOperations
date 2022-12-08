@@ -3,7 +3,7 @@ from helpers.getWanData import wan
 from helpers.ports import ports
 
 
-def cpdc(comm, command, OLT):
+def cpdc(comm, command, OLT,quit):
     data = []
     FAIL = None
     portToExec = ports[OLT]
@@ -230,4 +230,5 @@ def cpdc(comm, command, OLT):
                     "state_3": "NA",
                 }
             )
+    quit()
     return (data, FAIL)

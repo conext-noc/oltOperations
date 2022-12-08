@@ -34,6 +34,7 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
     (result, failSpid) = ontSpid(comm, command, FRAME, SLOT, PORT, ID)
     if failSpid == None:
         command(f"display ont wan-info {FRAME}/{SLOT} {PORT} {ID} | exclude IPv6 | exclude Prefix | exclude DS | exclude NAT | exclude type | exclude address | exclude Default | exclude DNS | exclude 60 | exclude mask")
+        command("q")
         value = decoder(comm)
         fail = failChecker(value)
         data = check(value, "IPv4 Connection status     : Connected")
@@ -47,6 +48,7 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
             WAN.append(
                 {"VLAN": wanData["ID"], "SPID": wanData["SPID"], "PLAN": plan, "STATE": STATE})
         command(f" display  ont  wan-info  {FRAME}/{SLOT}  {PORT}  {ID}")
+        command("q")
         val = decoder(comm)
         failIp = failChecker(val)
         if failIp == None:

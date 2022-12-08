@@ -1,11 +1,12 @@
 import gspread
 from helpers.addHandler import addONU, addOnuService
 from helpers.clientDataLookup import lookup, newLookup
-from helpers.printer import inp, log,colorFormatter
+from helpers.printer import inp, log, colorFormatter
 from helpers.opticalCheck import opticalValues
 from helpers.spidHandler import availableSpid, verifySPID
 from helpers.getWanData import preWan
 from helpers.ontTypeHandler import typeCheck
+from helpers.displayClient import display
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104, "VOIP": 101}
 
@@ -78,26 +79,22 @@ def confirm(comm, command, olt, action, quit):
         data = lookup(comm, command, olt, lookupType, False)
         if data["fail"] == None:
             if lookupType == "S" or lookupType == "D":
-                str1 = f"""
-    FRAME               :   {data["frame"]}
-    SLOT                :   {data["slot"]}
-    PORT                :   {data["port"]}
-    ID                  :   {data["id"]}
-    SN                  :   {data["sn"]}
-    ONT TYPE            :   {data["type"]}
-    NAME                :   {data["name"]}
-    STATE               :   {data["state"]}
-    STATUS              :   {data["status"]}
-                    """
-                log(colorFormatter(str1, "ok"))
-            FRAME = data["frame"]
-            SLOT = data["slot"]
-            PORT = data["port"]
-            ID = data["id"]
-            SN = data["sn"]
-            NAME = data["name"]
-            SPID = availableSpid(comm, command)
-            CI = inp("Ingrese el NIF del cliente [V123 | J123]: ").upper()
+                proceed = display(data, "I")
+                if proceed == "Y":
+                    FRAME = data["frame"]
+                    SLOT = data["slot"]
+                    PORT = data["port"]
+                    ID = data["id"]
+                    SN = data["sn"]
+                    NAME = data["name"]
+                    SPID = availableSpid(comm, command)
+                    CI = inp(
+                        "Ingrese el NIF del cliente [V123 | J123]: ").upper()
+                else:
+                    resp = colorFormatter("Saliendo...", "warning")
+                    log(resp)
+                    quit()
+                    return
         else:
             resp = colorFormatter(data["fail"], "fail")
             log(resp)
@@ -156,7 +153,7 @@ def confirm(comm, command, olt, action, quit):
             )
             res = colorFormatter(template, "success")
             wks.insert_row([SN, NAME, CI, olt, FRAME, SLOT, PORT,
-                           ID, ONT_TYPE,"active", Prov, PLAN, SPID,"used"], lstRow)
+                           ID, ONT_TYPE, "active", Prov, PLAN, SPID, "used"], lstRow)
             log(res)
             quit()
             return

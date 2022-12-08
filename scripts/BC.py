@@ -5,6 +5,7 @@ from helpers.clientDataLookup import lookup
 from time import sleep
 from helpers.spidHandler import availableSpid
 from helpers.addHandler import addOnuService
+from helpers.displayClient import display
 
 
 condition = "-----------------------------------------------------------------------------"
@@ -20,32 +21,7 @@ def existingLookup(comm, command, olt,quit):
     FAIL = data["fail"]
     if FAIL == None:
         if lookupType == "S" or lookupType == "D":
-            str1 = f"""
-    FRAME               :   {data["frame"]}
-    SLOT                :   {data["slot"]}
-    PORT                :   {data["port"]}
-    ID                  :   {data["id"]}
-    NAME                :   {data["name"]}
-    STATE               :   {data["state"]}
-    STATUS              :   {data["status"]}
-    LAST DOWN CAUSE     :   {data["ldc"]}
-    ONT TYPE            :   {data["type"]}
-    SN                  :   {data["sn"]}
-    TEMPERATURA         :   {data["temp"]}
-    POTENCIA            :   {data["pwr"]}
-    IP                  :   {data["ipAdd"]}
-                """
-            str2 = ""
-            if(len(data["wan"]) > 0):
-                for idx, wanData in enumerate(data["wan"]):
-                    str2 += f"""
-    VLAN_{idx}              :   {wanData["VLAN"]}
-    PLAN_{idx}              :   {wanData["PLAN"]}
-    SPID_{idx}              :   {wanData["SPID"]}
-    STATE_{idx}             :   {wanData["STATE"]}
-                    """
-            res = colorFormatter(str1, "ok") + colorFormatter(str2, "ok")
-            log(res)
+            display(data,"B")
             if(len(data["wan"]) <= 0):
                 addSpid = inp("desea agregar SPID? [Y | N] : ").upper()
                 if(addSpid == "Y"):

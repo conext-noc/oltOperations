@@ -1,3 +1,4 @@
+from datetime import datetime
 from tkinter import filedialog
 from helpers.clientDataLookup import lookup
 from helpers.displayClient import display
@@ -11,14 +12,18 @@ existingCond = "----------------------------------------------------------------
 def operate(comm, command, olt, action, quit):
     operation = "activate" if "R" in action else ("deactivate" if "S" in action else "")
     resultedAction = "Reactivado" if "R" in action else ("Suspendido" if "S" in action else "")
+    stateAction = "active" if "R" in action else ("deactivate" if "S" in action else "")
     actionList = []
     keep = "N"
     FAIL = None
+    currTime = datetime.now()
+    now = f"{currTime.year}/{currTime.month}/{currTime.day} [{currTime.hour}:{currTime.minute}:{currTime.second}]"
     if "L" in action:
         fileType = inp("Es un archivo CSV o EXCEL? [C : E]: ")
         log("Selecciona la lista de clientes")
         fileName = filedialog.askopenfilename()
         actionList = fileToDict(fileName, fileType)
+        print(f"LOG LISTA DE CORTE {now}\n", file=open("listLog.txt","w",encoding="utf-8"))
         keep = "Y"
     elif "U" in action:
         lookupType = inp(
@@ -26,7 +31,7 @@ def operate(comm, command, olt, action, quit):
         data = lookup(comm, command, olt, lookupType, False)
         FAIL = data["fail"]
         if FAIL == None:
-            proceed = display(data)
+            proceed = display(data,"A")
             if (proceed == "Y"):
                 actionList = [{
                     "NOMBRE": data["name"],
@@ -69,7 +74,7 @@ def operate(comm, command, olt, action, quit):
                 )
                 resp = colorFormatter(resp, "ok")
                 log(resp)
-                modifier("STATUS",client["SN"],operation)
+                modifier("STATUS",client["SN"],stateAction)
                 if "U" not in action:
                     path = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                     output = decoder(comm)

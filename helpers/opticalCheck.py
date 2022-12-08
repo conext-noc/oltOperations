@@ -14,14 +14,17 @@ def opticalValues(comm, command, FRAME, SLOT, PORT, ID, show):
     command("quit")
     value = decoder(comm)
     fail = failChecker(value)
-    if fail != None:
-        if show:
-            log(fail)
-    else:
+    if fail == None:
         rePwr = check(value, conditionPwr)
         reTemp = check(value, conditionTemp)
         (_, eT) = reTemp.span()
         (_, eP) = rePwr.span()
         PWR = value[eP: eP + 6]
         TEMP = value[eT: eT + 4].replace("\n", "").replace(" ", "")
-    return (TEMP, PWR)
+        return (TEMP, PWR)
+    else:
+        if show:
+            log(fail)
+        return (TEMP, PWR)
+
+
