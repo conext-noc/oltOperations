@@ -1,6 +1,7 @@
 from datetime import datetime
 from re import sub
 from time import sleep
+from helpers.fileHandler import dataToDict
 from helpers.outputDecoder import check, decoder, parser
 from helpers.failHandler import failChecker
 from helpers.serialLookup import serialSearch
@@ -19,8 +20,10 @@ existing = {
     "SN": "SN                      : ",
     "LUT": "Last up time            : ",
 }
+infoHeader = "NA,F/,S/P,ID,SN,controlFlag,runState,configState,matchState,protectSide,NA"
+descHeader = "NA,F/,S/P,ID,NAME1,NAME2,NAME3,NAME4,NAME5,NAME6,NAME7,NA"
 
-
+condition = "-----------------------------------------------------------------------------"
 newCond = "----------------------------------------------------------------------------"
 newCondFSP = "F/S/P               : "
 newCondSn = "Ont SN              : "
@@ -48,6 +51,7 @@ def lookup(comm, command, OLT, lookupType, all=True):
     PWR = None
     ONT_TYPE = None
     SN = None
+    clients = []
     if lookupType == "S":
         SN = inp("Ingrese el Serial del Cliente a buscar : ").upper()
         (FRAME, SLOT, PORT, ID, NAME, STATUS, STATE, ONT_TYPE,
@@ -81,15 +85,43 @@ def lookup(comm, command, OLT, lookupType, all=True):
         NAME = inp("Ingrese el Nombre del Cliente a buscar : ")
         command(f'display ont info by-desc "{NAME}" | no-more ')
         sleep(5)
-        value = decoder(comm)
-        log(value)
-        return
+        (value, regex) = parser(comm, condition, "m")
+        FAIL = failChecker(value)
+        portRange= []
+        if FAIL == None:
+            ttlPorts = len(regex) // 6
+            for port in range(0,ttlPorts):
+                portRange.append({"sInfo":regex[port+1][1], "eInfo": regex[port + 2][0], "sDesc": regex[port + 3][1], "eDesc":regex[port + 4][0]})
+            for info in portRange:
+                valueInfo = dataToDict(infoHeader,value[info["sInfo"]:info["eInfo"]])
+                valueDesc = dataToDict(descHeader,value[info["sDesc"]:info["eDesc"]])
+                for (info,desc) in zip(valueInfo,valueDesc):
+                    if info["ID"] == desc["ID"]:
+                        name = ""
+                        SLOT = int(desc["S/P"].split("/")[0])
+                        PORT = int(desc["S/P"].split("/")[1])
+                        for i in range(1, 7):
+                            NAME = str(desc[f"NAME{i}"]) if str(
+                                desc[f"NAME{i}"]) != "nan" else ""
+                            name += NAME + " "
+                        clients.append({
+                            "frame":0,
+                            "slot":SLOT,
+                            "port":PORT,
+                            "id":desc["ID"],
+                            "name":name,
+                            "controlFlag":info["controlFlag"],
+                            "runState":info["runState"],
+                            "sn": info["SN"]
+                        })
     else:
         log(colorFormatter(f"Opcion {lookupType} no existe", "fail"))
         return {
             "fail": f"Opcion {lookupType} no existe",
         }
-    if FAIL == None:
+    
+    
+    if FAIL == None and lookupType != "N":
         if all:
             log(colorFormatter("getting wan data", "info"))
             (IPADDRESS, WAN) = wan(comm, command, FRAME, SLOT, PORT, ID, OLT)
@@ -113,7 +145,9 @@ def lookup(comm, command, OLT, lookupType, all=True):
             "temp": TEMP,
             "pwr": PWR,
         }
-    else:
+    elif FAIL == None and lookupType == "N":
+        return {"data":clients,"fail":None}
+    elif FAIL != None and lookupType != "N":
         return {
             "fail": FAIL,
             "name": NAME,
@@ -131,7 +165,15 @@ def lookup(comm, command, OLT, lookupType, all=True):
             "temp": TEMP,
             "pwr": PWR,
         }
-
+    elif FAIL != None and lookupType == "N":
+        return {
+            "fail": FAIL
+        }
+    else:
+        log(colorFormatter(f"FATAL, OCURRIO UN ERROR", "fail"))
+        return {
+            "fail": f"FATAL, OCURRIO UN ERROR",
+        }
 
 def newLookup(comm, command, olt):
     SN_NEW = inp("Ingrese el Serial del Cliente a buscar : ").upper()
@@ -167,7 +209,7 @@ def newLookup(comm, command, olt):
             SN_FINAL = SN
             FSP_FINAL = FSP
             log(colorFormatter(
-                "| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "ok"))
+                "| {:^3} | {:^6} | {:^16} |".format(IDX, FSP, SN), "success"))
             count.append({"SN": SN_FINAL, "FSP": FSP_FINAL})
         elif SN_NEW == SN and TIME > 10:
             log(colorFormatter("| {:^3} | {:^6} | {:^16} |".format(
