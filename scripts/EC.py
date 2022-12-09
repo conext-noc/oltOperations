@@ -22,11 +22,11 @@ def delete(comm, command, OLT, quit):
     if data["fail"] == None:
         proceed = display(data,"A")
         if proceed == "Y":
-            FRAME = data["FRAME"]
-            SLOT = data["SLOT"]
-            PORT = data["PORT"]
-            ID = data["ID"]
-            NAME = data["NAME"]
+            FRAME = data["frame"]
+            SLOT = data["slot"]
+            PORT = data["port"]
+            ID = data["id"]
+            NAME = data["name"]
             for wanData in data["wan"]:
                 spid = wanData["SPID"]
                 command(f" undo  service-port  {spid}")
