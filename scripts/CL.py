@@ -1,4 +1,4 @@
-from helpers.printer import colorFormatter, inp, log
+from helpers.printer import  inp, log
 from tkinter import filedialog
 from helpers.fileHandler import dictToFile, fileToDict
 
@@ -22,7 +22,7 @@ def listCompare():
                     {
                       "ID externo": odooClient["ID externo"],
                       "NIF_CPDC": cpdcClient["CI"],
-                      "NIF_ODOO": odooClient["NIF"],
+                      "NIF": odooClient["NIF"],
                       "NOMBRE": odooClient["Cliente"],
                       "NOMBRE_CPDC": cpdcClient["NAME"],
                       "OLT":cpdcClient["OLT"],

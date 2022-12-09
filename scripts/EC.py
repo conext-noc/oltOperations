@@ -1,6 +1,7 @@
 from helpers.printer import inp, log,colorFormatter
 from helpers.clientDataLookup import lookup
 import gspread
+from helpers.displayClient import display
 
 existing = {
     "CF": "Control flag            : ",
@@ -15,56 +16,17 @@ def delete(comm, command, OLT, quit):
         filename="service_account_olt_operations.json")
     sh = sa.open("CPDC")
     wks = sh.worksheet("DATOS")
-    FRAME = None
-    SLOT = None
-    PORT = None
-    ID = None
-    NAME = None
-    STATE = None
-    FAIL = None
-    IPADDRESS = None
-    TEMP = None
-    PWR = None
     lookupType = inp(
         "Buscar cliente por serial o por Datos de OLT [S | D] : ").upper()
     data = lookup(comm, command, OLT, lookupType)
     if data["fail"] == None:
-        FRAME = data["frame"]
-        SLOT = data["slot"]
-        PORT = data["port"]
-        ID = data["id"]
-        NAME = data["name"]
-        STATE = data["state"]
-        IPADDRESS = data["ipAdd"]
-        TEMP = data["temp"]
-        PWR = data["pwr"]
-        str1 = f"""
-    FRAME               :   {FRAME}
-    SLOT                :   {SLOT}
-    PORT                :   {PORT}
-    ID                  :   {ID}
-    NAME                :   {NAME}
-    SN                  :   {data["sn"]}
-    ONT TYPE            :   {data["type"]}
-    STATE               :   {STATE}
-    STATUS              :   {data["status"]}
-    LAST DOWN CAUSE     :   {data["ldc"]}
-    IP                  :   {IPADDRESS}
-    TEMPERATURA         :   {TEMP}
-    POTENCIA            :   {PWR}
-            """
-        str2 = ""
-        for idx, wanData in enumerate(data["wan"]):
-            str2 += f"""
-        VLAN_{idx}              :   {wanData["VLAN"]}
-        PLAN_{idx}              :   {wanData["PLAN"]}
-        SPID_{idx}              :   {wanData["SPID"]}
-            """
-        res = str1 + str2
-        res = colorFormatter(res, "ok")
-        log(res)
-        proceed = inp("Desea continuar? [Y | N]   :   ").upper()
+        proceed = display(data,"A")
         if proceed == "Y":
+            FRAME = data["FRAME"]
+            SLOT = data["SLOT"]
+            PORT = data["PORT"]
+            ID = data["ID"]
+            NAME = data["NAME"]
             for wanData in data["wan"]:
                 spid = wanData["SPID"]
                 command(f" undo  service-port  {spid}")
