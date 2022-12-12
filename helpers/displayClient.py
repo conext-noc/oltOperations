@@ -75,4 +75,5 @@ def display(data, tp):
     STATUS              :   {data["status"]}
                     """
         log(colorFormatter(str1, "ok"))
+        proceed = inp("desea continuar? [Y|N] : ").upper()
     return proceed

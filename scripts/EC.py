@@ -27,6 +27,7 @@ def delete(comm, command, OLT, quit):
             PORT = data["port"]
             ID = data["id"]
             NAME = data["name"]
+            SN = data["sn"]
             for wanData in data["wan"]:
                 spid = wanData["SPID"]
                 command(f" undo  service-port  {spid}")
@@ -35,7 +36,7 @@ def delete(comm, command, OLT, quit):
             command("quit")
             resp = colorFormatter(
                 f"{NAME} {FRAME}/{SLOT}/{PORT}/{ID} de OLT {OLT} ha sido eliminado", "ok")
-            cell = wks.find(data["sn"])
+            cell = wks.find(SN)
             wks.delete_row(cell.row)
             log(resp)
             quit()
