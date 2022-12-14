@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-username = os.environ["user"]
-password = os.environ["password"]
+
 port = os.environ["port"]
 
 
@@ -15,6 +14,9 @@ def ssh(ip):
     if (ip == "181.232.180.7"):
         username = os.environ["userNew"]
         password = os.environ["passwordNew"]
+    else:
+        username = os.environ["user"]
+        password = os.environ["password"]
     conn = paramiko.SSHClient()
     conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     conn.connect(ip, port, username, password)
