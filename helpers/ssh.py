@@ -12,6 +12,9 @@ port = os.environ["port"]
 
 def ssh(ip):
     delay = 1.5
+    if (ip == "181.232.180.7"):
+        username = os.environ["userNew"]
+        password = os.environ["passwordNew"]
     conn = paramiko.SSHClient()
     conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     conn.connect(ip, port, username, password)

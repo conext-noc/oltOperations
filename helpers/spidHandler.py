@@ -39,6 +39,14 @@ planX2Maps = {
     "49": "OZ_PLUS",
     "50": "DEDICADO 10 Mbps",
 }
+planX15NMaps = {
+    "210": "PLAN_0",
+    "211": "PLAN_1",
+    "212": "PLAN_2",
+    "213": "PLAN_3",
+    "214": "PLAN_4",
+    "215": "PLAN_5",
+}
 
 planX15Maps = {
     "6": "OZ_LIFT",

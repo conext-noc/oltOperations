@@ -1,6 +1,6 @@
 from helpers.outputDecoder import decoder, parser, check
 from helpers.failHandler import failChecker
-from helpers.spidHandler import ontSpid, planX15Maps, planX2Maps
+from helpers.spidHandler import ontSpid, planX15Maps, planX2Maps,planX15NMaps
 from helpers.printer import colorFormatter, log
 
 ip = "IPv4 address               : "
@@ -30,7 +30,7 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
     FAIL = None
     WAN = []
     activeVlan = None
-    planMap = planX15Maps if OLT == "15" else planX2Maps
+    planMap = planX15Maps if OLT == "2" else planX2Maps if OLT == "3" else planX15NMaps
     (result, failSpid) = ontSpid(comm, command, FRAME, SLOT, PORT, ID)
     if failSpid == None:
         command(f"display ont wan-info {FRAME}/{SLOT} {PORT} {ID} | exclude IPv6 | exclude Prefix | exclude DS | exclude NAT | exclude type | exclude address | exclude Default | exclude DNS | exclude 60 | exclude mask")

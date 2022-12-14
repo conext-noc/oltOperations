@@ -1,3 +1,4 @@
+from TS import confirmNew
 from helpers.printer import inp, log, colorFormatter
 from helpers.outputDecoder import decoder
 from helpers.ssh import ssh
@@ -17,9 +18,10 @@ from scripts.FE import utils
 
 
 def olt():
-    olt = inp("Seleccione la OLT [15|2] : ").upper()
-    if olt == "15" or olt == "2":
-        ip = "181.232.180.5" if olt == "15" else "181.232.180.6"
+    oltOptions = ["1", "2", "3"]
+    olt = inp("Seleccione la OLT [1 | 2 | 3] : ").upper()
+    if olt in oltOptions:
+        ip = "181.232.180.7" if olt == "1" else "181.232.180.5" if olt == "2" else "181.232.180.6"
         (comm, command, quit) = ssh(ip)
         decoder(comm)
 
@@ -55,6 +57,8 @@ $ """
         elif action == "SU":
             result = operate(comm, command, olt, action, quit)
         elif action == "IN":
+            if olt == "1":
+                confirmNew(comm, command, olt, action, quit)
             confirm(comm, command, olt, action, quit)
         elif action == "IP":
             confirm(comm, command, olt, action, quit)
@@ -77,7 +81,7 @@ $ """
         elif action == "DT":
             totalDeacts(comm, command, olt, quit)
         elif action == "FE":
-            utils(comm,command,quit,olt)
+            utils(comm, command, quit, olt)
         else:
             resp = colorFormatter(
                 f"Error @ : opcion {action} no existe", "warning")

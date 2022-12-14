@@ -7,6 +7,7 @@ from helpers.spidHandler import availableSpid, verifySPID
 from helpers.getWanData import preWan
 from helpers.ontTypeHandler import typeCheck
 from helpers.displayClient import display
+from helpers.serviceMaper import plans
 
 providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104, "VOIP": 101}
 
@@ -47,14 +48,21 @@ def confirm(comm, command, olt, action, quit):
             PORT = int(FSP.split("/")[2])
             NAME = inp("Ingrese nombre del cliente : ").upper()[:56]
             CI = inp("Ingrese el NIF del cliente [V123 | J123]: ").upper()
-            LP = inp(
-                "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ")
-            SRV = inp("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
+            if(olt != "1"):
+                LP = inp(
+                    "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ")
+                SRV = inp("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
 
-            SPID = availableSpid(comm, command)
+                SPID = availableSpid(comm, command)
+            else:
+                dataPlan = inp("Ingrese plan del cliente : ").upper()
+                planData = plans[dataPlan]
+                LP = planData["lineProfile"]
+                SRV = planData["srvProfile"]
+                spidArr = []
 
             (ID, fail) = addONU(comm, command, FRAME,
-                                SLOT, PORT, SN, NAME, SRV, LP)
+                                SLOT, PORT, SN, NAME, SRV, LP, olt)
 
             if fail != None:
                 resp = colorFormatter(fail, "fail")
@@ -102,6 +110,7 @@ def confirm(comm, command, olt, action, quit):
             return
 
     if ID != None and ID != "F":
+        
         resp = colorFormatter(
             f"El SPID que se le agregara al cliente es : {SPID}", "ok")
         log(resp)
