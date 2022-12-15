@@ -1,4 +1,3 @@
-from TS import confirmNew
 from helpers.printer import inp, log, colorFormatter
 from helpers.outputDecoder import decoder
 from helpers.ssh import ssh
@@ -8,6 +7,7 @@ from scripts.CA import clientFault
 from scripts.DT import totalDeacts
 from scripts.EC import delete
 from scripts.IX import confirm
+from scripts.IXN import confirmNew
 from scripts.MC import deviceModify
 from scripts.OX import operate
 from scripts.VC import speedVerify
