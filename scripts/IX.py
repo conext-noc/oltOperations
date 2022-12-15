@@ -1,9 +1,9 @@
 import gspread
-from helpers.addHandler import addONU, addOnuService
+from helpers.addHandler import addONU, addOnuService, addOnuServiceNew
 from helpers.clientDataLookup import lookup, newLookup
 from helpers.printer import inp, log, colorFormatter
 from helpers.opticalCheck import opticalValues
-from helpers.spidHandler import availableSpid, verifySPID
+from helpers.spidHandler import addSPID, availableSpid, verifySPID
 from helpers.getWanData import preWan
 from helpers.ontTypeHandler import typeCheck
 from helpers.displayClient import display
@@ -59,7 +59,6 @@ def confirm(comm, command, olt, action, quit):
                 planData = plans[dataPlan]
                 LP = planData["lineProfile"]
                 SRV = planData["srvProfile"]
-                spidArr = []
 
             (ID, fail) = addONU(comm, command, FRAME,
                                 SLOT, PORT, SN, NAME, SRV, LP, olt)

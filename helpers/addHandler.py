@@ -1,3 +1,4 @@
+from tkinter.tix import Tree
 from helpers.outputDecoder import decoder, check
 from helpers.failHandler import failChecker
 
@@ -29,9 +30,8 @@ def addONU(comm, command, FRAME, SLOT, PORT, SN, NAME, SRV, LP, OLT):
 def addOnuService(command, comm, SPID, PROVIDER, FRAME, SLOT, PORT, ID, PLAN):
     command("config")
     decoder(comm)
-    command(
-        f" service-port  {SPID}  vlan  {PROVIDER}  gpon  {FRAME}/{SLOT}/{PORT}  ont {ID}  gemport  14  multi-service  user-vlan  {PROVIDER}  tag-transform  transparent  inbound  traffic-table  name  {PLAN}  outbound  traffic-table  name  {PLAN}"
-    )
+    command(f" service-port {SPID} vlan {PROVIDER} gpon {FRAME}/{SLOT}/{PORT} ont {ID} gemport 14 multi-service user-vlan {PROVIDER} tag-transform transparent inbound traffic-table name {PLAN} outbound traffic-table name {PLAN}"
+            )
 
 
 def addOnuServiceNew(command, comm, SPID, PROVIDER, FRAME, SLOT, PORT, ID, PLAN, GP):

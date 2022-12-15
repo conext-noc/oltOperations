@@ -98,6 +98,7 @@ def verifySPID(comm, command, spid):
     command(f"display service-port {spid} | no-more")
     value = decoder(comm)
     fail = failChecker(value)
+    print(value)
     if fail == None:
         (_, sIdx) = check(value, spidCheck["index"]).span()
         (eIdx, sId) = check(value, spidCheck["id"]).span()
