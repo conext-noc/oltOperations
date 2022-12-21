@@ -6,6 +6,7 @@ from helpers.utils.printer import log
 def preWan(comm, command, data):
     command(f"interface gpon {data['frame']}/{data['slot']}")
     command(f"display ont wan-info {data['port']} {data['id']}")
+    command("quit")
     value = decoder(comm)
     re = check(value, "Manage VLAN                : ")
     fail = failChecker(value)

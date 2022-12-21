@@ -14,9 +14,9 @@ def opticalValues(comm, command, data, show):
     command('quit')
     value = decoder(comm)
     fail = failChecker(value)
+    rePwr = check(value, conditionPwr)
+    reTemp = check(value, conditionTemp)
     if fail == None:
-        rePwr = check(value, conditionPwr)
-        reTemp = check(value, conditionTemp)
         (_, eT) = reTemp.span()
         (_, eP) = rePwr.span()
         PWR = value[eP: eP + 6]

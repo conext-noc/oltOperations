@@ -1896,7 +1896,7 @@
         "kind": 2,
         "importPath": "helpers.clientFinder.optical",
         "description": "helpers.clientFinder.optical",
-        "peekOfCode": "def opticalValues(comm, command, data, show):\n    TEMP = None\n    PWR = None\n    command(f'  interface  gpon  {data[\"frame\"]}/{data[\"slot\"]}  ')\n    command(f'  display  ont  optical-info  {data[\"port\"]}  {data[\"id\"]}  |  no-more')\n    command('quit')\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        rePwr = check(value, conditionPwr)",
+        "peekOfCode": "def opticalValues(comm, command, data, show):\n    TEMP = None\n    PWR = None\n    command(f'  interface  gpon  {data[\"frame\"]}/{data[\"slot\"]}  ')\n    command(f'  display  ont  optical-info  {data[\"port\"]}  {data[\"id\"]}  |  no-more')\n    command('quit')\n    value = decoder(comm)\n    fail = failChecker(value)\n    rePwr = check(value, conditionPwr)\n    reTemp = check(value, conditionTemp)",
         "detail": "helpers.clientFinder.optical",
         "documentation": {}
     },
@@ -1914,7 +1914,7 @@
         "kind": 5,
         "importPath": "helpers.clientFinder.optical",
         "description": "helpers.clientFinder.optical",
-        "peekOfCode": "conditionPwr = \"Rx optical power\\(dBm\\)                  : \"\ndef opticalValues(comm, command, data, show):\n    TEMP = None\n    PWR = None\n    command(f'  interface  gpon  {data[\"frame\"]}/{data[\"slot\"]}  ')\n    command(f'  display  ont  optical-info  {data[\"port\"]}  {data[\"id\"]}  |  no-more')\n    command('quit')\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:",
+        "peekOfCode": "conditionPwr = \"Rx optical power\\(dBm\\)                  : \"\ndef opticalValues(comm, command, data, show):\n    TEMP = None\n    PWR = None\n    command(f'  interface  gpon  {data[\"frame\"]}/{data[\"slot\"]}  ')\n    command(f'  display  ont  optical-info  {data[\"port\"]}  {data[\"id\"]}  |  no-more')\n    command('quit')\n    value = decoder(comm)\n    fail = failChecker(value)\n    rePwr = check(value, conditionPwr)",
         "detail": "helpers.clientFinder.optical",
         "documentation": {}
     },
@@ -1995,7 +1995,7 @@
         "kind": 2,
         "importPath": "helpers.clientFinder.wanInterface",
         "description": "helpers.clientFinder.wanInterface",
-        "peekOfCode": "def preWan(comm, command, data):\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    command(f\"display ont wan-info {data['port']} {data['id']}\")\n    value = decoder(comm)\n    re = check(value, \"Manage VLAN                : \")\n    fail = failChecker(value)\n    if fail == None:\n        (_, e) = re.span()\n        vUsed = value[e: e + 4]\n        log(f\"Al ONT se le ha agregado la vlan {vUsed}\")",
+        "peekOfCode": "def preWan(comm, command, data):\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    command(f\"display ont wan-info {data['port']} {data['id']}\")\n    command(\"quit\")\n    value = decoder(comm)\n    re = check(value, \"Manage VLAN                : \")\n    fail = failChecker(value)\n    if fail == None:\n        (_, e) = re.span()\n        vUsed = value[e: e + 4]",
         "detail": "helpers.clientFinder.wanInterface",
         "documentation": {}
     },
@@ -2526,7 +2526,7 @@
         "kind": 2,
         "importPath": "helpers.utils.template",
         "description": "helpers.utils.template",
-        "peekOfCode": "def denied(data, reason):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data['vlan']}  {data['plan']}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data['spid']}\n    |RAZÓN       :   {reason}\"\"\"\n    log(colorFormatter(template, \"warning\"))",
+        "peekOfCode": "def denied(data, reason):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  NA  NA\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data['spid']}\n    |RAZÓN       :   {reason}\"\"\"\n    log(colorFormatter(template, \"warning\"))",
         "detail": "helpers.utils.template",
         "documentation": {}
     },

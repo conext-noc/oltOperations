@@ -21,7 +21,7 @@ def approved(data):
         data["id"],
         data["device"],
         "active",
-        providerMap(data["vlan"]),
+        providerMap(f"{data['vlan']}"),
         data["plan"],
         data["spid"],
         "used",
@@ -31,7 +31,7 @@ def approved(data):
 def denied(data, reason):
     template = f"""
     |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} 
-    |OLT  {data['olt']}  {data['vlan']}  {data['plan']}
+    |OLT  {data['olt']}  NA  NA
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
     |SPID        :   {data['spid']}
