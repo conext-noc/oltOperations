@@ -23,7 +23,7 @@ def display(data, tp):
     |ONT TYPE            :   {data["device"]}
     |TEMPERATURA         :   {data["temp"]}
     |POTENCIA            :   {data["pwr"]}
-    |IP                  :   {data["ipAdd"].replace("\n", "").replace("\r", "")}
+    |IP                  :   {data["ipAdd"]}
                 """
         str2 = ""
         for idx, wanData in enumerate(data["wan"]):
@@ -51,7 +51,7 @@ def display(data, tp):
     |ONT TYPE            :   {data["device"]}
     |TEMPERATURA         :   {data["temp"]}
     |POTENCIA            :   {data["pwr"]}
-    |IP                  :   {data["ipAdd"].replace("\n", "").replace("\r", "")}
+    |IP                  :   {data["ipAdd"]}
                 """
         str2 = ""
         for idx, wanData in enumerate(data["wan"]):
