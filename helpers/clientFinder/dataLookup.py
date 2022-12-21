@@ -100,8 +100,8 @@ def dataLookup(comm, command, olt, lookupType, all=True):
             "device": ONT_TYPE,
             "ipAdd": IPADDRESS,
             "wan": WAN,
-            "temp": TEMP.replace("\n", "").replace("\r", ""),
-            "pwr": PWR.replace("\n", "").replace("\r", ""),
+            "temp": TEMP,
+            "pwr": PWR,
         }
     if FAIL != None:
         return {"fail": FAIL}
