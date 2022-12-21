@@ -105,7 +105,7 @@ def confirm(comm, command, quit, olt, action):
         data["device"] = typeCheck(comm, command, data)
         log(colorFormatter(f"El tipo de ONT del cliente es {data['device']}", "ok"))
         
-        addOnuService(command, comm, data)
+        addOnuService(comm, command, data)
         
         verifySPID(comm, command, data)
         wksArr = approved(data)
