@@ -1,20 +1,16 @@
-from helpers.printer import inp, log, colorFormatter
-from helpers.outputDecoder import decoder
-from helpers.ssh import ssh
-from helpers.verification import verify
+from helpers.utils.decoder import decoder
+from helpers.utils.printer import inp, log, colorFormatter
+from helpers.utils.ssh import ssh
+from time import sleep
 from scripts.BC import existingLookup
-from scripts.CA import clientFault
-from scripts.DT import totalDeacts
-from scripts.EC import delete
+from scripts.EC import deleteClient
 from scripts.IX import confirm
 from scripts.IXN import confirmNew
-from scripts.MC import deviceModify
+from scripts.MC import modifyClient
+
 from scripts.OX import operate
-from scripts.VC import speedVerify
-from scripts.VP import verifyPort
-from scripts.VR import verifyReset
-from time import sleep
-from scripts.FE import utils
+from scripts.VC import verifyTraffic
+from scripts.XP import portOperation
 
 
 def olt():
@@ -34,8 +30,8 @@ Que accion se realizara?
     > (SU)  :   Suspender uno
     > (IN)  :   Instalar nuevo
     > (IP)  :   Instalar previo
-    > (EC)  :   Eliminar Cliente
     > (BC)  :   Buscar cliente en OLT
+    > (EC)  :   Eliminar Cliente
     > (MC)  :   Modificar Cliente
     > (VC)  :   Verificar consumo
     > (VR)  :   Verificar reset
@@ -44,49 +40,33 @@ Que accion se realizara?
     > (DT)  :   Desactivados Totales
     > (FE)  :   Funciones Extras
 $ """
-        ).upper()
-
+        )
         if action == "RL":
-            result = operate(comm, command, olt, action, quit)
-            verify(result, action, olt, quit)
-        elif action == "RU":
-            result = operate(comm, command, olt, action, quit)
-        elif action == "SL":
-            result = operate(comm, command, olt, action, quit)
-            verify(result, action, olt, quit)
-        elif action == "SU":
-            result = operate(comm, command, olt, action, quit)
-        elif action == "IN":
-            if olt == "1":
-                confirmNew(comm, command, olt, action, quit)
-            confirm(comm, command, olt, action, quit)
-        elif action == "IP":
-            confirm(comm, command, olt, action, quit)
-        elif action == "EC":
-            delete(comm, command, olt, quit)
-        elif action == "BC":
-            existingLookup(comm, command, olt, quit)
-        elif action == "MC":
-            deviceModify(comm, command, olt, quit)
-        elif action == "VC":
-            speedVerify(comm, command, quit)
-        elif action == "VR":
-            verifyReset(comm, command, olt, quit)
-        elif action == "VP":
-            verifyPort(comm, command)
-            quit()
-        elif action == "CA":
-            clientFault(comm, command, olt)
-            quit()
-        elif action == "DT":
-            totalDeacts(comm, command, olt, quit)
-        elif action == "FE":
-            utils(comm, command, quit, olt)
-        else:
-            resp = colorFormatter(
-                f"Error @ : opcion {action} no existe", "warning")
-            log(resp)
-            quit()
+            operate(comm,command,quit,olt,action)
+        if action == "RU":
+            operate(comm,command,quit,olt,action)
+        if action == "SL":
+            operate(comm,command,quit,olt,action)
+        if action == "SU":
+            operate(comm,command,quit,olt,action)
+        if action == "IN":
+            confirm(comm,command,quit,olt,action) if olt != "1" else confirmNew(comm,command,quit,olt,action)
+        if action == "IP":
+            confirm(comm,command,quit,olt,action) if olt != "1" else confirmNew(comm,command,quit,olt,action)
+        if action == "BC":
+            existingLookup(comm,command,quit,olt)
+        if action == "EC":
+            deleteClient(comm,command,quit,olt)
+        if action == "MC":
+            modifyClient(comm,command,quit,olt)
+        if action == "VC":
+            verifyTraffic(comm,command,quit,olt)
+        if action == "VP":
+            portOperation(comm,command,quit,olt,action)
+        if action == "CA":
+            portOperation(comm,command,quit,olt,action)
+        if action == "DT":
+            portOperation(comm,command,quit,olt,action)
     else:
         resp = colorFormatter(
             f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")

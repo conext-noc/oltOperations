@@ -1,8 +1,8 @@
-from helpers.printer import colorFormatter, inp, log
+from helpers.utils.printer import colorFormatter, inp, log
 from time import sleep
 import traceback
 from scripts.OLT import olt
-from scripts.RTR import rtr
+# from scripts.RTR import rtr
 
 
 def main():
@@ -13,7 +13,8 @@ def main():
             if device == "OLT":
                 olt()
             elif device == "ROUTER":
-                rtr()
+                # rtr()
+                ""
             else:
                 resp = colorFormatter(
                     f"Error @ : opcion {device} no existe", "warning")

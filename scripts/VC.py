@@ -1,47 +1,36 @@
-import os
-import time
-from helpers.outputDecoder import decoder, check, checkIter
-from helpers.failHandler import failChecker
-from helpers.printer import inp, log
-
-upstream = "Up traffic \(kbps\)          : "
-downstream = "Down traffic \(kbps\)        : "
-endCond = "----------------------------------------------------------------"
+from helpers.clientFinder.dataLookup import dataLookup
+from helpers.failHandler.fail import failChecker
+from helpers.utils.decoder import check, checkIter, decoder
+from helpers.utils.display import display
+from helpers.utils.printer import colorFormatter, inp, log
+from helpers.info.regexConditions import speed
+from time import sleep
 
 
-def speedVerify(comm, command,quit):
+def verifyTraffic(comm,command,quit,olt):
     speedUpArr = []
     speedDownArr = []
-    FRAME = inp("Ingrese frame de cliente : ").upper()
-    SLOT = inp("Ingrese slot de cliente : ").upper()
-    PORT = inp("Ingrese puerto de cliente : ").upper()
-    ID = inp("Ingrese el id del cliente : ").upper()
-    command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
-    time.sleep(3)
-    value = decoder(comm)
-    fail = failChecker(value)
-    if fail == None:
-        (_, sDESC) = check(value, "Description             : ").span()
-        (eDESC, _) = check(value, "Last down cause         : ").span()
-        NAME = value[sDESC:eDESC].replace("\n", "")
-        log(
-            f"""
-  NOMBRE              :   {NAME}
-  FRAME               :   {FRAME}
-  SLOT                :   {SLOT}
-  PORT                :   {PORT}
-  ID                  :   {ID}"""
-        )
-    command(f"interface gpon {FRAME}/{SLOT}")
+    lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
+    data = dataLookup(comm, command, olt, lookupType)
+    if data["fail"] != None:
+        log(colorFormatter(data["fail"], "fail"))
+        quit()
+        return
+    proceed = display(data,"A")
+    if not proceed:
+        log(colorFormatter("Cancelando...", "warning"))
+        quit()
+        return
+    command(f"interface gpon {data['frame']}/{data['slot']}")
     for i in range(0, 10):
-        command(f"display ont traffic {PORT} {ID}")
-        time.sleep(5)
+        command(f"display ont traffic {data['port']} {data['id']}")
+        sleep(5)
         outputSpeed = decoder(comm)
         fail = failChecker(outputSpeed)
         if fail == None:
-            (_, sUpSpeed) = check(outputSpeed, upstream).span()
-            (eUpSpeed, sDownSpeed) = check(outputSpeed, downstream).span()
-            (eDownSpeed, _) = checkIter(outputSpeed, endCond)[2]
+            (_, sUpSpeed) = check(outputSpeed, speed["up"]).span()
+            (eUpSpeed, sDownSpeed) = check(outputSpeed, speed["down"]).span()
+            (eDownSpeed, _) = checkIter(outputSpeed, speed["cond"])[2]
             upSpeed = int(outputSpeed[sUpSpeed:eUpSpeed])
             downSpeed = int(outputSpeed[sDownSpeed:eDownSpeed])
             speedUpArr.append(upSpeed)

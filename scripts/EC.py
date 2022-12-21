@@ -1,48 +1,26 @@
-from helpers.printer import inp, log,colorFormatter
-from helpers.clientDataLookup import lookup
-import gspread
-from helpers.displayClient import display
-
-existing = {
-    "CF": "Control flag            : ",
-    "RE": "Run state               : ",
-    "DESC": "Description             : ",
-    "LDC": "Last down cause         : ",
-}
+from helpers.clientFinder.dataLookup import dataLookup
+from helpers.utils.display import display
+from helpers.utils.printer import colorFormatter, inp, log
 
 
-def delete(comm, command, OLT, quit):
-    sa = gspread.service_account(
-        filename="service_account_olt_operations.json")
-    sh = sa.open("CPDC")
-    wks = sh.worksheet("DATOS")
-    lookupType = inp(
-        "Buscar cliente por serial o por Datos de OLT [S | D] : ").upper()
-    data = lookup(comm, command, OLT, lookupType)
-    if data["fail"] == None:
-        proceed = display(data,"A")
-        if proceed == "Y":
-            FRAME = data["frame"]
-            SLOT = data["slot"]
-            PORT = data["port"]
-            ID = data["id"]
-            NAME = data["name"]
-            SN = data["sn"]
-            for wanData in data["wan"]:
-                spid = wanData["SPID"]
-                command(f" undo  service-port  {spid}")
-            command(f"interface gpon {FRAME}/{SLOT}")
-            command(f"ont delete {PORT} {ID}")
-            command("quit")
-            resp = colorFormatter(
-                f"{NAME} {FRAME}/{SLOT}/{PORT}/{ID} de OLT {OLT} ha sido eliminado", "ok")
-            cell = wks.find(SN)
-            wks.delete_rows(cell.row)
-            log(resp)
-            quit()
-            return
-    else:
-        fail = colorFormatter(data["fail"], "fail")
-        log(fail)
+def deleteClient(comm, command, quit, olt):
+    lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
+    data = dataLookup(comm,command,olt,lookupType)
+    if data["fail"] != None:
+        log(colorFormatter(data["fail"], "fail"))
         quit()
         return
+    proceed = display(data,"A")
+    if not proceed:
+        log(colorFormatter("Cancelando...", "warning"))
+        quit()
+        return
+    for wan in data["wan"]:
+        command(f"undo service-port {wan['spid']}")
+        log(f"El SPID {wan['spid']} ha sido liberado!")
+    command(f"interface gpon {data['frame']}/{data['slot']}")
+    command(f"ont delete {data['port']} {data['id']}")
+    log(colorFormatter(f"El cliente {data['name']} de {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} ha sido eliminado  ","success"))
+    quit()
+    return
+    

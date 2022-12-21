@@ -1,90 +1,60 @@
-from datetime import datetime
 from tkinter import filedialog
-from helpers.clientDataLookup import lookup
-from helpers.displayClient import display
-from helpers.fileHandler import fileToDict
-from helpers.printer import inp, log, colorFormatter
-from helpers.outputDecoder import decoder
-from helpers.sheets import modifier
+from helpers.clientFinder.dataLookup import dataLookup
+from helpers.fileFormatters.fileHandler import fileToDict
+from helpers.utils.decoder import decoder
+from helpers.utils.display import display
+from helpers.utils.printer import colorFormatter, inp, log
+from helpers.utils.sheets import modifier
 
-existingCond = "-----------------------------------------------------------------------------"
+def operate(comm,command,quit,olt,action):
+  operation = "activate" if "R" in action else ("deactivate" if "S" in action else "")
+  resultedAction = "Reactivado" if "R" in action else ("Suspendido" if "S" in action else "")
+  state = "active" if "R" in action else ("deactive" if "S" in action else "")
+  actionList = []
+  proceed = False
+  
+  if "L" in action:
+    fileType = inp("Es un archivo CSV o EXCEL? [C : E]: ")
+    log("Selecciona la lista de clientes")
+    fileName = filedialog.askopenfilename()
+    actionList = fileToDict(fileName,fileType)
+    proceed = True
+  elif "U" in action:
+    lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
+    data = dataLookup(comm, command, olt, lookupType)
+    if data["fail"] == None:
+      actionList = [data]
+      proceed = display(data,"A")
+  else:
+    log(colorFormatter("\nNingun tipo de lista se ha seleccionado\n", "warning"))
+    return
+  
+  if proceed:
+    for client in actionList:
+      NAME = client["name"]
+      FRAME = client["frame"]
+      SLOT = client["slot"]
+      PORT = client["port"]
+      ID = client["id"]
+      OLT = client["olt"]
+      SN = client["sn"]
+      if OLT == str(olt):
+        command(f"interface gpon {FRAME}/{SLOT}")
+        command(f"ont {operation} {PORT} {ID}")
+        command(f"display ont info {PORT} {ID}")
+        command("q")
 
-def operate(comm, command, olt, action, quit):
-    operation = "activate" if "R" in action else ("deactivate" if "S" in action else "")
-    resultedAction = "Reactivado" if "R" in action else ("Suspendido" if "S" in action else "")
-    stateAction = "active" if "R" in action else ("deactivate" if "S" in action else "")
-    actionList = []
-    keep = "N"
-    FAIL = None
-    currTime = datetime.now()
-    now = f"{currTime.year}/{currTime.month}/{currTime.day} [{currTime.hour}:{currTime.minute}:{currTime.second}]"
-    if "L" in action:
-        fileType = inp("Es un archivo CSV o EXCEL? [C : E]: ")
-        log("Selecciona la lista de clientes")
-        fileName = filedialog.askopenfilename()
-        actionList = fileToDict(fileName, fileType)
-        print(f"LOG LISTA DE CORTE {now}\n", file=open("listLog.txt","w",encoding="utf-8"))
-        keep = "Y"
-    elif "U" in action:
-        lookupType = inp(
-            "Buscar cliente por serial o por Datos de OLT (F/S/P/ID) [S | D] : ")
-        data = lookup(comm, command, olt, lookupType)
-        FAIL = data["fail"]
-        if FAIL == None:
-            proceed = display(data,"A")
-            if (proceed == "Y"):
-                actionList = [{
-                    "NOMBRE": data["name"],
-                    "FRAME": data["frame"],
-                    "SLOT": data["slot"],
-                    "PORT": data["port"],
-                    "ID": data["id"],
-                    "OLT": olt,
-                    "SN": data["sn"]
-                }]
-                keep = "Y"
-        else:
-            resp = colorFormatter(FAIL, "fail")
-            log(resp)
-            quit()
-            return
-    else:
-        resp = "\nNingun tipo de lista se ha seleccionado\n"
-        resp = colorFormatter(resp, "warning")
-        log(resp)
-        return
-
-    if keep == "Y":
-        for client in actionList:
-            NOMBRE = client["NOMBRE"]
-            FRAME = client["FRAME"]
-            SLOT = client["SLOT"]
-            PORT = client["PORT"]
-            ID = client["ID"]
-            OLT = str(client["OLT"])
-            if OLT == str(olt):
-                command(f"interface gpon {FRAME}/{SLOT}")
-                command(f"ont {operation} {PORT} {ID}")
-                command(f"display ont info {PORT} {ID}")
-                command("q")
-                resp = (
-                    f"{FRAME}/{SLOT}/{PORT}/{ID} {resultedAction}\n"
-                    if "U" in action
-                    else f"{NOMBRE} {FRAME}/{SLOT}/{PORT}/{ID} OLT {OLT} {resultedAction}\n"
-                )
-                resp = colorFormatter(resp, "ok")
-                log(resp)
-                modifier("STATUS",client["SN"],stateAction)
-                if "U" not in action:
-                    path = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
-                    output = decoder(comm)
-                    print(output, file=open("listLog.txt","a",encoding="utf-8"))
-                    print(output, file=open(path, "w",encoding="utf-8"))
-        command("quit")
-        quit()
-        return actionList
-    else:
-        resp = "\nla lista no tiene ningun cliente...\n"
-        resp = colorFormatter(resp, "warning")
-        log(resp)
-        return
+        log(colorFormatter("""
+    |{} 
+    |{}/{}/{}/{} @ OLT {} - {}
+    """.format(NAME,FRAME,SLOT,PORT,ID,OLT,resultedAction),"success"))
+        modifier("STATUS", SN, state)
+        output = decoder(comm)
+        if "U" not in action:
+          file = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
+          print(output, file=open(file,"a",encoding="utf-8"), flush=True)
+    quit()
+    return actionList
+  else:
+    log(colorFormatter("\n La Lista no tiene ningun cliente...","warning"))
+    return

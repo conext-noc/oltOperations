@@ -1,183 +1,124 @@
+from helpers.clientFinder.dataLookup import dataLookup
+from helpers.clientFinder.newLookup import newLookup
+from helpers.clientFinder.ontType import typeCheck
+from helpers.clientFinder.optical import opticalValues
+from helpers.clientFinder.wanInterface import preWan
+from helpers.operations.addHandler import addONU, addOnuService
+from helpers.operations.spid import availableSpid, verifySPID
+from helpers.utils.display import display
+from helpers.utils.printer import colorFormatter, inp, log
+from helpers.utils.template import approved, denied
 import gspread
-from helpers.addHandler import addONU, addOnuService
-from helpers.clientDataLookup import lookup, newLookup
-from helpers.printer import inp, log, colorFormatter
-from helpers.opticalCheck import opticalValues
-from helpers.spidHandler import availableSpid, verifySPID
-from helpers.getWanData import preWan
-from helpers.ontTypeHandler import typeCheck
-from helpers.displayClient import display
-from helpers.serviceMaper import plans
-
-providerMap = {"INTER": 1101, "VNET": 1102, "PUBLICAS": 1104, "VOIP": 101}
-
-existing = {
-    "CF": "Control flag            : ",
-    "RE": "Run state               : ",
-    "DESC": "Description             : ",
-    "LDC": "Last down cause         : ",
-}
 
 
-def confirm(comm, command, olt, action, quit):
-    sa = gspread.service_account(
-        filename="service_account_olt_operations.json")
+def confirm(comm, command, quit, olt, action):
+    sa = gspread.service_account(filename="service_account_olt_operations.json")
     sh = sa.open("CPDC")
     wks = sh.worksheet("DATOS")
     lstRow = len(wks.get_all_records()) + 2
-    FRAME = None
-    SLOT = None
-    PORT = None
-    NAME = None
-    PROVIDER = None
-    SN = None
-    PLAN = None
-    LP = None
-    SRV = None
-    SPID = None
-    ID = None
-    ONT_TYPE = None
-    CI = None
+    data = {
+        "fail": None,
+        "name": None,
+        "olt": olt,
+        "frame": None,
+        "slot": None,
+        "port": None,
+        "id": None,
+        "sn": None,
+        "ldc": None,
+        "state": None,
+        "status": None,
+        "type": None,
+        "ipAdd": None,
+        "wan": None,
+        "temp": None,
+        "pwr": None,
+        "lineProfile": None,
+        "srvProfile": None,
+        "spid": None,
+        "device": None,
+    }
+    if "N" in action:
+        (data["sn"], FSP) = newLookup(comm, command, olt)
+        print(data["sn"], FSP)
+        val = inp("desea continuar? [Y|N] : ").upper()
+        proceed = True if val == "Y" and data["sn"] != None else False
+        if proceed:
+            data["frame"] = int(FSP.split("/")[0])
+            data["slot"] = int(FSP.split("/")[1])
+            data["port"] = int(FSP.split("/")[2])
+            data["name"] = inp("Ingrese nombre del cliente : ")[:56]
+            data["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ")
+            data["lineProfile"] = inp(
+                "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS ] : "
+            )
+            data["srvProfile"] = inp("Ingrese Service-Profile [ FTTH ] : ")
+            data["spid"] = availableSpid(comm, command)
 
-    if action == "IN":
-        (SN, FSP) = newLookup(comm, command, olt)
-        keep = inp("Quiere continuar? [Y | N] : ").upper()
-        if (keep == "Y"):
-            FRAME = int(FSP.split("/")[0])
-            SLOT = int(FSP.split("/")[1])
-            PORT = int(FSP.split("/")[2])
-            NAME = inp("Ingrese nombre del cliente : ").upper()[:56]
-            CI = inp("Ingrese el NIF del cliente [V123 | J123]: ").upper()
-            if(olt != "1"):
-                LP = inp(
-                    "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS | Bridging] : ")
-                SRV = inp("Ingrese Service-Profile [Prueba | FTTH | Bridging] : ")
-
-                SPID = availableSpid(comm, command)
-            else:
-                dataPlan = inp("Ingrese plan del cliente : ").upper()
-                planData = plans[dataPlan]
-                LP = planData["lineProfile"]
-                SRV = planData["srvProfile"]
-
-            (ID, fail) = addONU(comm, command, FRAME,
-                                SLOT, PORT, SN, NAME, SRV, LP, olt)
-
-            if fail != None:
-                resp = colorFormatter(fail, "fail")
-                log(resp)
-                quit()
-                return
-        elif (keep == "N"):
-            resp = colorFormatter(
-                "SN no aparece en OLT, Saliendo...", "warning")
-            log(resp)
-            quit()
-            return
+            (data["id"], data["fail"]) = addONU(comm, command, data)
         else:
-            resp = colorFormatter(f"Opcion {keep} no existe", "fail")
-            log(resp)
+            log(colorFormatter("SN no aparece en OLT, Saliendo...", "warning"))
             quit()
             return
 
-    elif action == "IP":
-        lookupType = inp(
-            "Buscar cliente por serial o por Datos de OLT [S | D] : ").upper()
-        data = lookup(comm, command, olt, lookupType, False)
+    elif "P" in action:
+        lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
+        data = dataLookup(comm, command, olt, lookupType)
         if data["fail"] == None:
-            if lookupType == "S" or lookupType == "D":
-                proceed = display(data, "I")
-                if proceed == "Y":
-                    FRAME = data["frame"]
-                    SLOT = data["slot"]
-                    PORT = data["port"]
-                    ID = data["id"]
-                    SN = data["sn"]
-                    NAME = data["name"]
-                    SPID = availableSpid(comm, command)
-                    CI = inp(
-                        "Ingrese el NIF del cliente [V123 | J123]: ").upper()
-                else:
-                    resp = colorFormatter("Saliendo...", "warning")
-                    log(resp)
-                    quit()
-                    return
+            proceed = display(data, "I")
+            data["nif"] = (
+                inp("Ingrese el NIF del cliente [V123 | J123]: ") if proceed else None
+            )
+            data["lineProfile"] = (
+                inp("Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS ] : ")
+                if proceed
+                else None
+            )
+            data["srvProfile"] = (
+                inp("Ingrese Service-Profile [ FTTH ] : ") if proceed else None
+            )
+            data["spid"] = availableSpid(comm, command) if proceed else None
         else:
-            resp = colorFormatter(data["fail"], "fail")
-            log(resp)
+            log(colorFormatter(data["fail"], "fail"))
             quit()
             return
 
-    if ID != None and ID != "F":
-        
-        resp = colorFormatter(
-            f"El SPID que se le agregara al cliente es : {SPID}", "ok")
-        log(resp)
-
-        (temp, pwr) = opticalValues(comm, command, FRAME, SLOT, PORT, ID, True)
-
-        proceed = inp(
-            f"La potencia del ONT es : {pwr} y la temperatura es : {temp} \nquieres proceder con la instalacion? [Y | N] : "
-        ).upper()
-
-        if proceed == "Y":
-            preg = inp(
-                "Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : ").upper()
-            if preg == "Y":
-                preWan(comm, command, SLOT, PORT, ID)
-            Prov = inp(
-                "Ingrese proevedor de cliente [INTER | VNET | PUBLICAS | VOIP] : ").upper()
-            PLAN = inp("Ingrese plan de cliente : ").upper()
-            PROVIDER = providerMap[Prov]
-            ONT_TYPE = typeCheck(comm, command, FRAME, SLOT, PORT, ID)
-
-            resp = colorFormatter(
-                f"El tipo de ONT del cliente es {ONT_TYPE}", "ok")
-            log(resp)
-
-            addVlan = inp(
-                "Se agregara vlan al puerto? [Y | N] : ").upper()
-
-            if addVlan == "Y":
-                command(f"interface gpon {FRAME}/{SLOT}")
-                command(
-                    f" ont  port  native-vlan  {PORT} {ID}  eth  1  vlan  {PROVIDER} ")
-                command("quit")
-
-            addOnuService(command, comm, SPID, PROVIDER,
-                          FRAME, SLOT, PORT, ID, PLAN)
-
-            verifySPID(comm, command, SPID)
-
-            PLAN = PLAN[3:]
-
-            template = """
-    |{}  |  {}/{}/{}/{} 
-    |OLT  {}  {}  {}
-    |TEMPERATURA :   {}
-    |POTENCIA    :   {}
-    |SPID        :   {}""".format(
-                NAME, FRAME, SLOT, PORT, ID, olt, Prov, PLAN, temp, pwr, SPID
+    if data["id"] != None and proceed:
+        log(
+            colorFormatter(
+                f'El SPID que se le agregara al cliente es : {data["spid"]}', "ok"
             )
-            res = colorFormatter(template, "success")
-            wks.insert_row([SN, NAME, CI, olt, FRAME, SLOT, PORT,
-                           ID, ONT_TYPE, "active", Prov, PLAN, SPID, "used"], lstRow)
-            log(res)
+        )
+        (data["temp"], data["pwr"]) = opticalValues(comm, command, data, True)
+
+        value = inp(
+            f"""
+  La potencia del ONT es : {data["pwr"]} y la temperatura es : {data["temp"]}
+  quieres proceder con la instalacion? [Y | N] : """
+        )
+        install = True if value == "Y" else False if value == "N" else None
+
+        if install == "Y":
+            data["device"] = typeCheck(comm, command, data)
+            log(colorFormatter(f"El tipo de ONT del cliente es {data['device']}", "ok"))
+            
+            addOnuService(command, comm, data)
+            
+            verifySPID(comm, command, data)
+            wksArr = approved(data)
+            wks.insert_row(wksArr, lstRow)
             quit()
             return
 
-        if proceed == "N":
+        if install == "N":
             reason = inp("Por que no se le asignara servicio? : ").upper()
-            template = """
-    |{}  |  {}/{}/{}/{} 
-    |OLT  {}  {}  {}
-    |TEMPERATURA :   {}
-    |POTENCIA    :   {}
-    |SPID        :   {}
-    |RAZÓN       :   {}""".format(
-                NAME, FRAME, SLOT, PORT, ID, olt, PROVIDER, PLAN, temp, pwr, SPID, reason
-            )
-            res = colorFormatter(template, "success")
-            log(res)
+            denied(data, reason)
             quit()
             return
+
+        return
+
+    else:
+        log(colorFormatter("Cancelando...", "warning"))
+        quit()
+        return
