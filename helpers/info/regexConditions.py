@@ -503,3 +503,14 @@ speed = {
     "down": "Down traffic \(kbps\)        : ",
     "cond": "----------------------------------------------------------------",
 }
+
+interface = {
+    "start":"InUti/OutUti: input utility/output utility",
+    "end":"NULL0",
+    "header":"Interface,PHY,Protocol,InUti,OutUti,inErrors,outErrors\n",
+}
+
+router = {
+    "interfacesC1":["GigabitEthernet0/3/7(10G)"],
+    "interfacesC2":["GigabitEthernet0/3/7(10G)", "GigabitEthernet0/3/8(10G)"]
+}

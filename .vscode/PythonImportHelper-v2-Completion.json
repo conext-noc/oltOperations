@@ -72,6 +72,14 @@
         "documentation": {}
     },
     {
+        "label": "sleep",
+        "importPath": "time",
+        "description": "time",
+        "isExtraImport": true,
+        "detail": "time",
+        "documentation": {}
+    },
+    {
         "label": "typeCheck",
         "importPath": "helpers.clientFinder.ontType",
         "description": "helpers.clientFinder.ontType",
@@ -504,6 +512,22 @@
         "documentation": {}
     },
     {
+        "label": "check",
+        "importPath": "helpers.utils.decoder",
+        "description": "helpers.utils.decoder",
+        "isExtraImport": true,
+        "detail": "helpers.utils.decoder",
+        "documentation": {}
+    },
+    {
+        "label": "decoder",
+        "importPath": "helpers.utils.decoder",
+        "description": "helpers.utils.decoder",
+        "isExtraImport": true,
+        "detail": "helpers.utils.decoder",
+        "documentation": {}
+    },
+    {
         "label": "decoder",
         "importPath": "helpers.utils.decoder",
         "description": "helpers.utils.decoder",
@@ -912,6 +936,30 @@
         "documentation": {}
     },
     {
+        "label": "inp",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
+        "label": "colorFormatter",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
         "label": "colorFormatter",
         "importPath": "helpers.utils.printer",
         "description": "helpers.utils.printer",
@@ -1006,6 +1054,14 @@
         "description": "re",
         "isExtraImport": true,
         "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "dataToDict",
+        "importPath": "helpers.fileFormatters.fileHandler",
+        "description": "helpers.fileFormatters.fileHandler",
+        "isExtraImport": true,
+        "detail": "helpers.fileFormatters.fileHandler",
         "documentation": {}
     },
     {
@@ -1188,6 +1244,22 @@
     },
     {
         "label": "table",
+        "importPath": "helpers.info.regexConditions",
+        "description": "helpers.info.regexConditions",
+        "isExtraImport": true,
+        "detail": "helpers.info.regexConditions",
+        "documentation": {}
+    },
+    {
+        "label": "interface",
+        "importPath": "helpers.info.regexConditions",
+        "description": "helpers.info.regexConditions",
+        "isExtraImport": true,
+        "detail": "helpers.info.regexConditions",
+        "documentation": {}
+    },
+    {
+        "label": "router",
         "importPath": "helpers.info.regexConditions",
         "description": "helpers.info.regexConditions",
         "isExtraImport": true,
@@ -1502,6 +1574,14 @@
         "documentation": {}
     },
     {
+        "label": "ssh",
+        "importPath": "helpers.utils.ssh",
+        "description": "helpers.utils.ssh",
+        "isExtraImport": true,
+        "detail": "helpers.utils.ssh",
+        "documentation": {}
+    },
+    {
         "label": "existingLookup",
         "importPath": "scripts.BC",
         "description": "scripts.BC",
@@ -1582,6 +1662,14 @@
         "documentation": {}
     },
     {
+        "label": "intFormatter",
+        "importPath": "helpers.utils.interfaceHandler",
+        "description": "helpers.utils.interfaceHandler",
+        "isExtraImport": true,
+        "detail": "helpers.utils.interfaceHandler",
+        "documentation": {}
+    },
+    {
         "label": "clientsTable",
         "importPath": "helpers.fileFormatters.table",
         "description": "helpers.fileFormatters.table",
@@ -1613,6 +1701,14 @@
         "description": "scripts.OLT",
         "isExtraImport": true,
         "detail": "scripts.OLT",
+        "documentation": {}
+    },
+    {
+        "label": "rtr",
+        "importPath": "scripts.RTR",
+        "description": "scripts.RTR",
+        "isExtraImport": true,
+        "detail": "scripts.RTR",
         "documentation": {}
     },
     {
@@ -2115,7 +2211,25 @@
         "kind": 5,
         "importPath": "helpers.info.regexConditions",
         "description": "helpers.info.regexConditions",
-        "peekOfCode": "speed = {\n    \"up\": \"Up traffic \\(kbps\\)          : \",\n    \"down\": \"Down traffic \\(kbps\\)        : \",\n    \"cond\": \"----------------------------------------------------------------\",\n}",
+        "peekOfCode": "speed = {\n    \"up\": \"Up traffic \\(kbps\\)          : \",\n    \"down\": \"Down traffic \\(kbps\\)        : \",\n    \"cond\": \"----------------------------------------------------------------\",\n}\ninterface = {\n    \"start\":\"InUti/OutUti: input utility/output utility\",\n    \"end\":\"NULL0\",\n    \"header\":\"Interface,PHY,Protocol,InUti,OutUti,inErrors,outErrors\\n\",\n}",
+        "detail": "helpers.info.regexConditions",
+        "documentation": {}
+    },
+    {
+        "label": "interface",
+        "kind": 5,
+        "importPath": "helpers.info.regexConditions",
+        "description": "helpers.info.regexConditions",
+        "peekOfCode": "interface = {\n    \"start\":\"InUti/OutUti: input utility/output utility\",\n    \"end\":\"NULL0\",\n    \"header\":\"Interface,PHY,Protocol,InUti,OutUti,inErrors,outErrors\\n\",\n}\nrouter = {\n    \"interfacesC1\":[\"GigabitEthernet0/3/7(10G)\"],\n    \"interfacesC2\":[\"GigabitEthernet0/3/7(10G)\", \"GigabitEthernet0/3/8(10G)\"]\n}",
+        "detail": "helpers.info.regexConditions",
+        "documentation": {}
+    },
+    {
+        "label": "router",
+        "kind": 5,
+        "importPath": "helpers.info.regexConditions",
+        "description": "helpers.info.regexConditions",
+        "peekOfCode": "router = {\n    \"interfacesC1\":[\"GigabitEthernet0/3/7(10G)\"],\n    \"interfacesC2\":[\"GigabitEthernet0/3/7(10G)\", \"GigabitEthernet0/3/8(10G)\"]\n}",
         "detail": "helpers.info.regexConditions",
         "documentation": {}
     },
@@ -2270,6 +2384,15 @@
         "description": "helpers.utils.display",
         "peekOfCode": "def display(data, tp):\n    \"\"\"\n    tp ==> type\n    tp == A => all data will be displayed\n    tp == I => data to installation concern will be displayed\n    tp == B => only data will be displayed without input to be required\n    \"\"\"\n    proceed = False\n    if tp == \"A\":\n        str1 = f\"\"\"",
         "detail": "helpers.utils.display",
+        "documentation": {}
+    },
+    {
+        "label": "intFormatter",
+        "kind": 2,
+        "importPath": "helpers.utils.interfaceHandler",
+        "description": "helpers.utils.interfaceHandler",
+        "peekOfCode": "def intFormatter(data, infc):\n  (_,s) = check(data, interface[\"start\"]).span()\n  (e,_) = check(data, interface[\"end\"]).span()\n  value = dataToDict(interface[\"header\"],data[s:e])\n  result = list(filter(lambda interface: interface['Interface'] == infc, value))[0]\n  return result",
+        "detail": "helpers.utils.interfaceHandler",
         "documentation": {}
     },
     {
@@ -2471,6 +2594,15 @@
         "documentation": {}
     },
     {
+        "label": "rtr",
+        "kind": 2,
+        "importPath": "scripts.RTR",
+        "description": "scripts.RTR",
+        "peekOfCode": "def rtr():\n    ip = \"\"\n    interfaces = []\n    rt = inp(\n        \"Selecciona el router de borde a monitorear [INTER | VNET] : \").upper()\n    if rt == \"INTER\" or rt == \"VNET\":\n        ip = \"181.232.180.1\" if rt == \"INTER\" else \"181.232.180.2\"\n        intList = router[\"interfacesC1\"] if rt == \"INTER\" else router[\"interfacesC2\"]\n        (comm, command, quit) = ssh(ip)\n        decoder(comm)",
+        "detail": "scripts.RTR",
+        "documentation": {}
+    },
+    {
         "label": "verifyTraffic",
         "kind": 2,
         "importPath": "scripts.VC",
@@ -2511,7 +2643,7 @@
         "kind": 2,
         "importPath": "main",
         "description": "main",
-        "peekOfCode": "def main():\n    try:\n        while True:\n            device = inp(\n                \"Seleccione el equipo a utilizar [ROUTER | OLT] : \").upper()\n            if device == \"OLT\":\n                olt()\n            elif device == \"ROUTER\":\n                # rtr()\n                \"\"",
+        "peekOfCode": "def main():\n    try:\n        while True:\n            device = inp(\n                \"Seleccione el equipo a utilizar [ROUTER | OLT] : \").upper()\n            if device == \"OLT\":\n                olt()\n            elif device == \"ROUTER\":\n                rtr()\n            else:",
         "detail": "main",
         "documentation": {}
     }
