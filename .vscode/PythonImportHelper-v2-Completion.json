@@ -2292,7 +2292,7 @@
         "kind": 2,
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
-        "peekOfCode": "def verifySPID(comm, command, data):\n    command(f\"display service-port {data['spid']} | no-more\")\n    value = decoder(comm)\n    fail = failChecker(value)\n    print(value)\n    if fail == None:\n        (_, sIdx) = check(value, spidCheck[\"index\"]).span()\n        (eIdx, sId) = check(value, spidCheck[\"id\"]).span()\n        (eId, sAtt) = check(value, spidCheck[\"attr\"]).span()\n        (eAtt, _) = check(value, spidCheck[\"endAttr\"]).span()",
+        "peekOfCode": "def verifySPID(comm, command, data):\n    command(f\"display service-port {data['spid']} | no-more\")\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        (_, sIdx) = check(value, spidCheck[\"index\"]).span()\n        (eIdx, sId) = check(value, spidCheck[\"id\"]).span()\n        (eId, sAtt) = check(value, spidCheck[\"attr\"]).span()\n        (eAtt, _) = check(value, spidCheck[\"endAttr\"]).span()\n        (_, sPlan) = check(value, spidCheck[\"plan\"]).span()",
         "detail": "helpers.operations.spid",
         "documentation": {}
     },
