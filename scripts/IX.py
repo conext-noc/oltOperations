@@ -96,25 +96,21 @@ def confirm(comm, command, quit, olt, action):
   quieres proceder con la instalacion? [Y | N] : """
         )
         install = True if value == "Y" else False if value == "N" else None
-
-        if install == "Y":
-            data["device"] = typeCheck(comm, command, data)
-            log(colorFormatter(f"El tipo de ONT del cliente es {data['device']}", "ok"))
-            
-            addOnuService(command, comm, data)
-            
-            verifySPID(comm, command, data)
-            wksArr = approved(data)
-            wks.insert_row(wksArr, lstRow)
-            quit()
-            return
-
-        if install == "N":
-            reason = inp("Por que no se le asignara servicio? : ").upper()
-            denied(data, reason)
-            quit()
-            return
-
+        
+        if not install:
+                    reason = inp("Por que no se le asignara servicio? : ").upper()
+                    denied(data, reason)
+                    quit()
+                    return
+        data["device"] = typeCheck(comm, command, data)
+        log(colorFormatter(f"El tipo de ONT del cliente es {data['device']}", "ok"))
+        
+        addOnuService(command, comm, data)
+        
+        verifySPID(comm, command, data)
+        wksArr = approved(data)
+        wks.insert_row(wksArr, lstRow)
+        quit()
         return
 
     else:
