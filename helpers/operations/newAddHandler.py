@@ -50,7 +50,7 @@ def addOnuServiceNew(comm, command, data):
     )
     command(f"ont internet-config {data['port']} {data['id']} ip-index 2")
     command(f"ont policy-route-config {data['port']} {data['id']} profile-id 2")
-    sleep(5)
+    
     addVlan = inp("Se agregara vlan al puerto? [Y | N] : ")
     if addVlan == "Y":
         command(
@@ -61,3 +61,6 @@ def addOnuServiceNew(comm, command, data):
     command(
         f' service-port {data["spid"]} vlan {data["vlan"]} gpon {data["frame"]}/{data["slot"]}/{data["port"]} ont {data["id"]} gemport {data["gemPort"]} multi-service user-vlan {data["vlan"]} tag-transform transparent inbound traffic-table index {data["plan"]} outbound traffic-table index {data["plan"]}'
     )
+    sleep(5) # verify the ipAdd
+    command(f"interface gpon {data['frame']}/{data['slot']}")
+    command(f"ont wan-config {data['port']} {data['id']} ip-index 2 profile-id 0")
