@@ -34,7 +34,6 @@ Que accion se realizara?
     > (EC)  :   Eliminar Cliente
     > (MC)  :   Modificar Cliente
     > (VC)  :   Verificar consumo
-    > (VR)  :   Verificar reset
     > (VP)  :   Verificacion de puerto
     > (CA)  :   Clientes con averias (corte de fibra)
     > (DT)  :   Desactivados Totales
