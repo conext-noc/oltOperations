@@ -40,7 +40,6 @@ def confirm(comm, command, quit, olt, action):
     }
     if "N" in action:
         (data["sn"], FSP) = newLookup(comm, command, olt)
-        print(data["sn"], FSP)
         val = inp("desea continuar? [Y|N] : ").upper()
         proceed = True if val == "Y" and data["sn"] != None else False
         if proceed:

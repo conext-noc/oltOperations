@@ -22,16 +22,17 @@ def newLookup(comm, command, olt):
     sleep(5)
     value = decoder(comm)
     regex = checkIter(value, newCond)
+    print(value)
     for ont in range(len(regex) - 1):
         (_, s) = regex[ont]
         (e, _) = regex[ont + 1]
         result = value[s:e]
         (_, sFSP) = check(result, newCondFSP).span()
-        (eFSP, _) = check(result, newCondFSPEnd).span()
+        # (eFSP, _) = check(result, newCondFSPEnd).span()
         (_, eSN) = check(result, newCondSn).span()
         (_, eT) = check(result, newCondTime).span()
         aSN = result[eSN : eSN + 16].replace("\n", "").replace(" ", "")
-        aFSP = result[sFSP : eFSP - 3].replace("\n", "").replace(" ", "")
+        aFSP = result[sFSP : sFSP+7].replace("\n", "").replace(" ", "")
         aT = result[eT : eT + 19].replace("\n", "")
         t1 = datetime.strptime(aT, "%Y-%m-%d %H:%M:%S")
         t2 = datetime.fromisoformat(str(datetime.now()))

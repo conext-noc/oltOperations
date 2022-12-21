@@ -1806,7 +1806,7 @@
         "kind": 2,
         "importPath": "helpers.clientFinder.newLookup",
         "description": "helpers.clientFinder.newLookup",
-        "peekOfCode": "def newLookup(comm, command, olt):\n    SN_NEW = inp(\"Ingrese el Serial del Cliente a buscar : \").upper()\n    SN_FINAL = None\n    FSP_FINAL = None\n    client = []\n    command(\"display ont autofind all | no-more\")\n    sleep(5)\n    value = decoder(comm)\n    regex = checkIter(value, newCond)\n    for ont in range(len(regex) - 1):",
+        "peekOfCode": "def newLookup(comm, command, olt):\n    SN_NEW = inp(\"Ingrese el Serial del Cliente a buscar : \").upper()\n    SN_FINAL = None\n    FSP_FINAL = None\n    client = []\n    command(\"display ont autofind all | no-more\")\n    sleep(5)\n    value = decoder(comm)\n    regex = checkIter(value, newCond)\n    print(value)",
         "detail": "helpers.clientFinder.newLookup",
         "documentation": {}
     },
