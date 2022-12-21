@@ -98,7 +98,7 @@ def dataLookup(comm, command, olt, lookupType, all=True):
             "state": STATE,
             "status": STATUS,
             "device": ONT_TYPE,
-            "ipAdd": IPADDRESS.replace("\n", "").replace("\r", ""),
+            "ipAdd": IPADDRESS,
             "wan": WAN,
             "temp": TEMP.replace("\n", "").replace("\r", ""),
             "pwr": PWR.replace("\n", "").replace("\r", ""),
