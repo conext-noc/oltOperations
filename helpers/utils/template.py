@@ -21,7 +21,7 @@ def approved(data):
         data["id"],
         data["device"],
         "active",
-        providerMap(f"{data['vlan']}"),
+        data['vlan'],
         data["plan"],
         data["spid"],
         "used",
