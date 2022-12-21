@@ -42,7 +42,7 @@ def existingLookup(comm, command, quit, olt):
 
     display(data, "B")
 
-    if data["spid"] == None:
+    if data["wan"][0]["spid"] == None:
         addOnuServiceNew(comm, command, data) if olt == "1" else addOnuService(
             comm, command, data
         )
