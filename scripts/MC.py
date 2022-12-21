@@ -1,6 +1,7 @@
 from helpers.clientFinder.dataLookup import dataLookup
 from helpers.operations.addHandler import addOnuService
 from helpers.operations.spid import spidCalc
+from helpers.utils.decoder import decoder
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 
@@ -52,13 +53,15 @@ $ """
         log("| {:^3} | {:^4} | {:^6} |".format("IDX", "VLAN", "SPID"))
         for idx, wan in enumerate(data["wan"]):
             log("| {:^3} | {:^4} | {:^6} |".format(idx, wan["vlan"], wan["spid"]))
-        IDX = inp("Ingrese el INDEX del service-port a cambiar")
-        NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente")
-        NEW_VLAN = inp("Ingrese la Nueva Vlan del cliente")
+        IDX = int(inp("Ingrese el INDEX del service-port a cambiar : "))
+        NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente : ")
+        NEW_VLAN = inp("Ingrese la Nueva Vlan del cliente : ")
         command(f"undo service-port {data['wan'][IDX]['spid']}")
         command(
             f"service-port {data['wan'][IDX]['spid']} vlan {NEW_VLAN} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['id']} gemport 14 multi-service user-vlan {NEW_VLAN} tag-transform transparent inbound traffic-table name {NEW_PLAN} outbound traffic-table name {NEW_PLAN}'"
         )
+        out = decoder(comm)
+        print(out)
         log(
             colorFormatter(
                 f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Cambiado el plan y vlan a {NEW_PLAN} @ {NEW_VLAN}",

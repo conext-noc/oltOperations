@@ -1,8 +1,8 @@
+from time import sleep
 from helpers.operations.spid import spidCalc
 from helpers.utils.decoder import decoder, check
 from helpers.failHandler.fail import failChecker
 from helpers.utils.printer import colorFormatter, inp, log
-from helpers.info.plans import plans
 
 
 def addONUNew(comm, command, data):
@@ -50,7 +50,7 @@ def addOnuServiceNew(comm, command, data):
     )
     command(f"ont internet-config {data['port']} {data['id']} ip-index 2")
     command(f"ont policy-route-config {data['port']} {data['id']} profile-id 2")
-
+    sleep(5)
     addVlan = inp("Se agregara vlan al puerto? [Y | N] : ")
     if addVlan == "Y":
         command(

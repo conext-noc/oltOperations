@@ -80,6 +80,14 @@
         "documentation": {}
     },
     {
+        "label": "sleep",
+        "importPath": "time",
+        "description": "time",
+        "isExtraImport": true,
+        "detail": "time",
+        "documentation": {}
+    },
+    {
         "label": "typeCheck",
         "importPath": "helpers.clientFinder.ontType",
         "description": "helpers.clientFinder.ontType",
@@ -513,6 +521,14 @@
     },
     {
         "label": "check",
+        "importPath": "helpers.utils.decoder",
+        "description": "helpers.utils.decoder",
+        "isExtraImport": true,
+        "detail": "helpers.utils.decoder",
+        "documentation": {}
+    },
+    {
+        "label": "decoder",
         "importPath": "helpers.utils.decoder",
         "description": "helpers.utils.decoder",
         "isExtraImport": true,
@@ -1194,14 +1210,6 @@
     },
     {
         "label": "planX15NMaps",
-        "importPath": "helpers.info.plans",
-        "description": "helpers.info.plans",
-        "isExtraImport": true,
-        "detail": "helpers.info.plans",
-        "documentation": {}
-    },
-    {
-        "label": "plans",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
         "isExtraImport": true,
