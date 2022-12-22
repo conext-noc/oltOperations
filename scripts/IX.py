@@ -75,6 +75,7 @@ def confirm(comm, command, quit, olt, action):
             data["srvProfile"] = (
                 inp("Ingrese Service-Profile [ FTTH ] : ") if proceed else None
             )
+            print(data)
             data["wan"][0]["spid"] = availableSpid(comm, command) if proceed else None
         else:
             log(colorFormatter(data["fail"], "fail"))

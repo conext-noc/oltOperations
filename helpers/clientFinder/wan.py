@@ -45,4 +45,4 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
     else:
         FAIL = failSpid
         log(colorFormatter(FAIL, "info"))
-        return (IPADDRESS, WAN)
+        return (IPADDRESS, [{"spid":None, "vlan": None, "plan": None}])
