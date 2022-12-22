@@ -70,6 +70,37 @@ planX15Maps = {
     "49": "OZ_UP",
 }
 
+oldPlans = {
+    "2":{
+        "OZ_PLUS":47,
+        "OZ_MAX":46,
+        "OZ_NEXT":40,
+        "OZ_MAGICAL":39,
+        "OZ_SKY":45,
+        "OZ_UP":49,
+        "OZ_LIFT":6,
+        "OZ_FAMILY":25,
+        "OZ_START":23,
+        "OZ_EMPRENDE":41,
+        "OZ_CONECTA":43,
+        "OZ_INICIATE":44,
+    },
+    "3":{
+        "OZ_PLUS":49,
+        "OZ_MAX":48,
+        "OZ_NEXT":40,
+        "OZ_MAGICAL":32,
+        "OZ_SKY":47,
+        "OZ_UP":36,
+        "OZ_LIFT":34,
+        "OZ_FAMILY":15,
+        "OZ_START":9,
+        "OZ_EMPRENDE":44,
+        "OZ_CONECTA":46,
+        "OZ_INICIATE":45,
+    }
+}
+
 plans = {
     "OZ_0_1": {
         "lineProfile": 3,

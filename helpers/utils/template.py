@@ -5,10 +5,10 @@ from helpers.info.hashMaps import providerMap
 def approved(data):
     template = f"""
     |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} 
-    |OLT  {data['olt']}  {data["vlan"]}  {data['plan']}
+    |OLT  {data['olt']}  {data["wan"][0]["vlan"]}  {data["wan"][0]["plan"]}
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
-    |SPID        :   {data['spid']}"""
+    |SPID        :   {data["wan"][0]["spid"]}"""
     log(colorFormatter(template, "success"))
     return [
         data["sn"],
@@ -21,9 +21,9 @@ def approved(data):
         data["id"],
         data["device"],
         "active",
-        data['vlan'],
-        data["plan"],
-        data["spid"],
+        data["wan"][0]['vlan'],
+        data["wan"][0]["plan"],
+        data["wan"][0]["spid"],
         "used",
     ]
 
@@ -31,9 +31,9 @@ def approved(data):
 def denied(data, reason):
     template = f"""
     |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} 
-    |OLT  {data['olt']}  NA  NA
+    |OLT  {data['olt']}  {data["wan"][0]["vlan"]}  {data["wan"][0]["plan"]}
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
-    |SPID        :   {data['spid']}
+    |SPID        :   {data["wan"][0]['spid']}
     |RAZÓN       :   {reason}"""
     log(colorFormatter(template, "warning"))

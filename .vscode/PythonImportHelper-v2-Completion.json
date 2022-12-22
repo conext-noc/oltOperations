@@ -160,6 +160,14 @@
         "documentation": {}
     },
     {
+        "label": "wan",
+        "importPath": "helpers.clientFinder.wan",
+        "description": "helpers.clientFinder.wan",
+        "isExtraImport": true,
+        "detail": "helpers.clientFinder.wan",
+        "documentation": {}
+    },
+    {
         "label": "failChecker",
         "importPath": "helpers.failHandler.fail",
         "description": "helpers.failHandler.fail",
@@ -1185,7 +1193,23 @@
         "documentation": {}
     },
     {
+        "label": "availableSpid",
+        "importPath": "helpers.operations.spid",
+        "description": "helpers.operations.spid",
+        "isExtraImport": true,
+        "detail": "helpers.operations.spid",
+        "documentation": {}
+    },
+    {
         "label": "spidCalc",
+        "importPath": "helpers.operations.spid",
+        "description": "helpers.operations.spid",
+        "isExtraImport": true,
+        "detail": "helpers.operations.spid",
+        "documentation": {}
+    },
+    {
+        "label": "verifySPID",
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
         "isExtraImport": true,
@@ -1217,7 +1241,23 @@
         "documentation": {}
     },
     {
+        "label": "oldPlans",
+        "importPath": "helpers.info.plans",
+        "description": "helpers.info.plans",
+        "isExtraImport": true,
+        "detail": "helpers.info.plans",
+        "documentation": {}
+    },
+    {
         "label": "plans",
+        "importPath": "helpers.info.plans",
+        "description": "helpers.info.plans",
+        "isExtraImport": true,
+        "detail": "helpers.info.plans",
+        "documentation": {}
+    },
+    {
+        "label": "oldPlans",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
         "isExtraImport": true,
@@ -2188,6 +2228,15 @@
         "documentation": {}
     },
     {
+        "label": "oldPlans",
+        "kind": 5,
+        "importPath": "helpers.info.plans",
+        "description": "helpers.info.plans",
+        "peekOfCode": "oldPlans = {\n    \"2\":{\n        \"OZ_PLUS\":47,\n        \"OZ_MAX\":46,\n        \"OZ_NEXT\":40,\n        \"OZ_MAGICAL\":39,\n        \"OZ_SKY\":45,\n        \"OZ_UP\":49,\n        \"OZ_LIFT\":6,\n        \"OZ_FAMILY\":25,",
+        "detail": "helpers.info.plans",
+        "documentation": {}
+    },
+    {
         "label": "plans",
         "kind": 5,
         "importPath": "helpers.info.plans",
@@ -2255,7 +2304,7 @@
         "kind": 2,
         "importPath": "helpers.operations.addHandler",
         "description": "helpers.operations.addHandler",
-        "peekOfCode": "def addOnuService(comm, command, data):\n    preg = inp(\n        \"Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : \"\n    ).upper()\n    if preg == \"Y\":\n        preWan(comm, command, data)\n    data[\"vlan\"] = inp(\"Ingrese la vlan de proveedor de cliente : \")\n    data[\"plan\"] = inp(\"Ingrese plan de cliente : \")\n    addVlan = inp(\"Se agregara vlan al puerto? [Y | N] : \").upper()\n    if addVlan == \"Y\":",
+        "peekOfCode": "def addOnuService(comm, command, data):\n    preg = inp(\n        \"Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : \"\n    ).upper()\n    if preg == \"Y\":\n        preWan(comm, command, data)\n    data[\"wan\"][0][\"vlan\"] = inp(\"Ingrese la vlan de proveedor de cliente : \")\n    data[\"wan\"][0][\"plan\"] = inp(\"Ingrese plan de cliente : \")\n    addVlan = inp(\"Se agregara vlan al puerto? [Y | N] : \").upper()\n    if addVlan == \"Y\":",
         "detail": "helpers.operations.addHandler",
         "documentation": {}
     },
@@ -2291,7 +2340,7 @@
         "kind": 2,
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
-        "peekOfCode": "def availableSpid(comm, command):\n    command(\"display service-port next-free-index\")\n    command(\"\")\n    value = decoder(comm)\n    (_, e) = check(value, conditionSPID).span()\n    spid = value[e : e + 5].replace(\" \", \"\").replace(\"\\n\", \"\")\n    return spid\ndef verifySPID(comm, command, data):\n    command(f\"display service-port {data['spid']} | no-more\")\n    value = decoder(comm)",
+        "peekOfCode": "def availableSpid(comm, command):\n    command(\"display service-port next-free-index\")\n    command(\"\")\n    value = decoder(comm)\n    (_, e) = check(value, conditionSPID).span()\n    spid = value[e : e + 5].replace(\" \", \"\").replace(\"\\n\", \"\")\n    return spid\ndef verifySPID(comm, command, data):\n    command(f\"display service-port {data['wan'][0]['spid']} | no-more\")\n    value = decoder(comm)",
         "detail": "helpers.operations.spid",
         "documentation": {}
     },
@@ -2300,7 +2349,7 @@
         "kind": 2,
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
-        "peekOfCode": "def verifySPID(comm, command, data):\n    command(f\"display service-port {data['spid']} | no-more\")\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        (_, sIdx) = check(value, spidCheck[\"index\"]).span()\n        (eIdx, sId) = check(value, spidCheck[\"id\"]).span()\n        (eId, sAtt) = check(value, spidCheck[\"attr\"]).span()\n        (eAtt, _) = check(value, spidCheck[\"endAttr\"]).span()\n        (_, sPlan) = check(value, spidCheck[\"plan\"]).span()",
+        "peekOfCode": "def verifySPID(comm, command, data):\n    command(f\"display service-port {data['wan'][0]['spid']} | no-more\")\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        (_, sIdx) = check(value, spidCheck[\"index\"]).span()\n        (eIdx, sId) = check(value, spidCheck[\"id\"]).span()\n        (eId, sAtt) = check(value, spidCheck[\"attr\"]).span()\n        (eAtt, _) = check(value, spidCheck[\"endAttr\"]).span()\n        (_, sPlan) = check(value, spidCheck[\"plan\"]).span()",
         "detail": "helpers.operations.spid",
         "documentation": {}
     },
@@ -2525,7 +2574,7 @@
         "kind": 2,
         "importPath": "helpers.utils.template",
         "description": "helpers.utils.template",
-        "peekOfCode": "def approved(data):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"vlan\"]}  {data['plan']}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data['spid']}\"\"\"\n    log(colorFormatter(template, \"success\"))\n    return [\n        data[\"sn\"],",
+        "peekOfCode": "def approved(data):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"wan\"][0][\"vlan\"]}  {data[\"wan\"][0][\"plan\"]}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data[\"wan\"][0][\"spid\"]}\"\"\"\n    log(colorFormatter(template, \"success\"))\n    return [\n        data[\"sn\"],",
         "detail": "helpers.utils.template",
         "documentation": {}
     },
@@ -2534,7 +2583,7 @@
         "kind": 2,
         "importPath": "helpers.utils.template",
         "description": "helpers.utils.template",
-        "peekOfCode": "def denied(data, reason):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  NA  NA\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data['spid']}\n    |RAZÓN       :   {reason}\"\"\"\n    log(colorFormatter(template, \"warning\"))",
+        "peekOfCode": "def denied(data, reason):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"wan\"][0][\"vlan\"]}  {data[\"wan\"][0][\"plan\"]}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data[\"wan\"][0]['spid']}\n    |RAZÓN       :   {reason}\"\"\"\n    log(colorFormatter(template, \"warning\"))",
         "detail": "helpers.utils.template",
         "documentation": {}
     },

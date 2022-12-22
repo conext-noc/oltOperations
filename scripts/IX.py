@@ -30,12 +30,11 @@ def confirm(comm, command, quit, olt, action):
         "status": None,
         "type": None,
         "ipAdd": None,
-        "wan": None,
+        "wan": [{"spid":None, "vlan": None, "plan": None}],
         "temp": None,
         "pwr": None,
         "lineProfile": None,
         "srvProfile": None,
-        "spid": None,
         "device": None,
     }
     if "N" in action:
@@ -52,7 +51,7 @@ def confirm(comm, command, quit, olt, action):
                 "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS ] : "
             )
             data["srvProfile"] = inp("Ingrese Service-Profile [ FTTH ] : ")
-            data["spid"] = availableSpid(comm, command)
+            data["wan"][0]["spid"] = availableSpid(comm, command)
 
             (data["id"], data["fail"]) = addONU(comm, command, data)
         else:
@@ -76,7 +75,7 @@ def confirm(comm, command, quit, olt, action):
             data["srvProfile"] = (
                 inp("Ingrese Service-Profile [ FTTH ] : ") if proceed else None
             )
-            data["spid"] = availableSpid(comm, command) if proceed else None
+            data["wan"][0]["spid"] = availableSpid(comm, command) if proceed else None
         else:
             log(colorFormatter(data["fail"], "fail"))
             quit()
@@ -85,7 +84,7 @@ def confirm(comm, command, quit, olt, action):
     if data["id"] != None and proceed:
         log(
             colorFormatter(
-                f'El SPID que se le agregara al cliente es : {data["spid"]}', "ok"
+                f'El SPID que se le agregara al cliente es : {data["wan"][0]["spid"]}', "ok"
             )
         )
         (data["temp"], data["pwr"]) = opticalValues(comm, command, data, True)

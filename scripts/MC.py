@@ -1,9 +1,10 @@
 from helpers.clientFinder.dataLookup import dataLookup
 from helpers.operations.addHandler import addOnuService
-from helpers.operations.spid import spidCalc
+from helpers.operations.spid import availableSpid, spidCalc, verifySPID
 from helpers.utils.decoder import decoder
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
+from helpers.info.plans import oldPlans
 
 
 def modifyClient(comm, command, quit, olt):
@@ -57,11 +58,11 @@ $ """
         NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente : ")
         NEW_VLAN = inp("Ingrese la Nueva Vlan del cliente : ")
         command(f"undo service-port {data['wan'][IDX]['spid']}")
+        PLAN_ID = oldPlans[data['olt']][NEW_PLAN]
         command(
-            f"service-port {data['wan'][IDX]['spid']} vlan {NEW_VLAN} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['id']} gemport 14 multi-service user-vlan {NEW_VLAN} tag-transform transparent inbound traffic-table name {NEW_PLAN} outbound traffic-table name {NEW_PLAN}'"
+            f" service-port {data['wan'][IDX]['spid']} vlan {NEW_VLAN} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['id']} gemport 14 multi-service user-vlan {NEW_VLAN} tag-transform transparent inbound traffic-table index {PLAN_ID} outbound traffic-table index {PLAN_ID}"
         )
-        out = decoder(comm)
-        print(out)
+        verifySPID(comm,command,data)
         log(
             colorFormatter(
                 f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Cambiado el plan y vlan a {NEW_PLAN} @ {NEW_VLAN}",
@@ -96,5 +97,13 @@ $ """
             data["spid"] = spidCalc(data)[serviceType]
             log(f"SPID PARA AGG {data['spid']}, FUNCION AUN NO DISPONIBLE")
             return
+        data["spid"] = availableSpid(comm,command)
         addOnuService(comm, command, data)
+        verifySPID(comm,command,data)
+        log(
+            colorFormatter(
+                f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Agregado el plan y vlan a {data['plan']} @ {data['vlan']}",
+                "info",
+            )
+        )
         return

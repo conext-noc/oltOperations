@@ -1,4 +1,5 @@
 from time import sleep
+from helpers.clientFinder.wan import wan
 from helpers.operations.spid import spidCalc
 from helpers.utils.decoder import decoder, check
 from helpers.failHandler.fail import failChecker
@@ -61,6 +62,9 @@ def addOnuServiceNew(comm, command, data):
     command(
         f' service-port {data["spid"]} vlan {data["vlan"]} gpon {data["frame"]}/{data["slot"]}/{data["port"]} ont {data["id"]} gemport {data["gemPort"]} multi-service user-vlan {data["vlan"]} tag-transform transparent inbound traffic-table index {data["plan"]} outbound traffic-table index {data["plan"]}'
     )
-    sleep(5) # verify the ipAdd
+    IPADDRESS = None
+    while IPADDRESS == None:
+        (IPADDRESS, _) = wan(comm, command, data['frame'], data['slot'], data['port'], data['id'], data['olt'])
     command(f"interface gpon {data['frame']}/{data['slot']}")
     command(f"ont wan-config {data['port']} {data['id']} ip-index 2 profile-id 0")
+    command("quit")
