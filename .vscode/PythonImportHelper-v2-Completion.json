@@ -2322,7 +2322,7 @@
         "kind": 2,
         "importPath": "helpers.operations.newAddHandler",
         "description": "helpers.operations.newAddHandler",
-        "peekOfCode": "def addOnuServiceNew(comm, command, data):\n    serviceType = inp(\n        \"\"\"\n    Ingrese el tipo de servicio a instalar :\n    > I : Internet\n    > V : VoIP\n    > P : Publicas\n    $ \"\"\"\n    )\n    data[\"spid\"] = spidCalc(data)[serviceType]",
+        "peekOfCode": "def addOnuServiceNew(comm, command, data):\n    serviceType = inp(\n        \"\"\"\n    Ingrese el tipo de servicio a instalar :\n    > I : Internet\n    > V : VoIP\n    > P : Publicas\n    $ \"\"\"\n    )\n    data[\"wan\"][0][\"spid\"] = spidCalc(data)[serviceType]",
         "detail": "helpers.operations.newAddHandler",
         "documentation": {}
     },

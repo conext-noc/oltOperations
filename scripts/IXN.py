@@ -31,12 +31,12 @@ def confirmNew(comm, command, quit, olt, action):
         "status": None,
         "type": None,
         "ipAdd": None,
-        "wan": None,
+        "wan": [{"spid":None, "vlan": None, "plan": None}],
         "temp": None,
         "pwr": None,
         "lineProfile": None,
         "srvProfile": None,
-        "spid": None,
+        "gemPort": None,
         "device": None,
     }
     if "N" in action:
@@ -51,8 +51,8 @@ def confirmNew(comm, command, quit, olt, action):
             dataPlan = inp("Ingrese plan del cliente : ")
             data["lineProfile"] = plans[dataPlan]["lineProfile"]
             data["srvProfile"] = plans[dataPlan]["srvProfile"]
-            data["vlan"] = plans[dataPlan]["vlan"]
-            data["plan"] = plans[dataPlan]["plan"]
+            data["wan"][0]["vlan"] = plans[dataPlan]["vlan"]
+            data["wan"][0]["plan"] = plans[dataPlan]["plan"]
             data["gemPort"] = plans[dataPlan]["gemPort"]
             data["name"] = inp("Ingrese nombre del cliente : ")[:56]
             data["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ")
@@ -71,8 +71,8 @@ def confirmNew(comm, command, quit, olt, action):
             dataPlan = inp("Ingrese plan del cliente : ")
             data["lineProfile"] = plans[dataPlan]["lineProfile"]
             data["srvProfile"] = plans[dataPlan]["srvProfile"]
-            data["vlan"] = plans[dataPlan]["vlan"]
-            data["plan"] = plans[dataPlan]["plan"]
+            data["wan"][0]["vlan"] = plans[dataPlan]["vlan"]
+            data["wan"][0]["plan"] = plans[dataPlan]["plan"]
             data["gemPort"] = plans[dataPlan]["gemPort"]
 
         else:

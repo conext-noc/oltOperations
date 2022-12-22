@@ -37,7 +37,7 @@ def addOnuServiceNew(comm, command, data):
     > P : Publicas
     $ """
     )
-    data["spid"] = spidCalc(data)[serviceType]
+    data["wan"][0]["spid"] = spidCalc(data)[serviceType]
 
     log(
         colorFormatter(
@@ -47,7 +47,7 @@ def addOnuServiceNew(comm, command, data):
 
     command(f"interface gpon {data['frame']}/{data['slot']}")
     command(
-        f"ont ipconfig {data['port']} {data['id']} ip-index 2 dhcp vlan {data['vlan']}"
+        f"ont ipconfig {data['port']} {data['id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']}"
     )
     command(f"ont internet-config {data['port']} {data['id']} ip-index 2")
     command(f"ont policy-route-config {data['port']} {data['id']} profile-id 2")
@@ -55,12 +55,12 @@ def addOnuServiceNew(comm, command, data):
     addVlan = inp("Se agregara vlan al puerto? [Y | N] : ")
     if addVlan == "Y":
         command(
-            f" ont port native-vlan {data['port']} {data['id']} eth 1 vlan {data['vlan']} "
+            f" ont port native-vlan {data['port']} {data['id']} eth 1 vlan {data['wan'][0]['vlan']} "
         )
     command("quit")
 
     command(
-        f' service-port {data["spid"]} vlan {data["vlan"]} gpon {data["frame"]}/{data["slot"]}/{data["port"]} ont {data["id"]} gemport {data["gemPort"]} multi-service user-vlan {data["vlan"]} tag-transform transparent inbound traffic-table index {data["plan"]} outbound traffic-table index {data["plan"]}'
+        f' service-port {data["spid"]} vlan {data["wan"][0]["vlan"]} gpon {data["frame"]}/{data["slot"]}/{data["port"]} ont {data["id"]} gemport {data["gemPort"]} multi-service user-vlan {data["wan"][0]["vlan"]} tag-transform transparent inbound traffic-table index {data["wan"][0]["plan"]} outbound traffic-table index {data["wan"][0]["plan"]}'
     )
     IPADDRESS = None
     while IPADDRESS == None:
