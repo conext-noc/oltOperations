@@ -4,6 +4,7 @@ from helpers.operations.spid import availableSpid, spidCalc, verifySPID
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.info.plans import oldPlans
+from helpers.utils.sheets import modify
 
 
 def modifyClient(comm, command, quit, olt):
@@ -36,6 +37,7 @@ $ """
                 "success",
             )
         )
+        modify(data["sn"],NEW_NAME,"NAME")
         quit()
         return
     if action == "CO":
@@ -49,7 +51,7 @@ $ """
                 "success",
             )
         )
-        """"""
+        modify(data["sn"],NEW_SN,"SN")
         quit()
         return
     if action == "CP" and olt != "1":
@@ -71,6 +73,8 @@ $ """
                 "info",
             )
         )
+        modify(data["sn"],NEW_PLAN,"PLAN")
+        modify(data["sn"],NEW_VLAN,"PROVIDER")
         quit()
         return
     if action == "ES":
@@ -92,7 +96,7 @@ $ """
             NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente : ")
             serviceType = inp(
                 """
-    Ingrese el tipo de servicio a instalar :
+Ingrese el tipo de servicio a instalar :
     > I : Internet
     > V : VoIP
     > P : Publicas

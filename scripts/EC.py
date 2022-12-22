@@ -1,6 +1,7 @@
 from helpers.clientFinder.dataLookup import dataLookup
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
+from helpers.utils.sheets import delete
 
 
 def deleteClient(comm, command, quit, olt):
@@ -20,6 +21,7 @@ def deleteClient(comm, command, quit, olt):
         log(f"El SPID {wan['spid']} ha sido liberado!")
     command(f"interface gpon {data['frame']}/{data['slot']}")
     command(f"ont delete {data['port']} {data['id']}")
+    delete(data["sn"])
     log(colorFormatter(f"El cliente {data['name']} de {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} ha sido eliminado  ","success"))
     quit()
     return

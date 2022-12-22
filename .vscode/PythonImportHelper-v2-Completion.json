@@ -1348,12 +1348,12 @@
         "documentation": {}
     },
     {
-        "label": "gspread",
+        "label": "pygsheets",
         "kind": 6,
         "isExtraImport": true,
-        "importPath": "gspread",
-        "description": "gspread",
-        "detail": "gspread",
+        "importPath": "pygsheets",
+        "description": "pygsheets",
+        "detail": "pygsheets",
         "documentation": {}
     },
     {
@@ -1558,6 +1558,38 @@
         "documentation": {}
     },
     {
+        "label": "delete",
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "isExtraImport": true,
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
+        "label": "insert",
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "isExtraImport": true,
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
+        "label": "modify",
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "isExtraImport": true,
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
+        "label": "modifier",
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "isExtraImport": true,
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
         "label": "newLookup",
         "importPath": "helpers.clientFinder.newLookup",
         "description": "helpers.clientFinder.newLookup",
@@ -1603,6 +1635,15 @@
         "description": "helpers.utils.template",
         "isExtraImport": true,
         "detail": "helpers.utils.template",
+        "documentation": {}
+    },
+    {
+        "label": "gspread",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "gspread",
+        "description": "gspread",
+        "detail": "gspread",
         "documentation": {}
     },
     {
@@ -1694,14 +1735,6 @@
         "documentation": {}
     },
     {
-        "label": "modifier",
-        "importPath": "helpers.utils.sheets",
-        "description": "helpers.utils.sheets",
-        "isExtraImport": true,
-        "detail": "helpers.utils.sheets",
-        "documentation": {}
-    },
-    {
         "label": "intFormatter",
         "importPath": "helpers.utils.interfaceHandler",
         "description": "helpers.utils.interfaceHandler",
@@ -1715,15 +1748,6 @@
         "description": "helpers.fileFormatters.table",
         "isExtraImport": true,
         "detail": "helpers.fileFormatters.table",
-        "documentation": {}
-    },
-    {
-        "label": "pygsheets",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "pygsheets",
-        "description": "pygsheets",
-        "detail": "pygsheets",
         "documentation": {}
     },
     {
@@ -2508,11 +2532,38 @@
         "documentation": {}
     },
     {
-        "label": "modifier",
+        "label": "modify",
         "kind": 2,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "def modifier(column, searchedValue, value):\n    sa = gspread.service_account(\n        filename=\"service_account_olt_operations.json\")\n    sh = sa.open(\"CPDC\")\n    wks = sh.worksheet(\"DATOS\")\n    cell = wks.find(searchedValue)\n    wks.update_cell(cell.row, cellMap[column], value)",
+        "peekOfCode": "def modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=values)",
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
+        "label": "delete",
+        "kind": 2,
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "peekOfCode": "def delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=values)",
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
+        "label": "insert",
+        "kind": 2,
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "peekOfCode": "def insert(values):\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=values)",
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
+        "label": "path",
+        "kind": 5,
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "peekOfCode": "path = \"./service_account_olt_operations.json\"\ncellMap = {\n    'SN': \"A\",\n    'NAME': \"B\",\n    'CI': \"C\",\n    'OLT': \"D\",\n    'FRAME': \"E\",\n    'SLOT': \"F\",\n    'PORT': \"G\",\n    'ID': \"H\",",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2521,7 +2572,34 @@
         "kind": 5,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "cellMap = {\n    'SN': 1,\n    'NAME': 2,\n    'CI': 3,\n    'OLT': 4,\n    'FRAME': 5,\n    'SLOT': 6,\n    'PORT': 7,\n    'ID': 8,\n    'ONT': 9,",
+        "peekOfCode": "cellMap = {\n    'SN': \"A\",\n    'NAME': \"B\",\n    'CI': \"C\",\n    'OLT': \"D\",\n    'FRAME': \"E\",\n    'SLOT': \"F\",\n    'PORT': \"G\",\n    'ID': \"H\",\n    'ONT': \"I\",",
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
+        "label": "gc",
+        "kind": 5,
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "peekOfCode": "gc = pygsheets.authorize(service_account_file=path)\nsh = gc.open(\"CPDC\")\nwks = sh[4]\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):",
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
+        "label": "sh",
+        "kind": 5,
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "peekOfCode": "sh = gc.open(\"CPDC\")\nwks = sh[4]\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    lst_row = len(wks.get_all_records())  + 1",
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
+        "label": "wks",
+        "kind": 5,
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "peekOfCode": "wks = sh[4]\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=values)",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2602,7 +2680,7 @@
         "kind": 2,
         "importPath": "scripts.IX",
         "description": "scripts.IX",
-        "peekOfCode": "def confirm(comm, command, quit, olt, action):\n    sa = gspread.service_account(filename=\"service_account_olt_operations.json\")\n    sh = sa.open(\"CPDC\")\n    wks = sh.worksheet(\"DATOS\")\n    lstRow = len(wks.get_all_records()) + 2\n    data = {\n        \"fail\": None,\n        \"name\": None,\n        \"olt\": olt,\n        \"frame\": None,",
+        "peekOfCode": "def confirm(comm, command, quit, olt, action):\n    data = {\n        \"fail\": None,\n        \"name\": None,\n        \"olt\": olt,\n        \"frame\": None,\n        \"slot\": None,\n        \"port\": None,\n        \"id\": None,\n        \"sn\": None,",
         "detail": "scripts.IX",
         "documentation": {}
     },
@@ -2670,11 +2748,29 @@
         "documentation": {}
     },
     {
-        "label": "wksTesting",
+        "label": "modify",
         "kind": 2,
         "importPath": "TS",
         "description": "TS",
-        "peekOfCode": "def wksTesting():\n    gc = pygsheets.authorize(service_account_file=path)\n    sh = gc.open(\"CPDC\")\n    wks = sh[3]\n    cell = wks.find(\"4857544393CC9DA4\")\n    print(cell.row)\n# 48575443F1839DA6 => modem router\n# 485754430B0ACBA9 => bridge",
+        "peekOfCode": "def modify():\n    lookupVal = input(\"Ingrese el valor a buscar : \")\n    newVal = input(\"Ingrese el nuevo valor : \")\n    tp = input(\"Ingrese el tipo de valor a cambiar : \")\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete():\n    lookupVal = input(\"Ingrese el valor a buscar : \")\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)",
+        "detail": "TS",
+        "documentation": {}
+    },
+    {
+        "label": "delete",
+        "kind": 2,
+        "importPath": "TS",
+        "description": "TS",
+        "peekOfCode": "def delete():\n    lookupVal = input(\"Ingrese el valor a buscar : \")\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert():\n    values = [\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\"]\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=values)\naction = input(\"INGRESE ACCION : \")\nmodify() if action == \"M\" else delete() if action == \"D\" else insert() if action == \"I\" else None",
+        "detail": "TS",
+        "documentation": {}
+    },
+    {
+        "label": "insert",
+        "kind": 2,
+        "importPath": "TS",
+        "description": "TS",
+        "peekOfCode": "def insert():\n    values = [\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\",\"123\"]\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=values)\naction = input(\"INGRESE ACCION : \")\nmodify() if action == \"M\" else delete() if action == \"D\" else insert() if action == \"I\" else None",
         "detail": "TS",
         "documentation": {}
     },
@@ -2683,7 +2779,52 @@
         "kind": 5,
         "importPath": "TS",
         "description": "TS",
-        "peekOfCode": "path = \"./service_account_olt_operations.json\"\ndef wksTesting():\n    gc = pygsheets.authorize(service_account_file=path)\n    sh = gc.open(\"CPDC\")\n    wks = sh[3]\n    cell = wks.find(\"4857544393CC9DA4\")\n    print(cell.row)\n# 48575443F1839DA6 => modem router\n# 485754430B0ACBA9 => bridge",
+        "peekOfCode": "path = \"./service_account_olt_operations.json\"\ncellMap = {\n    'SN': \"A\",\n    'NAME': \"B\",\n    'CI': \"C\",\n    'OLT': \"D\",\n    'FRAME': \"E\",\n    'SLOT': \"F\",\n    'PORT': \"G\",\n    'ID': \"H\",",
+        "detail": "TS",
+        "documentation": {}
+    },
+    {
+        "label": "cellMap",
+        "kind": 5,
+        "importPath": "TS",
+        "description": "TS",
+        "peekOfCode": "cellMap = {\n    'SN': \"A\",\n    'NAME': \"B\",\n    'CI': \"C\",\n    'OLT': \"D\",\n    'FRAME': \"E\",\n    'SLOT': \"F\",\n    'PORT': \"G\",\n    'ID': \"H\",\n    'ONT': \"I\",",
+        "detail": "TS",
+        "documentation": {}
+    },
+    {
+        "label": "gc",
+        "kind": 5,
+        "importPath": "TS",
+        "description": "TS",
+        "peekOfCode": "gc = pygsheets.authorize(service_account_file=path)\nsh = gc.open(\"CPDC\")\nwks = sh[4]\ndef modify():\n    lookupVal = input(\"Ingrese el valor a buscar : \")\n    newVal = input(\"Ingrese el nuevo valor : \")\n    tp = input(\"Ingrese el tipo de valor a cambiar : \")\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete():",
+        "detail": "TS",
+        "documentation": {}
+    },
+    {
+        "label": "sh",
+        "kind": 5,
+        "importPath": "TS",
+        "description": "TS",
+        "peekOfCode": "sh = gc.open(\"CPDC\")\nwks = sh[4]\ndef modify():\n    lookupVal = input(\"Ingrese el valor a buscar : \")\n    newVal = input(\"Ingrese el nuevo valor : \")\n    tp = input(\"Ingrese el tipo de valor a cambiar : \")\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete():\n    lookupVal = input(\"Ingrese el valor a buscar : \")",
+        "detail": "TS",
+        "documentation": {}
+    },
+    {
+        "label": "wks",
+        "kind": 5,
+        "importPath": "TS",
+        "description": "TS",
+        "peekOfCode": "wks = sh[4]\ndef modify():\n    lookupVal = input(\"Ingrese el valor a buscar : \")\n    newVal = input(\"Ingrese el nuevo valor : \")\n    tp = input(\"Ingrese el tipo de valor a cambiar : \")\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete():\n    lookupVal = input(\"Ingrese el valor a buscar : \")\n    cell = wks.find(lookupVal)[0]",
+        "detail": "TS",
+        "documentation": {}
+    },
+    {
+        "label": "action",
+        "kind": 5,
+        "importPath": "TS",
+        "description": "TS",
+        "peekOfCode": "action = input(\"INGRESE ACCION : \")\nmodify() if action == \"M\" else delete() if action == \"D\" else insert() if action == \"I\" else None",
         "detail": "TS",
         "documentation": {}
     },

@@ -1,28 +1,35 @@
-import gspread
+import pygsheets
+path = "./service_account_olt_operations.json"
 
 cellMap = {
-    'SN': 1,
-    'NAME': 2,
-    'CI': 3,
-    'OLT': 4,
-    'FRAME': 5,
-    'SLOT': 6,
-    'PORT': 7,
-    'ID': 8,
-    'ONT': 9,
-    'STATUS': 10,
-    'PROVIDER': 11,
-    'PLAN': 12,
-    'SPID': 13,
-    'STATE': 14,
+    'SN': "A",
+    'NAME': "B",
+    'CI': "C",
+    'OLT': "D",
+    'FRAME': "E",
+    'SLOT': "F",
+    'PORT': "G",
+    'ID': "H",
+    'ONT': "I",
+    'STATUS': "J",
+    'PROVIDER': "K",
+    'PLAN': "L",
+    'SPID': "M",
+    'STATE': "N",
 }
 
+gc = pygsheets.authorize(service_account_file=path)
+sh = gc.open("CPDC")
+wks = sh[4]
 
-def modifier(column, searchedValue, value):
-    sa = gspread.service_account(
-        filename="service_account_olt_operations.json")
-    sh = sa.open("CPDC")
-    wks = sh.worksheet("DATOS")
-    
-    cell = wks.find(searchedValue)
-    wks.update_cell(cell.row, cellMap[column], value)
+def modify(lookupVal, newVal, tp):
+    cell = wks.find(lookupVal)[0]
+    wks.update_value(f"{cellMap[tp]}{cell.row}", newVal)
+
+def delete(lookupVal):
+    cell = wks.find(lookupVal)[0]
+    wks.delete_rows(cell.row)
+
+def insert(values):
+    lst_row = len(wks.get_all_records())  + 1
+    wks.insert_rows(lst_row, values=values)

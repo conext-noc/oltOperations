@@ -37,7 +37,6 @@ Que accion se realizara?
     > (VP)  :   Verificacion de puerto
     > (CA)  :   Clientes con averias (corte de fibra)
     > (DT)  :   Desactivados Totales
-    > (FE)  :   Funciones Extras
 $ """
         )
         if action == "RL":
