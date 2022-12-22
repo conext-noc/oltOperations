@@ -41,7 +41,7 @@ def addOnuServiceNew(comm, command, data):
 
     log(
         colorFormatter(
-            f'El SPID que se le agregara al cliente es : {data["spid"]}', "ok"
+            f'El SPID que se le agregara al cliente es : {data["wan"][0]["spid"]}', "ok"
         )
     )
 

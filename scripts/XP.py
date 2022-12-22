@@ -52,6 +52,7 @@ def portOperation(comm, command, quit, olt, action):
             TIME = client["ldt"]
             DATE = client["ldd"]
             PWR = client["pwr"]
+            CT = f"{DATE} {TIME}"
             resp = "| {:^6} | {:^3} | {:^56} | {:^11} | {:^10} | {:^15} | {:^6} | {:^10} | {:^10} | {:^10} | {:^16} |".format(
                 FSP, ID, NAME, STATE, STATUS, CAUSE,PWR, TIME, DATE, TP, SN
             )
@@ -114,10 +115,10 @@ def portOperation(comm, command, quit, olt, action):
                     resp = colorFormatter(resp, color)
                     log(resp)
         preg = inp("continuar? [Y | N] : ") if action == "VP" else None
-        FRAME = inp("Ingrese frame de cliente  : ") if action == "VP" else None
-        SLOT = inp("Ingrese slot de cliente   : ") if action == "VP" else None
-        PORT = inp("Ingrese puerto de cliente : ") if action == "VP" else None
-        lst = [{"fsp": f"{FRAME}/{SLOT}/{PORT}"}] if action == "VP" else None
+        FRAME = inp("Ingrese frame de cliente  : ") if action == "VP" and preg == "Y" else None
+        SLOT = inp("Ingrese slot de cliente   : ") if action == "VP" and preg == "Y" else None
+        PORT = inp("Ingrese puerto de cliente : ") if action == "VP" and preg == "Y" else None
+        lst = [{"fsp": f"{FRAME}/{SLOT}/{PORT}"}] if action == "VP" and preg == "Y" else None
         keep = True if preg == "Y" else False
         if action == "DT":
             for res in portCount.items():
