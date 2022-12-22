@@ -20,7 +20,7 @@ cellMap = {
 
 gc = pygsheets.authorize(service_account_file=path)
 sh = gc.open("CPDC")
-wks = sh[4]
+wks = sh[1]
 
 def modify(lookupVal, newVal, tp):
     cell = wks.find(lookupVal)[0]
