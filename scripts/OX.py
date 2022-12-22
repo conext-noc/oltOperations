@@ -4,7 +4,7 @@ from helpers.fileFormatters.fileHandler import fileToDict
 from helpers.utils.decoder import decoder
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
-from helpers.utils.sheets import modifier
+from helpers.utils.sheets import modify
 
 def operate(comm,command,quit,olt,action):
   operation = "activate" if "R" in action else ("deactivate" if "S" in action else "")
@@ -48,7 +48,7 @@ def operate(comm,command,quit,olt,action):
     |{} 
     |{}/{}/{}/{} @ OLT {} - {}
     """.format(NAME,FRAME,SLOT,PORT,ID,OLT,resultedAction),"success"))
-        modifier("STATUS", SN, state)
+        modify(SN,"active","STATUS")
         output = decoder(comm)
         if "U" not in action:
           file = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"

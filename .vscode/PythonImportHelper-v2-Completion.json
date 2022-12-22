@@ -1582,7 +1582,7 @@
         "documentation": {}
     },
     {
-        "label": "modifier",
+        "label": "modify",
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
         "isExtraImport": true,
