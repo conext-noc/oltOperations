@@ -1574,6 +1574,14 @@
         "documentation": {}
     },
     {
+        "label": "insert",
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "isExtraImport": true,
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
         "label": "modify",
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
@@ -1635,15 +1643,6 @@
         "description": "helpers.utils.template",
         "isExtraImport": true,
         "detail": "helpers.utils.template",
-        "documentation": {}
-    },
-    {
-        "label": "gspread",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "gspread",
-        "description": "gspread",
-        "detail": "gspread",
         "documentation": {}
     },
     {
@@ -1870,7 +1869,7 @@
         "kind": 2,
         "importPath": "helpers.clientFinder.newLookup",
         "description": "helpers.clientFinder.newLookup",
-        "peekOfCode": "def newLookup(comm, command, olt):\n    SN_NEW = inp(\"Ingrese el Serial del Cliente a buscar : \").upper()\n    SN_FINAL = None\n    FSP_FINAL = None\n    client = []\n    command(\"display ont autofind all | no-more\")\n    sleep(5)\n    value = decoder(comm)\n    regex = checkIter(value, newCond)\n    print(value)",
+        "peekOfCode": "def newLookup(comm, command, olt):\n    SN_NEW = inp(\"Ingrese el Serial del Cliente a buscar : \").upper()\n    SN_FINAL = None\n    FSP_FINAL = None\n    client = []\n    command(\"display ont autofind all | no-more\")\n    sleep(5)\n    value = decoder(comm)\n    regex = checkIter(value, newCond)\n    for ont in range(len(regex) - 1):",
         "detail": "helpers.clientFinder.newLookup",
         "documentation": {}
     },
@@ -2689,7 +2688,7 @@
         "kind": 2,
         "importPath": "scripts.IXN",
         "description": "scripts.IXN",
-        "peekOfCode": "def confirmNew(comm, command, quit, olt, action):\n    sa = gspread.service_account(filename=\"service_account_olt_operations.json\")\n    sh = sa.open(\"CPDC\")\n    wks = sh.worksheet(\"DATOS\")\n    lstRow = len(wks.get_all_records()) + 2\n    proceed = None\n    data = {\n        \"fail\": None,\n        \"name\": None,\n        \"olt\": olt,",
+        "peekOfCode": "def confirmNew(comm, command, quit, olt, action):\n    proceed = None\n    data = {\n        \"fail\": None,\n        \"name\": None,\n        \"olt\": olt,\n        \"frame\": None,\n        \"slot\": None,\n        \"port\": None,\n        \"id\": None,",
         "detail": "scripts.IXN",
         "documentation": {}
     },

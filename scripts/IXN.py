@@ -6,16 +6,11 @@ from helpers.operations.newAddHandler import addONUNew, addOnuServiceNew
 from helpers.operations.spid import verifySPID
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
+from helpers.utils.sheets import insert
 from helpers.utils.template import approved, denied
 from helpers.info.plans import plans
-import gspread
-
 
 def confirmNew(comm, command, quit, olt, action):
-    sa = gspread.service_account(filename="service_account_olt_operations.json")
-    sh = sa.open("CPDC")
-    wks = sh.worksheet("DATOS")
-    lstRow = len(wks.get_all_records()) + 2
     proceed = None
     data = {
         "fail": None,
@@ -102,7 +97,7 @@ def confirmNew(comm, command, quit, olt, action):
 
         verifySPID(comm, command, data)
         wksArr = approved(data)
-        wks.insert_row(wksArr, lstRow)
+        insert(wksArr)
         quit()
         return
     else:

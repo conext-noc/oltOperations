@@ -22,7 +22,6 @@ def newLookup(comm, command, olt):
     sleep(5)
     value = decoder(comm)
     regex = checkIter(value, newCond)
-    print(value)
     for ont in range(len(regex) - 1):
         (_, s) = regex[ont]
         (e, _) = regex[ont + 1]
