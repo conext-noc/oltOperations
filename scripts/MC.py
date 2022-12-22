@@ -1,7 +1,6 @@
 from helpers.clientFinder.dataLookup import dataLookup
 from helpers.operations.addHandler import addOnuService
 from helpers.operations.spid import availableSpid, spidCalc, verifySPID
-from helpers.utils.decoder import decoder
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.info.plans import oldPlans
@@ -24,9 +23,10 @@ $ """
     proceed = display(data, "A")
     if not proceed:
         log(colorFormatter("Cancelando...", "warning"))
+        quit()
         return
     if action == "CT":
-        NEW_NAME = inp("Ingrese el Nuevo Titular del cliente")
+        NEW_NAME = inp("Ingrese el Nuevo Titular del cliente : ")
         command(f"interface gpon {data['frame']}/{data['slot']}")
         command(f'ont modify {data["port"]} {data["id"]} desc "{NEW_NAME}" ')
         command("quit")
@@ -36,9 +36,10 @@ $ """
                 "success",
             )
         )
+        quit()
         return
     if action == "CO":
-        NEW_SN = inp("Ingrese el Nuevo serial de ONT del cliente")
+        NEW_SN = inp("Ingrese el Nuevo serial de ONT del cliente : ")
         command(f"interface gpon {data['frame']}/{data['slot']}")
         command(f'ont modify {data["port"]} {data["id"]} sn "{NEW_SN}" ')
         command("quit")
@@ -49,6 +50,7 @@ $ """
             )
         )
         """"""
+        quit()
         return
     if action == "CP" and olt != "1":
         log("| {:^3} | {:^4} | {:^6} |".format("IDX", "VLAN", "SPID"))
@@ -69,12 +71,13 @@ $ """
                 "info",
             )
         )
+        quit()
         return
     if action == "ES":
         log("| {:^3} | {:^4} | {:^6} |".format("IDX", "VLAN", "SPID"))
         for idx, wan in enumerate(data["wan"]):
             log("| {:^3} | {:^4} | {:^6} |".format(idx, wan["vlan"], wan["spid"]))
-        DEL_SPID = inp("Ingrese el SPID a eliminar")
+        DEL_SPID = int(inp("Ingrese el SPID a eliminar : "))
         command(f"undo service-port {DEL_SPID}")
         log(
             colorFormatter(
@@ -82,10 +85,11 @@ $ """
                 "info",
             )
         )
+        quit()
         return
     if action == "AS":
         if olt == "1":
-            NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente")
+            NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente : ")
             serviceType = inp(
                 """
     Ingrese el tipo de servicio a instalar :
@@ -96,8 +100,9 @@ $ """
             )
             data["spid"] = spidCalc(data)[serviceType]
             log(f"SPID PARA AGG {data['spid']}, FUNCION AUN NO DISPONIBLE")
+            quit()
             return
-        data["spid"] = availableSpid(comm,command)
+        data["wan"][0]["spid"] = availableSpid(comm,command)
         addOnuService(comm, command, data)
         verifySPID(comm,command,data)
         log(
@@ -106,4 +111,5 @@ $ """
                 "info",
             )
         )
+        quit()
         return

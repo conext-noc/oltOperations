@@ -560,14 +560,6 @@
         "documentation": {}
     },
     {
-        "label": "decoder",
-        "importPath": "helpers.utils.decoder",
-        "description": "helpers.utils.decoder",
-        "isExtraImport": true,
-        "detail": "helpers.utils.decoder",
-        "documentation": {}
-    },
-    {
         "label": "check",
         "importPath": "helpers.utils.decoder",
         "description": "helpers.utils.decoder",
