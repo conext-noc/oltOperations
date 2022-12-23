@@ -32,9 +32,9 @@ cellMapNeli = {
 
 gc = pygsheets.authorize(service_account_file=path)
 sh = gc.open("CPDC")
-wks = sh[1]
+wks = sh[0]
 neliSh = gc.open("CO Instalaciones Oz. y MDU")
-neliWks = sh[0]
+neliWks = neliSh[0]
 
     
 def insertNeli(values):

@@ -904,6 +904,22 @@
         "documentation": {}
     },
     {
+        "label": "colorFormatter",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
         "label": "inp",
         "importPath": "helpers.utils.printer",
         "description": "helpers.utils.printer",
@@ -1202,6 +1218,14 @@
     },
     {
         "label": "verifySPID",
+        "importPath": "helpers.operations.spid",
+        "description": "helpers.operations.spid",
+        "isExtraImport": true,
+        "detail": "helpers.operations.spid",
+        "documentation": {}
+    },
+    {
+        "label": "spidCalc",
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
         "isExtraImport": true,
@@ -2606,7 +2630,7 @@
         "kind": 5,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "gc = pygsheets.authorize(service_account_file=path)\nsh = gc.open(\"CPDC\")\nwks = sh[1]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = sh[0]\ndef insertNeli(values):\n    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(vals):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)",
+        "peekOfCode": "gc = pygsheets.authorize(service_account_file=path)\nsh = gc.open(\"CPDC\")\nwks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\ndef insertNeli(values):\n    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(vals):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2615,7 +2639,7 @@
         "kind": 5,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "sh = gc.open(\"CPDC\")\nwks = sh[1]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = sh[0]\ndef insertNeli(values):\n    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(vals):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)\ndef modify(lookupVal, newVal, tp):",
+        "peekOfCode": "sh = gc.open(\"CPDC\")\nwks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\ndef insertNeli(values):\n    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(vals):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)\ndef modify(lookupVal, newVal, tp):",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2624,7 +2648,7 @@
         "kind": 5,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "wks = sh[1]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = sh[0]\ndef insertNeli(values):\n    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(vals):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]",
+        "peekOfCode": "wks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\ndef insertNeli(values):\n    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(vals):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2633,7 +2657,7 @@
         "kind": 5,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "neliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = sh[0]\ndef insertNeli(values):\n    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(vals):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)",
+        "peekOfCode": "neliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\ndef insertNeli(values):\n    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(vals):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2642,7 +2666,7 @@
         "kind": 5,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "neliWks = sh[0]\ndef insertNeli(values):\n    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(vals):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):",
+        "peekOfCode": "neliWks = neliSh[0]\ndef insertNeli(values):\n    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(vals):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2809,47 +2833,11 @@
         "documentation": {}
     },
     {
-        "label": "insertNeli",
-        "kind": 2,
-        "importPath": "TS",
-        "description": "TS",
-        "peekOfCode": "def insertNeli(values):\n    neli_lstRow = len(neliWks.get_all_records()) + 2\n    for idx,value in enumerate(values):\n        neliWks.update_value(f\"{cellMapNeli[f'{idx}']}{neli_lstRow}\", value)\ndef insert():\n    values = []\n    for i in range(0,9):\n        val = input(f\"Ingrese el valor {i} : \")\n        values.append(val)\n    insertNeli(values)",
-        "detail": "TS",
-        "documentation": {}
-    },
-    {
-        "label": "insert",
-        "kind": 2,
-        "importPath": "TS",
-        "description": "TS",
-        "peekOfCode": "def insert():\n    values = []\n    for i in range(0,9):\n        val = input(f\"Ingrese el valor {i} : \")\n        values.append(val)\n    insertNeli(values)\n    # wks.insert_rows(lst_row, values=values)\ninsert()\n# action = input(\"INGRESE ACCION : \")\n# modify() if action == \"M\" else delete() if action == \"D\" else insert() if action == \"I\" else None",
-        "detail": "TS",
-        "documentation": {}
-    },
-    {
         "label": "path",
         "kind": 5,
         "importPath": "TS",
         "description": "TS",
-        "peekOfCode": "path = \"./service_account_olt_operations.json\"\ncellMap = {\n    'SN': \"A\",\n    'NAME': \"B\",\n    'CI': \"C\",\n    'OLT': \"D\",\n    'FRAME': \"E\",\n    'SLOT': \"F\",\n    'PORT': \"G\",\n    'ID': \"H\",",
-        "detail": "TS",
-        "documentation": {}
-    },
-    {
-        "label": "cellMap",
-        "kind": 5,
-        "importPath": "TS",
-        "description": "TS",
-        "peekOfCode": "cellMap = {\n    'SN': \"A\",\n    'NAME': \"B\",\n    'CI': \"C\",\n    'OLT': \"D\",\n    'FRAME': \"E\",\n    'SLOT': \"F\",\n    'PORT': \"G\",\n    'ID': \"H\",\n    'ONT': \"I\",",
-        "detail": "TS",
-        "documentation": {}
-    },
-    {
-        "label": "cellMapNeli",
-        "kind": 5,
-        "importPath": "TS",
-        "description": "TS",
-        "peekOfCode": "cellMapNeli = {\n    '0': \"C\",\n    '1': \"AB\",\n    '2': \"AC\",\n    '3': \"AD\",\n    '4': \"AE\",\n    '5': \"AF\",\n    '6': \"AJ\",\n    '7': \"AT\",\n    '8': \"AU\",",
+        "peekOfCode": "path = \"./service_account_olt_operations.json\"\ngc = pygsheets.authorize(service_account_file=path)\nsh = gc.open(\"CPDC\")\nwks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\nprint(wks,neliWks)",
         "detail": "TS",
         "documentation": {}
     },
@@ -2858,7 +2846,25 @@
         "kind": 5,
         "importPath": "TS",
         "description": "TS",
-        "peekOfCode": "gc = pygsheets.authorize(service_account_file=path)\n# sh = gc.open(\"CPDC\")\n# wks = sh[4]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\n# def modify():\n#     lookupVal = input(\"Ingrese el valor a buscar : \")\n#     newVal = input(\"Ingrese el nuevo valor : \")\n#     tp = input(\"Ingrese el tipo de valor a cambiar : \")\n#     cell = wks.find(lookupVal)[0]",
+        "peekOfCode": "gc = pygsheets.authorize(service_account_file=path)\nsh = gc.open(\"CPDC\")\nwks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\nprint(wks,neliWks)",
+        "detail": "TS",
+        "documentation": {}
+    },
+    {
+        "label": "sh",
+        "kind": 5,
+        "importPath": "TS",
+        "description": "TS",
+        "peekOfCode": "sh = gc.open(\"CPDC\")\nwks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\nprint(wks,neliWks)",
+        "detail": "TS",
+        "documentation": {}
+    },
+    {
+        "label": "wks",
+        "kind": 5,
+        "importPath": "TS",
+        "description": "TS",
+        "peekOfCode": "wks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\nprint(wks,neliWks)",
         "detail": "TS",
         "documentation": {}
     },
@@ -2867,7 +2873,7 @@
         "kind": 5,
         "importPath": "TS",
         "description": "TS",
-        "peekOfCode": "neliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\n# def modify():\n#     lookupVal = input(\"Ingrese el valor a buscar : \")\n#     newVal = input(\"Ingrese el nuevo valor : \")\n#     tp = input(\"Ingrese el tipo de valor a cambiar : \")\n#     cell = wks.find(lookupVal)[0]\n#     wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\n# def delete():\n#     lookupVal = input(\"Ingrese el valor a buscar : \")",
+        "peekOfCode": "neliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\nprint(wks,neliWks)",
         "detail": "TS",
         "documentation": {}
     },
@@ -2876,7 +2882,7 @@
         "kind": 5,
         "importPath": "TS",
         "description": "TS",
-        "peekOfCode": "neliWks = neliSh[0]\n# def modify():\n#     lookupVal = input(\"Ingrese el valor a buscar : \")\n#     newVal = input(\"Ingrese el nuevo valor : \")\n#     tp = input(\"Ingrese el tipo de valor a cambiar : \")\n#     cell = wks.find(lookupVal)[0]\n#     wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\n# def delete():\n#     lookupVal = input(\"Ingrese el valor a buscar : \")\n#     cell = wks.find(lookupVal)[0]",
+        "peekOfCode": "neliWks = neliSh[0]\nprint(wks,neliWks)",
         "detail": "TS",
         "documentation": {}
     },
