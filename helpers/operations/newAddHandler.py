@@ -62,9 +62,10 @@ def addOnuServiceNew(comm, command, data):
     command(
         f' service-port {data["wan"][0]["spid"]} vlan {data["wan"][0]["vlan"]} gpon {data["frame"]}/{data["slot"]}/{data["port"]} ont {data["id"]} gemport {data["gemPort"]} multi-service user-vlan {data["wan"][0]["vlan"]} tag-transform transparent inbound traffic-table index {data["wan"][0]["plan"]} outbound traffic-table index {data["wan"][0]["plan"]}'
     )
-    IPADDRESS = None
-    while IPADDRESS == None:
-        (IPADDRESS, _) = wan(comm, command, data['frame'], data['slot'], data['port'], data['id'], data['olt'])
+    # IPADDRESS = None
+    # while IPADDRESS == None:
+    #     (IPADDRESS, _) = wan(comm, command, data['frame'], data['slot'], data['port'], data['id'], data['olt'])
+    sleep(10)
     command(f"interface gpon {data['frame']}/{data['slot']}")
     command(f"ont wan-config {data['port']} {data['id']} ip-index 2 profile-id 0")
     command("quit")

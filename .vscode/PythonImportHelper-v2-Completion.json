@@ -2702,6 +2702,24 @@
         "documentation": {}
     },
     {
+        "label": "migration",
+        "kind": 2,
+        "importPath": "scripts.MG1",
+        "description": "scripts.MG1",
+        "peekOfCode": "def migration():\n  \"\"",
+        "detail": "scripts.MG1",
+        "documentation": {}
+    },
+    {
+        "label": "addWanConfig",
+        "kind": 2,
+        "importPath": "scripts.MG2",
+        "description": "scripts.MG2",
+        "peekOfCode": "def addWanConfig():\n  \"\"",
+        "detail": "scripts.MG2",
+        "documentation": {}
+    },
+    {
         "label": "olt",
         "kind": 2,
         "importPath": "scripts.OLT",
