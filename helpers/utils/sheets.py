@@ -58,6 +58,5 @@ def insert(values):
         if idx <= 8:
             vals.append(value)
     lst_row = len(wks.get_all_records())  + 1
-    neli_lstRow = len(neli_lstRow.get_all_records()) + 1
     wks.insert_rows(lst_row, values=vals)
     insertNeli(values)
