@@ -38,5 +38,6 @@ def migration(comm, command, quit, olt, lst):
         resp = f"""
     | {NAME} {client["frame"]}/{client["slot"]}/{client["port"]}/{client["id"]}
     | {client["plan"]}
+    Successfully Migrated!
         """
-        log(colorFormatter(f"|","success"))
+        log(colorFormatter(resp,"success"))

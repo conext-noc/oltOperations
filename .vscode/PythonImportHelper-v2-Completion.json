@@ -920,6 +920,22 @@
         "documentation": {}
     },
     {
+        "label": "colorFormatter",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
         "label": "inp",
         "importPath": "helpers.utils.printer",
         "description": "helpers.utils.printer",
@@ -1233,6 +1249,14 @@
         "documentation": {}
     },
     {
+        "label": "spidCalc",
+        "importPath": "helpers.operations.spid",
+        "description": "helpers.operations.spid",
+        "isExtraImport": true,
+        "detail": "helpers.operations.spid",
+        "documentation": {}
+    },
+    {
         "label": "planX15Maps",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
@@ -1274,6 +1298,14 @@
     },
     {
         "label": "oldPlans",
+        "importPath": "helpers.info.plans",
+        "description": "helpers.info.plans",
+        "isExtraImport": true,
+        "detail": "helpers.info.plans",
+        "documentation": {}
+    },
+    {
+        "label": "plans",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
         "isExtraImport": true,
@@ -2576,7 +2608,7 @@
         "kind": 2,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "def modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    vals = []\n    for idx,value in enumerate(values):\n        if idx <= 8:",
+        "peekOfCode": "def modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    vals = []\n    for idx,value in enumerate(values):\n        if idx <= 12:",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2585,7 +2617,7 @@
         "kind": 2,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "def delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    vals = []\n    for idx,value in enumerate(values):\n        if idx <= 8:\n            vals.append(value)\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=vals)",
+        "peekOfCode": "def delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    vals = []\n    for idx,value in enumerate(values):\n        if idx <= 12:\n            vals.append(value)\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=vals)",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2594,7 +2626,7 @@
         "kind": 2,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "def insert(values):\n    vals = []\n    for idx,value in enumerate(values):\n        if idx <= 8:\n            vals.append(value)\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=vals)\n    insertNeli(values)",
+        "peekOfCode": "def insert(values):\n    vals = []\n    for idx,value in enumerate(values):\n        if idx <= 12:\n            vals.append(value)\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=vals)\n    insertNeli(values)",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2783,7 +2815,7 @@
         "kind": 2,
         "importPath": "scripts.MG2",
         "description": "scripts.MG2",
-        "peekOfCode": "def addWanConfig():\n  \"\"",
+        "peekOfCode": "def addWanConfig(comm, command, quit, olt, lst):\n    \"\"\"\n    lst should be formatted as the data object across the app\n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",\n      \"frame\",",
         "detail": "scripts.MG2",
         "documentation": {}
     },
