@@ -25,6 +25,8 @@ def approved(data):
         data["wan"][0]["plan"],
         data["wan"][0]["spid"],
         "used",
+        data["pwr"],
+        data["temp"],
     ]
 
 
