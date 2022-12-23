@@ -38,7 +38,7 @@ neliWks = neliSh[0]
 
     
 def insertNeli(values):
-    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],values[15]]
+    vals = [values[2],values[3],values[4],values[5],values[6],values[7],values[0],values[14],f"{values[15]}°C"]
     neli_lstRow = len(neliWks.get_all_records()) + 2
     for idx,value in enumerate(vals):
         neliWks.update_value(f"{cellMapNeli[f'{idx}']}{neli_lstRow}", value)
