@@ -1,8 +1,8 @@
-from helpers.info.plans import plans
-from helpers.operations.spid import spidCalc
-from helpers.utils.printer import colorFormatter, log
+from tkinter.filedialog import askopenfilename
+from helpers.utils.printer import colorFormatter, inp, log
+from helpers.fileFormatters.fileHandler import fileToDict
 
-def addWanConfig(comm, command, quit, olt, lst):
+def addWanConfig(comm, command, quit, olt):
     """
     lst should be formatted as the data object across the app
     {
@@ -19,6 +19,9 @@ def addWanConfig(comm, command, quit, olt, lst):
       "plan",
     }
     """
+    fileType = inp("Ingrese el tipo de archivo [E | C] : ")
+    fileName = askopenfilename()
+    lst = fileToDict(fileName,fileType)
     for client in lst:
         NAME = f'{client["fName"].upper()} {client["lName"].upper()} {client["contract"]}'
         command(f"interface gpon {client['frame']}/{client['slot']}")
@@ -30,3 +33,5 @@ def addWanConfig(comm, command, quit, olt, lst):
     Successfully Added Wan Profile @ ONT!
         """
         log(colorFormatter(resp,"success"))
+    quit()
+    return

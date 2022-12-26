@@ -1,25 +1,30 @@
+from tkinter.filedialog import askopenfilename
+from helpers.fileFormatters.fileHandler import fileToDict
 from helpers.info.plans import plans
 from helpers.operations.spid import spidCalc
-from helpers.utils.printer import colorFormatter, log
+from helpers.utils.printer import colorFormatter, inp, log
 
 
-def migration(comm, command, quit, olt, lst):
-    """
+def migration(comm, command, quit, olt):
+    """"
     lst should be formatted as the data object across the app
     {
-      "fName"
-      "lName"
-      "nif"
-      "contract"
-      "olt"
-      "frame"
-      "slot"
-      "port"
-      "id"
-      "sn"
-      "plan"
+      "fName",
+      "lName",
+      "nif",
+      "contract",
+      "olt",
+      "frame",
+      "slot",
+      "port",
+      "id",
+      "sn",
+      "plan",
     }
     """
+    fileType = inp("Ingrese el tipo de archivo [E | C] : ")
+    fileName = askopenfilename()
+    lst = fileToDict(fileName,fileType)
     for client in lst:
         NAME = f'{client["fName"].upper()} {client["lName"].upper()} {client["contract"]}'
         command(f"interface gpon {client['frame']}/{client['slot']}")
@@ -41,3 +46,5 @@ def migration(comm, command, quit, olt, lst):
     Successfully Migrated!
         """
         log(colorFormatter(resp,"success"))
+    quit()
+    return

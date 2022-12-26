@@ -168,6 +168,14 @@
         "documentation": {}
     },
     {
+        "label": "wan",
+        "importPath": "helpers.clientFinder.wan",
+        "description": "helpers.clientFinder.wan",
+        "isExtraImport": true,
+        "detail": "helpers.clientFinder.wan",
+        "documentation": {}
+    },
+    {
         "label": "failChecker",
         "importPath": "helpers.failHandler.fail",
         "description": "helpers.failHandler.fail",
@@ -912,6 +920,14 @@
         "documentation": {}
     },
     {
+        "label": "inp",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
         "label": "log",
         "importPath": "helpers.utils.printer",
         "description": "helpers.utils.printer",
@@ -921,6 +937,38 @@
     },
     {
         "label": "colorFormatter",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
+        "label": "inp",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
+        "label": "colorFormatter",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
+        "label": "inp",
         "importPath": "helpers.utils.printer",
         "description": "helpers.utils.printer",
         "isExtraImport": true,
@@ -1153,6 +1201,30 @@
         "documentation": {}
     },
     {
+        "label": "fileToDict",
+        "importPath": "helpers.fileFormatters.fileHandler",
+        "description": "helpers.fileFormatters.fileHandler",
+        "isExtraImport": true,
+        "detail": "helpers.fileFormatters.fileHandler",
+        "documentation": {}
+    },
+    {
+        "label": "fileToDict",
+        "importPath": "helpers.fileFormatters.fileHandler",
+        "description": "helpers.fileFormatters.fileHandler",
+        "isExtraImport": true,
+        "detail": "helpers.fileFormatters.fileHandler",
+        "documentation": {}
+    },
+    {
+        "label": "fileToDict",
+        "importPath": "helpers.fileFormatters.fileHandler",
+        "description": "helpers.fileFormatters.fileHandler",
+        "isExtraImport": true,
+        "detail": "helpers.fileFormatters.fileHandler",
+        "documentation": {}
+    },
+    {
         "label": "datetime",
         "importPath": "datetime",
         "description": "datetime",
@@ -1249,14 +1321,6 @@
         "documentation": {}
     },
     {
-        "label": "spidCalc",
-        "importPath": "helpers.operations.spid",
-        "description": "helpers.operations.spid",
-        "isExtraImport": true,
-        "detail": "helpers.operations.spid",
-        "documentation": {}
-    },
-    {
         "label": "planX15Maps",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
@@ -1298,14 +1362,6 @@
     },
     {
         "label": "oldPlans",
-        "importPath": "helpers.info.plans",
-        "description": "helpers.info.plans",
-        "isExtraImport": true,
-        "detail": "helpers.info.plans",
-        "documentation": {}
-    },
-    {
-        "label": "plans",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
         "isExtraImport": true,
@@ -1443,6 +1499,30 @@
         "description": "helpers.info.hashMaps",
         "isExtraImport": true,
         "detail": "helpers.info.hashMaps",
+        "documentation": {}
+    },
+    {
+        "label": "askopenfilename",
+        "importPath": "tkinter.filedialog",
+        "description": "tkinter.filedialog",
+        "isExtraImport": true,
+        "detail": "tkinter.filedialog",
+        "documentation": {}
+    },
+    {
+        "label": "askopenfilename",
+        "importPath": "tkinter.filedialog",
+        "description": "tkinter.filedialog",
+        "isExtraImport": true,
+        "detail": "tkinter.filedialog",
+        "documentation": {}
+    },
+    {
+        "label": "askopenfilename",
+        "importPath": "tkinter.filedialog",
+        "description": "tkinter.filedialog",
+        "isExtraImport": true,
+        "detail": "tkinter.filedialog",
         "documentation": {}
     },
     {
@@ -1726,6 +1806,14 @@
         "documentation": {}
     },
     {
+        "label": "upgradeData",
+        "importPath": "scripts.AD",
+        "description": "scripts.AD",
+        "isExtraImport": true,
+        "detail": "scripts.AD",
+        "documentation": {}
+    },
+    {
         "label": "existingLookup",
         "importPath": "scripts.BC",
         "description": "scripts.BC",
@@ -1763,6 +1851,22 @@
         "description": "scripts.MC",
         "isExtraImport": true,
         "detail": "scripts.MC",
+        "documentation": {}
+    },
+    {
+        "label": "migration",
+        "importPath": "scripts.MG1",
+        "description": "scripts.MG1",
+        "isExtraImport": true,
+        "detail": "scripts.MG1",
+        "documentation": {}
+    },
+    {
+        "label": "addWanConfig",
+        "importPath": "scripts.MG2",
+        "description": "scripts.MG2",
+        "isExtraImport": true,
+        "detail": "scripts.MG2",
         "documentation": {}
     },
     {
@@ -2757,6 +2861,15 @@
         "documentation": {}
     },
     {
+        "label": "upgradeData",
+        "kind": 2,
+        "importPath": "scripts.AD",
+        "description": "scripts.AD",
+        "peekOfCode": "def upgradeData(comm, command, quit, olt):\n    \"\"\"\n    In this module the Names and data plan of the clients will be updated\n    This will require a list of clients that will contain: \n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",",
+        "detail": "scripts.AD",
+        "documentation": {}
+    },
+    {
         "label": "existingLookup",
         "kind": 2,
         "importPath": "scripts.BC",
@@ -2806,7 +2919,7 @@
         "kind": 2,
         "importPath": "scripts.MG1",
         "description": "scripts.MG1",
-        "peekOfCode": "def migration(comm, command, quit, olt, lst):\n    \"\"\"\n    lst should be formatted as the data object across the app\n    {\n      \"fName\"\n      \"lName\"\n      \"nif\"\n      \"contract\"\n      \"olt\"\n      \"frame\"",
+        "peekOfCode": "def migration(comm, command, quit, olt):\n    \"\"\"\"\n    lst should be formatted as the data object across the app\n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",\n      \"frame\",",
         "detail": "scripts.MG1",
         "documentation": {}
     },
@@ -2815,7 +2928,7 @@
         "kind": 2,
         "importPath": "scripts.MG2",
         "description": "scripts.MG2",
-        "peekOfCode": "def addWanConfig(comm, command, quit, olt, lst):\n    \"\"\"\n    lst should be formatted as the data object across the app\n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",\n      \"frame\",",
+        "peekOfCode": "def addWanConfig(comm, command, quit, olt):\n    \"\"\"\n    lst should be formatted as the data object across the app\n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",\n      \"frame\",",
         "detail": "scripts.MG2",
         "documentation": {}
     },

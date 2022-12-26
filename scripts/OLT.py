@@ -2,11 +2,14 @@ from helpers.utils.decoder import decoder
 from helpers.utils.printer import inp, log, colorFormatter
 from helpers.utils.ssh import ssh
 from time import sleep
+from scripts.AD import upgradeData
 from scripts.BC import existingLookup
 from scripts.EC import deleteClient
 from scripts.IX import confirm
 from scripts.IXN import confirmNew
 from scripts.MC import modifyClient
+from scripts.MG1 import migration
+from scripts.MG2 import addWanConfig
 
 from scripts.OX import operate
 from scripts.VC import verifyTraffic
@@ -37,6 +40,8 @@ Que accion se realizara?
     > (VP)  :   Verificacion de puerto
     > (CA)  :   Clientes con averias (corte de fibra)
     > (DT)  :   Desactivados Totales
+    > (MG)  :   Migracion OLT
+    > (AD)  :   Actualizacion de datos en olt
 $ """
         )
         if action == "RL":
@@ -65,6 +70,11 @@ $ """
             portOperation(comm,command,quit,olt,action)
         if action == "DT":
             portOperation(comm,command,quit,olt,action)
+        if action == "MG":
+            stage = inp("Que etapa de migracion desea utilizar [1 | 2] : ")
+            migration(comm,command,quit,olt) if stage == "1" else addWanConfig(comm,command,quit,olt) if stage == "2" else None
+        if action == "AD":
+            upgradeData(comm, command, quit, olt)
     else:
         resp = colorFormatter(
             f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")
