@@ -4,7 +4,7 @@ from helpers.utils.printer import colorFormatter, inp, log
 from helpers.utils.sheets import delete
 
 
-def deleteClient(comm, command, quit, olt):
+def deleteClient(comm, command, quit, olt, action):
     lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
     data = dataLookup(comm,command,olt,lookupType)
     if data["fail"] != None:

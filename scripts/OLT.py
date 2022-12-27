@@ -10,7 +10,6 @@ from scripts.IXN import confirmNew
 from scripts.MC import modifyClient
 from scripts.MG1 import migration
 from scripts.MG2 import addWanConfig
-
 from scripts.OX import operate
 from scripts.VC import verifyTraffic
 from scripts.XP import portOperation
@@ -44,37 +43,32 @@ Que accion se realizara?
     > (AD)  :   Actualizacion de datos en olt
 $ """
         )
-        if action == "RL":
-            operate(comm,command,quit,olt,action)
-        if action == "RU":
-            operate(comm,command,quit,olt,action)
-        if action == "SL":
-            operate(comm,command,quit,olt,action)
-        if action == "SU":
-            operate(comm,command,quit,olt,action)
-        if action == "IN":
-            confirm(comm,command,quit,olt,action) if olt != "1" else confirmNew(comm,command,quit,olt,action)
-        if action == "IP":
-            confirm(comm,command,quit,olt,action) if olt != "1" else confirmNew(comm,command,quit,olt,action)
-        if action == "BC":
-            existingLookup(comm,command,quit,olt)
-        if action == "EC":
-            deleteClient(comm,command,quit,olt)
-        if action == "MC":
-            modifyClient(comm,command,quit,olt)
-        if action == "VC":
-            verifyTraffic(comm,command,quit,olt)
-        if action == "VP":
-            portOperation(comm,command,quit,olt,action)
-        if action == "CA":
-            portOperation(comm,command,quit,olt,action)
-        if action == "DT":
-            portOperation(comm,command,quit,olt,action)
-        if action == "MG":
+
+        def stages(comm, command, quit, olt, action):
             stage = inp("Que etapa de migracion desea utilizar [1 | 2] : ")
-            migration(comm,command,quit,olt) if stage == "1" else addWanConfig(comm,command,quit,olt) if stage == "2" else None
-        if action == "AD":
-            upgradeData(comm, command, quit, olt)
+            migration(comm, command, quit, olt, action) if stage == "1" else addWanConfig(
+                comm, command, quit, olt, action) if stage == "2" else None
+
+        modules = {
+            "RL": operate,
+            "RU": operate,
+            "SL": operate,
+            "SU": operate,
+            "IN": confirm if olt != "1" else confirmNew,
+            "IP": confirm if olt != "1" else confirmNew,
+            "BC": existingLookup,
+            "EC": deleteClient,
+            "MC": modifyClient,
+            "VC": verifyTraffic,
+            "VP": portOperation,
+            "CA": portOperation,
+            "DT": portOperation,
+            "MG": stages,
+            "AD": upgradeData,
+        }
+
+        modules[action](comm, command, quit, olt, action)
+
     else:
         resp = colorFormatter(
             f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")

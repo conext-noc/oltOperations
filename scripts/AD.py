@@ -4,7 +4,7 @@ from helpers.utils.printer import colorFormatter, inp, log
 from helpers.fileFormatters.fileHandler import fileToDict
 
 
-def upgradeData(comm, command, quit, olt):
+def upgradeData(comm, command, quit, olt, action):
     """
     In this module the Names and data plan of the clients will be updated
     This will require a list of clients that will contain: 

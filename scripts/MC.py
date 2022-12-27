@@ -7,7 +7,7 @@ from helpers.info.plans import oldPlans
 from helpers.utils.sheets import modify
 
 
-def modifyClient(comm, command, quit, olt):
+def modifyClient(comm, command, quit, olt, act):
     proceed = None
     action = inp(
         """
