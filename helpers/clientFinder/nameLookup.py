@@ -14,40 +14,50 @@ newCondSn = "Ont SN              : "
 newCondTime = "Ont autofind time   : "
 
 
-def nameLookup(comm,command,quit):
-  clients = []
-  NAME = inp("Ingrese el Nombre del Cliente a buscar : ")
-  command(f'display ont info by-desc "{NAME}" | no-more ')
-  sleep(5)
-  value = decoder(comm)
-  regex = checkIter(value,condition)
-  FAIL = failChecker(value)
-  portRange= []
-  if FAIL == None:
-      ttlPorts = len(regex) // 6
-      for port in range(0,ttlPorts):
-          portRange.append({"sInfo":regex[port+1][1], "eInfo": regex[port + 2][0], "sDesc": regex[port + 3][1], "eDesc":regex[port + 4][0]})
-      for info in portRange:
-          valueInfo = dataToDict(infoHeader,value[info["sInfo"]:info["eInfo"]])
-          valueDesc = dataToDict(descHeader,value[info["sDesc"]:info["eDesc"]])
-          for (info,desc) in zip(valueInfo,valueDesc):
-              if info["ID"] == desc["ID"]:
-                  name = ""
-                  SLOT = int(desc["S/P"].split("/")[0])
-                  PORT = int(desc["S/P"].split("/")[1])
-                  for i in range(1, 7):
-                      NAME = str(desc[f"NAME{i}"]) if str(
-                          desc[f"NAME{i}"]) != "nan" else ""
-                      name += NAME + " "
-                  clients.append({
-                      "frame":0,
-                      "slot":SLOT,
-                      "port":PORT,
-                      "id":desc["ID"],
-                      "name":name,
-                      "controlFlag":info["controlFlag"],
-                      "runState":info["runState"],
-                      "sn": info["SN"]
-                  })
-  quit()
-  return
+def nameLookup(comm, command, quit):
+    clients = []
+    NAME = inp("Ingrese el Nombre del Cliente a buscar : ")
+    command(f'display ont info by-desc "{NAME}" | no-more ')
+    sleep(5)
+    value = decoder(comm)
+    regex = checkIter(value, condition)
+    FAIL = failChecker(value)
+    portRange = []
+    if FAIL == None:
+        ttlPorts = len(regex) // 6
+        for port in range(0, ttlPorts):
+            portRange.append({"sInfo": regex[port+1][1], "eInfo": regex[port + 2]
+                             [0], "sDesc": regex[port + 3][1], "eDesc": regex[port + 4][0]})
+        for info in portRange:
+            valueInfo = dataToDict(
+                infoHeader, value[info["sInfo"]:info["eInfo"]])
+            valueDesc = dataToDict(
+                descHeader, value[info["sDesc"]:info["eDesc"]])
+            for (info, desc) in zip(valueInfo, valueDesc):
+                if info["ID"] == desc["ID"]:
+                    name = ""
+                    SLOT = int(desc["S/P"].split("/")[0])
+                    PORT = int(desc["S/P"].split("/")[1])
+                    for i in range(1, 7):
+                        NAME = str(desc[f"NAME{i}"]) if str(
+                            desc[f"NAME{i}"]) != "nan" else ""
+                        name += NAME + " "
+                    clients.append({
+                        "frame": 0,
+                        "slot": SLOT,
+                        "port": PORT,
+                        "id": desc["ID"],
+                        "name": name,
+                        "controlFlag": info["controlFlag"],
+                        "runState": info["runState"],
+                        "sn": info["SN"]
+                    })
+        return {
+            "data":clients,
+            "fail": FAIL
+        }
+    quit()
+    return {
+            "data":clients,
+            "fail": FAIL
+        }
