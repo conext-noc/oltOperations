@@ -2,7 +2,7 @@ from tkinter.filedialog import askopenfilename
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.fileFormatters.fileHandler import fileToDict
 
-def addWanConfig(comm, command, quit, olt):
+def addWanConfig(comm, command, quit, olt, action):
     """
     lst should be formatted as the data object across the app
     {

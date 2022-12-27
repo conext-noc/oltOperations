@@ -7,7 +7,7 @@ from helpers.info.regexConditions import speed
 from time import sleep
 
 
-def verifyTraffic(comm,command,quit,olt):
+def verifyTraffic(comm,command,quit,olt, action):
     speedUpArr = []
     speedDownArr = []
     lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")

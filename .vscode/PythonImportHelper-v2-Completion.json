@@ -2865,7 +2865,7 @@
         "kind": 2,
         "importPath": "scripts.AD",
         "description": "scripts.AD",
-        "peekOfCode": "def upgradeData(comm, command, quit, olt):\n    \"\"\"\n    In this module the Names and data plan of the clients will be updated\n    This will require a list of clients that will contain: \n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",",
+        "peekOfCode": "def upgradeData(comm, command, quit, olt, action):\n    \"\"\"\n    In this module the Names and data plan of the clients will be updated\n    This will require a list of clients that will contain: \n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",",
         "detail": "scripts.AD",
         "documentation": {}
     },
@@ -2874,7 +2874,7 @@
         "kind": 2,
         "importPath": "scripts.BC",
         "description": "scripts.BC",
-        "peekOfCode": "def existingLookup(comm, command, quit, olt):\n    lookupType = inp(\n        \"Buscar cliente por serial, por nombre o por Datos (F/S/P/ID) [S | N | D] : \"\n    )\n    data = (\n        dataLookup(comm, command, olt, lookupType)\n        if lookupType != \"N\"\n        else nameLookup(comm, command, quit)\n    )\n    if data[\"fail\"] != None:",
+        "peekOfCode": "def existingLookup(comm, command, quit, olt, action):\n    lookupType = inp(\n        \"Buscar cliente por serial, por nombre o por Datos (F/S/P/ID) [S | N | D] : \"\n    )\n    data = (\n        dataLookup(comm, command, olt, lookupType)\n        if lookupType != \"N\"\n        else nameLookup(comm, command, quit)\n    )\n    if data[\"fail\"] != None:",
         "detail": "scripts.BC",
         "documentation": {}
     },
@@ -2883,7 +2883,7 @@
         "kind": 2,
         "importPath": "scripts.EC",
         "description": "scripts.EC",
-        "peekOfCode": "def deleteClient(comm, command, quit, olt):\n    lookupType = inp(\"Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : \")\n    data = dataLookup(comm,command,olt,lookupType)\n    if data[\"fail\"] != None:\n        log(colorFormatter(data[\"fail\"], \"fail\"))\n        quit()\n        return\n    proceed = display(data,\"A\")\n    if not proceed:\n        log(colorFormatter(\"Cancelando...\", \"warning\"))",
+        "peekOfCode": "def deleteClient(comm, command, quit, olt, action):\n    lookupType = inp(\"Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : \")\n    data = dataLookup(comm,command,olt,lookupType)\n    if data[\"fail\"] != None:\n        log(colorFormatter(data[\"fail\"], \"fail\"))\n        quit()\n        return\n    proceed = display(data,\"A\")\n    if not proceed:\n        log(colorFormatter(\"Cancelando...\", \"warning\"))",
         "detail": "scripts.EC",
         "documentation": {}
     },
@@ -2910,7 +2910,7 @@
         "kind": 2,
         "importPath": "scripts.MC",
         "description": "scripts.MC",
-        "peekOfCode": "def modifyClient(comm, command, quit, olt):\n    proceed = None\n    action = inp(\n        \"\"\"\nQue cambio se realizara? \n  > (CT)    :   Cambiar Titular\n  > (CO)    :   Cambiar ONT\n  > (CP)    :   Cambiar Plan & Vlan\n  > (ES)    :   Eliminar Service Port\n  > (AS)    :   Agregar Service Port",
+        "peekOfCode": "def modifyClient(comm, command, quit, olt, act):\n    proceed = None\n    action = inp(\n        \"\"\"\nQue cambio se realizara? \n  > (CT)    :   Cambiar Titular\n  > (CO)    :   Cambiar ONT\n  > (CP)    :   Cambiar Plan & Vlan\n  > (ES)    :   Eliminar Service Port\n  > (AS)    :   Agregar Service Port",
         "detail": "scripts.MC",
         "documentation": {}
     },
@@ -2919,7 +2919,7 @@
         "kind": 2,
         "importPath": "scripts.MG1",
         "description": "scripts.MG1",
-        "peekOfCode": "def migration(comm, command, quit, olt):\n    \"\"\"\"\n    lst should be formatted as the data object across the app\n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",\n      \"frame\",",
+        "peekOfCode": "def migration(comm, command, quit, olt, action):\n    \"\"\"\"\n    lst should be formatted as the data object across the app\n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",\n      \"frame\",",
         "detail": "scripts.MG1",
         "documentation": {}
     },
@@ -2928,7 +2928,7 @@
         "kind": 2,
         "importPath": "scripts.MG2",
         "description": "scripts.MG2",
-        "peekOfCode": "def addWanConfig(comm, command, quit, olt):\n    \"\"\"\n    lst should be formatted as the data object across the app\n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",\n      \"frame\",",
+        "peekOfCode": "def addWanConfig(comm, command, quit, olt, action):\n    \"\"\"\n    lst should be formatted as the data object across the app\n    {\n      \"fName\",\n      \"lName\",\n      \"nif\",\n      \"contract\",\n      \"olt\",\n      \"frame\",",
         "detail": "scripts.MG2",
         "documentation": {}
     },
@@ -2964,7 +2964,7 @@
         "kind": 2,
         "importPath": "scripts.VC",
         "description": "scripts.VC",
-        "peekOfCode": "def verifyTraffic(comm,command,quit,olt):\n    speedUpArr = []\n    speedDownArr = []\n    lookupType = inp(\"Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : \")\n    data = dataLookup(comm, command, olt, lookupType)\n    if data[\"fail\"] != None:\n        log(colorFormatter(data[\"fail\"], \"fail\"))\n        quit()\n        return\n    proceed = display(data,\"A\")",
+        "peekOfCode": "def verifyTraffic(comm,command,quit,olt, action):\n    speedUpArr = []\n    speedDownArr = []\n    lookupType = inp(\"Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : \")\n    data = dataLookup(comm, command, olt, lookupType)\n    if data[\"fail\"] != None:\n        log(colorFormatter(data[\"fail\"], \"fail\"))\n        quit()\n        return\n    proceed = display(data,\"A\")",
         "detail": "scripts.VC",
         "documentation": {}
     },

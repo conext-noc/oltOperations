@@ -5,7 +5,7 @@ from helpers.operations.spid import spidCalc
 from helpers.utils.printer import colorFormatter, inp, log
 
 
-def migration(comm, command, quit, olt):
+def migration(comm, command, quit, olt, action):
     """"
     lst should be formatted as the data object across the app
     {
