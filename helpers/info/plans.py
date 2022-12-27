@@ -186,4 +186,39 @@ plans = {
         "plan": 215,
         "gemPort": 25
     },
+    "OZ_PLUS_IP": {
+        "lineProfile": 18,
+        "srvProfile": 311,
+        "vlan": 102,
+        "plan": 311,
+        "gemPort": 14
+    },
+    "OZ_MAX_IP": {
+        "lineProfile": 28,
+        "srvProfile": 312,
+        "vlan": 102,
+        "plan": 312,
+        "gemPort": 14
+    },
+    "OZ_NEXT_IP": {
+        "lineProfile": 38,
+        "srvProfile": 313,
+        "vlan": 102,
+        "plan": 313,
+        "gemPort": 14
+    },
+    "OZ_MAGICAL_IP": {
+        "lineProfile": 48,
+        "srvProfile": 314,
+        "vlan": 102,
+        "plan": 314,
+        "gemPort": 14
+    },
+    "OZ_SKY_IP": {
+        "lineProfile": 58,
+        "srvProfile": 315,
+        "vlan": 102,
+        "plan": 315,
+        "gemPort": 14
+    },
 }

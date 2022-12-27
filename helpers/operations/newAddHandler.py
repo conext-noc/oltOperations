@@ -29,15 +29,7 @@ def addONUNew(comm, command, data):
 
 
 def addOnuServiceNew(comm, command, data):
-    serviceType = inp(
-        """
-    Ingrese el tipo de servicio a instalar :
-    > I : Internet
-    > V : VoIP
-    > P : Publicas
-    $ """
-    )
-    data["wan"][0]["spid"] = spidCalc(data)[serviceType]
+    data["wan"][0]["spid"] = spidCalc(data)["I"] if "_IP" not in data["wan"][0]["plan"] else spidCalc(data)["P"]
 
     log(
         colorFormatter(

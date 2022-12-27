@@ -1,6 +1,7 @@
 from time import sleep
 from helpers.clientFinder.dataLookup import dataLookup
 from helpers.operations.addHandler import addOnuService
+from helpers.operations.newAddHandler import addOnuServiceNew
 from helpers.operations.spid import availableSpid, spidCalc, verifySPID
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
@@ -18,6 +19,7 @@ Que cambio se realizara?
   > (CP)    :   Cambiar Plan & Vlan
   > (ES)    :   Eliminar Service Port
   > (AS)    :   Agregar Service Port
+  > (AV)    :   Agregar Voip
 $ """
     )
     lookupType = inp(
@@ -137,16 +139,16 @@ $ """
     if action == "AS":
         if olt == "1":
             NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente : ")
-            serviceType = inp(
-                """
-Ingrese el tipo de servicio a instalar :
-    > I : Internet
-    > V : VoIP
-    > P : Publicas
-    $ """
+            data["wan"][0]["vlan"] = plans[NEW_PLAN]["vlan"]
+            data["wan"][0]["plan"] = plans[NEW_PLAN]["plan"]
+            data["gemPort"] = plans[NEW_PLAN]["gemPort"]
+            addOnuServiceNew(comm, command, data)
+            log(
+                colorFormatter(
+                    f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Agregado el plan y vlan a {NEW_PLAN} @ {data['wan'][0]['vlan']}",
+                    "info",
+                )
             )
-            data["spid"] = spidCalc(data)[serviceType]
-            log(f"SPID PARA AGG {data['spid']}, FUNCION AUN NO DISPONIBLE")
             quit()
             return
         data["wan"][0]["spid"] = availableSpid(comm, command)
@@ -158,5 +160,11 @@ Ingrese el tipo de servicio a instalar :
                 "info",
             )
         )
+        quit()
+        return
+    if action == "AV":
+        data["wan"][0]["spid"] = spidCalc(data)["V"]
+        log(colorFormatter(
+            f"SPID PARA AGG {data['spid']}, FUNCION AUN NO DISPONIBLE"), "info")
         quit()
         return

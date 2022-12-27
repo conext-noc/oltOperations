@@ -20,14 +20,15 @@ spidCheck = {
 
 
 def ontSpid(comm, command, FRAME, SLOT, PORT, ID):
-    command(f" display  service-port  port  {FRAME}/{SLOT}/{PORT}  ont  {ID}  |  no-more")
+    command(
+        f" display  service-port  port  {FRAME}/{SLOT}/{PORT}  ont  {ID}  |  no-more")
     value = decoder(comm)
     fail = failChecker(value)
     if fail == None:
         limits = checkIter(value, condition)
         (_, s) = limits[1]
         (e, _) = limits[2]
-        data = dataToDict(spidHeader, value[s : e - 2])
+        data = dataToDict(spidHeader, value[s: e - 2])
         return (data, None)
     else:
         return (None, fail)
@@ -38,7 +39,7 @@ def availableSpid(comm, command):
     command("")
     value = decoder(comm)
     (_, e) = check(value, conditionSPID).span()
-    spid = value[e : e + 5].replace(" ", "").replace("\n", "")
+    spid = value[e: e + 5].replace(" ", "").replace("\n", "")
     return spid
 
 
@@ -75,11 +76,15 @@ STATE           :   {}
     else:
         log(colorFormatter(value, "fail"))
         spid = availableSpid(comm, command)
-        log(colorFormatter(f"No se agrego el SPID, el siguiente SPID libre es {spid}", "warning"))
+        log(colorFormatter(
+            f"No se agrego el SPID, el siguiente SPID libre es {spid}", "warning"))
+
 
 def spidCalc(data):
+    SPID = 12288*(int(data["slot"]) - 1) + 771 * \
+        int(data["port"]) + 3 * int(data["id"])
     return {
-        "I": 12288*(int(data["slot"]) - 1) + 771 * int(data["port"]) + 3 * int(data["id"]),
-        "V": 12288*(int(data["slot"]) - 1) + 771 * int(data["port"]) + 3 * int(data["id"]) + 1,
-        "P": 12288*(int(data["slot"]) - 1) + 771 * int(data["port"]) + 3 * int(data["id"]) + 2
+        "I": SPID,
+        "P": SPID + 1,
+        "V": SPID + 2
     }
