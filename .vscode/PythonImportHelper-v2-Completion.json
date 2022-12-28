@@ -2477,7 +2477,7 @@
         "kind": 5,
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
-        "peekOfCode": "planX15NMaps = {\n    \"210\": \"PLAN_0\",\n    \"211\": \"PLAN_1\",\n    \"212\": \"PLAN_2\",\n    \"213\": \"PLAN_3\",\n    \"214\": \"PLAN_4\",\n    \"215\": \"PLAN_5\",\n}\nplanX15Maps = {\n    \"6\": \"OZ_LIFT\",",
+        "peekOfCode": "planX15NMaps = {\n    \"210\": \"PLAN_0\",\n    \"211\": \"PLAN_1\",\n    \"212\": \"PLAN_2\",\n    \"213\": \"PLAN_3\",\n    \"214\": \"PLAN_4\",\n    \"215\": \"PLAN_5\",\n    \"310\": \"PLAN_0_IP\",\n    \"311\": \"PLAN_1_IP\",\n    \"312\": \"PLAN_2_IP\",",
         "detail": "helpers.info.plans",
         "documentation": {}
     },
@@ -2504,7 +2504,7 @@
         "kind": 5,
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
-        "peekOfCode": "plans = {\n    \"OZ_0_1\": {\n        \"lineProfile\": 3,\n        \"srvProfile\": 110,\n        \"vlan\": 1100,\n        \"plan\": 110,\n        \"gemPort\": 10\n    },\n    \"OZ_PLUS_1\": {\n        \"lineProfile\": 17,",
+        "peekOfCode": "plans = {\n    \"OZ_0_1\": {\n        \"lineProfile\": 3,\n        \"srvProfile\": 110,\n        \"vlan\": 1100,\n        \"provider\":\"INTER\",\n        \"plan\": 110,\n        \"gemPort\": 10\n    },\n    \"OZ_PLUS_1\": {",
         "detail": "helpers.info.plans",
         "documentation": {}
     },
@@ -2585,7 +2585,7 @@
         "kind": 2,
         "importPath": "helpers.operations.newAddHandler",
         "description": "helpers.operations.newAddHandler",
-        "peekOfCode": "def addOnuServiceNew(comm, command, data):\n    data[\"wan\"][0][\"spid\"] = spidCalc(data)[\"I\"] if \"_IP\" not in data[\"wan\"][0][\"plan\"] else spidCalc(data)[\"P\"]\n    log(\n        colorFormatter(\n            f'El SPID que se le agregara al cliente es : {data[\"wan\"][0][\"spid\"]}', \"ok\"\n        )\n    )\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    command(\n        f\"ont ipconfig {data['port']} {data['id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']}\"",
+        "peekOfCode": "def addOnuServiceNew(comm, command, data):\n    data[\"wan\"][0][\"spid\"] = spidCalc(data)[\"I\"] if \"_IP\" not in data[\"planName\"] else spidCalc(data)[\"P\"]\n    log(\n        colorFormatter(\n            f'El SPID que se le agregara al cliente es : {data[\"wan\"][0][\"spid\"]}', \"ok\"\n        )\n    )\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    IPADD = inp(\"Ingrese la IPv4 Publica del cliente : \") if \"_IP\" in data[\"planName\"] else None\n    command(",
         "detail": "helpers.operations.newAddHandler",
         "documentation": {}
     },
@@ -2927,7 +2927,7 @@
         "kind": 2,
         "importPath": "helpers.utils.template",
         "description": "helpers.utils.template",
-        "peekOfCode": "def approved(data):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"wan\"][0][\"vlan\"]}  {data[\"wan\"][0][\"plan\"]}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data[\"wan\"][0][\"spid\"]}\"\"\"\n    log(colorFormatter(template, \"success\"))\n    return [\n        data[\"sn\"],",
+        "peekOfCode": "def approved(data):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"wan\"][0][\"provider\"]}  {data[\"planName\"]}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data[\"wan\"][0][\"spid\"]}\"\"\"\n    log(colorFormatter(template, \"success\"))\n    return [\n        data[\"sn\"],",
         "detail": "helpers.utils.template",
         "documentation": {}
     },
@@ -2936,7 +2936,7 @@
         "kind": 2,
         "importPath": "helpers.utils.template",
         "description": "helpers.utils.template",
-        "peekOfCode": "def denied(data, reason):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"wan\"][0][\"vlan\"]}  {data[\"wan\"][0][\"plan\"]}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data[\"wan\"][0]['spid']}\n    |RAZÓN       :   {reason}\"\"\"\n    log(colorFormatter(template, \"warning\"))",
+        "peekOfCode": "def denied(data, reason):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"wan\"][0][\"provider\"]}  {data[\"planName\"]}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data[\"wan\"][0]['spid']}\n    |RAZÓN       :   {reason}\"\"\"\n    log(colorFormatter(template, \"warning\"))",
         "detail": "helpers.utils.template",
         "documentation": {}
     },

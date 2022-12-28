@@ -46,6 +46,12 @@ planX15NMaps = {
     "213": "PLAN_3",
     "214": "PLAN_4",
     "215": "PLAN_5",
+    "310": "PLAN_0_IP",
+    "311": "PLAN_1_IP",
+    "312": "PLAN_2_IP",
+    "313": "PLAN_3_IP",
+    "314": "PLAN_4_IP",
+    "315": "PLAN_5_IP",
 }
 
 planX15Maps = {
@@ -106,6 +112,7 @@ plans = {
         "lineProfile": 3,
         "srvProfile": 110,
         "vlan": 1100,
+        "provider":"INTER",
         "plan": 110,
         "gemPort": 10
     },
@@ -113,6 +120,7 @@ plans = {
         "lineProfile": 17,
         "srvProfile": 111,
         "vlan": 1101,
+        "provider":"INTER",
         "plan": 111,
         "gemPort": 11
     },
@@ -120,6 +128,7 @@ plans = {
         "lineProfile": 27,
         "srvProfile": 112,
         "vlan": 1102,
+        "provider":"INTER",
         "plan": 112,
         "gemPort": 12
     },
@@ -127,6 +136,7 @@ plans = {
         "lineProfile": 37,
         "srvProfile": 113,
         "vlan": 1103,
+        "provider":"INTER",
         "plan": 113,
         "gemPort": 13
     },
@@ -134,6 +144,7 @@ plans = {
         "lineProfile": 47,
         "srvProfile": 114,
         "vlan": 1104,
+        "provider":"INTER",
         "plan": 114,
         "gemPort": 14
     },
@@ -141,6 +152,7 @@ plans = {
         "lineProfile": 57,
         "srvProfile": 115,
         "vlan": 1105,
+        "provider":"INTER",
         "plan": 115,
         "gemPort": 15
     },
@@ -148,6 +160,7 @@ plans = {
         "lineProfile": 3,
         "srvProfile": 210,
         "vlan": 2100,
+        "provider":"VNET",
         "plan": 210,
         "gemPort": 1
     },
@@ -155,6 +168,7 @@ plans = {
         "lineProfile": 17,
         "srvProfile": 211,
         "vlan": 2101,
+        "provider":"VNET",
         "plan": 211,
         "gemPort": 21
     },
@@ -162,6 +176,7 @@ plans = {
         "lineProfile": 27,
         "srvProfile": 212,
         "vlan": 2102,
+        "provider":"VNET",
         "plan": 212,
         "gemPort": 22
     },
@@ -169,6 +184,7 @@ plans = {
         "lineProfile": 37,
         "srvProfile": 213,
         "vlan": 2103,
+        "provider":"VNET",
         "plan": 213,
         "gemPort": 23
     },
@@ -176,6 +192,7 @@ plans = {
         "lineProfile": 47,
         "srvProfile": 214,
         "vlan": 2104,
+        "provider":"VNET",
         "plan": 214,
         "gemPort": 24
     },
@@ -183,6 +200,7 @@ plans = {
         "lineProfile": 57,
         "srvProfile": 215,
         "vlan": 2105,
+        "provider":"VNET",
         "plan": 215,
         "gemPort": 25
     },
@@ -190,6 +208,7 @@ plans = {
         "lineProfile": 18,
         "srvProfile": 311,
         "vlan": 102,
+        "provider":"PUBLICAS",
         "plan": 311,
         "gemPort": 14
     },
@@ -197,6 +216,7 @@ plans = {
         "lineProfile": 28,
         "srvProfile": 312,
         "vlan": 102,
+        "provider":"PUBLICAS",
         "plan": 312,
         "gemPort": 14
     },
@@ -204,6 +224,7 @@ plans = {
         "lineProfile": 38,
         "srvProfile": 313,
         "vlan": 102,
+        "provider":"PUBLICAS",
         "plan": 313,
         "gemPort": 14
     },
@@ -211,6 +232,7 @@ plans = {
         "lineProfile": 48,
         "srvProfile": 314,
         "vlan": 102,
+        "provider":"PUBLICAS",
         "plan": 314,
         "gemPort": 14
     },
@@ -218,6 +240,7 @@ plans = {
         "lineProfile": 58,
         "srvProfile": 315,
         "vlan": 102,
+        "provider":"PUBLICAS",
         "plan": 315,
         "gemPort": 14
     },
