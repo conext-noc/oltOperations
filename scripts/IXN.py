@@ -43,12 +43,11 @@ def confirmNew(comm, command, quit, olt, action):
             data["slot"] = int(FSP.split("/")[1])
             data["port"] = int(FSP.split("/")[2])
 
-            dataPlan = inp("Ingrese plan del cliente : ")
-            data["lineProfile"] = plans[dataPlan]["lineProfile"]
-            data["srvProfile"] = plans[dataPlan]["srvProfile"]
-            data["wan"][0]["vlan"] = plans[dataPlan]["vlan"]
-            data["wan"][0]["plan"] = plans[dataPlan]["plan"]
-            data["gemPort"] = plans[dataPlan]["gemPort"]
+            data["planName"] = inp("Ingrese plan del cliente : ")
+            data["lineProfile"] = plans[data["planName"]]["lineProfile"]
+            data["srvProfile"] = plans[data["planName"]]["srvProfile"]
+            data["wan"][0] = plans[data["planName"]]
+            data["gemPort"] = plans[data["planName"]]["gemPort"]
             data["name"] = inp("Ingrese nombre del cliente : ")[:56]
             data["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ")
             (data["id"], data["fail"]) = addONUNew(comm, command, data)
@@ -63,12 +62,11 @@ def confirmNew(comm, command, quit, olt, action):
         if data["fail"] == None:
             proceed = display(data, "I")
             data["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ").upper()
-            dataPlan = inp("Ingrese plan del cliente : ")
-            data["lineProfile"] = plans[dataPlan]["lineProfile"]
-            data["srvProfile"] = plans[dataPlan]["srvProfile"]
-            data["wan"][0]["vlan"] = plans[dataPlan]["vlan"]
-            data["wan"][0]["plan"] = plans[dataPlan]["plan"]
-            data["gemPort"] = plans[dataPlan]["gemPort"]
+            data["planName"] = inp("Ingrese plan del cliente : ")
+            data["lineProfile"] = plans[data["planName"]]["lineProfile"]
+            data["srvProfile"] = plans[data["planName"]]["srvProfile"]
+            data["wan"][0] = plans[data["planName"]]
+            data["gemPort"] = plans[data["planName"]]["gemPort"]
 
         else:
             log(colorFormatter(data["fail"], "fail"))

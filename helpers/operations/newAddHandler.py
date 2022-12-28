@@ -29,15 +29,7 @@ def addONUNew(comm, command, data):
 
 
 def addOnuServiceNew(comm, command, data):
-    serviceType = inp(
-        """
-    Ingrese el tipo de servicio a instalar :
-    > I : Internet
-    > V : VoIP
-    > P : Publicas
-    $ """
-    )
-    data["wan"][0]["spid"] = spidCalc(data)[serviceType]
+    data["wan"][0]["spid"] = spidCalc(data)["I"] if "_IP" not in data["planName"] else spidCalc(data)["P"]
 
     log(
         colorFormatter(
@@ -46,9 +38,11 @@ def addOnuServiceNew(comm, command, data):
     )
 
     command(f"interface gpon {data['frame']}/{data['slot']}")
+    IPADD = inp("Ingrese la IPv4 Publica del cliente : ") if "_IP" in data["planName"] else None
     command(
         f"ont ipconfig {data['port']} {data['id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']}"
-    )
+    ) if "_IP" not in data["planName"] else command(f"ont ipconfig {data['port']} {data['id']} ip-index 2 static ip-address {IPADD} mask 255.255.255.128 gateway 181.232.181.129 pri-dns 9.9.9.9 slave-dns 149.112.112.112 vlan 102")
+    
     command(f"ont internet-config {data['port']} {data['id']} ip-index 2")
     command(f"ont policy-route-config {data['port']} {data['id']} profile-id 2")
     

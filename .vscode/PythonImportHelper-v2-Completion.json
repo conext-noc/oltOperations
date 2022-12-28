@@ -88,6 +88,14 @@
         "documentation": {}
     },
     {
+        "label": "sleep",
+        "importPath": "time",
+        "description": "time",
+        "isExtraImport": true,
+        "detail": "time",
+        "documentation": {}
+    },
+    {
         "label": "typeCheck",
         "importPath": "helpers.clientFinder.ontType",
         "description": "helpers.clientFinder.ontType",
@@ -1128,6 +1136,30 @@
         "documentation": {}
     },
     {
+        "label": "colorFormatter",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
+        "label": "inp",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
+        "label": "log",
+        "importPath": "helpers.utils.printer",
+        "description": "helpers.utils.printer",
+        "isExtraImport": true,
+        "detail": "helpers.utils.printer",
+        "documentation": {}
+    },
+    {
         "label": "re",
         "kind": 6,
         "isExtraImport": true,
@@ -1321,6 +1353,14 @@
         "documentation": {}
     },
     {
+        "label": "verifySPID",
+        "importPath": "helpers.operations.spid",
+        "description": "helpers.operations.spid",
+        "isExtraImport": true,
+        "detail": "helpers.operations.spid",
+        "documentation": {}
+    },
+    {
         "label": "planX15Maps",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
@@ -1370,6 +1410,22 @@
     },
     {
         "label": "plans",
+        "importPath": "helpers.info.plans",
+        "description": "helpers.info.plans",
+        "isExtraImport": true,
+        "detail": "helpers.info.plans",
+        "documentation": {}
+    },
+    {
+        "label": "plans",
+        "importPath": "helpers.info.plans",
+        "description": "helpers.info.plans",
+        "isExtraImport": true,
+        "detail": "helpers.info.plans",
+        "documentation": {}
+    },
+    {
+        "label": "oldPlans",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
         "isExtraImport": true,
@@ -1646,6 +1702,14 @@
         "documentation": {}
     },
     {
+        "label": "addOnuServiceNew",
+        "importPath": "helpers.operations.newAddHandler",
+        "description": "helpers.operations.newAddHandler",
+        "isExtraImport": true,
+        "detail": "helpers.operations.newAddHandler",
+        "documentation": {}
+    },
+    {
         "label": "display",
         "importPath": "helpers.utils.display",
         "description": "helpers.utils.display",
@@ -1742,6 +1806,14 @@
         "documentation": {}
     },
     {
+        "label": "modify",
+        "importPath": "helpers.utils.sheets",
+        "description": "helpers.utils.sheets",
+        "isExtraImport": true,
+        "detail": "helpers.utils.sheets",
+        "documentation": {}
+    },
+    {
         "label": "newLookup",
         "importPath": "helpers.clientFinder.newLookup",
         "description": "helpers.clientFinder.newLookup",
@@ -1787,6 +1859,14 @@
         "description": "helpers.utils.template",
         "isExtraImport": true,
         "detail": "helpers.utils.template",
+        "documentation": {}
+    },
+    {
+        "label": "dataPlanChanger",
+        "importPath": "scripts.cpOld",
+        "description": "scripts.cpOld",
+        "isExtraImport": true,
+        "detail": "scripts.cpOld",
         "documentation": {}
     },
     {
@@ -1965,7 +2045,7 @@
         "kind": 2,
         "importPath": "helpers.clientFinder.nameLookup",
         "description": "helpers.clientFinder.nameLookup",
-        "peekOfCode": "def nameLookup(comm,command,quit):\n  clients = []\n  NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n  command(f'display ont info by-desc \"{NAME}\" | no-more ')\n  sleep(5)\n  value = decoder(comm)\n  regex = checkIter(value,condition)\n  FAIL = failChecker(value)\n  portRange= []\n  if FAIL == None:",
+        "peekOfCode": "def nameLookup(comm, command, quit):\n    clients = []\n    NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n    command(f'display ont info by-desc \"{NAME}\" | no-more ')\n    sleep(5)\n    value = decoder(comm)\n    regex = checkIter(value, condition)\n    FAIL = failChecker(value)\n    portRange = []\n    if FAIL == None:",
         "detail": "helpers.clientFinder.nameLookup",
         "documentation": {}
     },
@@ -1974,7 +2054,7 @@
         "kind": 5,
         "importPath": "helpers.clientFinder.nameLookup",
         "description": "helpers.clientFinder.nameLookup",
-        "peekOfCode": "infoHeader = \"NA,F/,S/P,ID,SN,controlFlag,runState,configState,matchState,protectSide,NA\"\ndescHeader = \"NA,F/,S/P,ID,NAME1,NAME2,NAME3,NAME4,NAME5,NAME6,NAME7,NA\"\ncondition = \"-----------------------------------------------------------------------------\"\nnewCond = \"----------------------------------------------------------------------------\"\nnewCondFSP = \"F/S/P               : \"\nnewCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm,command,quit):\n  clients = []\n  NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")",
+        "peekOfCode": "infoHeader = \"NA,F/,S/P,ID,SN,controlFlag,runState,configState,matchState,protectSide,NA\"\ndescHeader = \"NA,F/,S/P,ID,NAME1,NAME2,NAME3,NAME4,NAME5,NAME6,NAME7,NA\"\ncondition = \"-----------------------------------------------------------------------------\"\nnewCond = \"----------------------------------------------------------------------------\"\nnewCondFSP = \"F/S/P               : \"\nnewCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm, command, quit):\n    clients = []\n    NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")",
         "detail": "helpers.clientFinder.nameLookup",
         "documentation": {}
     },
@@ -1983,7 +2063,7 @@
         "kind": 5,
         "importPath": "helpers.clientFinder.nameLookup",
         "description": "helpers.clientFinder.nameLookup",
-        "peekOfCode": "descHeader = \"NA,F/,S/P,ID,NAME1,NAME2,NAME3,NAME4,NAME5,NAME6,NAME7,NA\"\ncondition = \"-----------------------------------------------------------------------------\"\nnewCond = \"----------------------------------------------------------------------------\"\nnewCondFSP = \"F/S/P               : \"\nnewCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm,command,quit):\n  clients = []\n  NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n  command(f'display ont info by-desc \"{NAME}\" | no-more ')",
+        "peekOfCode": "descHeader = \"NA,F/,S/P,ID,NAME1,NAME2,NAME3,NAME4,NAME5,NAME6,NAME7,NA\"\ncondition = \"-----------------------------------------------------------------------------\"\nnewCond = \"----------------------------------------------------------------------------\"\nnewCondFSP = \"F/S/P               : \"\nnewCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm, command, quit):\n    clients = []\n    NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n    command(f'display ont info by-desc \"{NAME}\" | no-more ')",
         "detail": "helpers.clientFinder.nameLookup",
         "documentation": {}
     },
@@ -1992,7 +2072,7 @@
         "kind": 5,
         "importPath": "helpers.clientFinder.nameLookup",
         "description": "helpers.clientFinder.nameLookup",
-        "peekOfCode": "condition = \"-----------------------------------------------------------------------------\"\nnewCond = \"----------------------------------------------------------------------------\"\nnewCondFSP = \"F/S/P               : \"\nnewCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm,command,quit):\n  clients = []\n  NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n  command(f'display ont info by-desc \"{NAME}\" | no-more ')\n  sleep(5)",
+        "peekOfCode": "condition = \"-----------------------------------------------------------------------------\"\nnewCond = \"----------------------------------------------------------------------------\"\nnewCondFSP = \"F/S/P               : \"\nnewCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm, command, quit):\n    clients = []\n    NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n    command(f'display ont info by-desc \"{NAME}\" | no-more ')\n    sleep(5)",
         "detail": "helpers.clientFinder.nameLookup",
         "documentation": {}
     },
@@ -2001,7 +2081,7 @@
         "kind": 5,
         "importPath": "helpers.clientFinder.nameLookup",
         "description": "helpers.clientFinder.nameLookup",
-        "peekOfCode": "newCond = \"----------------------------------------------------------------------------\"\nnewCondFSP = \"F/S/P               : \"\nnewCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm,command,quit):\n  clients = []\n  NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n  command(f'display ont info by-desc \"{NAME}\" | no-more ')\n  sleep(5)\n  value = decoder(comm)",
+        "peekOfCode": "newCond = \"----------------------------------------------------------------------------\"\nnewCondFSP = \"F/S/P               : \"\nnewCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm, command, quit):\n    clients = []\n    NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n    command(f'display ont info by-desc \"{NAME}\" | no-more ')\n    sleep(5)\n    value = decoder(comm)",
         "detail": "helpers.clientFinder.nameLookup",
         "documentation": {}
     },
@@ -2010,7 +2090,7 @@
         "kind": 5,
         "importPath": "helpers.clientFinder.nameLookup",
         "description": "helpers.clientFinder.nameLookup",
-        "peekOfCode": "newCondFSP = \"F/S/P               : \"\nnewCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm,command,quit):\n  clients = []\n  NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n  command(f'display ont info by-desc \"{NAME}\" | no-more ')\n  sleep(5)\n  value = decoder(comm)\n  regex = checkIter(value,condition)",
+        "peekOfCode": "newCondFSP = \"F/S/P               : \"\nnewCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm, command, quit):\n    clients = []\n    NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n    command(f'display ont info by-desc \"{NAME}\" | no-more ')\n    sleep(5)\n    value = decoder(comm)\n    regex = checkIter(value, condition)",
         "detail": "helpers.clientFinder.nameLookup",
         "documentation": {}
     },
@@ -2019,7 +2099,7 @@
         "kind": 5,
         "importPath": "helpers.clientFinder.nameLookup",
         "description": "helpers.clientFinder.nameLookup",
-        "peekOfCode": "newCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm,command,quit):\n  clients = []\n  NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n  command(f'display ont info by-desc \"{NAME}\" | no-more ')\n  sleep(5)\n  value = decoder(comm)\n  regex = checkIter(value,condition)\n  FAIL = failChecker(value)",
+        "peekOfCode": "newCondSn = \"Ont SN              : \"\nnewCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm, command, quit):\n    clients = []\n    NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n    command(f'display ont info by-desc \"{NAME}\" | no-more ')\n    sleep(5)\n    value = decoder(comm)\n    regex = checkIter(value, condition)\n    FAIL = failChecker(value)",
         "detail": "helpers.clientFinder.nameLookup",
         "documentation": {}
     },
@@ -2028,7 +2108,7 @@
         "kind": 5,
         "importPath": "helpers.clientFinder.nameLookup",
         "description": "helpers.clientFinder.nameLookup",
-        "peekOfCode": "newCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm,command,quit):\n  clients = []\n  NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n  command(f'display ont info by-desc \"{NAME}\" | no-more ')\n  sleep(5)\n  value = decoder(comm)\n  regex = checkIter(value,condition)\n  FAIL = failChecker(value)\n  portRange= []",
+        "peekOfCode": "newCondTime = \"Ont autofind time   : \"\ndef nameLookup(comm, command, quit):\n    clients = []\n    NAME = inp(\"Ingrese el Nombre del Cliente a buscar : \")\n    command(f'display ont info by-desc \"{NAME}\" | no-more ')\n    sleep(5)\n    value = decoder(comm)\n    regex = checkIter(value, condition)\n    FAIL = failChecker(value)\n    portRange = []",
         "detail": "helpers.clientFinder.nameLookup",
         "documentation": {}
     },
@@ -2397,7 +2477,7 @@
         "kind": 5,
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
-        "peekOfCode": "planX15NMaps = {\n    \"210\": \"PLAN_0\",\n    \"211\": \"PLAN_1\",\n    \"212\": \"PLAN_2\",\n    \"213\": \"PLAN_3\",\n    \"214\": \"PLAN_4\",\n    \"215\": \"PLAN_5\",\n}\nplanX15Maps = {\n    \"6\": \"OZ_LIFT\",",
+        "peekOfCode": "planX15NMaps = {\n    \"210\": \"PLAN_0\",\n    \"211\": \"PLAN_1\",\n    \"212\": \"PLAN_2\",\n    \"213\": \"PLAN_3\",\n    \"214\": \"PLAN_4\",\n    \"215\": \"PLAN_5\",\n    \"310\": \"PLAN_0_IP\",\n    \"311\": \"PLAN_1_IP\",\n    \"312\": \"PLAN_2_IP\",",
         "detail": "helpers.info.plans",
         "documentation": {}
     },
@@ -2424,7 +2504,7 @@
         "kind": 5,
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
-        "peekOfCode": "plans = {\n    \"OZ_0_1\": {\n        \"lineProfile\": 3,\n        \"srvProfile\": 110,\n        \"vlan\": 1100,\n        \"plan\": 110,\n        \"gemPort\": 10\n    },\n    \"OZ_PLUS_1\": {\n        \"lineProfile\": 17,",
+        "peekOfCode": "plans = {\n    \"OZ_0_1\": {\n        \"lineProfile\": 3,\n        \"srvProfile\": 110,\n        \"vlan\": 1100,\n        \"provider\":\"INTER\",\n        \"plan\": 110,\n        \"gemPort\": 10\n    },\n    \"OZ_PLUS_1\": {",
         "detail": "helpers.info.plans",
         "documentation": {}
     },
@@ -2505,7 +2585,7 @@
         "kind": 2,
         "importPath": "helpers.operations.newAddHandler",
         "description": "helpers.operations.newAddHandler",
-        "peekOfCode": "def addOnuServiceNew(comm, command, data):\n    serviceType = inp(\n        \"\"\"\n    Ingrese el tipo de servicio a instalar :\n    > I : Internet\n    > V : VoIP\n    > P : Publicas\n    $ \"\"\"\n    )\n    data[\"wan\"][0][\"spid\"] = spidCalc(data)[serviceType]",
+        "peekOfCode": "def addOnuServiceNew(comm, command, data):\n    data[\"wan\"][0][\"spid\"] = spidCalc(data)[\"I\"] if \"_IP\" not in data[\"planName\"] else spidCalc(data)[\"P\"]\n    log(\n        colorFormatter(\n            f'El SPID que se le agregara al cliente es : {data[\"wan\"][0][\"spid\"]}', \"ok\"\n        )\n    )\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    IPADD = inp(\"Ingrese la IPv4 Publica del cliente : \") if \"_IP\" in data[\"planName\"] else None\n    command(",
         "detail": "helpers.operations.newAddHandler",
         "documentation": {}
     },
@@ -2514,7 +2594,7 @@
         "kind": 2,
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
-        "peekOfCode": "def ontSpid(comm, command, FRAME, SLOT, PORT, ID):\n    command(f\" display  service-port  port  {FRAME}/{SLOT}/{PORT}  ont  {ID}  |  no-more\")\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        limits = checkIter(value, condition)\n        (_, s) = limits[1]\n        (e, _) = limits[2]\n        data = dataToDict(spidHeader, value[s : e - 2])\n        return (data, None)",
+        "peekOfCode": "def ontSpid(comm, command, FRAME, SLOT, PORT, ID):\n    command(\n        f\" display  service-port  port  {FRAME}/{SLOT}/{PORT}  ont  {ID}  |  no-more\")\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        limits = checkIter(value, condition)\n        (_, s) = limits[1]\n        (e, _) = limits[2]\n        data = dataToDict(spidHeader, value[s: e - 2])",
         "detail": "helpers.operations.spid",
         "documentation": {}
     },
@@ -2523,7 +2603,7 @@
         "kind": 2,
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
-        "peekOfCode": "def availableSpid(comm, command):\n    command(\"display service-port next-free-index\")\n    command(\"\")\n    value = decoder(comm)\n    (_, e) = check(value, conditionSPID).span()\n    spid = value[e : e + 5].replace(\" \", \"\").replace(\"\\n\", \"\")\n    return spid\ndef verifySPID(comm, command, data):\n    command(f\"display service-port {data['wan'][0]['spid']} | no-more\")\n    value = decoder(comm)",
+        "peekOfCode": "def availableSpid(comm, command):\n    command(\"display service-port next-free-index\")\n    command(\"\")\n    value = decoder(comm)\n    (_, e) = check(value, conditionSPID).span()\n    spid = value[e: e + 5].replace(\" \", \"\").replace(\"\\n\", \"\")\n    return spid\ndef verifySPID(comm, command, data):\n    command(f\"display service-port {data['wan'][0]['spid']} | no-more\")\n    value = decoder(comm)",
         "detail": "helpers.operations.spid",
         "documentation": {}
     },
@@ -2541,7 +2621,7 @@
         "kind": 2,
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
-        "peekOfCode": "def spidCalc(data):\n    return {\n        \"I\": 12288*(int(data[\"slot\"]) - 1) + 771 * int(data[\"port\"]) + 3 * int(data[\"id\"]),\n        \"V\": 12288*(int(data[\"slot\"]) - 1) + 771 * int(data[\"port\"]) + 3 * int(data[\"id\"]) + 1,\n        \"P\": 12288*(int(data[\"slot\"]) - 1) + 771 * int(data[\"port\"]) + 3 * int(data[\"id\"]) + 2\n    }",
+        "peekOfCode": "def spidCalc(data):\n    SPID = 12288*(int(data[\"slot\"]) - 1) + 771 * \\\n        int(data[\"port\"]) + 3 * int(data[\"id\"])\n    return {\n        \"I\": SPID,\n        \"P\": SPID + 1,\n        \"V\": SPID + 2\n    }",
         "detail": "helpers.operations.spid",
         "documentation": {}
     },
@@ -2847,7 +2927,7 @@
         "kind": 2,
         "importPath": "helpers.utils.template",
         "description": "helpers.utils.template",
-        "peekOfCode": "def approved(data):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"wan\"][0][\"vlan\"]}  {data[\"wan\"][0][\"plan\"]}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data[\"wan\"][0][\"spid\"]}\"\"\"\n    log(colorFormatter(template, \"success\"))\n    return [\n        data[\"sn\"],",
+        "peekOfCode": "def approved(data):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"wan\"][0][\"provider\"]}  {data[\"planName\"]}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data[\"wan\"][0][\"spid\"]}\"\"\"\n    log(colorFormatter(template, \"success\"))\n    return [\n        data[\"sn\"],",
         "detail": "helpers.utils.template",
         "documentation": {}
     },
@@ -2856,7 +2936,7 @@
         "kind": 2,
         "importPath": "helpers.utils.template",
         "description": "helpers.utils.template",
-        "peekOfCode": "def denied(data, reason):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"wan\"][0][\"vlan\"]}  {data[\"wan\"][0][\"plan\"]}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data[\"wan\"][0]['spid']}\n    |RAZÓN       :   {reason}\"\"\"\n    log(colorFormatter(template, \"warning\"))",
+        "peekOfCode": "def denied(data, reason):\n    template = f\"\"\"\n    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} \n    |OLT  {data['olt']}  {data[\"wan\"][0][\"provider\"]}  {data[\"planName\"]}\n    |TEMPERATURA :   {data['temp']}\n    |POTENCIA    :   {data['pwr']}\n    |SPID        :   {data[\"wan\"][0]['spid']}\n    |RAZÓN       :   {reason}\"\"\"\n    log(colorFormatter(template, \"warning\"))",
         "detail": "helpers.utils.template",
         "documentation": {}
     },
@@ -2975,6 +3055,15 @@
         "description": "scripts.XP",
         "peekOfCode": "def portOperation(comm, command, quit, olt, action):\n    keep = True\n    lst = []\n    portCount = []\n    if action == \"VP\":\n        FRAME = inp(\"Ingrese frame de cliente  : \")\n        SLOT = inp(\"Ingrese slot de cliente   : \")\n        PORT = inp(\"Ingrese puerto de cliente : \")\n        lst = [{\"fsp\": f\"{FRAME}/{SLOT}/{PORT}\"}]\n    if action == \"CA\":",
         "detail": "scripts.XP",
+        "documentation": {}
+    },
+    {
+        "label": "dataPlanChanger",
+        "kind": 2,
+        "importPath": "scripts.cpOld",
+        "description": "scripts.cpOld",
+        "peekOfCode": "def dataPlanChanger(comm,command,quit,data):\n    log(\"| {:^3} | {:^4} | {:^6} |\".format(\"IDX\", \"VLAN\", \"SPID\"))\n    for idx, wan in enumerate(data[\"wan\"]):\n        log(\"| {:^3} | {:^4} | {:^6} |\".format(\n            idx, wan[\"vlan\"], wan[\"spid\"]))\n    IDX = int(inp(\"Ingrese el INDEX del service-port a cambiar : \"))\n    NEW_PLAN = inp(\"Ingrese el Nuevo Plan del cliente : \")\n    NEW_VLAN = inp(\"Ingrese la Nueva Vlan del cliente : \")\n    command(f\"undo service-port {data['wan'][IDX]['spid']}\")\n    PLAN_ID = oldPlans[data['olt']][NEW_PLAN]",
+        "detail": "scripts.cpOld",
         "documentation": {}
     },
     {
