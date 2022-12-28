@@ -7,6 +7,7 @@ from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.info.plans import oldPlans, plans
 from helpers.utils.sheets import modify
+from scripts.cpOld import dataPlanChanger
 
 
 def modifyClient(comm, command, quit, olt, act):
@@ -19,7 +20,7 @@ Que cambio se realizara?
   > (CP)    :   Cambiar Plan & Vlan
   > (ES)    :   Eliminar Service Port
   > (AS)    :   Agregar Service Port
-  > (AV)    :   Agregar Voip
+  > (AV)    :   Agregar Voip [Solo OLT 1 (X15 nueva)]
 $ """
     )
     lookupType = inp(
@@ -60,28 +61,7 @@ $ """
         return
     if action == "CP":
         if olt != "1":
-            log("| {:^3} | {:^4} | {:^6} |".format("IDX", "VLAN", "SPID"))
-            for idx, wan in enumerate(data["wan"]):
-                log("| {:^3} | {:^4} | {:^6} |".format(
-                    idx, wan["vlan"], wan["spid"]))
-            IDX = int(inp("Ingrese el INDEX del service-port a cambiar : "))
-            NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente : ")
-            NEW_VLAN = inp("Ingrese la Nueva Vlan del cliente : ")
-            command(f"undo service-port {data['wan'][IDX]['spid']}")
-            PLAN_ID = oldPlans[data['olt']][NEW_PLAN]
-            command(
-                f" service-port {data['wan'][IDX]['spid']} vlan {NEW_VLAN} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['id']} gemport 14 multi-service user-vlan {NEW_VLAN} tag-transform transparent inbound traffic-table index {PLAN_ID} outbound traffic-table index {PLAN_ID}"
-            )
-            verifySPID(comm, command, data)
-            log(
-                colorFormatter(
-                    f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Cambiado el plan y vlan a {NEW_PLAN} @ {NEW_VLAN}",
-                    "info",
-                )
-            )
-            modify(data["sn"], NEW_PLAN, "PLAN")
-            modify(data["sn"], NEW_VLAN, "PROVIDER")
-            quit()
+            dataPlanChanger(comm,command,quit,data)
             return
         NEW_PLAN = inp("Ingrese el Nuevo plana instalar : ")
         PLAN = plans[NEW_PLAN]
@@ -118,7 +98,7 @@ $ """
             )
         )
         modify(data["sn"], NEW_PLAN, "PLAN")
-        modify(data["sn"], NEW_VLAN, "PROVIDER")
+        modify(data["sn"], PLAN['vlan'], "PROVIDER")
         quit()
         return
     if action == "ES":
@@ -137,31 +117,32 @@ $ """
         quit()
         return
     if action == "AS":
-        if olt == "1":
-            NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente : ")
-            data["wan"][0]["vlan"] = plans[NEW_PLAN]["vlan"]
-            data["wan"][0]["plan"] = plans[NEW_PLAN]["plan"]
-            data["gemPort"] = plans[NEW_PLAN]["gemPort"]
-            addOnuServiceNew(comm, command, data)
+        if olt != "1":
+            data["wan"][0]["spid"] = availableSpid(comm, command)
+            addOnuService(comm, command, data)
+            verifySPID(comm, command, data)
             log(
                 colorFormatter(
-                    f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Agregado el plan y vlan a {NEW_PLAN} @ {data['wan'][0]['vlan']}",
+                    f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Agregado el plan y vlan a {data['plan']} @ {data['vlan']}",
                     "info",
                 )
             )
             quit()
             return
-        data["wan"][0]["spid"] = availableSpid(comm, command)
-        addOnuService(comm, command, data)
-        verifySPID(comm, command, data)
+        NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente : ")
+        data["wan"][0]["vlan"] = plans[NEW_PLAN]["vlan"]
+        data["wan"][0]["plan"] = plans[NEW_PLAN]["plan"]
+        data["gemPort"] = plans[NEW_PLAN]["gemPort"]
+        addOnuServiceNew(comm, command, data)
         log(
             colorFormatter(
-                f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Agregado el plan y vlan a {data['plan']} @ {data['vlan']}",
+                f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Agregado el plan y vlan a {NEW_PLAN} @ {data['wan'][0]['vlan']}",
                 "info",
             )
         )
         quit()
         return
+        
     if action == "AV":
         data["wan"][0]["spid"] = spidCalc(data)["V"]
         log(colorFormatter(
