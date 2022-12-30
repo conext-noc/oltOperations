@@ -36,7 +36,7 @@ def addOnuService(comm, command, data):
         preWan(comm, command, data)
         
     data["wan"][0]["vlan"] = inp("Ingrese la vlan de proveedor de cliente : ")
-    data["wan"][0]["plan"] = inp("Ingrese plan de cliente : ")
+    data["planName"] = inp("Ingrese plan de cliente : ")
     provider = "INTER" if data["wan"][0]["vlan"] == "1101" else "VNET" if data["wan"][0]["vlan"] == "1102" else "1104"
     data["wan"][0]["provider"] = provider
     
@@ -54,9 +54,9 @@ def addOnuService(comm, command, data):
             f" ont port native-vlan {data['port']} {data['id']} eth 1 vlan {data['wan'][0]['vlan']} "
         )
     command("quit")
-    PLAN_ID = oldPlans[data['olt']][data['wan'][0]['plan']]
+    data["wan"][0]["plan"] = oldPlans[data['olt']][data['planName']]
     command(
-        f' service-port {data["wan"][0]["spid"]} vlan {data["wan"][0]["vlan"]} gpon {data["frame"]}/{data["slot"]}/{data["port"]} ont {data["id"]} gemport 14 multi-service user-vlan {data["wan"][0]["vlan"]} tag-transform transparent inbound traffic-table index {PLAN_ID} outbound traffic-table index {PLAN_ID}'
+        f' service-port {data["wan"][0]["spid"]} vlan {data["wan"][0]["vlan"]} gpon {data["frame"]}/{data["slot"]}/{data["port"]} ont {data["id"]} gemport 14 multi-service user-vlan {data["wan"][0]["vlan"]} tag-transform transparent inbound traffic-table index {data["wan"][0]["plan"]} outbound traffic-table index {data["wan"][0]["plan"]}'
     )
     
     sleep(10)

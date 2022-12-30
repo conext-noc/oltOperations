@@ -31,9 +31,5 @@ def delete(lookupVal):
     wks.delete_rows(cell.row)
 
 def insert(values):
-    vals = []
-    for idx,value in enumerate(values):
-        if idx <= 12:
-            vals.append(value)
     lst_row = len(wks.get_all_records())  + 1
-    wks.insert_rows(lst_row, values=vals)
+    wks.insert_rows(lst_row, values=values)

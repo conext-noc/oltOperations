@@ -2575,7 +2575,7 @@
         "kind": 2,
         "importPath": "helpers.operations.addHandler",
         "description": "helpers.operations.addHandler",
-        "peekOfCode": "def addOnuService(comm, command, data):\n    preg = inp(\n        \"Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : \"\n    ).upper()\n    if preg == \"Y\":\n        preWan(comm, command, data)\n    data[\"wan\"][0][\"vlan\"] = inp(\"Ingrese la vlan de proveedor de cliente : \")\n    data[\"wan\"][0][\"plan\"] = inp(\"Ingrese plan de cliente : \")\n    provider = \"INTER\" if data[\"wan\"][0][\"vlan\"] == \"1101\" else \"VNET\" if data[\"wan\"][0][\"vlan\"] == \"1102\" else \"1104\"\n    data[\"wan\"][0][\"provider\"] = provider",
+        "peekOfCode": "def addOnuService(comm, command, data):\n    preg = inp(\n        \"Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : \"\n    ).upper()\n    if preg == \"Y\":\n        preWan(comm, command, data)\n    data[\"wan\"][0][\"vlan\"] = inp(\"Ingrese la vlan de proveedor de cliente : \")\n    data[\"planName\"] = inp(\"Ingrese plan de cliente : \")\n    provider = \"INTER\" if data[\"wan\"][0][\"vlan\"] == \"1101\" else \"VNET\" if data[\"wan\"][0][\"vlan\"] == \"1102\" else \"1104\"\n    data[\"wan\"][0][\"provider\"] = provider",
         "detail": "helpers.operations.addHandler",
         "documentation": {}
     },
@@ -2791,7 +2791,7 @@
         "kind": 2,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "def modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    vals = []\n    for idx,value in enumerate(values):\n        if idx <= 12:",
+        "peekOfCode": "def modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=values)",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2800,7 +2800,7 @@
         "kind": 2,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "def delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    vals = []\n    for idx,value in enumerate(values):\n        if idx <= 12:\n            vals.append(value)\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=vals)",
+        "peekOfCode": "def delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=values)",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2809,7 +2809,7 @@
         "kind": 2,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "def insert(values):\n    vals = []\n    for idx,value in enumerate(values):\n        if idx <= 12:\n            vals.append(value)\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=vals)",
+        "peekOfCode": "def insert(values):\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=values)",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2845,7 +2845,7 @@
         "kind": 5,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "sh = gc.open(\"CPDC\")\nwks = sh[0]\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    vals = []",
+        "peekOfCode": "sh = gc.open(\"CPDC\")\nwks = sh[0]\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    lst_row = len(wks.get_all_records())  + 1",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
@@ -2854,7 +2854,7 @@
         "kind": 5,
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
-        "peekOfCode": "wks = sh[0]\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    vals = []\n    for idx,value in enumerate(values):",
+        "peekOfCode": "wks = sh[0]\ndef modify(lookupVal, newVal, tp):\n    cell = wks.find(lookupVal)[0]\n    wks.update_value(f\"{cellMap[tp]}{cell.row}\", newVal)\ndef delete(lookupVal):\n    cell = wks.find(lookupVal)[0]\n    wks.delete_rows(cell.row)\ndef insert(values):\n    lst_row = len(wks.get_all_records())  + 1\n    wks.insert_rows(lst_row, values=values)",
         "detail": "helpers.utils.sheets",
         "documentation": {}
     },
