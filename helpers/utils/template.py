@@ -25,11 +25,8 @@ def approved(data):
         data["planName"],
         data["wan"][0]["spid"],
         "used",
-        data["pwr"],
-        data["temp"],
     ]
-
-
+    
 def denied(data, reason):
     template = f"""
     |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['id']} 
