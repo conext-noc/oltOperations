@@ -96,6 +96,14 @@
         "documentation": {}
     },
     {
+        "label": "sleep",
+        "importPath": "time",
+        "description": "time",
+        "isExtraImport": true,
+        "detail": "time",
+        "documentation": {}
+    },
+    {
         "label": "typeCheck",
         "importPath": "helpers.clientFinder.ontType",
         "description": "helpers.clientFinder.ontType",
@@ -2567,7 +2575,7 @@
         "kind": 2,
         "importPath": "helpers.operations.addHandler",
         "description": "helpers.operations.addHandler",
-        "peekOfCode": "def addOnuService(comm, command, data):\n    preg = inp(\n        \"Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : \"\n    ).upper()\n    if preg == \"Y\":\n        preWan(comm, command, data)\n    data[\"wan\"][0][\"vlan\"] = inp(\"Ingrese la vlan de proveedor de cliente : \")\n    data[\"wan\"][0][\"plan\"] = inp(\"Ingrese plan de cliente : \")\n    addVlan = inp(\"Se agregara vlan al puerto? [Y | N] : \").upper()\n    if addVlan == \"Y\":",
+        "peekOfCode": "def addOnuService(comm, command, data):\n    preg = inp(\n        \"Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : \"\n    ).upper()\n    if preg == \"Y\":\n        preWan(comm, command, data)\n    data[\"wan\"][0][\"vlan\"] = inp(\"Ingrese la vlan de proveedor de cliente : \")\n    data[\"wan\"][0][\"plan\"] = inp(\"Ingrese plan de cliente : \")\n    provider = \"INTER\" if data[\"wan\"][0][\"vlan\"] == \"1101\" else \"VNET\" if data[\"wan\"][0][\"vlan\"] == \"1102\" else \"1104\"\n    data[\"wan\"][0][\"provider\"] = provider",
         "detail": "helpers.operations.addHandler",
         "documentation": {}
     },

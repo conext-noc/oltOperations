@@ -25,7 +25,7 @@ def confirm(comm, command, quit, olt, action):
         "status": None,
         "type": None,
         "ipAdd": None,
-        "wan": [{"spid":None, "vlan": None, "plan": None}],
+        "wan": [{"spid":None, "vlan": None, "plan": None,"provider": None,}],
         "temp": None,
         "pwr": None,
         "lineProfile": None,

@@ -1,3 +1,4 @@
+from time import sleep
 from helpers.clientFinder.wanInterface import preWan
 from helpers.utils.decoder import decoder, check
 from helpers.failHandler.fail import failChecker
@@ -36,16 +37,29 @@ def addOnuService(comm, command, data):
         
     data["wan"][0]["vlan"] = inp("Ingrese la vlan de proveedor de cliente : ")
     data["wan"][0]["plan"] = inp("Ingrese plan de cliente : ")
-
-    addVlan = inp("Se agregara vlan al puerto? [Y | N] : ").upper()
-
+    provider = "INTER" if data["wan"][0]["vlan"] == "1101" else "VNET" if data["wan"][0]["vlan"] == "1102" else "1104"
+    data["wan"][0]["provider"] = provider
+    
+    command(f"interface gpon {data['frame']}/{data['slot']}")
+    command(
+        f"ont ipconfig {data['port']} {data['id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']}"
+    )
+    
+    command(f"ont internet-config {data['port']} {data['id']} ip-index 2")
+    command(f"ont policy-route-config {data['port']} {data['id']} profile-id 1")
+    
+    addVlan = inp("Se agregara vlan al puerto? [Y | N] : ")
     if addVlan == "Y":
-        command(f"interface gpon {data['frame']}/{data['slot']}")
         command(
             f" ont port native-vlan {data['port']} {data['id']} eth 1 vlan {data['wan'][0]['vlan']} "
         )
-        command("quit")
+    command("quit")
     PLAN_ID = oldPlans[data['olt']][data['wan'][0]['plan']]
     command(
         f' service-port {data["wan"][0]["spid"]} vlan {data["wan"][0]["vlan"]} gpon {data["frame"]}/{data["slot"]}/{data["port"]} ont {data["id"]} gemport 14 multi-service user-vlan {data["wan"][0]["vlan"]} tag-transform transparent inbound traffic-table index {PLAN_ID} outbound traffic-table index {PLAN_ID}'
     )
+    
+    sleep(10)
+    command(f"interface gpon {data['frame']}/{data['slot']}")
+    command(f"ont wan-config {data['port']} {data['id']} ip-index 2 profile-id 0")
+    command("quit")
