@@ -1144,30 +1144,6 @@
         "documentation": {}
     },
     {
-        "label": "colorFormatter",
-        "importPath": "helpers.utils.printer",
-        "description": "helpers.utils.printer",
-        "isExtraImport": true,
-        "detail": "helpers.utils.printer",
-        "documentation": {}
-    },
-    {
-        "label": "inp",
-        "importPath": "helpers.utils.printer",
-        "description": "helpers.utils.printer",
-        "isExtraImport": true,
-        "detail": "helpers.utils.printer",
-        "documentation": {}
-    },
-    {
-        "label": "log",
-        "importPath": "helpers.utils.printer",
-        "description": "helpers.utils.printer",
-        "isExtraImport": true,
-        "detail": "helpers.utils.printer",
-        "documentation": {}
-    },
-    {
         "label": "re",
         "kind": 6,
         "isExtraImport": true,
@@ -1361,14 +1337,6 @@
         "documentation": {}
     },
     {
-        "label": "verifySPID",
-        "importPath": "helpers.operations.spid",
-        "description": "helpers.operations.spid",
-        "isExtraImport": true,
-        "detail": "helpers.operations.spid",
-        "documentation": {}
-    },
-    {
         "label": "planX15Maps",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
@@ -1426,14 +1394,6 @@
     },
     {
         "label": "plans",
-        "importPath": "helpers.info.plans",
-        "description": "helpers.info.plans",
-        "isExtraImport": true,
-        "detail": "helpers.info.plans",
-        "documentation": {}
-    },
-    {
-        "label": "oldPlans",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
         "isExtraImport": true,
@@ -1814,14 +1774,6 @@
         "documentation": {}
     },
     {
-        "label": "modify",
-        "importPath": "helpers.utils.sheets",
-        "description": "helpers.utils.sheets",
-        "isExtraImport": true,
-        "detail": "helpers.utils.sheets",
-        "documentation": {}
-    },
-    {
         "label": "newLookup",
         "importPath": "helpers.clientFinder.newLookup",
         "description": "helpers.clientFinder.newLookup",
@@ -1867,14 +1819,6 @@
         "description": "helpers.utils.template",
         "isExtraImport": true,
         "detail": "helpers.utils.template",
-        "documentation": {}
-    },
-    {
-        "label": "dataPlanChanger",
-        "importPath": "scripts.cpOld",
-        "description": "scripts.cpOld",
-        "isExtraImport": true,
-        "detail": "scripts.cpOld",
         "documentation": {}
     },
     {
@@ -3030,65 +2974,11 @@
         "documentation": {}
     },
     {
-        "label": "dataPlanChanger",
+        "label": "ontReset",
         "kind": 2,
-        "importPath": "scripts.cpOld",
-        "description": "scripts.cpOld",
-        "peekOfCode": "def dataPlanChanger(comm,command,quit,data):\n    log(\"| {:^3} | {:^4} | {:^6} |\".format(\"IDX\", \"VLAN\", \"SPID\"))\n    for idx, wan in enumerate(data[\"wan\"]):\n        log(\"| {:^3} | {:^4} | {:^6} |\".format(\n            idx, wan[\"vlan\"], wan[\"spid\"]))\n    IDX = int(inp(\"Ingrese el INDEX del service-port a cambiar : \"))\n    NEW_PLAN = inp(\"Ingrese el Nuevo Plan del cliente : \")\n    NEW_VLAN = inp(\"Ingrese la Nueva Vlan del cliente : \")\n    command(f\"undo service-port {data['wan'][IDX]['spid']}\")\n    PLAN_ID = oldPlans[data['olt']][NEW_PLAN]",
-        "detail": "scripts.cpOld",
-        "documentation": {}
-    },
-    {
-        "label": "path",
-        "kind": 5,
         "importPath": "TS",
         "description": "TS",
-        "peekOfCode": "path = \"./service_account_olt_operations.json\"\ngc = pygsheets.authorize(service_account_file=path)\nsh = gc.open(\"CPDC\")\nwks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\nprint(wks,neliWks)",
-        "detail": "TS",
-        "documentation": {}
-    },
-    {
-        "label": "gc",
-        "kind": 5,
-        "importPath": "TS",
-        "description": "TS",
-        "peekOfCode": "gc = pygsheets.authorize(service_account_file=path)\nsh = gc.open(\"CPDC\")\nwks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\nprint(wks,neliWks)",
-        "detail": "TS",
-        "documentation": {}
-    },
-    {
-        "label": "sh",
-        "kind": 5,
-        "importPath": "TS",
-        "description": "TS",
-        "peekOfCode": "sh = gc.open(\"CPDC\")\nwks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\nprint(wks,neliWks)",
-        "detail": "TS",
-        "documentation": {}
-    },
-    {
-        "label": "wks",
-        "kind": 5,
-        "importPath": "TS",
-        "description": "TS",
-        "peekOfCode": "wks = sh[0]\nneliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\nprint(wks,neliWks)",
-        "detail": "TS",
-        "documentation": {}
-    },
-    {
-        "label": "neliSh",
-        "kind": 5,
-        "importPath": "TS",
-        "description": "TS",
-        "peekOfCode": "neliSh = gc.open(\"CO Instalaciones Oz. y MDU\")\nneliWks = neliSh[0]\nprint(wks,neliWks)",
-        "detail": "TS",
-        "documentation": {}
-    },
-    {
-        "label": "neliWks",
-        "kind": 5,
-        "importPath": "TS",
-        "description": "TS",
-        "peekOfCode": "neliWks = neliSh[0]\nprint(wks,neliWks)",
+        "peekOfCode": "def ontReset():\n  \"\"\"\n  Function to handle and solve ONT resets\n  \"\"\"",
         "detail": "TS",
         "documentation": {}
     },

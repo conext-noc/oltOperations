@@ -7,7 +7,6 @@ from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.info.plans import oldPlans, plans
 from helpers.utils.sheets import modify
-from scripts.cpOld import dataPlanChanger
 
 
 def modifyClient(comm, command, quit, olt, act):
@@ -61,44 +60,24 @@ $ """
         return
     if action == "CP":
         if olt != "1":
-            dataPlanChanger(comm,command,quit,data)
-            return
-        NEW_PLAN = inp("Ingrese el Nuevo plana instalar : ")
-        PLAN = plans[NEW_PLAN]
-        for wanData in data["wan"]:
-            command(f"undo service-port {wanData['spid']}")
-
-        command(f"interface gpon {data['frame']}/{data['slot']}")
-        command(
-            f"ont modify {data['port']} {data['id']} ont-lineprofile-id {PLAN['lineProfile']}")
-        command(
-            f"ont modify {data['port']} {data['id']} ont-srvprofile-id {PLAN['srvProfile']}")
-        command(
-            f"ont ipconfig {data['port']} {data['id']} ip-index 2 dhcp vlan {PLAN['vlan']}"
-        )
-        addVlan = inp("Se agregara vlan al puerto? [Y | N] : ")
-        if addVlan == "Y":
-            command(
-                f" ont port native-vlan {data['port']} {data['id']} eth 1 vlan {PLAN['vlan']} "
-            )
-        command("quit")
-        command(
-            f' service-port {data["wan"][0]["spid"]} vlan {PLAN["vlan"]} gpon {data["frame"]}/{data["slot"]}/{data["port"]} ont {data["id"]} gemport {PLAN["gemPort"]} multi-service user-vlan {PLAN["vlan"]} tag-transform transparent inbound traffic-table index {PLAN["plan"]} outbound traffic-table index {PLAN["plan"]}'
-        )
-        sleep(10)
-        command(f"interface gpon {data['frame']}/{data['slot']}")
-        command(
-            f"ont wan-config {data['port']} {data['id']} ip-index 2 profile-id 0")
-        command("quit")
-        verifySPID(comm, command, data)
+            for wan in data["wan"]:
+                command(f"undo service-port {wan['spid']}")
+            addOnuService(comm,command,data)
+        else:
+            data['planName'] = inp("Ingrese el Nuevo plana instalar : ")
+            data['wan'] = plans[data['planName']]
+            for wanData in data["wan"]:
+                command(f"undo service-port {wanData['spid']}")
+            addOnuServiceNew(comm,command,data)
+            verifySPID(comm, command, data)
         log(
             colorFormatter(
-                f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Cambiado el plan y vlan a {NEW_PLAN} @ {PLAN['vlan']}",
+                f"Al cliente {data['name']} {data['frame']}/{data['slot']}/{data['port']}/{data['id']} @ OLT {data['olt']} se le ha Cambiado el plan y vlan a {data['planName']} @ {data['wan']['vlan']}",
                 "info",
             )
         )
-        modify(data["sn"], NEW_PLAN, "PLAN")
-        modify(data["sn"], PLAN['vlan'], "PROVIDER")
+        modify(data["sn"], data['planName'], "PLAN")
+        modify(data["sn"], data['wan']['vlan'], "PROVIDER")
         quit()
         return
     if action == "ES":
