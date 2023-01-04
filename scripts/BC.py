@@ -1,7 +1,7 @@
 from helpers.clientFinder.dataLookup import dataLookup
 from helpers.clientFinder.nameLookup import nameLookup
-from helpers.operations.addHandler import addOnuService
-from helpers.operations.newAddHandler import addOnuServiceNew
+# from helpers.operations.addHandler import addOnuService
+from helpers.operations.addHandler import addOnuServiceNew
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 
@@ -41,9 +41,9 @@ def existingLookup(comm, command, quit, olt, action):
         return
 
     display(data, "B")
-
-    if data["wan"][0]["spid"] == None:
-        addOnuServiceNew(comm, command, data) if olt == "1" else addOnuService(
-            comm, command, data
-        )
+    # add wan profile if not exist
+    # if data["wan"][0]["spid"] == None:
+    #     addOnuServiceNew(comm, command, data) if olt == "1" else addOnuService(
+    #         comm, command, data
+    #     )
     return

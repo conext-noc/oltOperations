@@ -96,14 +96,6 @@
         "documentation": {}
     },
     {
-        "label": "sleep",
-        "importPath": "time",
-        "description": "time",
-        "isExtraImport": true,
-        "detail": "time",
-        "documentation": {}
-    },
-    {
         "label": "typeCheck",
         "importPath": "helpers.clientFinder.ontType",
         "description": "helpers.clientFinder.ontType",
@@ -125,22 +117,6 @@
         "description": "helpers.clientFinder.ontType",
         "isExtraImport": true,
         "detail": "helpers.clientFinder.ontType",
-        "documentation": {}
-    },
-    {
-        "label": "typeCheck",
-        "importPath": "helpers.clientFinder.ontType",
-        "description": "helpers.clientFinder.ontType",
-        "isExtraImport": true,
-        "detail": "helpers.clientFinder.ontType",
-        "documentation": {}
-    },
-    {
-        "label": "opticalValues",
-        "importPath": "helpers.clientFinder.optical",
-        "description": "helpers.clientFinder.optical",
-        "isExtraImport": true,
-        "detail": "helpers.clientFinder.optical",
         "documentation": {}
     },
     {
@@ -272,14 +248,6 @@
         "documentation": {}
     },
     {
-        "label": "failChecker",
-        "importPath": "helpers.failHandler.fail",
-        "description": "helpers.failHandler.fail",
-        "isExtraImport": true,
-        "detail": "helpers.failHandler.fail",
-        "documentation": {}
-    },
-    {
         "label": "check",
         "importPath": "helpers.utils.decoder",
         "description": "helpers.utils.decoder",
@@ -488,22 +456,6 @@
         "documentation": {}
     },
     {
-        "label": "decoder",
-        "importPath": "helpers.utils.decoder",
-        "description": "helpers.utils.decoder",
-        "isExtraImport": true,
-        "detail": "helpers.utils.decoder",
-        "documentation": {}
-    },
-    {
-        "label": "check",
-        "importPath": "helpers.utils.decoder",
-        "description": "helpers.utils.decoder",
-        "isExtraImport": true,
-        "detail": "helpers.utils.decoder",
-        "documentation": {}
-    },
-    {
         "label": "checkIter",
         "importPath": "helpers.utils.decoder",
         "description": "helpers.utils.decoder",
@@ -664,14 +616,6 @@
         "documentation": {}
     },
     {
-        "label": "inp",
-        "importPath": "helpers.utils.printer",
-        "description": "helpers.utils.printer",
-        "isExtraImport": true,
-        "detail": "helpers.utils.printer",
-        "documentation": {}
-    },
-    {
         "label": "colorFormatter",
         "importPath": "helpers.utils.printer",
         "description": "helpers.utils.printer",
@@ -737,30 +681,6 @@
     },
     {
         "label": "colorFormatter",
-        "importPath": "helpers.utils.printer",
-        "description": "helpers.utils.printer",
-        "isExtraImport": true,
-        "detail": "helpers.utils.printer",
-        "documentation": {}
-    },
-    {
-        "label": "log",
-        "importPath": "helpers.utils.printer",
-        "description": "helpers.utils.printer",
-        "isExtraImport": true,
-        "detail": "helpers.utils.printer",
-        "documentation": {}
-    },
-    {
-        "label": "colorFormatter",
-        "importPath": "helpers.utils.printer",
-        "description": "helpers.utils.printer",
-        "isExtraImport": true,
-        "detail": "helpers.utils.printer",
-        "documentation": {}
-    },
-    {
-        "label": "inp",
         "importPath": "helpers.utils.printer",
         "description": "helpers.utils.printer",
         "isExtraImport": true,
@@ -1225,22 +1145,6 @@
         "documentation": {}
     },
     {
-        "label": "availableSpid",
-        "importPath": "helpers.operations.spid",
-        "description": "helpers.operations.spid",
-        "isExtraImport": true,
-        "detail": "helpers.operations.spid",
-        "documentation": {}
-    },
-    {
-        "label": "verifySPID",
-        "importPath": "helpers.operations.spid",
-        "description": "helpers.operations.spid",
-        "isExtraImport": true,
-        "detail": "helpers.operations.spid",
-        "documentation": {}
-    },
-    {
         "label": "verifySPID",
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
@@ -1298,14 +1202,6 @@
     },
     {
         "label": "planX15NMaps",
-        "importPath": "helpers.info.plans",
-        "description": "helpers.info.plans",
-        "isExtraImport": true,
-        "detail": "helpers.info.plans",
-        "documentation": {}
-    },
-    {
-        "label": "oldPlans",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
         "isExtraImport": true,
@@ -1408,22 +1304,6 @@
         "description": "helpers.info.regexConditions",
         "isExtraImport": true,
         "detail": "helpers.info.regexConditions",
-        "documentation": {}
-    },
-    {
-        "label": "preWan",
-        "importPath": "helpers.clientFinder.wanInterface",
-        "description": "helpers.clientFinder.wanInterface",
-        "isExtraImport": true,
-        "detail": "helpers.clientFinder.wanInterface",
-        "documentation": {}
-    },
-    {
-        "label": "preWan",
-        "importPath": "helpers.clientFinder.wanInterface",
-        "description": "helpers.clientFinder.wanInterface",
-        "isExtraImport": true,
-        "detail": "helpers.clientFinder.wanInterface",
         "documentation": {}
     },
     {
@@ -1542,14 +1422,6 @@
         "documentation": {}
     },
     {
-        "label": "dataLookup",
-        "importPath": "helpers.clientFinder.dataLookup",
-        "description": "helpers.clientFinder.dataLookup",
-        "isExtraImport": true,
-        "detail": "helpers.clientFinder.dataLookup",
-        "documentation": {}
-    },
-    {
         "label": "nameLookup",
         "importPath": "helpers.clientFinder.nameLookup",
         "description": "helpers.clientFinder.nameLookup",
@@ -1558,75 +1430,35 @@
         "documentation": {}
     },
     {
-        "label": "addOnuService",
-        "importPath": "helpers.operations.addHandler",
-        "description": "helpers.operations.addHandler",
-        "isExtraImport": true,
-        "detail": "helpers.operations.addHandler",
-        "documentation": {}
-    },
-    {
-        "label": "addONU",
-        "importPath": "helpers.operations.addHandler",
-        "description": "helpers.operations.addHandler",
-        "isExtraImport": true,
-        "detail": "helpers.operations.addHandler",
-        "documentation": {}
-    },
-    {
-        "label": "addOnuService",
-        "importPath": "helpers.operations.addHandler",
-        "description": "helpers.operations.addHandler",
-        "isExtraImport": true,
-        "detail": "helpers.operations.addHandler",
-        "documentation": {}
-    },
-    {
-        "label": "addOnuService",
-        "importPath": "helpers.operations.addHandler",
-        "description": "helpers.operations.addHandler",
-        "isExtraImport": true,
-        "detail": "helpers.operations.addHandler",
-        "documentation": {}
-    },
-    {
         "label": "addOnuServiceNew",
-        "importPath": "helpers.operations.newAddHandler",
-        "description": "helpers.operations.newAddHandler",
+        "importPath": "helpers.operations.addHandler",
+        "description": "helpers.operations.addHandler",
         "isExtraImport": true,
-        "detail": "helpers.operations.newAddHandler",
+        "detail": "helpers.operations.addHandler",
         "documentation": {}
     },
     {
         "label": "addONUNew",
-        "importPath": "helpers.operations.newAddHandler",
-        "description": "helpers.operations.newAddHandler",
+        "importPath": "helpers.operations.addHandler",
+        "description": "helpers.operations.addHandler",
         "isExtraImport": true,
-        "detail": "helpers.operations.newAddHandler",
+        "detail": "helpers.operations.addHandler",
         "documentation": {}
     },
     {
         "label": "addOnuServiceNew",
-        "importPath": "helpers.operations.newAddHandler",
-        "description": "helpers.operations.newAddHandler",
+        "importPath": "helpers.operations.addHandler",
+        "description": "helpers.operations.addHandler",
         "isExtraImport": true,
-        "detail": "helpers.operations.newAddHandler",
+        "detail": "helpers.operations.addHandler",
         "documentation": {}
     },
     {
         "label": "addOnuServiceNew",
-        "importPath": "helpers.operations.newAddHandler",
-        "description": "helpers.operations.newAddHandler",
+        "importPath": "helpers.operations.addHandler",
+        "description": "helpers.operations.addHandler",
         "isExtraImport": true,
-        "detail": "helpers.operations.newAddHandler",
-        "documentation": {}
-    },
-    {
-        "label": "display",
-        "importPath": "helpers.utils.display",
-        "description": "helpers.utils.display",
-        "isExtraImport": true,
-        "detail": "helpers.utils.display",
+        "detail": "helpers.operations.addHandler",
         "documentation": {}
     },
     {
@@ -1694,14 +1526,6 @@
         "documentation": {}
     },
     {
-        "label": "insert",
-        "importPath": "helpers.utils.sheets",
-        "description": "helpers.utils.sheets",
-        "isExtraImport": true,
-        "detail": "helpers.utils.sheets",
-        "documentation": {}
-    },
-    {
         "label": "modify",
         "importPath": "helpers.utils.sheets",
         "description": "helpers.utils.sheets",
@@ -1723,30 +1547,6 @@
         "description": "helpers.clientFinder.newLookup",
         "isExtraImport": true,
         "detail": "helpers.clientFinder.newLookup",
-        "documentation": {}
-    },
-    {
-        "label": "newLookup",
-        "importPath": "helpers.clientFinder.newLookup",
-        "description": "helpers.clientFinder.newLookup",
-        "isExtraImport": true,
-        "detail": "helpers.clientFinder.newLookup",
-        "documentation": {}
-    },
-    {
-        "label": "approved",
-        "importPath": "helpers.utils.template",
-        "description": "helpers.utils.template",
-        "isExtraImport": true,
-        "detail": "helpers.utils.template",
-        "documentation": {}
-    },
-    {
-        "label": "denied",
-        "importPath": "helpers.utils.template",
-        "description": "helpers.utils.template",
-        "isExtraImport": true,
-        "detail": "helpers.utils.template",
         "documentation": {}
     },
     {
@@ -1806,19 +1606,11 @@
         "documentation": {}
     },
     {
-        "label": "confirm",
+        "label": "confirmNew",
         "importPath": "scripts.IX",
         "description": "scripts.IX",
         "isExtraImport": true,
         "detail": "scripts.IX",
-        "documentation": {}
-    },
-    {
-        "label": "confirmNew",
-        "importPath": "scripts.IXN",
-        "description": "scripts.IXN",
-        "isExtraImport": true,
-        "detail": "scripts.IXN",
         "documentation": {}
     },
     {
@@ -2459,39 +2251,21 @@
         "documentation": {}
     },
     {
-        "label": "addONU",
-        "kind": 2,
-        "importPath": "helpers.operations.addHandler",
-        "description": "helpers.operations.addHandler",
-        "peekOfCode": "def addONU(comm, command, data):\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    command(\n        f'ont add {data[\"port\"]} sn-auth {data[\"sn\"]} omci ont-lineprofile-name \"{data[\"lineProfile\"]}\" ont-srvprofile-name \"{data[\"srvProfile\"]}\"  desc \"{data[\"name\"]}\" '\n    )\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        (_, end) = check(value, \"ONTID :\").span()\n        ID = value[end : end + 3].replace(\" \", \"\").replace(\"\\n\", \"\")",
-        "detail": "helpers.operations.addHandler",
-        "documentation": {}
-    },
-    {
-        "label": "addOnuService",
-        "kind": 2,
-        "importPath": "helpers.operations.addHandler",
-        "description": "helpers.operations.addHandler",
-        "peekOfCode": "def addOnuService(comm, command, data):\n    preg = inp(\n        \"Desea verificar si el cliente ya tiene la wan interface configurada? [Y | N] : \"\n    ).upper()\n    if preg == \"Y\":\n        preWan(comm, command, data)\n    data[\"wan\"][0][\"vlan\"] = inp(\"Ingrese la vlan de proveedor de cliente : \")\n    data[\"planName\"] = inp(\"Ingrese plan de cliente : \")\n    provider = \"INTER\" if data[\"wan\"][0][\"vlan\"] == \"1101\" else \"VNET\" if data[\"wan\"][0][\"vlan\"] == \"1102\" else \"1104\"\n    data[\"wan\"][0][\"provider\"] = provider",
-        "detail": "helpers.operations.addHandler",
-        "documentation": {}
-    },
-    {
         "label": "addONUNew",
         "kind": 2,
-        "importPath": "helpers.operations.newAddHandler",
-        "description": "helpers.operations.newAddHandler",
+        "importPath": "helpers.operations.addHandler",
+        "description": "helpers.operations.addHandler",
         "peekOfCode": "def addONUNew(comm, command, data):\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    command(\n        f'ont add {data[\"port\"]} sn-auth {data[\"sn\"]} omci ont-lineprofile-id {data[\"lineProfile\"]} ont-srvprofile-id {data[\"srvProfile\"]} desc \"{data[\"name\"]}\" '\n    )\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        (_, end) = check(value, \"ONTID :\").span()\n        ID = value[end: end +",
-        "detail": "helpers.operations.newAddHandler",
+        "detail": "helpers.operations.addHandler",
         "documentation": {}
     },
     {
         "label": "addOnuServiceNew",
         "kind": 2,
-        "importPath": "helpers.operations.newAddHandler",
-        "description": "helpers.operations.newAddHandler",
+        "importPath": "helpers.operations.addHandler",
+        "description": "helpers.operations.addHandler",
         "peekOfCode": "def addOnuServiceNew(comm, command, data):\n    data[\"wan\"][0][\"spid\"] = spidCalc(data)[\"I\"] if \"_IP\" not in data[\"planName\"] and data[\"olt\"] == \"1\" else spidCalc(\n        data)[\"P\"] if \"_IP\" in data[\"planName\"] and data[\"olt\"] == \"1\" else availableSpid(comm, command)\n    log(\n        colorFormatter(\n            f'El SPID que se le agregara al cliente es : {data[\"wan\"][0][\"spid\"]}', \"ok\"\n        )\n    )\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    IPADD = inp(",
-        "detail": "helpers.operations.newAddHandler",
+        "detail": "helpers.operations.addHandler",
         "documentation": {}
     },
     {
@@ -2855,21 +2629,12 @@
         "documentation": {}
     },
     {
-        "label": "confirm",
+        "label": "confirmNew",
         "kind": 2,
         "importPath": "scripts.IX",
         "description": "scripts.IX",
-        "peekOfCode": "def confirm(comm, command, quit, olt, action):\n    {\n    \"fail\": None,\n    \"name\": None,\n    \"olt\": olt,\n    \"frame\": None,\n    \"slot\": None,\n    \"port\": None,\n    \"id\": None,\n    \"sn\": None,",
-        "detail": "scripts.IX",
-        "documentation": {}
-    },
-    {
-        "label": "confirmNew",
-        "kind": 2,
-        "importPath": "scripts.IXN",
-        "description": "scripts.IXN",
         "peekOfCode": "def confirmNew(comm, command, quit, olt, action):\n    proceed = None\n    client = {\n    \"fail\": None,\n    \"name\": None,\n    \"olt\": olt,\n    \"frame\": None,\n    \"slot\": None,\n    \"port\": None,\n    \"id\": None,",
-        "detail": "scripts.IXN",
+        "detail": "scripts.IX",
         "documentation": {}
     },
     {

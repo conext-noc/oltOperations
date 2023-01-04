@@ -5,8 +5,7 @@ from time import sleep
 from scripts.AD import upgradeData
 from scripts.BC import existingLookup
 from scripts.EC import deleteClient
-from scripts.IX import confirm
-from scripts.IXN import confirmNew
+from scripts.IX import confirmNew
 from scripts.MC import modifyClient
 from scripts.MG1 import migration
 from scripts.MG2 import addWanConfig
