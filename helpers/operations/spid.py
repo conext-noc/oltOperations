@@ -44,7 +44,9 @@ def availableSpid(comm, command):
 
 
 def verifySPID(comm, command, data):
-    command(f"display service-port {data['wan'][0]['spid']} | no-more")
+    command(f"""display service-port {data['wan'][0]['spid']}
+""")
+    command("")
     value = decoder(comm)
     fail = failChecker(value)
     if fail == None:

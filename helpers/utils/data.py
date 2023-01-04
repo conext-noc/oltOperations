@@ -1,0 +1,48 @@
+"""
+  this file holds the client data template for common use across the project
+"""
+
+client = {
+    "fail": None,
+    "name": None,
+    "olt": None,
+    "frame": None,
+    "slot": None,
+    "port": None,
+    "id": None,
+    "sn": None,
+    "ldc": None,
+    "state": None,
+    "status": None,
+    "type": None,
+    "ipAdd": None,
+    "planName": None,
+    "wan": [{"spid": None, "vlan": None, "plan": None, "provider": None, }],
+    "temp": None,
+    "pwr": None,
+    "lineProfile": None,
+    "srvProfile": None,
+    "device": None,
+}
+data = {
+    "fail": None,
+    "name": None,
+    "olt": None,
+    "frame": None,
+    "slot": None,
+    "port": None,
+    "id": None,
+    "sn": None,
+    "ldc": None,
+    "state": None,
+    "status": None,
+    "type": None,
+    "ipAdd": None,
+    "planName": None,
+    "wan": [{"spid": None, "vlan": None, "plan": None, "provider": None, }],
+    "temp": None,
+    "pwr": None,
+    "lineProfile": None,
+    "srvProfile": None,
+    "device": None,
+}

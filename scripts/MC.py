@@ -5,7 +5,7 @@ from helpers.operations.newAddHandler import addOnuServiceNew
 from helpers.operations.spid import availableSpid, spidCalc, verifySPID
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
-from helpers.info.plans import oldPlans, plans
+from helpers.info.plans import plans
 from helpers.utils.sheets import modify
 
 

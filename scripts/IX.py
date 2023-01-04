@@ -11,45 +11,45 @@ from helpers.utils.sheets import insert
 from helpers.utils.template import approved, denied
 
 def confirm(comm, command, quit, olt, action):
-    data = {
-        "fail": None,
-        "name": None,
-        "olt": olt,
-        "frame": None,
-        "slot": None,
-        "port": None,
-        "id": None,
-        "sn": None,
-        "ldc": None,
-        "state": None,
-        "status": None,
-        "type": None,
-        "ipAdd": None,
-        "planName": None,
-        "wan": [{"spid":None, "vlan": None, "plan": None,"provider": None,}],
-        "temp": None,
-        "pwr": None,
-        "lineProfile": None,
-        "srvProfile": None,
-        "device": None,
-    }
+    {
+    "fail": None,
+    "name": None,
+    "olt": olt,
+    "frame": None,
+    "slot": None,
+    "port": None,
+    "id": None,
+    "sn": None,
+    "ldc": None,
+    "state": None,
+    "status": None,
+    "type": None,
+    "ipAdd": None,
+    "planName": None,
+    "wan": [{"spid": None, "vlan": None, "plan": None, "provider": None, }],
+    "temp": None,
+    "pwr": None,
+    "lineProfile": None,
+    "srvProfile": None,
+    "device": None,
+}
     if "N" in action:
-        (data["sn"], FSP) = newLookup(comm, command, olt)
+        (client["sn"], FSP) = newLookup(comm, command, olt)
         val = inp("desea continuar? [Y|N] : ").upper()
-        proceed = True if val == "Y" and data["sn"] != None else False
+        proceed = True if val == "Y" and client["sn"] != None else False
         if proceed:
-            data["frame"] = int(FSP.split("/")[0])
-            data["slot"] = int(FSP.split("/")[1])
-            data["port"] = int(FSP.split("/")[2])
-            data["name"] = inp("Ingrese nombre del cliente : ")[:56]
-            data["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ")
-            data["lineProfile"] = inp(
+            client["frame"] = int(FSP.split("/")[0])
+            client["slot"] = int(FSP.split("/")[1])
+            client["port"] = int(FSP.split("/")[2])
+            client["name"] = inp("Ingrese nombre del cliente : ")[:56]
+            client["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ")
+            client["lineProfile"] = inp(
                 "Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS ] : "
             )
-            data["srvProfile"] = inp("Ingrese Service-Profile [ FTTH ] : ")
-            data["wan"][0]["spid"] = availableSpid(comm, command)
+            client["srvProfile"] = inp("Ingrese Service-Profile [ FTTH ] : ")
+            client["wan"][0]["spid"] = availableSpid(comm, command)
 
-            (data["id"], data["fail"]) = addONU(comm, command, data)
+            (client["id"], client["fail"]) = addONU(comm, command, client)
         else:
             log(colorFormatter("SN no aparece en OLT, Saliendo...", "warning"))
             quit()
@@ -57,54 +57,54 @@ def confirm(comm, command, quit, olt, action):
 
     elif "P" in action:
         lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
-        data = dataLookup(comm, command, olt, lookupType)
-        if data["fail"] == None:
-            proceed = display(data, "I")
-            data["nif"] = (
+        client = dataLookup(comm, command, olt, lookupType)
+        if client["fail"] == None:
+            proceed = display(client, "I")
+            client["nif"] = (
                 inp("Ingrese el NIF del cliente [V123 | J123]: ") if proceed else None
             )
-            data["lineProfile"] = (
+            client["lineProfile"] = (
                 inp("Ingrese Line-Profile [PRUEBA_BRIDGE | INET | IP PUBLICAS ] : ")
                 if proceed
                 else None
             )
-            data["srvProfile"] = (
+            client["srvProfile"] = (
                 inp("Ingrese Service-Profile [ FTTH ] : ") if proceed else None
             )
-            print(data)
-            data["wan"][0]["spid"] = availableSpid(comm, command) if proceed else None
+            print(client)
+            client["wan"][0]["spid"] = availableSpid(comm, command) if proceed else None
         else:
-            log(colorFormatter(data["fail"], "fail"))
+            log(colorFormatter(client["fail"], "fail"))
             quit()
             return
 
-    if data["id"] != None and proceed:
+    if client["id"] != None and proceed:
         log(
             colorFormatter(
-                f'El SPID que se le agregara al cliente es : {data["wan"][0]["spid"]}', "ok"
+                f'El SPID que se le agregara al cliente es : {client["wan"][0]["spid"]}', "ok"
             )
         )
-        (data["temp"], data["pwr"]) = opticalValues(comm, command, data, True)
+        (client["temp"], client["pwr"]) = opticalValues(comm, command, client, True)
 
         value = inp(
             f"""
-  La potencia del ONT es : {data["pwr"]} y la temperatura es : {data["temp"]}
+  La potencia del ONT es : {client["pwr"]} y la temperatura es : {client["temp"]}
   quieres proceder con la instalacion? [Y | N] : """
         )
         install = True if value == "Y" else False if value == "N" else None
         
         if not install:
                     reason = inp("Por que no se le asignara servicio? : ").upper()
-                    denied(data, reason)
+                    denied(client, reason)
                     quit()
                     return
-        data["device"] = typeCheck(comm, command, data)
-        log(colorFormatter(f"El tipo de ONT del cliente es {data['device']}", "ok"))
+        client["device"] = typeCheck(comm, command, client)
+        log(colorFormatter(f"El tipo de ONT del cliente es {client['device']}", "ok"))
         
-        addOnuService(comm, command, data)
+        addOnuService(comm, command, client)
         
-        verifySPID(comm, command, data)
-        wksArr = approved(data)
+        verifySPID(comm, command, client)
+        wksArr = approved(client)
         insert(wksArr)
         quit()
         return

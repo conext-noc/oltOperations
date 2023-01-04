@@ -184,22 +184,6 @@
         "documentation": {}
     },
     {
-        "label": "wan",
-        "importPath": "helpers.clientFinder.wan",
-        "description": "helpers.clientFinder.wan",
-        "isExtraImport": true,
-        "detail": "helpers.clientFinder.wan",
-        "documentation": {}
-    },
-    {
-        "label": "failChecker",
-        "importPath": "helpers.failHandler.fail",
-        "description": "helpers.failHandler.fail",
-        "isExtraImport": true,
-        "detail": "helpers.failHandler.fail",
-        "documentation": {}
-    },
-    {
         "label": "failChecker",
         "importPath": "helpers.failHandler.fail",
         "description": "helpers.failHandler.fail",
@@ -465,30 +449,6 @@
     },
     {
         "label": "decoder",
-        "importPath": "helpers.utils.decoder",
-        "description": "helpers.utils.decoder",
-        "isExtraImport": true,
-        "detail": "helpers.utils.decoder",
-        "documentation": {}
-    },
-    {
-        "label": "decoder",
-        "importPath": "helpers.utils.decoder",
-        "description": "helpers.utils.decoder",
-        "isExtraImport": true,
-        "detail": "helpers.utils.decoder",
-        "documentation": {}
-    },
-    {
-        "label": "check",
-        "importPath": "helpers.utils.decoder",
-        "description": "helpers.utils.decoder",
-        "isExtraImport": true,
-        "detail": "helpers.utils.decoder",
-        "documentation": {}
-    },
-    {
-        "label": "checkIter",
         "importPath": "helpers.utils.decoder",
         "description": "helpers.utils.decoder",
         "isExtraImport": true,
@@ -697,22 +657,6 @@
     },
     {
         "label": "log",
-        "importPath": "helpers.utils.printer",
-        "description": "helpers.utils.printer",
-        "isExtraImport": true,
-        "detail": "helpers.utils.printer",
-        "documentation": {}
-    },
-    {
-        "label": "log",
-        "importPath": "helpers.utils.printer",
-        "description": "helpers.utils.printer",
-        "isExtraImport": true,
-        "detail": "helpers.utils.printer",
-        "documentation": {}
-    },
-    {
-        "label": "colorFormatter",
         "importPath": "helpers.utils.printer",
         "description": "helpers.utils.printer",
         "isExtraImport": true,
@@ -1201,14 +1145,6 @@
         "documentation": {}
     },
     {
-        "label": "dataToDict",
-        "importPath": "helpers.fileFormatters.fileHandler",
-        "description": "helpers.fileFormatters.fileHandler",
-        "isExtraImport": true,
-        "detail": "helpers.fileFormatters.fileHandler",
-        "documentation": {}
-    },
-    {
         "label": "fileToDict",
         "importPath": "helpers.fileFormatters.fileHandler",
         "description": "helpers.fileFormatters.fileHandler",
@@ -1266,6 +1202,14 @@
     },
     {
         "label": "ontSpid",
+        "importPath": "helpers.operations.spid",
+        "description": "helpers.operations.spid",
+        "isExtraImport": true,
+        "detail": "helpers.operations.spid",
+        "documentation": {}
+    },
+    {
+        "label": "availableSpid",
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
         "isExtraImport": true,
@@ -1377,7 +1321,7 @@
         "documentation": {}
     },
     {
-        "label": "oldPlans",
+        "label": "PLANS",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
         "isExtraImport": true,
@@ -2447,7 +2391,16 @@
         "kind": 5,
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
-        "peekOfCode": "oldPlans = {\n    \"2\":{\n        \"OZ_PLUS\":47,\n        \"OZ_MAX\":46,\n        \"OZ_NEXT\":40,\n        \"OZ_MAGICAL\":39,\n        \"OZ_SKY\":45,\n        \"OZ_UP\":49,\n        \"OZ_LIFT\":6,\n        \"OZ_FAMILY\":25,",
+        "peekOfCode": "oldPlans = {\n    \"2\": {\n        \"OZ_PLUS\": 47,\n        \"OZ_MAX\": 46,\n        \"OZ_NEXT\": 40,\n        \"OZ_MAGICAL\": 39,\n        \"OZ_SKY\": 45,\n        \"OZ_UP\": 49,\n        \"OZ_LIFT\": 6,\n        \"OZ_FAMILY\": 25,",
+        "detail": "helpers.info.plans",
+        "documentation": {}
+    },
+    {
+        "label": "PLANS",
+        "kind": 5,
+        "importPath": "helpers.info.plans",
+        "description": "helpers.info.plans",
+        "peekOfCode": "PLANS = {\n    \"1\": {\n        \"OZ_0_1\": {\n            \"lineProfile\": 3,\n            \"srvProfile\": 110,\n            \"vlan\": 1100,\n            \"provider\": \"INTER\",\n            \"plan\": 110,\n            \"gemPort\": 10\n        },",
         "detail": "helpers.info.plans",
         "documentation": {}
     },
@@ -2456,7 +2409,7 @@
         "kind": 5,
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
-        "peekOfCode": "plans = {\n    \"OZ_0_1\": {\n        \"lineProfile\": 3,\n        \"srvProfile\": 110,\n        \"vlan\": 1100,\n        \"provider\":\"INTER\",\n        \"plan\": 110,\n        \"gemPort\": 10\n    },\n    \"OZ_PLUS_1\": {",
+        "peekOfCode": "plans = {\n    \"OZ_0_1\": {\n        \"lineProfile\": 3,\n        \"srvProfile\": 110,\n        \"vlan\": 1100,\n        \"provider\": \"INTER\",\n        \"plan\": 110,\n        \"gemPort\": 10\n    },\n    \"OZ_PLUS_1\": {",
         "detail": "helpers.info.plans",
         "documentation": {}
     },
@@ -2528,7 +2481,7 @@
         "kind": 2,
         "importPath": "helpers.operations.newAddHandler",
         "description": "helpers.operations.newAddHandler",
-        "peekOfCode": "def addONUNew(comm, command, data):\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    command(\n        f'ont add {data[\"port\"]} sn-auth {data[\"sn\"]} omci ont-lineprofile-id {data[\"lineProfile\"]} ont-srvprofile-id {data[\"srvProfile\"]} desc \"{data[\"name\"]}\" '\n    )\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        (_, end) = check(value, \"ONTID :\").span()\n        ID = value[end : end + 3].replace(\" \", \"\").replace(\"\\n\", \"\").replace(\"\\r\", \"\")",
+        "peekOfCode": "def addONUNew(comm, command, data):\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    command(\n        f'ont add {data[\"port\"]} sn-auth {data[\"sn\"]} omci ont-lineprofile-id {data[\"lineProfile\"]} ont-srvprofile-id {data[\"srvProfile\"]} desc \"{data[\"name\"]}\" '\n    )\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        (_, end) = check(value, \"ONTID :\").span()\n        ID = value[end: end +",
         "detail": "helpers.operations.newAddHandler",
         "documentation": {}
     },
@@ -2537,7 +2490,7 @@
         "kind": 2,
         "importPath": "helpers.operations.newAddHandler",
         "description": "helpers.operations.newAddHandler",
-        "peekOfCode": "def addOnuServiceNew(comm, command, data):\n    data[\"wan\"][0][\"spid\"] = spidCalc(data)[\"I\"] if \"_IP\" not in data[\"planName\"] else spidCalc(data)[\"P\"]\n    log(\n        colorFormatter(\n            f'El SPID que se le agregara al cliente es : {data[\"wan\"][0][\"spid\"]}', \"ok\"\n        )\n    )\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    IPADD = inp(\"Ingrese la IPv4 Publica del cliente : \") if \"_IP\" in data[\"planName\"] else None\n    command(",
+        "peekOfCode": "def addOnuServiceNew(comm, command, data):\n    data[\"wan\"][0][\"spid\"] = spidCalc(data)[\"I\"] if \"_IP\" not in data[\"planName\"] and data[\"olt\"] == \"1\" else spidCalc(\n        data)[\"P\"] if \"_IP\" in data[\"planName\"] and data[\"olt\"] == \"1\" else availableSpid(comm, command)\n    log(\n        colorFormatter(\n            f'El SPID que se le agregara al cliente es : {data[\"wan\"][0][\"spid\"]}', \"ok\"\n        )\n    )\n    command(f\"interface gpon {data['frame']}/{data['slot']}\")\n    IPADD = inp(",
         "detail": "helpers.operations.newAddHandler",
         "documentation": {}
     },
@@ -2555,7 +2508,7 @@
         "kind": 2,
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
-        "peekOfCode": "def availableSpid(comm, command):\n    command(\"display service-port next-free-index\")\n    command(\"\")\n    value = decoder(comm)\n    (_, e) = check(value, conditionSPID).span()\n    spid = value[e: e + 5].replace(\" \", \"\").replace(\"\\n\", \"\")\n    return spid\ndef verifySPID(comm, command, data):\n    command(f\"display service-port {data['wan'][0]['spid']} | no-more\")\n    value = decoder(comm)",
+        "peekOfCode": "def availableSpid(comm, command):\n    command(\"display service-port next-free-index\")\n    command(\"\")\n    value = decoder(comm)\n    (_, e) = check(value, conditionSPID).span()\n    spid = value[e: e + 5].replace(\" \", \"\").replace(\"\\n\", \"\")\n    return spid\ndef verifySPID(comm, command, data):\n    command(f\"\"\"display service-port {data['wan'][0]['spid']}\n\"\"\")",
         "detail": "helpers.operations.spid",
         "documentation": {}
     },
@@ -2564,7 +2517,7 @@
         "kind": 2,
         "importPath": "helpers.operations.spid",
         "description": "helpers.operations.spid",
-        "peekOfCode": "def verifySPID(comm, command, data):\n    command(f\"display service-port {data['wan'][0]['spid']} | no-more\")\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        (_, sIdx) = check(value, spidCheck[\"index\"]).span()\n        (eIdx, sId) = check(value, spidCheck[\"id\"]).span()\n        (eId, sAtt) = check(value, spidCheck[\"attr\"]).span()\n        (eAtt, _) = check(value, spidCheck[\"endAttr\"]).span()\n        (_, sPlan) = check(value, spidCheck[\"plan\"]).span()",
+        "peekOfCode": "def verifySPID(comm, command, data):\n    command(f\"\"\"display service-port {data['wan'][0]['spid']}\n\"\"\")\n    command(\"\")\n    value = decoder(comm)\n    fail = failChecker(value)\n    if fail == None:\n        (_, sIdx) = check(value, spidCheck[\"index\"]).span()\n        (eIdx, sId) = check(value, spidCheck[\"id\"]).span()\n        (eId, sAtt) = check(value, spidCheck[\"attr\"]).span()",
         "detail": "helpers.operations.spid",
         "documentation": {}
     },
@@ -2620,6 +2573,24 @@
         "description": "helpers.operations.spid",
         "peekOfCode": "spidCheck = {\n    \"index\": \"Index               : \",\n    \"id\": \"VLAN ID             : \",\n    \"attr\": \"VLAN attr           : \",\n    \"endAttr\": \"Port type\",\n    \"plan\": \"Outbound table name : \",\n    \"adminStatus\": \"Admin status        : \",\n    \"status\": \"State               : \",\n    \"endStatus\": \"Label               :\",\n}",
         "detail": "helpers.operations.spid",
+        "documentation": {}
+    },
+    {
+        "label": "client",
+        "kind": 5,
+        "importPath": "helpers.utils.data",
+        "description": "helpers.utils.data",
+        "peekOfCode": "client = {\n    \"fail\": None,\n    \"name\": None,\n    \"olt\": None,\n    \"frame\": None,\n    \"slot\": None,\n    \"port\": None,\n    \"id\": None,\n    \"sn\": None,\n    \"ldc\": None,",
+        "detail": "helpers.utils.data",
+        "documentation": {}
+    },
+    {
+        "label": "data",
+        "kind": 5,
+        "importPath": "helpers.utils.data",
+        "description": "helpers.utils.data",
+        "peekOfCode": "data = {\n    \"fail\": None,\n    \"name\": None,\n    \"olt\": None,\n    \"frame\": None,\n    \"slot\": None,\n    \"port\": None,\n    \"id\": None,\n    \"sn\": None,\n    \"ldc\": None,",
+        "detail": "helpers.utils.data",
         "documentation": {}
     },
     {
@@ -2888,7 +2859,7 @@
         "kind": 2,
         "importPath": "scripts.IX",
         "description": "scripts.IX",
-        "peekOfCode": "def confirm(comm, command, quit, olt, action):\n    data = {\n        \"fail\": None,\n        \"name\": None,\n        \"olt\": olt,\n        \"frame\": None,\n        \"slot\": None,\n        \"port\": None,\n        \"id\": None,\n        \"sn\": None,",
+        "peekOfCode": "def confirm(comm, command, quit, olt, action):\n    {\n    \"fail\": None,\n    \"name\": None,\n    \"olt\": olt,\n    \"frame\": None,\n    \"slot\": None,\n    \"port\": None,\n    \"id\": None,\n    \"sn\": None,",
         "detail": "scripts.IX",
         "documentation": {}
     },
@@ -2897,7 +2868,7 @@
         "kind": 2,
         "importPath": "scripts.IXN",
         "description": "scripts.IXN",
-        "peekOfCode": "def confirmNew(comm, command, quit, olt, action):\n    proceed = None\n    data = {\n        \"fail\": None,\n        \"name\": None,\n        \"olt\": olt,\n        \"frame\": None,\n        \"slot\": None,\n        \"port\": None,\n        \"id\": None,",
+        "peekOfCode": "def confirmNew(comm, command, quit, olt, action):\n    proceed = None\n    client = {\n    \"fail\": None,\n    \"name\": None,\n    \"olt\": olt,\n    \"frame\": None,\n    \"slot\": None,\n    \"port\": None,\n    \"id\": None,",
         "detail": "scripts.IXN",
         "documentation": {}
     },
