@@ -1,7 +1,7 @@
 __pycache__/
 **/__pycache__/
 **/**/__pycache__/
-.vscode
+.vscode/
 .env
 service_account_olt_operations.json
 client_secret.json

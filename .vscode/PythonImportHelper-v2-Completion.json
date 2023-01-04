@@ -1217,6 +1217,14 @@
         "documentation": {}
     },
     {
+        "label": "PLANS",
+        "importPath": "helpers.info.plans",
+        "description": "helpers.info.plans",
+        "isExtraImport": true,
+        "detail": "helpers.info.plans",
+        "documentation": {}
+    },
+    {
         "label": "plans",
         "importPath": "helpers.info.plans",
         "description": "helpers.info.plans",
