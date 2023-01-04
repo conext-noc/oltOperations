@@ -1,7 +1,7 @@
 from helpers.clientFinder.dataLookup import dataLookup
 from helpers.clientFinder.nameLookup import nameLookup
-from helpers.operations.addHandler import addOnuService
-from helpers.operations.newAddHandler import addOnuServiceNew
+# from helpers.operations.addHandler import addOnuService
+from helpers.operations.addHandler import addOnuServiceNew
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 
@@ -10,18 +10,18 @@ def existingLookup(comm, command, quit, olt, action):
     lookupType = inp(
         "Buscar cliente por serial, por nombre o por Datos (F/S/P/ID) [S | N | D] : "
     )
-    data = (
+    client = (
         dataLookup(comm, command, olt, lookupType)
         if lookupType != "N"
         else nameLookup(comm, command, quit)
     )
 
-    if data["fail"] != None:
-        log(colorFormatter(data["fail"], "fail"))
+    if client["fail"] != None:
+        log(colorFormatter(client["fail"], "fail"))
         return
 
     if lookupType == "N":
-        clients = data["data"]
+        clients = client["data"]
         log(
             "| {:^6} | {:^3} | {:^40} | {:^10} | {:^15} | {:^16} |".format(
                 "F/S/P", "ID", "NAME", "STATUS", "STATE", "SN"
@@ -40,10 +40,10 @@ def existingLookup(comm, command, quit, olt, action):
         quit()
         return
 
-    display(data, "B")
-
-    if data["wan"][0]["spid"] == None:
-        addOnuServiceNew(comm, command, data) if olt == "1" else addOnuService(
-            comm, command, data
-        )
+    display(client, "B")
+    # add wan profile if not exist
+    # if data["wan"][0]["spid"] == None:
+    #     addOnuServiceNew(comm, command, data) if olt == "1" else addOnuService(
+    #         comm, command, data
+    #     )
     return

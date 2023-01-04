@@ -1,0 +1,15 @@
+google-api-core==2.11.0
+google-api-python-client==2.69.0
+google-auth==2.14.1
+google-auth-httplib2==0.1.0
+google-auth-oauthlib==0.7.1
+googleapis-common-protos==1.57.0
+gspread==5.7.1
+oauthlib==3.2.2
+openpyxl==3.0.10
+pandas==1.5.1
+pygsheets==2.0.6
+regex==2022.10.31
+ssh2-python==1.0.0
+tk==0.1.0
+userpaths==0.1.3

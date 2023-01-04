@@ -1,8 +1,3 @@
-from helpers.utils.decoder import decoder, check, checkIter
-from helpers.failHandler.fail import failChecker
-from helpers.utils.printer import log, colorFormatter
-from helpers.fileFormatters.fileHandler import dataToDict
-
 conditionSpidOnt = "CTRL_C to break"
 condition = "-----------------------------------------------------------------------------"
 spidHeader = "SPID,ID,ATT,PORT_TYPE,F/S,/P,VPI,VCI,FLOW_TYPE,FLOW_PARA,RX,TX,STATE,"
@@ -53,7 +48,6 @@ planX15NMaps = {
     "314": "PLAN_4_IP",
     "315": "PLAN_5_IP",
 }
-
 planX15Maps = {
     "6": "OZ_LIFT",
     "7": "OZ_FAMILY",
@@ -77,33 +71,754 @@ planX15Maps = {
 }
 
 oldPlans = {
-    "2":{
-        "OZ_PLUS":47,
-        "OZ_MAX":46,
-        "OZ_NEXT":40,
-        "OZ_MAGICAL":39,
-        "OZ_SKY":45,
-        "OZ_UP":49,
-        "OZ_LIFT":6,
-        "OZ_FAMILY":25,
-        "OZ_START":23,
-        "OZ_EMPRENDE":41,
-        "OZ_CONECTA":43,
-        "OZ_INICIATE":44,
+    "2": {
+        "OZ_PLUS": 47,
+        "OZ_MAX": 46,
+        "OZ_NEXT": 40,
+        "OZ_MAGICAL": 39,
+        "OZ_SKY": 45,
+        "OZ_UP": 49,
+        "OZ_LIFT": 6,
+        "OZ_FAMILY": 25,
+        "OZ_START": 23,
+        "OZ_EMPRENDE": 41,
+        "OZ_CONECTA": 43,
+        "OZ_INICIATE": 44,
     },
-    "3":{
-        "OZ_PLUS":49,
-        "OZ_MAX":48,
-        "OZ_NEXT":40,
-        "OZ_MAGICAL":32,
-        "OZ_SKY":47,
-        "OZ_UP":36,
-        "OZ_LIFT":34,
-        "OZ_FAMILY":15,
-        "OZ_START":9,
-        "OZ_EMPRENDE":44,
-        "OZ_CONECTA":46,
-        "OZ_INICIATE":45,
+    "3": {
+        "OZ_PLUS": 49,
+        "OZ_MAX": 48,
+        "OZ_NEXT": 40,
+        "OZ_MAGICAL": 32,
+        "OZ_SKY": 47,
+        "OZ_UP": 36,
+        "OZ_LIFT": 34,
+        "OZ_FAMILY": 15,
+        "OZ_START": 9,
+        "OZ_EMPRENDE": 44,
+        "OZ_CONECTA": 46,
+        "OZ_INICIATE": 45,
+    }
+}
+
+PLANS = {
+    "1": {
+        "OZ_0_1": {
+            "lineProfile": 3,
+            "srvProfile": 110,
+            "vlan": 1100,
+            "provider": "INTER",
+            "plan": 110,
+            "gemPort": 10
+        },
+        "OZ_PLUS_1": {
+            "lineProfile": 17,
+            "srvProfile": 111,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 111,
+            "gemPort": 11
+        },
+        "OZ_MAX_1": {
+            "lineProfile": 27,
+            "srvProfile": 112,
+            "vlan": 1102,
+            "provider": "INTER",
+            "plan": 112,
+            "gemPort": 12
+        },
+        "OZ_NEXT_1": {
+            "lineProfile": 37,
+            "srvProfile": 113,
+            "vlan": 1103,
+            "provider": "INTER",
+            "plan": 113,
+            "gemPort": 13
+        },
+        "OZ_MAGICAL_1": {
+            "lineProfile": 47,
+            "srvProfile": 114,
+            "vlan": 1104,
+            "provider": "INTER",
+            "plan": 114,
+            "gemPort": 14
+        },
+        "OZ_SKY_1": {
+            "lineProfile": 57,
+            "srvProfile": 115,
+            "vlan": 1105,
+            "provider": "INTER",
+            "plan": 115,
+            "gemPort": 15
+        },
+        "OZ_0_2": {
+            "lineProfile": 3,
+            "srvProfile": 210,
+            "vlan": 2100,
+            "provider": "VNET",
+            "plan": 210,
+            "gemPort": 1
+        },
+        "OZ_PLUS_2": {
+            "lineProfile": 17,
+            "srvProfile": 211,
+            "vlan": 2101,
+            "provider": "VNET",
+            "plan": 211,
+            "gemPort": 21
+        },
+        "OZ_MAX_2": {
+            "lineProfile": 27,
+            "srvProfile": 212,
+            "vlan": 2102,
+            "provider": "VNET",
+            "plan": 212,
+            "gemPort": 22
+        },
+        "OZ_NEXT_2": {
+            "lineProfile": 37,
+            "srvProfile": 213,
+            "vlan": 2103,
+            "provider": "VNET",
+            "plan": 213,
+            "gemPort": 23
+        },
+        "OZ_MAGICAL_2": {
+            "lineProfile": 47,
+            "srvProfile": 214,
+            "vlan": 2104,
+            "provider": "VNET",
+            "plan": 214,
+            "gemPort": 24
+        },
+        "OZ_SKY_2": {
+            "lineProfile": 57,
+            "srvProfile": 215,
+            "vlan": 2105,
+            "provider": "VNET",
+            "plan": 215,
+            "gemPort": 25
+        },
+        "OZ_PLUS_IP": {
+            "lineProfile": 18,
+            "srvProfile": 311,
+            "vlan": 102,
+            "provider": "PUBLICAS",
+            "plan": 311,
+            "gemPort": 14
+        },
+        "OZ_MAX_IP": {
+            "lineProfile": 28,
+            "srvProfile": 312,
+            "vlan": 102,
+            "provider": "PUBLICAS",
+            "plan": 312,
+            "gemPort": 14
+        },
+        "OZ_NEXT_IP": {
+            "lineProfile": 38,
+            "srvProfile": 313,
+            "vlan": 102,
+            "provider": "PUBLICAS",
+            "plan": 313,
+            "gemPort": 14
+        },
+        "OZ_MAGICAL_IP": {
+            "lineProfile": 48,
+            "srvProfile": 314,
+            "vlan": 102,
+            "provider": "PUBLICAS",
+            "plan": 314,
+            "gemPort": 14
+        },
+        "OZ_SKY_IP": {
+            "lineProfile": 58,
+            "srvProfile": 315,
+            "vlan": 102,
+            "provider": "PUBLICAS",
+            "plan": 315,
+            "gemPort": 14
+        },
+    },
+    "2": {
+        "OZ_PLUS_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 47,
+            "gemPort": 14
+        },
+        "OZ_MAX_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 46,
+            "gemPort": 14
+        },
+        "OZ_NEXT_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 40,
+            "gemPort": 14
+        },
+        "OZ_MAGICAL_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 39,
+            "gemPort": 14
+        },
+        "OZ_SKY_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 45,
+            "gemPort": 14
+        },
+        "OZ_START_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 23,
+            "gemPort": 14
+        },
+        "OZ_FAMILY_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 25,
+            "gemPort": 14
+        },
+        "OZ_EMPRENDE_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 42,
+            "gemPort": 14
+        },
+        "OZ_CONECTA_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 44,
+            "gemPort": 14
+        },
+        "OZ_INICIATE_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 43,
+            "gemPort": 14
+        },
+        "OZ_LIFT_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 6,
+            "gemPort": 14
+        },
+        "OZ_UP_1": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 49,
+            "gemPort": 14
+        },
+        "OZ_PLUS_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 47,
+            "gemPort": 14
+        },
+        "OZ_MAX_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 46,
+            "gemPort": 14
+        },
+        "OZ_NEXT_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 40,
+            "gemPort": 14
+        },
+        "OZ_MAGICAL_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 39,
+            "gemPort": 14
+        },
+        "OZ_SKY_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 45,
+            "gemPort": 14
+        },
+        "OZ_START_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 23,
+            "gemPort": 14
+        },
+        "OZ_FAMILY_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 25,
+            "gemPort": 14
+        },
+        "OZ_EMPRENDE_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 42,
+            "gemPort": 14
+        },
+        "OZ_CONECTA_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 44,
+            "gemPort": 14
+        },
+        "OZ_INICIATE_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 43,
+            "gemPort": 14
+        },
+        "OZ_LIFT_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 6,
+            "gemPort": 14
+        },
+        "OZ_UP_2": {
+            "lineProfile": 2,
+            "srvProfile": 2,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 49,
+            "gemPort": 14
+        },
+        "OZ_PLUS_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 47,
+            "gemPort": 14
+        },
+        "OZ_MAX_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 46,
+            "gemPort": 14
+        },
+        "OZ_NEXT_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 40,
+            "gemPort": 14
+        },
+        "OZ_MAGICAL_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 39,
+            "gemPort": 14
+        },
+        "OZ_SKY_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 45,
+            "gemPort": 14
+        },
+        "OZ_START_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 23,
+            "gemPort": 14
+        },
+        "OZ_FAMILY_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 25,
+            "gemPort": 14
+        },
+        "OZ_EMPRENDE_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 42,
+            "gemPort": 14
+        },
+        "OZ_CONECTA_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 44,
+            "gemPort": 14
+        },
+        "OZ_INICIATE_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 43,
+            "gemPort": 14
+        },
+        "OZ_LIFT_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 6,
+            "gemPort": 14
+        },
+        "OZ_UP_IP": {
+            "lineProfile": 4,
+            "srvProfile": 2,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 49,
+            "gemPort": 14
+        },
+    },
+    "3": {
+        "OZ_PLUS_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 49,
+            "gemPort": 14
+        },
+        "OZ_MAX_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 48,
+            "gemPort": 14
+        },
+        "OZ_NEXT_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 33,
+            "gemPort": 14
+        },
+        "OZ_MAGICAL_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 32,
+            "gemPort": 14
+        },
+        "OZ_SKY_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 47,
+            "gemPort": 14
+        },
+        "OZ_START_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 9,
+            "gemPort": 14
+        },
+        "OZ_FAMILY_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 15,
+            "gemPort": 14
+        },
+        "OZ_EMPRENDE_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 44,
+            "gemPort": 14
+        },
+        "OZ_CONECTA_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 46,
+            "gemPort": 14
+        },
+        "OZ_INICIATE_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 45,
+            "gemPort": 14
+        },
+        "OZ_LIFT_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 34,
+            "gemPort": 14
+        },
+        "OZ_UP_1": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1101,
+            "provider": "INTER",
+            "plan": 36,
+            "gemPort": 14
+        },
+        "OZ_PLUS_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 49,
+            "gemPort": 14
+        },
+        "OZ_MAX_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 48,
+            "gemPort": 14
+        },
+        "OZ_NEXT_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 33,
+            "gemPort": 14
+        },
+        "OZ_MAGICAL_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 32,
+            "gemPort": 14
+        },
+        "OZ_SKY_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 47,
+            "gemPort": 14
+        },
+        "OZ_START_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 9,
+            "gemPort": 14
+        },
+        "OZ_FAMILY_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 15,
+            "gemPort": 14
+        },
+        "OZ_EMPRENDE_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 44,
+            "gemPort": 14
+        },
+        "OZ_CONECTA_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 46,
+            "gemPort": 14
+        },
+        "OZ_INICIATE_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 45,
+            "gemPort": 14
+        },
+        "OZ_LIFT_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 34,
+            "gemPort": 14
+        },
+        "OZ_UP_2": {
+            "lineProfile": 2,
+            "srvProfile": 1,
+            "vlan": 1102,
+            "provider": "VNET",
+            "plan": 36,
+            "gemPort": 14
+        },
+        "OZ_PLUS_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 49,
+            "gemPort": 14
+        },
+        "OZ_MAX_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 48,
+            "gemPort": 14
+        },
+        "OZ_NEXT_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 33,
+            "gemPort": 14
+        },
+        "OZ_MAGICAL_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 32,
+            "gemPort": 14
+        },
+        "OZ_SKY_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 47,
+            "gemPort": 14
+        },
+        "OZ_START_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 9,
+            "gemPort": 14
+        },
+        "OZ_FAMILY_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 15,
+            "gemPort": 14
+        },
+        "OZ_EMPRENDE_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 44,
+            "gemPort": 14
+        },
+        "OZ_CONECTA_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 46,
+            "gemPort": 14
+        },
+        "OZ_INICIATE_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 45,
+            "gemPort": 14
+        },
+        "OZ_LIFT_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 34,
+            "gemPort": 14
+        },
+        "OZ_UP_IP": {
+            "lineProfile": 5,
+            "srvProfile": 1,
+            "vlan": 1104,
+            "provider": "PUBLICAS",
+            "plan": 36,
+            "gemPort": 14
+        },
     }
 }
 
@@ -112,7 +827,7 @@ plans = {
         "lineProfile": 3,
         "srvProfile": 110,
         "vlan": 1100,
-        "provider":"INTER",
+        "provider": "INTER",
         "plan": 110,
         "gemPort": 10
     },
@@ -120,7 +835,7 @@ plans = {
         "lineProfile": 17,
         "srvProfile": 111,
         "vlan": 1101,
-        "provider":"INTER",
+        "provider": "INTER",
         "plan": 111,
         "gemPort": 11
     },
@@ -128,7 +843,7 @@ plans = {
         "lineProfile": 27,
         "srvProfile": 112,
         "vlan": 1102,
-        "provider":"INTER",
+        "provider": "INTER",
         "plan": 112,
         "gemPort": 12
     },
@@ -136,7 +851,7 @@ plans = {
         "lineProfile": 37,
         "srvProfile": 113,
         "vlan": 1103,
-        "provider":"INTER",
+        "provider": "INTER",
         "plan": 113,
         "gemPort": 13
     },
@@ -144,7 +859,7 @@ plans = {
         "lineProfile": 47,
         "srvProfile": 114,
         "vlan": 1104,
-        "provider":"INTER",
+        "provider": "INTER",
         "plan": 114,
         "gemPort": 14
     },
@@ -152,7 +867,7 @@ plans = {
         "lineProfile": 57,
         "srvProfile": 115,
         "vlan": 1105,
-        "provider":"INTER",
+        "provider": "INTER",
         "plan": 115,
         "gemPort": 15
     },
@@ -160,7 +875,7 @@ plans = {
         "lineProfile": 3,
         "srvProfile": 210,
         "vlan": 2100,
-        "provider":"VNET",
+        "provider": "VNET",
         "plan": 210,
         "gemPort": 1
     },
@@ -168,7 +883,7 @@ plans = {
         "lineProfile": 17,
         "srvProfile": 211,
         "vlan": 2101,
-        "provider":"VNET",
+        "provider": "VNET",
         "plan": 211,
         "gemPort": 21
     },
@@ -176,7 +891,7 @@ plans = {
         "lineProfile": 27,
         "srvProfile": 212,
         "vlan": 2102,
-        "provider":"VNET",
+        "provider": "VNET",
         "plan": 212,
         "gemPort": 22
     },
@@ -184,7 +899,7 @@ plans = {
         "lineProfile": 37,
         "srvProfile": 213,
         "vlan": 2103,
-        "provider":"VNET",
+        "provider": "VNET",
         "plan": 213,
         "gemPort": 23
     },
@@ -192,7 +907,7 @@ plans = {
         "lineProfile": 47,
         "srvProfile": 214,
         "vlan": 2104,
-        "provider":"VNET",
+        "provider": "VNET",
         "plan": 214,
         "gemPort": 24
     },
@@ -200,7 +915,7 @@ plans = {
         "lineProfile": 57,
         "srvProfile": 215,
         "vlan": 2105,
-        "provider":"VNET",
+        "provider": "VNET",
         "plan": 215,
         "gemPort": 25
     },
@@ -208,7 +923,7 @@ plans = {
         "lineProfile": 18,
         "srvProfile": 311,
         "vlan": 102,
-        "provider":"PUBLICAS",
+        "provider": "PUBLICAS",
         "plan": 311,
         "gemPort": 14
     },
@@ -216,7 +931,7 @@ plans = {
         "lineProfile": 28,
         "srvProfile": 312,
         "vlan": 102,
-        "provider":"PUBLICAS",
+        "provider": "PUBLICAS",
         "plan": 312,
         "gemPort": 14
     },
@@ -224,7 +939,7 @@ plans = {
         "lineProfile": 38,
         "srvProfile": 313,
         "vlan": 102,
-        "provider":"PUBLICAS",
+        "provider": "PUBLICAS",
         "plan": 313,
         "gemPort": 14
     },
@@ -232,7 +947,7 @@ plans = {
         "lineProfile": 48,
         "srvProfile": 314,
         "vlan": 102,
-        "provider":"PUBLICAS",
+        "provider": "PUBLICAS",
         "plan": 314,
         "gemPort": 14
     },
@@ -240,7 +955,7 @@ plans = {
         "lineProfile": 58,
         "srvProfile": 315,
         "vlan": 102,
-        "provider":"PUBLICAS",
+        "provider": "PUBLICAS",
         "plan": 315,
         "gemPort": 14
     },
