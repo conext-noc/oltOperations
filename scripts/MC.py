@@ -66,12 +66,12 @@ $ """
         verifySPID(comm, command, client)
         log(
             colorFormatter(
-                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['id']} @ OLT {client['olt']} se le ha Cambiado el plan y vlan a {client['planName']} @ {client['wan']['vlan']}",
-                "info",
+                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['id']} @ OLT {client['olt']} se le ha Cambiado el plan y vlan a {client['planName']} @ {client['wan'][0]['vlan']}",
+                "success",
             )
         )
         modify(client["sn"], client['planName'], "PLAN")
-        modify(client["sn"], client['wan']['vlan'], "PROVIDER")
+        modify(client["sn"], client['wan'][0]['vlan'], "PROVIDER")
         quit()
         return
     if action == "ES":

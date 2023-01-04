@@ -47,7 +47,6 @@ def confirmNew(comm, command, quit, olt, action):
             client["lineProfile"] = PLANS[client["olt"]][client["planName"]]["lineProfile"]
             client["srvProfile"] = PLANS[client["olt"]][client["planName"]]["srvProfile"]
             client["wan"][0] = PLANS[client["olt"]][client["planName"]]
-            client["gemPort"] = PLANS[client["olt"]][client["planName"]]["gemPort"]
             client["name"] = inp("Ingrese nombre del cliente : ")[:56]
             client["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ")
             (client["id"], client["fail"]) = addONUNew(comm, command, client)
@@ -66,8 +65,6 @@ def confirmNew(comm, command, quit, olt, action):
             client["lineProfile"] = PLANS[client["olt"]][client["planName"]]["lineProfile"]
             client["srvProfile"] = PLANS[client["olt"]][client["planName"]]["srvProfile"]
             client["wan"][0] = PLANS[client["olt"]][client["planName"]]
-            client["gemPort"] = PLANS[client["olt"]][client["planName"]]["gemPort"]
-
         else:
             log(colorFormatter(client["fail"], "fail"))
             quit()
