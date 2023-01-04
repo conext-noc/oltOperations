@@ -12,13 +12,14 @@ from scripts.MG2 import addWanConfig
 from scripts.OX import operate
 from scripts.VC import verifyTraffic
 from scripts.XP import portOperation
+from helpers.utils.data import devices
 
 
 def olt():
     oltOptions = ["1", "2", "3"]
     olt = inp("Seleccione la OLT [1 | 2 | 3] : ").upper()
     if olt in oltOptions:
-        ip = "181.232.180.7" if olt == "1" else "181.232.180.5" if olt == "2" else "181.232.180.6"
+        ip = devices[f"OLT{olt}"]
         (comm, command, quit) = ssh(ip)
         decoder(comm)
 

@@ -1,11 +1,10 @@
 from time import sleep
 from helpers.clientFinder.dataLookup import dataLookup
-# from helpers.operations.addHandler import addOnuService
 from helpers.operations.addHandler import addOnuServiceNew
-from helpers.operations.spid import availableSpid, spidCalc, verifySPID
+from helpers.operations.spid import spidCalc, verifySPID
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
-from helpers.info.plans import plans
+from helpers.info.plans import PLANS
 from helpers.utils.sheets import modify
 
 
@@ -59,11 +58,11 @@ $ """
         quit()
         return
     if action == "CP":
-        client['planName'] = inp("Ingrese el Nuevo plana instalar : ")
-        client['wan'] = plans[client['planName']]
         for wanData in client["wan"]:
             command(f"undo service-port {wanData['spid']}")
-        addOnuServiceNew(comm,command,client)
+        client['planName'] = inp("Ingrese el Nuevo plana instalar : ")
+        client["wan"][0] = PLANS[client["olt"]][client["planName"]]
+        addOnuServiceNew(comm, command, client)
         verifySPID(comm, command, client)
         log(
             colorFormatter(
@@ -91,15 +90,13 @@ $ """
         quit()
         return
     if action == "AS":
-        NEW_PLAN = inp("Ingrese el Nuevo Plan del cliente : ")
-        client["wan"][0]["vlan"] = plans[NEW_PLAN]["vlan"]
-        client["wan"][0]["plan"] = plans[NEW_PLAN]["plan"]
-        client["gemPort"] = plans[NEW_PLAN]["gemPort"]
+        client['planName'] = inp("Ingrese el Nuevo plana instalar : ")
+        client["wan"][0] = PLANS[client["olt"]][client["planName"]]
         addOnuServiceNew(comm, command, client)
         verifySPID(comm, command, client)
         log(
             colorFormatter(
-                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['id']} @ OLT {client['olt']} se le ha Agregado el plan y vlan a {NEW_PLAN} @ {client['wan'][0]['vlan']}",
+                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['id']} @ OLT {client['olt']} se le ha Agregado el plan y vlan a {client['planName']} @ {client['wan'][0]['vlan']}",
                 "info",
             )
         )

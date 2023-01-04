@@ -3,16 +3,17 @@ from helpers.utils.decoder import decoder
 from helpers.utils.printer import inp, log, colorFormatter
 from helpers.utils.ssh import ssh
 from helpers.utils.interfaceHandler import intFormatter
-from helpers.info.regexConditions import router
+from helpers.utils.data import devices
 
 def rtr():
+    rtrTypes = ["1","2"]
     ip = ""
     interfaces = []
     rt = inp(
-        "Selecciona el router de borde a monitorear [INTER | VNET] : ").upper()
-    if rt == "INTER" or rt == "VNET":
-        ip = "181.232.180.1" if rt == "INTER" else "181.232.180.2"
-        intList = router["interfacesC1"] if rt == "INTER" else router["interfacesC2"]
+        "Selecciona el router de borde a monitorear [1 | 2] : ").upper()
+    if rt in rtrTypes:
+        ip = devices[f"RTR{rt}"]["ip"]
+        intList = devices[f"RTR{rt}"]["ints"]
         (comm, command, quit) = ssh(ip)
         decoder(comm)
         for i in range(0, 5):

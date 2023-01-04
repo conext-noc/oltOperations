@@ -8,7 +8,7 @@ from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.utils.sheets import insert
 from helpers.utils.template import approved, denied
-from helpers.info.plans import plans, PLANS
+from helpers.info.plans import PLANS
 
 def confirmNew(comm, command, quit, olt, action):
     proceed = None
