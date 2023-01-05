@@ -1,6 +1,6 @@
 from tkinter.filedialog import askopenfilename
 from helpers.fileFormatters.fileHandler import fileToDict
-from helpers.info.plans import plans
+from helpers.info.plans import PLANS, plans
 from helpers.operations.spid import spidCalc
 from helpers.utils.printer import colorFormatter, inp, log
 
@@ -40,7 +40,7 @@ def migration(comm, command, quit, olt, action):
             f"ont policy-route-config {client['port']} {client['id']} profile-id 2")
         command("quit")
         command(
-            f' service-port {SPID} vlan {plans[client["plan"]]["vlan"]} gpon {client["frame"]}/{client["slot"]}/{client["port"]} ont {client["id"]} gemport {plans[client["plan"]]["gemPort"]} multi-service user-vlan {plans[client["plan"]]["vlan"]} tag-transform transparent inbound traffic-table index {plans[client["plan"]]["vlan"]} outbound traffic-table index {plans[client["plan"]]["vlan"]}')
+            f' service-port {SPID} vlan {PLANS[client["olt"]][client["plan"]]["vlan"]} gpon {client["frame"]}/{client["slot"]}/{client["port"]} ont {client["id"]} gemport {PLANS[client["olt"]][client["plan"]]["gemPort"]} multi-service user-vlan {PLANS[client["olt"]][client["plan"]]["vlan"]} tag-transform transparent inbound traffic-table index {PLANS[client["olt"]][client["plan"]]["vlan"]} outbound traffic-table index {PLANS[client["olt"]][client["plan"]]["vlan"]}')
         resp = f"""
     | {NAME} {client["frame"]}/{client["slot"]}/{client["port"]}/{client["id"]}
     | {client["plan"]}
