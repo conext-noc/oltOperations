@@ -4,17 +4,6 @@ from helpers.fileFormatters.fileHandler import dictToFile
 from helpers.utils.decoder import check
 from helpers.utils.printer import colorFormatter, log
 
-
-lst = [{"name": "SCRIPT MK6",
-        "olt": "2",
-        "frame": "0",
-        "slot": "1",
-        "port": "3",
-        "id": "19",
-        "sn": "48575443994848A5",
-        }]
-
-
 def verify(lst, action):
     clientLst = []
     for client in lst:
@@ -49,5 +38,3 @@ def verify(lst, action):
     path = filedialog.askdirectory()
     dictToFile("LISTA_DE_CORTE_RESULTADOS", "E", path, clientLst, True)
     log(colorFormatter("LISTA GENERADA SATISFACTORIAMENTE","success"))
-
-verify(lst, "SL")

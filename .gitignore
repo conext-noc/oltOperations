@@ -4,4 +4,8 @@ __pycache__/
 .vscode/
 .env
 service_account_olt_operations.json
-client_secret.json
+*.json
+*.txt
+!requirements.txt
+*.csv
+*.xlsx

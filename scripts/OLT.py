@@ -12,7 +12,7 @@ from scripts.MG2 import addWanConfig
 from scripts.OX import operate
 from scripts.VC import verifyTraffic
 from scripts.XP import portOperation
-from helpers.utils.data import devices
+from helpers.info.hashMaps import devices
 
 
 def olt():
