@@ -10,7 +10,6 @@ from helpers.utils.verify import verify
 def operate(comm,command,quit,olt,action):
   operation = "activate" if "R" in action else ("deactivate" if "S" in action else "")
   resultedAction = "Reactivado" if "R" in action else ("Suspendido" if "S" in action else "")
-  state = "active" if "R" in action else ("deactive" if "S" in action else "")
   actionList = []
   proceed = False
   
@@ -49,12 +48,13 @@ def operate(comm,command,quit,olt,action):
     |{} 
     |{}/{}/{}/{} @ OLT {} - {}
     """.format(NAME,FRAME,SLOT,PORT,ID,OLT,resultedAction),"success"))
-        modify(SN,"active","STATUS")
         output = decoder(comm)
         if "U" not in action:
           file = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
           print(output, file=open(file,"a",encoding="utf-8"), flush=True)
           print(output, file=open("suspend_log_olt.txt","a",encoding="utf-8"), flush=True)
+        else:
+          modify(SN,"active","STATUS")
     if "U" not in action:
       verify(actionList,action)
     quit()
