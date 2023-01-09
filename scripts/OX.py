@@ -5,6 +5,7 @@ from helpers.utils.decoder import decoder
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.utils.sheets import modify
+from helpers.utils.verify import verify
 
 def operate(comm,command,quit,olt,action):
   operation = "activate" if "R" in action else ("deactivate" if "S" in action else "")
@@ -38,7 +39,7 @@ def operate(comm,command,quit,olt,action):
       ID = client["id"]
       OLT = client["olt"]
       SN = client["sn"]
-      if OLT == str(olt):
+      if str(OLT) == str(olt):
         command(f"interface gpon {FRAME}/{SLOT}")
         command(f"ont {operation} {PORT} {ID}")
         command(f"display ont info {PORT} {ID}")
@@ -53,6 +54,9 @@ def operate(comm,command,quit,olt,action):
         if "U" not in action:
           file = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
           print(output, file=open(file,"a",encoding="utf-8"), flush=True)
+          print(output, file=open("suspend_log_olt.txt","a",encoding="utf-8"), flush=True)
+    if "U" not in action:
+      verify(actionList,action)
     quit()
     return actionList
   else:

@@ -1,12 +1,13 @@
 from time import sleep
+from helpers.info.hashMaps import devices
+from helpers.utils.printer import colorFormatter, inp, log
 from helpers.utils.decoder import decoder
-from helpers.utils.printer import inp, log, colorFormatter
-from helpers.utils.ssh import ssh
 from helpers.utils.interfaceHandler import intFormatter
-from helpers.utils.data import devices
+from helpers.utils.ssh import ssh
+
 
 def rtr():
-    rtrTypes = ["1","2"]
+    rtrTypes = ["1", "2"]
     ip = ""
     interfaces = []
     rt = inp(
@@ -29,7 +30,8 @@ def rtr():
         )
 
         for interface in interfaces:
-            color = "fail" if interface["PHY"] != 'up'or float(interface["InUti"][:-1]) < 8.0 else "ok"
+            color = "fail" if interface["PHY"] != 'up' or float(
+                interface["InUti"][:-1]) < 8.0 else "ok"
             res = colorFormatter("| {:^25} | {:^4} | {:^8} | {:^8} | {:^8} | {:^8} | {:^9} |".format(
                 interface["Interface"], interface["PHY"], interface["Protocol"], interface[
                     "InUti"], interface["OutUti"], interface["inErrors"], interface["outErrors"]
