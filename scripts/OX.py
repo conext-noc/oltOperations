@@ -39,7 +39,7 @@ def operate(comm,command,quit,olt,action):
       ID = client["id"]
       OLT = client["olt"]
       SN = client["sn"]
-      if OLT == str(olt):
+      if str(OLT) == str(olt):
         command(f"interface gpon {FRAME}/{SLOT}")
         command(f"ont {operation} {PORT} {ID}")
         command(f"display ont info {PORT} {ID}")
