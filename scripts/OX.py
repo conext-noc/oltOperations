@@ -15,7 +15,7 @@ def operate(comm,command,quit,olt,action):
   
   if "L" in action:
     fileType = inp("Es un archivo CSV o EXCEL? [C : E]: ")
-    log("Selecciona la lista de clientes")
+    log("Selecciona la lista de clientes...")
     fileName = filedialog.askopenfilename()
     actionList = fileToDict(fileName,fileType)
     proceed = True
@@ -56,7 +56,7 @@ def operate(comm,command,quit,olt,action):
         else:
           modify(SN,"active","STATUS")
     if "U" not in action:
-      verify(actionList,action)
+      verify(actionList,action, olt)
     quit()
     return actionList
   else:
