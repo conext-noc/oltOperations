@@ -509,3 +509,9 @@ interface = {
     "end":"NULL0",
     "header":"Interface,PHY,Protocol,InUti,OutUti,inErrors,outErrors\n",
 }
+
+rtrConflicts = {
+    "condition": "---------------------------------------------------------------------------------------",
+    "headerConf": "NA,ID,start,end,total,used,idle,conflict,disable,reserved,staticBind",
+    "headerSect": "ip,mac,userId,lease,status,index,na"
+}
