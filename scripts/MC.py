@@ -62,6 +62,10 @@ $ """
             command(f"undo service-port {wanData['spid']}")
         client['planName'] = inp("Ingrese el Nuevo plana instalar : ")
         client["wan"][0] = PLANS[client["olt"]][client["planName"]]
+        command(f"interface gpon {client['frame']}/{client['slot']}")
+        command(f"ont modify {client['port']} {client['id']} ont-lineprofile-id {client['wan'][0]['lineProfile']}")
+        command(f"ont modify {client['port']} {client['id']} ont-srvprofile-id {client['wan'][0]['srvProfile']}")
+        command("quit")
         addOnuServiceNew(comm, command, client)
         verifySPID(comm, command, client)
         log(
