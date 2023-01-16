@@ -27,7 +27,7 @@ def migration(comm, command, quit, olt, action):
     fileName = askopenfilename()
     lst = fileToDict(fileName,fileType)
     for client in lst:
-        plans = PLANS[client['olt']]
+        plans = PLANS[client['1']]
         
         NAME = f'{client["first_name"].upper()} {client["last_name"].upper()} {client["contract"]}'
         
