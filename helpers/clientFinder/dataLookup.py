@@ -62,10 +62,10 @@ def dataLookup(comm, command, olt, lookup_type, all=True):
         ) = serialSearch(comm, command, SN)
 
     if lookup_type == "D":
-        FRAME = inp("Ingrese frame de cliente  : ")
-        SLOT = inp("Ingrese slot de cliente   : ")
-        PORT = inp("Ingrese puerto de cliente : ")
-        ID = inp("Ingrese el onu id del cliente : ")
+        FRAME = inp("Ingrese frame de cliente        : ")
+        SLOT = inp("Ingrese slot de cliente         : ")
+        PORT = inp("Ingrese puerto de cliente       : ")
+        ID = inp("Ingrese el onu id del cliente   : ")
         command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
         sleep(3)
         value = decoder(comm)

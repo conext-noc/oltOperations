@@ -25,7 +25,7 @@ def verify(lst, action, olt):
                     "Frame": client["frame"],
                     "Slot": client["slot"],
                     "Puerto Olt": client["port"],
-                    "Onu ID": client["id"],
+                    "Onu ID": client["onu_id"],
                     "Serial del ONT": SN,
                     "ID externo": client["ID"]
                 }

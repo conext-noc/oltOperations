@@ -65,12 +65,13 @@ def confirmNew(comm, command, quit, olt, action):
             client["line_profile"] = PLANS[client["olt"]][client["plan_name"]]["line_profile"]
             client["srv_profile"] = PLANS[client["olt"]][client["plan_name"]]["srv_profile"]
             client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
+            # add lp and sp
         else:
             log(colorFormatter(client["fail"], "fail"))
             quit()
             return
 
-    if client["id"] != None and proceed:
+    if client["onu_id"] != None and proceed:
         (client["temp"], client["pwr"]) = opticalValues(comm, command, client, True)
 
         value = inp(

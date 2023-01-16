@@ -53,7 +53,7 @@ def serialSearch(comm, command, SN):
         STATE = value[sCF:eCF].replace("\n", "")
         STATUS = value[sRE:eRE]
         LDC = value[sLDC:eLDC]
-        data = {"frame":FRAME, "slot":SLOT, "port":PORT,"id":ID}
+        data = {"frame":FRAME, "slot":SLOT, "port":PORT,"onu_id":ID}
         ONT_TYPE = typeCheck(comm,command,data)
         return (FRAME, SLOT, PORT, ID, NAME,STATUS, STATE,ONT_TYPE,LDC, FAIL)
     else:

@@ -46,16 +46,17 @@ def addOnuServiceNew(comm, command, data):
         command(
             f" ont port native-vlan {data['port']} {data['onu_id']} eth 1 vlan {data['wan'][0]['vlan']} "
         )
-    
+
     if addVlan == "N" or (addVlan == "Y" and data["olt"] == "1"):
         IPADD = inp(
-        "Ingrese la IPv4 Publica del cliente : ") if "_IP" in data["plan_name"] else None
+            "Ingrese la IPv4 Publica del cliente : ") if "_IP" in data["plan_name"] else None
 
         command(
             f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']}"
         ) if "_IP" not in data["plan_name"] else command(f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 static ip-address {IPADD} mask 255.255.255.128 gateway 181.232.181.129 pri-dns 9.9.9.9 slave-dns 149.112.112.112 vlan 102") if "_IP" in data["plan_name"] and data["olt"] == "1" else None
 
-        command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
+        command(
+            f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
 
         profileId = "2" if data["olt"] == "1" else "1"
 
@@ -73,5 +74,5 @@ def addOnuServiceNew(comm, command, data):
     sleep(10)
     command(f"interface gpon {data['frame']}/{data['slot']}")
     command(
-        f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0")
+        f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0") if addVlan == "N" and data['olt'] != "1" else None
     command("quit")

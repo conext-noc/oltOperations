@@ -35,7 +35,7 @@ def operate(comm,command,quit,olt,action):
       FRAME = client["frame"]
       SLOT = client["slot"]
       PORT = client["port"]
-      ID = client["id"]
+      ID = client["onu_id"]
       OLT = client["olt"]
       SN = client["sn"]
       if str(OLT) == str(olt):
