@@ -10,7 +10,7 @@ def opticalValues(comm, command, data, show):
     TEMP = None
     PWR = None
     command(f'  interface  gpon  {data["frame"]}/{data["slot"]}  ')
-    command(f'  display  ont  optical-info  {data["port"]}  {data["id"]}  |  no-more')
+    command(f'  display  ont  optical-info  {data["port"]}  {data["onu_id"]}  |  no-more')
     command('quit')
     value = decoder(comm)
     fail = failChecker(value)

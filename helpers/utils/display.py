@@ -14,16 +14,16 @@ def display(data, tp):
     |FRAME               :   {data["frame"]}
     |SLOT                :   {data["slot"]}
     |PORT                :   {data["port"]}
-    |ID                  :   {data["id"]}
+    |ID                  :   {data["onu_id"]}
     |NAME                :   {data["name"]}
     |SN                  :   {data["sn"]}
     |STATE               :   {data["state"]}
     |STATUS              :   {data["status"]}
-    |LAST DOWN CAUSE     :   {data["ldc"]}
+    |LAST DOWN CAUSE     :   {data["last_down_cause"]}
     |ONT TYPE            :   {data["device"]}
     |TEMPERATURA         :   {data["temp"]}
     |POTENCIA            :   {data["pwr"]}
-    |IP                  :   {data["ipAdd"]}
+    |IP                  :   {data["ip_address"]}
                 """
         str2 = ""
         for idx, wanData in enumerate(data["wan"]):
@@ -42,16 +42,16 @@ def display(data, tp):
     |FRAME               :   {data["frame"]}
     |SLOT                :   {data["slot"]}
     |PORT                :   {data["port"]}
-    |ID                  :   {data["id"]}
+    |ID                  :   {data["onu_id"]}
     |NAME                :   {data["name"]}
     |SN                  :   {data["sn"]}
     |STATE               :   {data["state"]}
     |STATUS              :   {data["status"]}
-    |LAST DOWN CAUSE     :   {data["ldc"]}
+    |LAST DOWN CAUSE     :   {data["last_down_cause"]}
     |ONT TYPE            :   {data["device"]}
     |TEMPERATURA         :   {data["temp"]}
     |POTENCIA            :   {data["pwr"]}
-    |IP                  :   {data["ipAdd"]}
+    |IP                  :   {data["ip_address"]}
                 """
         str2 = ""
         for idx, wanData in enumerate(data["wan"]):
@@ -68,7 +68,7 @@ def display(data, tp):
     FRAME               :   {data["frame"]}
     SLOT                :   {data["slot"]}
     PORT                :   {data["port"]}
-    ID                  :   {data["id"]}
+    ID                  :   {data["onu_id"]}
     SN                  :   {data["sn"]}
     ONT TYPE            :   {data["device"]}
     NAME                :   {data["name"]}

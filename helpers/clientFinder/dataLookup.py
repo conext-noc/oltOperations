@@ -19,8 +19,15 @@ existing = {
 }
 
 
-def dataLookup(comm, command, olt, lookupType, all=True):
+def dataLookup(comm, command, olt, lookup_type, all=True):
     """
+    This module retrieves the clients data from the cli
+    
+    comm        : connection client
+    command     : fnc to send command with enter
+    olt         : which olt belongs the client
+    lookup_type : type of search, by sn, by name, by olt data
+    
     all ==> display all the data available | false = for installation data concern
     """
     FAIL = None
@@ -39,7 +46,7 @@ def dataLookup(comm, command, olt, lookupType, all=True):
     ONT_TYPE = None
     SN = None
 
-    if lookupType == "S":
+    if lookup_type == "S":
         SN = inp("Ingrese el Serial del Cliente a buscar : ")
         (
             FRAME,
@@ -54,11 +61,11 @@ def dataLookup(comm, command, olt, lookupType, all=True):
             FAIL,
         ) = serialSearch(comm, command, SN)
 
-    if lookupType == "D":
+    if lookup_type == "D":
         FRAME = inp("Ingrese frame de cliente  : ")
         SLOT = inp("Ingrese slot de cliente   : ")
         PORT = inp("Ingrese puerto de cliente : ")
-        ID = inp("Ingrese el id del cliente : ")
+        ID = inp("Ingrese el onu id del cliente : ")
         command(f"display ont info {FRAME} {SLOT} {PORT} {ID} | no-more")
         sleep(3)
         value = decoder(comm)
@@ -76,14 +83,14 @@ def dataLookup(comm, command, olt, lookupType, all=True):
             STATE = value[sCF:eCF].replace("\n", "").replace("\r", "")
             LDC = value[sLDC:eLDC].replace("\n", "").replace("\r", "")
             SN = value[sSN : sSN + 16].replace("\n", "").replace("\r", "")
-            data = {"frame":FRAME, "slot":SLOT, "port":PORT,"id":ID}
+            data = {"frame":FRAME, "slot":SLOT, "port":PORT,"onu_id":ID}
             ONT_TYPE = typeCheck(comm, command, data)
         else:
             FAIL = fail
 
     if FAIL == None:
         (IPADDRESS, WAN) = wan(comm, command, FRAME, SLOT, PORT, ID, olt)
-        data = {"frame":FRAME, "slot":SLOT, "port":PORT,"id":ID}
+        data = {"frame":FRAME, "slot":SLOT, "port":PORT,"onu_id":ID}
         (TEMP, PWR) = opticalValues(comm, command, data, False)
         return {
             "fail": FAIL,
@@ -92,13 +99,13 @@ def dataLookup(comm, command, olt, lookupType, all=True):
             "frame": FRAME,
             "slot": SLOT,
             "port": PORT,
-            "id": ID,
+            "onu_id": ID,
             "sn": SN,
-            "ldc": LDC,
+            "last_down_cause": LDC,
             "state": STATE,
             "status": STATUS,
             "device": ONT_TYPE,
-            "ipAdd": IPADDRESS,
+            "ip_address": IPADDRESS,
             "wan": WAN,
             "temp": TEMP,
             "pwr": PWR,

@@ -68,13 +68,13 @@ def clientsTable(comm, command, lst):
                             "frame": FRAME,
                             "slot": SLOT,
                             "port": PORT,
-                            "id": status["ID"],
+                            "onu_id": status["ID"],
                             "name": re.sub(" +", " ", name).replace("\n", ""),
                             "status": status["State"],
-                            "ldt": status["DownTime"],
+                            "last_down_time": status["DownTime"],
                             "pwr": names["Rx/Tx power"].split("/")[0],
-                            "ldd": status["DownDate"],
-                            "cause": status["DownCause1"],
+                            "last_down_date": status["DownDate"],
+                            "last_down_cause": status["DownCause1"],
                             "sn": names["SN"],
                             "device": names["Type"],
                         }
@@ -91,27 +91,27 @@ def clientsTable(comm, command, lst):
                         name += NAME + " "
                     clientsPort.append(
                         {
-                            "id": status["ID"],
-                            "controlFlag": status["controlFlag"],
+                            "onu_id": status["ID"],
+                            "state": status["controlFlag"],
                             "name": name
                         }
                     )
             for (summ, port) in zip(clientsSummary, clientsPort):
-                if summ["id"] == port["id"]:
+                if summ["onu_id"] == port["onu_id"]:
                     CLIENTS.append(
                         {
                             "fsp": summ["fsp"],
                             "frame": FRAME,
                             "slot": SLOT,
                             "port": PORT,
-                            "id": summ["id"],
+                            "onu_id": summ["onu_id"],
                             "name": port["name"],
                             "status": summ["status"],
                             "pwr": summ["pwr"],
-                            "controlFlag": port["controlFlag"],
-                            "cause": summ["cause"],
-                            "ldt": summ["ldt"],
-                            "ldd": summ["ldd"],
+                            "state": port["controlFlag"],
+                            "last_down_cause": summ["cause"],
+                            "last_down_time": summ["ldt"],
+                            "ldlast_down_date": summ["ldd"],
                             "sn": summ["sn"],
                             "device": summ["device"],
                         }

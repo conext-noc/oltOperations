@@ -8,7 +8,7 @@ def typeCheck(comm,command,data):
   ONT_TYPE = None
   FAIL = None
   command(f"  interface  gpon  {data['frame']}/{data['slot']}  ")
-  command(f"  display  ont  version  {data['port']}  {data['id']}  ")
+  command(f"  display  ont  version  {data['port']}  {data['onu_id']}  ")
   command("quit")
   value = decoder(comm)
   FAIL = failChecker(value)

@@ -4,7 +4,7 @@ from helpers.fileFormatters.fileHandler import dataToDict
 from helpers.utils.decoder import checkIter, decoder
 from helpers.utils.printer import inp
 
-infoHeader = "NA,F/,S/P,ID,SN,controlFlag,runState,configState,matchState,protectSide,NA"
+infoHeader = "NA,F/,S/P,ID,SN,control_flag,run_state,config_state,match_state,protect_side,NA"
 descHeader = "NA,F/,S/P,ID,NAME1,NAME2,NAME3,NAME4,NAME5,NAME6,NAME7,NA"
 
 condition = "-----------------------------------------------------------------------------"
@@ -48,8 +48,8 @@ def nameLookup(comm, command, quit):
                         "port": PORT,
                         "id": desc["ID"],
                         "name": name,
-                        "controlFlag": info["controlFlag"],
-                        "runState": info["runState"],
+                        "state": info["control_flag"],
+                        "status": info["run_state"],
                         "sn": info["SN"]
                     })
         return {

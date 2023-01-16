@@ -25,23 +25,23 @@ def portOperation(comm, command, quit, olt, action):
         totalDeactM2M = 0
         totalDeactClients = 0
         log(
-            "| {:^6} | {:^3} | {:^56} | {:^11} | {:^10} | {:^15} | {:^6} | {:^10} | {:^10} | {:^10} | {:^16} |".format(
-                "F/S/P",
-                "ID",
-                "NAME",
-                "STATE",
-                "STATUS",
-                "CAUSE",
-                "POWER",
-                "TIME",
-                "DATE",
-                "DEVICE",
-                "SN",
+            "| {:^15} | {:^6} | {:^40} | {:^11} | {:^7} | {:^15} | {:^6} | {:^24} | {:^24} | {:^10} | {:^16} |".format(
+                "frame/slot/port",
+                "onu_id",
+                "name",
+                "state",
+                "status",
+                "last_down_cause",
+                "pwr",
+                "last_down_time",
+                "last_down_date",
+                "device",
+                "sn",
             )
         )
         for client in clients:
             FSP = client["fsp"]
-            ID = client["id"]
+            ID = client["onu_id"]
             NAME = client["name"]
             STATUS = str(client["status"]).replace(" ", "").replace(" \n", "")
             STATE = client["controlFlag"]

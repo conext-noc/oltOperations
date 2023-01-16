@@ -19,19 +19,19 @@ def confirmNew(comm, command, quit, olt, action):
     "frame": None,
     "slot": None,
     "port": None,
-    "id": None,
+    "onu_id": None,
     "sn": None,
-    "ldc": None,
+    "last_down_cause": None,
     "state": None,
     "status": None,
     "type": None,
-    "ipAdd": None,
-    "planName": None,
+    "ip_address": None,
+    "plan_name": None,
     "wan": [{"spid": None, "vlan": None, "plan": None, "provider": None, }],
     "temp": None,
     "pwr": None,
-    "lineProfile": None,
-    "srvProfile": None,
+    "line_profile": None,
+    "srv_profile": None,
     "device": None,
 }
     if "N" in action:
@@ -43,13 +43,13 @@ def confirmNew(comm, command, quit, olt, action):
             client["slot"] = int(FSP.split("/")[1])
             client["port"] = int(FSP.split("/")[2])
 
-            client["planName"] = inp("Ingrese plan del cliente : ")
-            client["lineProfile"] = PLANS[client["olt"]][client["planName"]]["lineProfile"]
-            client["srvProfile"] = PLANS[client["olt"]][client["planName"]]["srvProfile"]
-            client["wan"][0] = PLANS[client["olt"]][client["planName"]]
+            client["plan_name"] = inp("Ingrese plan del cliente : ")
+            client["line_profile"] = PLANS[client["olt"]][client["plan_name"]]["line_profile"]
+            client["srv_profile"] = PLANS[client["olt"]][client["plan_name"]]["srv_profile"]
+            client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
             client["name"] = inp("Ingrese nombre del cliente : ")[:56]
             client["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ")
-            (client["id"], client["fail"]) = addONUNew(comm, command, client)
+            (client["onu_id"], client["fail"]) = addONUNew(comm, command, client)
         else:
             log(colorFormatter("SN no aparece en OLT, Saliendo...", "warning"))
             quit()
@@ -61,10 +61,10 @@ def confirmNew(comm, command, quit, olt, action):
         if client["fail"] == None:
             proceed = display(client, "I")
             client["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ").upper()
-            client["planName"] = inp("Ingrese plan del cliente : ")
-            client["lineProfile"] = PLANS[client["olt"]][client["planName"]]["lineProfile"]
-            client["srvProfile"] = PLANS[client["olt"]][client["planName"]]["srvProfile"]
-            client["wan"][0] = PLANS[client["olt"]][client["planName"]]
+            client["plan_name"] = inp("Ingrese plan del cliente : ")
+            client["line_profile"] = PLANS[client["olt"]][client["plan_name"]]["line_profile"]
+            client["srv_profile"] = PLANS[client["olt"]][client["plan_name"]]["srv_profile"]
+            client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
         else:
             log(colorFormatter(client["fail"], "fail"))
             quit()
