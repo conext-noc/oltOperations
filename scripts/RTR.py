@@ -9,15 +9,14 @@ from helpers.fileFormatters.fileHandler import dataToDict
 
 def rtr():
     rtrTypes = ["E1", "E2", "A1", "A2"]
-    ip = ""
-    interfaces = []
     rt = inp(
         "Selecciona el router a monitorear [E1 | E2 | A1 | A2] : ")
+    ip = devices[f"RTR{rt}"]["ip"]
+    (comm, command, quit) = ssh(ip)
     if rt in rtrTypes:
-        ip = devices[f"RTR{rt}"]["ip"]
-        (comm, command, quit) = ssh(ip)
         decoder(comm)
         if "E" in rt:
+            interfaces = []
             intList = devices[f"RTR{rt}"]["ints"]
             for i in range(0, 5):
                 command("display interface brief | no-more")
@@ -69,7 +68,7 @@ def rtr():
                     
             for ip in ipAddressess:
                 command(f"reset conflict-ip-address {ip}")
-                log(colorFormatter(f"Conflicto eliminado en la ip {ip}"), "success")
+                log(colorFormatter(f"Conflicto eliminado en la ip {ip}", "success"))
             quit()
     else:
         resp = colorFormatter(
