@@ -108,7 +108,7 @@ def clientsTable(comm, command, lst):
                             "name": port["name"],
                             "status": summ["status"],
                             "pwr": summ["pwr"],
-                            "state": port["controlFlag"],
+                            "state": port["state"],
                             "last_down_cause": summ["cause"],
                             "last_down_time": summ["ldt"],
                             "ldlast_down_date": summ["ldd"],
