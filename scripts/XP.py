@@ -44,8 +44,8 @@ def portOperation(comm, command, quit, olt, action):
             ID = client["onu_id"]
             NAME = client["name"]
             STATUS = str(client["status"]).replace(" ", "").replace(" \n", "")
-            STATE = client["control_flag"]
-            CF = client["control_flag"]
+            STATE = client["state"]
+            CF = client["state"]
             SN = client["sn"]
             TP = client["device"]
             CAUSE = str(client["last_down_cause"]).replace(" ", "").replace(" \n", "")
