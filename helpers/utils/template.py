@@ -33,6 +33,5 @@ def denied(data, reason):
     |OLT  {data['olt']}  {data["wan"][0]["provider"]}  {data["plan_name"]}
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
-    |SPID        :   {data["wan"][0]['spid']}
     |RAZÓN       :   {reason}"""
     log(colorFormatter(template, "warning"))
