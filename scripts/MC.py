@@ -32,11 +32,11 @@ $ """
     if action == "CT":
         NEW_NAME = inp("Ingrese el Nuevo Titular del cliente : ")
         command(f"interface gpon {client['frame']}/{client['slot']}")
-        command(f'ont modify {client["port"]} {client["id"]} desc "{NEW_NAME}" ')
+        command(f'ont modify {client["port"]} {client["onu_id"]} desc "{NEW_NAME}" ')
         command("quit")
         log(
             colorFormatter(
-                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['id']} @ OLT {client['olt']} se le ha cambiado el nombre a '{NEW_NAME}'",
+                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha cambiado el nombre a '{NEW_NAME}'",
                 "success",
             )
         )
@@ -46,11 +46,11 @@ $ """
     if action == "CO":
         NEW_SN = inp("Ingrese el Nuevo serial de ONT del cliente : ")
         command(f"interface gpon {client['frame']}/{client['slot']}")
-        command(f'ont modify {client["port"]} {client["id"]} sn "{NEW_SN}" ')
+        command(f'ont modify {client["port"]} {client["onu_id"]} sn "{NEW_SN}" ')
         command("quit")
         log(
             colorFormatter(
-                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['id']} @ OLT {client['olt']} se le ha cambiado el serial a '{NEW_SN}'",
+                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha cambiado el serial a '{NEW_SN}'",
                 "success",
             )
         )
@@ -60,21 +60,21 @@ $ """
     if action == "CP":
         for wanData in client["wan"]:
             command(f"undo service-port {wanData['spid']}")
-        client['planName'] = inp("Ingrese el Nuevo plana instalar : ")
-        client["wan"][0] = PLANS[client["olt"]][client["planName"]]
+        client['plan_name'] = inp("Ingrese el Nuevo plan a instalar : ")
+        client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
         command(f"interface gpon {client['frame']}/{client['slot']}")
-        command(f"ont modify {client['port']} {client['id']} ont-lineprofile-id {client['wan'][0]['lineProfile']}")
-        command(f"ont modify {client['port']} {client['id']} ont-srvprofile-id {client['wan'][0]['srvProfile']}")
+        command(f"ont modify {client['port']} {client['onu_id']} ont-lineprofile-id {client['wan'][0]['line_profile']}")
+        command(f"ont modify {client['port']} {client['onu_id']} ont-srvprofile-id {client['wan'][0]['srv_profile']}")
         command("quit")
         addOnuServiceNew(comm, command, client)
         verifySPID(comm, command, client)
         log(
             colorFormatter(
-                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['id']} @ OLT {client['olt']} se le ha Cambiado el plan y vlan a {client['planName']} @ {client['wan'][0]['vlan']}",
+                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha Cambiado el plan y vlan a {client['plan_name']} @ {client['wan'][0]['vlan']}",
                 "success",
             )
         )
-        modify(client["sn"], client['planName'], "PLAN")
+        modify(client["sn"], client['plan_name'], "PLAN")
         modify(client["sn"], client['wan'][0]['vlan'], "PROVIDER")
         quit()
         return
@@ -87,20 +87,20 @@ $ """
         command(f"undo service-port {DEL_SPID}")
         log(
             colorFormatter(
-                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['id']} @ OLT {client['olt']} se le ha eliminado el SPID {DEL_SPID}",
+                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha eliminado el SPID {DEL_SPID}",
                 "info",
             )
         )
         quit()
         return
     if action == "AS":
-        client['planName'] = inp("Ingrese el Nuevo plana instalar : ")
-        client["wan"][0] = PLANS[client["olt"]][client["planName"]]
+        client['plan_name'] = inp("Ingrese el Nuevo plana instalar : ")
+        client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
         addOnuServiceNew(comm, command, client)
         verifySPID(comm, command, client)
         log(
             colorFormatter(
-                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['id']} @ OLT {client['olt']} se le ha Agregado el plan y vlan a {client['planName']} @ {client['wan'][0]['vlan']}",
+                f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha Agregado el plan y vlan a {client['plan_name']} @ {client['wan'][0]['vlan']}",
                 "info",
             )
         )
