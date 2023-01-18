@@ -27,9 +27,9 @@ def clientsTable(comm, command, lst):
             valueNamesPort = []
             valueNamesSumm = []
             valueStateSumm = []
-            reSumm = checkIter(value, table["conditionSummary"])
-            rePort = checkIter(value, table["conditionPort"])
-            for op in table["optionsSummary"]:
+            reSumm = checkIter(value, table["condition_summary"])
+            rePort = checkIter(value, table["condition_port"])
+            for op in table["options_summary"]:
                 name = op["name"]
                 start = op["start"]
                 end = op["end"]
@@ -40,7 +40,7 @@ def clientsTable(comm, command, lst):
                     valueNamesSumm = dataToDict(header, value[s:e])
                 else:
                     valueStateSumm = dataToDict(header, value[s:e])
-            for op in table["optionsPort"]:
+            for op in table["options_port"]:
                 name = op["name"]
                 start = op["start"]
                 end = op["end"]
@@ -53,12 +53,12 @@ def clientsTable(comm, command, lst):
                     valueStatePort = dataToDict(header, value[s:e])
 
             for (status, names) in zip(valueStateSumm, valueNamesSumm):
-                if int(status["ID"]) == int(names["ID"]):
+                if int(status["onu_id"]) == int(names["onu_id"]):
                     name = ""
                     for i in range(1, 11):
                         NAME = (
-                            str(names[f"NAME{i}"])
-                            if str(names[f"NAME{i}"]) != "nan"
+                            str(names[f"name{i}"])
+                            if str(names[f"name{i}"]) != "nan"
                             else ""
                         )
                         name += NAME + " "
@@ -68,31 +68,31 @@ def clientsTable(comm, command, lst):
                             "frame": FRAME,
                             "slot": SLOT,
                             "port": PORT,
-                            "onu_id": status["ID"],
+                            "onu_id": status["onu_id"],
                             "name": re.sub(" +", " ", name).replace("\n", ""),
-                            "status": status["State"],
-                            "last_down_time": status["DownTime"],
-                            "pwr": names["Rx/Tx power"].split("/")[0],
-                            "last_down_date": status["DownDate"],
-                            "last_down_cause": status["DownCause1"],
-                            "sn": names["SN"],
-                            "device": names["Type"],
+                            "status": status["state"],
+                            "last_down_time": status["down_time"],
+                            "pwr": names["rx_tx_power"].split("/")[0],
+                            "last_down_date": status["down_date"],
+                            "last_down_cause": status["down_cause_1"],
+                            "sn": names["sn"],
+                            "device": names["device"],
                         }
                     )
             for (status, names) in zip(valueStatePort, valueNamesPort):
-                if int(status["ID"]) == int(names["ID"]):
+                if int(status["onu_id"]) == int(names["onu_id"]):
                     name = ""
                     for i in range(1, 11):
                         NAME = (
-                            str(names[f"NAME{i}"])
-                            if str(names[f"NAME{i}"]) != "nan"
+                            str(names[f"name{i}"])
+                            if str(names[f"name{i}"]) != "nan"
                             else ""
                         )
                         name += NAME + " "
                     clientsPort.append(
                         {
-                            "onu_id": status["ID"],
-                            "state": status["controlFlag"],
+                            "onu_id": status["onu_id"],
+                            "state": status["control_flag"],
                             "name": name
                         }
                     )
