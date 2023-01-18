@@ -20,9 +20,9 @@ def deleteClient(comm, command, quit, olt, action):
         command(f"undo service-port {wan['spid']}")
         log(f"El SPID {wan['spid']} ha sido liberado!")
     command(f"interface gpon {client['frame']}/{client['slot']}")
-    command(f"ont delete {client['port']} {client['id']}")
+    command(f"ont delete {client['port']} {client['onu_id']}")
     delete(client["sn"])
-    log(colorFormatter(f"El cliente {client['name']} de {client['frame']}/{client['slot']}/{client['port']}/{client['id']} @ OLT {client['olt']} ha sido eliminado  ","success"))
+    log(colorFormatter(f"El cliente {client['name']} de {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} ha sido eliminado  ","success"))
     quit()
     return
     
