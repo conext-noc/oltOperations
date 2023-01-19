@@ -49,9 +49,6 @@ $ """
             migration(comm, command, quit, olt, action) if stage == "1" else addWanConfig(
                 comm, command, quit, olt, action) if stage == "2" else None
             
-        def fake(comm, command, quit, olt, action):
-            print("LIMMMPIOOOOOOOOOOOOOO")
-
         modules = {
             "RL": operate,
             "RU": operate,
@@ -68,12 +65,9 @@ $ """
             "DT": portOperation,
             "MG": stages,
             "AD": upgradeData,
-            "XDD": fake
         }
 
-        # modules[action](comm, command, quit, olt, action)
-        modules["XDD"](comm, command, quit, olt, action)
-
+        modules[action](comm, command, quit, olt, action)
     else:
         resp = colorFormatter(
             f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")
