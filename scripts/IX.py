@@ -65,7 +65,8 @@ def confirmNew(comm, command, quit, olt, action):
             client["line_profile"] = PLANS[client["olt"]][client["plan_name"]]["line_profile"]
             client["srv_profile"] = PLANS[client["olt"]][client["plan_name"]]["srv_profile"]
             client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
-            # add lp and sp
+            command(f"ont modify {client['port']} {client['onu_id']} ont-lineprofile-id {client['line_profile']}")
+            command(f"ont modify {client['port']} {client['onu_id']} ont-srvprofile-id {client['srv_profile']}")
         else:
             log(colorFormatter(client["fail"], "fail"))
             quit()

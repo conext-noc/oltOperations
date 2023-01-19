@@ -48,6 +48,9 @@ $ """
             stage = inp("Que etapa de migracion desea utilizar [1 | 2] : ")
             migration(comm, command, quit, olt, action) if stage == "1" else addWanConfig(
                 comm, command, quit, olt, action) if stage == "2" else None
+            
+        def fake(comm, command, quit, olt, action):
+            print("LIMMMPIOOOOOOOOOOOOOO")
 
         modules = {
             "RL": operate,
@@ -65,9 +68,11 @@ $ """
             "DT": portOperation,
             "MG": stages,
             "AD": upgradeData,
+            "XDD": fake
         }
 
-        modules[action](comm, command, quit, olt, action)
+        # modules[action](comm, command, quit, olt, action)
+        modules["XDD"](comm, command, quit, olt, action)
 
     else:
         resp = colorFormatter(
