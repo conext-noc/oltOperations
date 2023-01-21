@@ -33,5 +33,7 @@ def ssh(ip):
     if ip == "181.232.180.5" or ip == "181.232.180.6" or ip == "181.232.180.7":
         command("enable")
         command("config")
+    else:
+        command("sys")
 
     return (comm, command, quit)
