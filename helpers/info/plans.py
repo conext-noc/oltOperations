@@ -75,97 +75,109 @@ PLANS = {
         "OZ_0_1": {
             "line_profile": 3,
             "srv_profile": 110,
-            "vlan": 1100,
+            "vlan": 3100,
             "provider": "INTER",
+            "name": "OZ_0",
             "plan": 110,
-            "gem_port": 10
+            "gem_port": 20
         },
         "OZ_PLUS_1": {
             "line_profile": 17,
             "srv_profile": 111,
-            "vlan": 1101,
+            "vlan": 3101,
+            "name": "OZ_PLUS",
             "provider": "INTER",
             "plan": 111,
-            "gem_port": 11
+            "gem_port": 21
         },
         "OZ_MAX_1": {
             "line_profile": 27,
             "srv_profile": 112,
-            "vlan": 1102,
+            "vlan": 3102,
+            "name": "OZ_MAX",
             "provider": "INTER",
             "plan": 112,
-            "gem_port": 12
+            "gem_port": 22
         },
         "OZ_NEXT_1": {
             "line_profile": 37,
             "srv_profile": 113,
-            "vlan": 1103,
+            "vlan": 3103,
+            "name": "OZ_NEXT",
             "provider": "INTER",
             "plan": 113,
-            "gem_port": 13
+            "gem_port": 23
         },
         "OZ_MAGICAL_1": {
             "line_profile": 47,
             "srv_profile": 114,
-            "vlan": 1104,
+            "vlan": 3104,
+            "name": "OZ_MAGICAL",
             "provider": "INTER",
             "plan": 114,
-            "gem_port": 14
+            "gem_port": 24
         },
         "OZ_SKY_1": {
             "line_profile": 57,
             "srv_profile": 115,
-            "vlan": 1105,
+            "vlan": 3105,
+            "name": "OZ_SKY",
             "provider": "INTER",
             "plan": 115,
-            "gem_port": 15
+            "gem_port": 25
         },
         "OZ_0_2": {
             "line_profile": 3,
-            "srv_profile": 210,
+            "srv_profile": 110,
             "vlan": 2100,
             "provider": "VNET",
-            "plan": 210,
-            "gem_port": 1
+            "name": "OZ_0",
+            "plan": 110,
+            "gem_port": 20
         },
         "OZ_PLUS_2": {
             "line_profile": 17,
-            "srv_profile": 211,
+            "srv_profile": 111,
             "vlan": 2101,
+            "name": "OZ_PLUS",
             "provider": "VNET",
-            "plan": 211,
+            "plan": 111,
             "gem_port": 21
         },
         "OZ_MAX_2": {
             "line_profile": 27,
-            "srv_profile": 212,
+            "srv_profile": 112,
             "vlan": 2102,
+            "name": "OZ_MAX",
             "provider": "VNET",
-            "plan": 212,
+            "plan": 112,
             "gem_port": 22
         },
         "OZ_NEXT_2": {
             "line_profile": 37,
-            "srv_profile": 213,
+            "srv_profile": 113,
             "vlan": 2103,
+            "name": "OZ_NEXT",
             "provider": "VNET",
-            "plan": 213,
+            "plan": 113,
             "gem_port": 23
         },
         "OZ_MAGICAL_2": {
             "line_profile": 47,
-            "srv_profile": 214,
+            "srv_profile": 114,
             "vlan": 2104,
+            "name": "OZ_MAGICAL",
             "provider": "VNET",
-            "plan": 214,
+            "plan": 114,
             "gem_port": 24
         },
         "OZ_SKY_2": {
             "line_profile": 57,
-            "srv_profile": 215,
+            "srv_profile": 115,
             "vlan": 2105,
+            "name": "OZ_SKY",
             "provider": "VNET",
-            "plan": 215,
+            "plan": 115,
             "gem_port": 25
         },
         "OZ_PLUS_IP": {
@@ -173,6 +185,7 @@ PLANS = {
             "srv_profile": 311,
             "vlan": 102,
             "provider": "PUBLICAS",
+            "name": "OZ_PLUS",
             "plan": 311,
             "gem_port": 14
         },
@@ -181,6 +194,7 @@ PLANS = {
             "srv_profile": 312,
             "vlan": 102,
             "provider": "PUBLICAS",
+            "name": "OZ_MAX",
             "plan": 312,
             "gem_port": 14
         },
@@ -189,6 +203,7 @@ PLANS = {
             "srv_profile": 313,
             "vlan": 102,
             "provider": "PUBLICAS",
+            "name": "OZ_NEXT",
             "plan": 313,
             "gem_port": 14
         },
@@ -197,6 +212,7 @@ PLANS = {
             "srv_profile": 314,
             "vlan": 102,
             "provider": "PUBLICAS",
+            "name": "OZ_MAGICAL",
             "plan": 314,
             "gem_port": 14
         },
@@ -205,6 +221,7 @@ PLANS = {
             "srv_profile": 315,
             "vlan": 102,
             "provider": "PUBLICAS",
+            "name": "OZ_SKY",
             "plan": 315,
             "gem_port": 14
         },
@@ -214,15 +231,17 @@ PLANS = {
             "line_profile": 2,
             "srv_profile": 2,
             "vlan": 1101,
+            "name": "OZ_PLUS",
             "provider": "INTER",
             "plan": 47,
             "gem_port": 14
         },
         "OZ_MAX_1": {
             "line_profile": 2,
-            "srv_profile": 2,
+            "srv_pro,file": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_MAX",
             "plan": 46,
             "gem_port": 14
         },
@@ -231,6 +250,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_NEXT",
             "plan": 40,
             "gem_port": 14
         },
@@ -239,6 +259,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_MAGICAL",
             "plan": 39,
             "gem_port": 14
         },
@@ -247,6 +268,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_SKY",
             "plan": 45,
             "gem_port": 14
         },
@@ -255,6 +277,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_START",
             "plan": 23,
             "gem_port": 14
         },
@@ -263,6 +286,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_FAMILY",
             "plan": 25,
             "gem_port": 14
         },
@@ -271,6 +295,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_EMPRENDE",
             "plan": 42,
             "gem_port": 14
         },
@@ -279,6 +304,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_CONECTA",
             "plan": 44,
             "gem_port": 14
         },
@@ -287,6 +313,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_INICIATE",
             "plan": 43,
             "gem_port": 14
         },
@@ -295,6 +322,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_LIFT",
             "plan": 6,
             "gem_port": 14
         },
@@ -303,6 +331,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_UP",
             "plan": 49,
             "gem_port": 14
         },
@@ -311,6 +340,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_PLUS",
             "plan": 47,
             "gem_port": 14
         },
@@ -319,6 +349,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_MAX",
             "plan": 46,
             "gem_port": 14
         },
@@ -327,6 +358,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_NEXT",
             "plan": 40,
             "gem_port": 14
         },
@@ -335,6 +367,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_MAGICAL",
             "plan": 39,
             "gem_port": 14
         },
@@ -343,6 +376,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_SKY",
             "plan": 45,
             "gem_port": 14
         },
@@ -351,6 +385,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_START",
             "plan": 23,
             "gem_port": 14
         },
@@ -359,6 +394,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_FAMILY",
             "plan": 25,
             "gem_port": 14
         },
@@ -367,6 +403,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_EMPRENDE",
             "plan": 42,
             "gem_port": 14
         },
@@ -375,6 +412,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_CONECTA",
             "plan": 44,
             "gem_port": 14
         },
@@ -383,6 +421,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_INICIATE",
             "plan": 43,
             "gem_port": 14
         },
@@ -391,6 +430,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_LIFT",
             "plan": 6,
             "gem_port": 14
         },
@@ -399,6 +439,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_UP",
             "plan": 49,
             "gem_port": 14
         },
@@ -407,6 +448,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_PLUS",
             "plan": 47,
             "gem_port": 14
         },
@@ -415,6 +457,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_MAX",
             "plan": 46,
             "gem_port": 14
         },
@@ -423,6 +466,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_NEXT",
             "plan": 40,
             "gem_port": 14
         },
@@ -431,6 +475,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_MAGICAL",
             "plan": 39,
             "gem_port": 14
         },
@@ -439,6 +484,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_SKY",
             "plan": 45,
             "gem_port": 14
         },
@@ -447,6 +493,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_START",
             "plan": 23,
             "gem_port": 14
         },
@@ -455,6 +502,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_FAMILY",
             "plan": 25,
             "gem_port": 14
         },
@@ -463,6 +511,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_EMPRENDE",
             "plan": 42,
             "gem_port": 14
         },
@@ -471,6 +520,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_CONECTA",
             "plan": 44,
             "gem_port": 14
         },
@@ -479,6 +529,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_INICIATE",
             "plan": 43,
             "gem_port": 14
         },
@@ -487,6 +538,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_LIFT",
             "plan": 6,
             "gem_port": 14
         },
@@ -495,6 +547,7 @@ PLANS = {
             "srv_profile": 2,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_UP",
             "plan": 49,
             "gem_port": 14
         },
@@ -505,6 +558,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_PLUS",
             "plan": 49,
             "gem_port": 14
         },
@@ -513,6 +567,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_MAX",
             "plan": 48,
             "gem_port": 14
         },
@@ -521,6 +576,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_NEXT",
             "plan": 33,
             "gem_port": 14
         },
@@ -529,6 +585,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_MAGICAL",
             "plan": 32,
             "gem_port": 14
         },
@@ -537,6 +594,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_SKY",
             "plan": 47,
             "gem_port": 14
         },
@@ -545,6 +603,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_START",
             "plan": 9,
             "gem_port": 14
         },
@@ -553,6 +612,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_FAMILY",
             "plan": 15,
             "gem_port": 14
         },
@@ -561,6 +621,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_EMPRENDE",
             "plan": 44,
             "gem_port": 14
         },
@@ -569,6 +630,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_CONECTA",
             "plan": 46,
             "gem_port": 14
         },
@@ -577,6 +639,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_INICIATE",
             "plan": 45,
             "gem_port": 14
         },
@@ -585,6 +648,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_LIFT",
             "plan": 34,
             "gem_port": 14
         },
@@ -593,6 +657,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1101,
             "provider": "INTER",
+            "name": "OZ_UP",
             "plan": 36,
             "gem_port": 14
         },
@@ -601,6 +666,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_PLUS",
             "plan": 49,
             "gem_port": 14
         },
@@ -609,6 +675,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_MAX",
             "plan": 48,
             "gem_port": 14
         },
@@ -617,6 +684,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_NEXT",
             "plan": 33,
             "gem_port": 14
         },
@@ -625,6 +693,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_MAGICAL",
             "plan": 32,
             "gem_port": 14
         },
@@ -633,6 +702,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_SKY",
             "plan": 47,
             "gem_port": 14
         },
@@ -641,6 +711,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_START",
             "plan": 9,
             "gem_port": 14
         },
@@ -649,6 +720,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_FAMILY",
             "plan": 15,
             "gem_port": 14
         },
@@ -657,6 +729,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_EMPRENDE",
             "plan": 44,
             "gem_port": 14
         },
@@ -665,6 +738,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_CONECTA",
             "plan": 46,
             "gem_port": 14
         },
@@ -673,6 +747,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_INICIATE",
             "plan": 45,
             "gem_port": 14
         },
@@ -681,6 +756,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_LIFT",
             "plan": 34,
             "gem_port": 14
         },
@@ -689,6 +765,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1102,
             "provider": "VNET",
+            "name": "OZ_UP",
             "plan": 36,
             "gem_port": 14
         },
@@ -697,6 +774,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_PLUS",
             "plan": 49,
             "gem_port": 14
         },
@@ -705,6 +783,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_MAX",
             "plan": 48,
             "gem_port": 14
         },
@@ -713,6 +792,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_NEXT",
             "plan": 33,
             "gem_port": 14
         },
@@ -721,6 +801,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_MAGICAL",
             "plan": 32,
             "gem_port": 14
         },
@@ -729,6 +810,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_SKY",
             "plan": 47,
             "gem_port": 14
         },
@@ -737,6 +819,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_START",
             "plan": 9,
             "gem_port": 14
         },
@@ -745,6 +828,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_FAMILY",
             "plan": 15,
             "gem_port": 14
         },
@@ -753,6 +837,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_EMPRENDE",
             "plan": 44,
             "gem_port": 14
         },
@@ -761,6 +846,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_CONECTA",
             "plan": 46,
             "gem_port": 14
         },
@@ -769,6 +855,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_INICIATE",
             "plan": 45,
             "gem_port": 14
         },
@@ -777,6 +864,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_LIFT",
             "plan": 34,
             "gem_port": 14
         },
@@ -785,6 +873,7 @@ PLANS = {
             "srv_profile": 1,
             "vlan": 1104,
             "provider": "PUBLICAS",
+            "name": "OZ_UP",
             "plan": 36,
             "gem_port": 14
         },
