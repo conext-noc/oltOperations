@@ -53,6 +53,9 @@ def migration(comm, command, quit, olt, action):
 
         command(
             f' service-port {SPID} vlan {plans[client["plan_name"]]["vlan"]} gpon {client["frame"]}/{client["slot"]}/{client["port"]} ont {client["onu_id"]} gemport {plans[client["plan_name"]]["gem_port"]} multi-service user-vlan {plans[client["plan_name"]]["vlan"]} tag-transform transparent inbound traffic-table index {plans[client["plan_name"]]["plan"]} outbound traffic-table index {plans[client["plan_name"]]["plan"]}')
+        command(f"interface gpon {client['frame']}/{client['slot']}")
+        command(f"ont wan-config {client['port']} {client['onu_id']} ip-index 2 profile-id 0")
+        command("quit")
         resp = f"""
     | {NAME} {client["frame"]}/{client["slot"]}/{client["port"]}/{client["onu_id"]}
     | {client["plan_name"]}
