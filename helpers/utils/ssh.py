@@ -25,6 +25,9 @@ def ssh(ip):
     def command(cmd):
         comm.send(cmd)
         sleep(delay)
+        print(f"""
+{cmd}
+              """)
         enter()
 
     def quit():
