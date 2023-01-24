@@ -25,9 +25,10 @@ def ssh(ip):
     def command(cmd):
         comm.send(cmd)
         sleep(delay)
-        print(f"""
-{cmd}
-              """)
+        # uncomment this for ssh debugging
+#         print(f"""
+# {cmd}
+#               """)
         enter()
 
     def quit():
