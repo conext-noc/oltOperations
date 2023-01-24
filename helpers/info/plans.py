@@ -74,110 +74,110 @@ PLANS = {
     "1": {
         "OZ_0_1": {
             "line_profile": 3,
-            "srv_profile": 110,
+            "srv_profile": 210,
             "vlan": 3100,
             "provider": "INTER",
             "name": "OZ_0",
-            "plan": 110,
+            "plan": 210,
             "gem_port": 20
         },
         "OZ_PLUS_1": {
             "line_profile": 17,
-            "srv_profile": 111,
+            "srv_profile": 211,
             "vlan": 3101,
             "name": "OZ_PLUS",
             "provider": "INTER",
-            "plan": 111,
+            "plan": 211,
             "gem_port": 21
         },
         "OZ_MAX_1": {
             "line_profile": 27,
-            "srv_profile": 112,
+            "srv_profile": 212,
             "vlan": 3102,
             "name": "OZ_MAX",
             "provider": "INTER",
-            "plan": 112,
+            "plan": 212,
             "gem_port": 22
         },
         "OZ_NEXT_1": {
             "line_profile": 37,
-            "srv_profile": 113,
+            "srv_profile": 213,
             "vlan": 3103,
             "name": "OZ_NEXT",
             "provider": "INTER",
-            "plan": 113,
+            "plan": 213,
             "gem_port": 23
         },
         "OZ_MAGICAL_1": {
             "line_profile": 47,
-            "srv_profile": 114,
+            "srv_profile": 214,
             "vlan": 3104,
             "name": "OZ_MAGICAL",
             "provider": "INTER",
-            "plan": 114,
+            "plan": 214,
             "gem_port": 24
         },
         "OZ_SKY_1": {
             "line_profile": 57,
-            "srv_profile": 115,
+            "srv_profile": 215,
             "vlan": 3105,
             "name": "OZ_SKY",
             "provider": "INTER",
-            "plan": 115,
+            "plan": 215,
             "gem_port": 25
         },
         "OZ_0_2": {
             "line_profile": 3,
-            "srv_profile": 110,
+            "srv_profile": 210,
             "vlan": 2100,
             "provider": "VNET",
             "name": "OZ_0",
-            "plan": 110,
+            "plan": 210,
             "gem_port": 20
         },
         "OZ_PLUS_2": {
             "line_profile": 17,
-            "srv_profile": 111,
+            "srv_profile": 211,
             "vlan": 2101,
             "name": "OZ_PLUS",
             "provider": "VNET",
-            "plan": 111,
+            "plan": 211,
             "gem_port": 21
         },
         "OZ_MAX_2": {
             "line_profile": 27,
-            "srv_profile": 112,
+            "srv_profile": 212,
             "vlan": 2102,
             "name": "OZ_MAX",
             "provider": "VNET",
-            "plan": 112,
+            "plan": 212,
             "gem_port": 22
         },
         "OZ_NEXT_2": {
             "line_profile": 37,
-            "srv_profile": 113,
+            "srv_profile": 213,
             "vlan": 2103,
             "name": "OZ_NEXT",
             "provider": "VNET",
-            "plan": 113,
+            "plan": 213,
             "gem_port": 23
         },
         "OZ_MAGICAL_2": {
             "line_profile": 47,
-            "srv_profile": 114,
+            "srv_profile": 214,
             "vlan": 2104,
             "name": "OZ_MAGICAL",
             "provider": "VNET",
-            "plan": 114,
+            "plan": 214,
             "gem_port": 24
         },
         "OZ_SKY_2": {
             "line_profile": 57,
-            "srv_profile": 115,
+            "srv_profile": 215,
             "vlan": 2105,
             "name": "OZ_SKY",
             "provider": "VNET",
-            "plan": 115,
+            "plan": 215,
             "gem_port": 25
         },
         "OZ_PLUS_IP": {
