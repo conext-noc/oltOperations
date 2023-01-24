@@ -4,6 +4,7 @@ from helpers.utils.ssh import ssh
 from time import sleep
 from scripts.AD import upgradeData
 from scripts.BC import existingLookup
+from scripts.CPDC import cpdc
 from scripts.EC import deleteClient
 from scripts.IX import confirmNew
 from scripts.MC import modifyClient
@@ -40,8 +41,10 @@ Que accion se realizara?
     > (DT)  :   Desactivados Totales
     > (MG)  :   Migracion OLT
     > (AD)  :   Actualizacion de datos en olt
+    > (DC)  :   CPDC
 $ """
         )
+
 
         modules = {
             "RL": operate,
@@ -59,6 +62,7 @@ $ """
             "DT": portOperation,
             "MG": migration,
             "AD": upgradeData,
+            "DC": cpdc,
         }
 
         modules[action](comm, command, quit, olt, action)
