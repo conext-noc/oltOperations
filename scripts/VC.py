@@ -23,7 +23,7 @@ def verifyTraffic(comm,command,quit,olt, action):
         return
     command(f"interface gpon {data['frame']}/{data['slot']}")
     for i in range(0, 10):
-        command(f"display ont traffic {data['port']} {data['id']}")
+        command(f"display ont traffic {data['port']} {data['onu_id']}")
         sleep(5)
         outputSpeed = decoder(comm)
         fail = failChecker(outputSpeed)
