@@ -9,15 +9,15 @@ def upgradeData(comm, command, quit, olt, action):
     In this module the Names and data plan of the clients will be updated
     This will require a list of clients that will contain: 
     {
-      "fName",
-      "lName",
+      "first_ame",
+      "last_ame",
       "nif",
       "contract",
       "olt",
       "frame",
       "slot",
       "port",
-      "id",
+      "onu_id",
       "sn",
       "plan",
     }
@@ -26,16 +26,16 @@ def upgradeData(comm, command, quit, olt, action):
     fileName = askopenfilename()
     lst = fileToDict(fileName, fileType)
     for client in lst:
-        DESC = f'{client["fName"]} {client["lName"]} {client["contract"]}'
+        DESC = f'{client["first_name"]} {client["last_name"]} {client["contract"]}'
         command(f"interface gpon {client['frame']}/{client['slot']}")
-        command(f'ont modify {client["port"]} {client["id"]} desc "{DESC}"')
+        command(f'ont modify {client["port"]} {client["onu_id"]} desc "{DESC}"')
         command("quit")
         (_, WAN) = wan(comm, command, {client['frame']}, {
-            client['slot']}, {client['port']}, {client['id']}, olt)
+            client['slot']}, {client['port']}, {client['onu_id']}, olt)
         for wanConf in WAN:
             command(
                 f"service-port {wanConf['spid']} inbound traffic-table name {client['plan']} outbound traffic-table name {client['plan']}")
             log(colorFormatter(
-                f"{DESC} {client['frame']}/{client['slot']}/{client['port']}/{client['id']} tiene plan {client['plan']} en el SPID {wanConf['spid']} con la vlan {wanConf['vlan']}", "success"))
+                f"{DESC} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} tiene plan {client['plan']} en el SPID {wanConf['spid']} con la vlan {wanConf['vlan']}", "success"))
     quit()
     return
