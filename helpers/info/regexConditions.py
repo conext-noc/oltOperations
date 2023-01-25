@@ -499,3 +499,33 @@ rtrConflicts = {
     "headerConf": "NA,ID,start,end,total,used,idle,conflict,disable,reserved,staticBind",
     "headerSect": "ip,mac,userId,lease,status,index,na"
 }
+
+wanMapper = {
+    "1": {
+        "2100": "2",
+        "2101": "2",
+        "2102": "2",
+        "2102": "2",
+        "2104": "2",
+        "2105": "2",
+        "3100": "1",
+        "3101": "1",
+        "3102": "1",
+        "3102": "1",
+        "3104": "1",
+        "3105": "1",
+        "102": "IP"
+    },
+    "2": {
+        "101":"VOIP",
+        "1101": "1",
+        "1102": "2",
+        "1104": "IP",
+    },
+    "3": {
+        "101":"VOIP",
+        "1101": "1",
+        "1102": "2",
+        "1104": "IP",
+    },
+}

@@ -1,5 +1,9 @@
+from tkinter import filedialog
+from helpers.clientFinder.wan import wan
+from helpers.fileFormatters.fileHandler import dictToFile
 from helpers.fileFormatters.table import clientsTable
 from helpers.info.regexConditions import ports
+from helpers.utils.printer import colorFormatter, log
 
 
 def cpdc(comm, command, quit, olt, action):
@@ -11,7 +15,7 @@ def cpdc(comm, command, quit, olt, action):
 
     as obj 
     {
-      name,DONE
+      name,
       sn,
       olt,
       frame,
@@ -26,24 +30,18 @@ def cpdc(comm, command, quit, olt, action):
     lst = ports["olt"][olt]
     clients = clientsTable(comm, command, lst)
     clientList = []
-    """
-    {
-      'fsp': '#/#/###',
-      'frame': #, 
-      'slot': #,
-      'port': #,
-      'onu_id': #,
-      'name': 'NAME',
-      'status': 'online',
-      'pwr': '-##.##',
-      'state': 'STATE',
-      'last_down_cause': 'CAUSE',
-      'last_down_time': '##:##:##',
-      'last_down_date': '####-##-##',
-      'sn': 'SN_NUMBER',
-      'device': 'DEVICE'
-    }
-    """
+    print(f"the total # of clients @ port {clients[0]['frame']}/{clients[0]['slot']}/{clients[0]['port']} is : {len(clients)}")
     for client in clients:
-      print(client)
+        (_, WAN) = wan(comm,command,client['frame'], client['slot'],client['port'], client['onu_id'], olt)
+        data = client.copy()
+        print(f"{client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']}")
+        for idx,wanData in enumerate(WAN):
+            data[f"vlan_{idx}"] = wanData['vlan']
+            data[f"spid_{idx}"] = wanData['spid']
+            data[f"plan_{idx}"] = wanData['plan']
+            data[f"plan_name_{idx}"] = wanData['plan_name']
+        clientList.append(data)
+    path = filedialog.askdirectory()
+    dictToFile(f"CPDC_{clients[0]['frame']}-{clients[0]['slot']}-{clients[0]['port']}", "E", path, clientList, True)
+    log(colorFormatter("LISTA GENERADA SATISFACTORIAMENTE","success"))
     quit()

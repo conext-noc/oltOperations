@@ -9,7 +9,7 @@ def display(data, tp):
     tp == B => only data will be displayed without input to be required
     """
     proceed = False
-    if tp == "A":
+    if tp != "I":
         str1 = f"""
     |FRAME               :   {data["frame"]}
     |SLOT                :   {data["slot"]}
@@ -29,40 +29,15 @@ def display(data, tp):
         for idx, wanData in enumerate(data["wan"]):
             str2 += f"""
     |VLAN_{idx}              :   {wanData["vlan"]}
-    |PLAN_{idx}              :   {wanData["plan"]}
+    |PLAN_{idx}              :   {wanData["plan_name"]}
     |SPID_{idx}              :   {wanData["spid"]}
+    |STATE_{idx}             :   {wanData["state"]}
                 """
         res = str1 + str2
         res = colorFormatter(str1, "ok") + colorFormatter(str2, "ok")
         log(res)
-        val = inp("desea continuar? [Y|N] : ").upper()
-        proceed = True if val == "Y" else False
-    if tp == "B":
-        str1 = f"""
-    |FRAME               :   {data["frame"]}
-    |SLOT                :   {data["slot"]}
-    |PORT                :   {data["port"]}
-    |ID                  :   {data["onu_id"]}
-    |NAME                :   {data["name"]}
-    |SN                  :   {data["sn"]}
-    |STATE               :   {data["state"]}
-    |STATUS              :   {data["status"]}
-    |LAST DOWN CAUSE     :   {data["last_down_cause"]}
-    |ONT TYPE            :   {data["device"]}
-    |TEMPERATURA         :   {data["temp"]}
-    |POTENCIA            :   {data["pwr"]}
-    |IP                  :   {data["ip_address"]}
-                """
-        str2 = ""
-        for idx, wanData in enumerate(data["wan"]):
-            str2 += f"""
-    |VLAN_{idx}              :   {wanData["vlan"]}
-    |PLAN_{idx}              :   {wanData["plan"]}
-    |SPID_{idx}              :   {wanData["spid"]}
-                """
-        res = str1 + str2
-        res = colorFormatter(str1, "ok") + colorFormatter(str2, "ok")
-        log(res)
+        val = inp("desea continuar? [Y|N] : ").upper() if tp == "A" else None
+        proceed = True if val == "Y" and tp == "A" else False
     if tp == "I":
         str1 = f"""
     FRAME               :   {data["frame"]}

@@ -1,8 +1,9 @@
 from helpers.utils.decoder import decoder, check
 from helpers.failHandler.fail import failChecker
 from helpers.operations.spid import ontSpid
-from helpers.info.plans import planX15Maps,planX2Maps,planX15NMaps
+from helpers.info.plans import planX15Maps, planX2Maps, planX15NMaps
 from helpers.utils.printer import colorFormatter, log
+from helpers.info.regexConditions import wanMapper
 
 ip = "IPv4 address               : "
 endIp = "Subnet mask"
@@ -19,7 +20,6 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
     (result, failSpid) = ontSpid(comm, command, FRAME, SLOT, PORT, ID)
     if failSpid == None:
         command(f"display ont wan-info {FRAME}/{SLOT} {PORT} {ID} | exclude IPv6 | exclude Prefix | exclude DS | exclude NAT | exclude type | exclude address | exclude Default | exclude DNS | exclude 60 | exclude mask")
-        command("q")
         value = decoder(comm)
         fail = failChecker(value)
         data = check(value, "IPv4 Connection status     : Connected")
@@ -30,8 +30,9 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
             plan = planMap[str(wanData["RX"])]
             STATE = wanData["STATE"] if activeVlan == None else (
                 "used" if wanData["ID"] == activeVlan else "not used")
+            prov = wanMapper[OLT][f"{wanData['ID']}"]
             WAN.append(
-                {"vlan": wanData["ID"], "spid": wanData["SPID"], "plan": plan, "state": STATE})
+                {"vlan": wanData["ID"], "spid": wanData["SPID"], "plan": plan, "state": STATE, "plan_name": f"{plan}_{prov}"})
         command(f" display  ont  wan-info  {FRAME}/{SLOT}  {PORT}  {ID}")
         val = decoder(comm)
         failIp = failChecker(val)
@@ -45,4 +46,4 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
     else:
         FAIL = failSpid
         log(colorFormatter(FAIL, "info"))
-        return (IPADDRESS, [{"spid":None, "vlan": None, "plan": None}])
+        return (IPADDRESS, [{"spid": None, "vlan": None, "plan": None}])
