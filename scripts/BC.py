@@ -1,12 +1,18 @@
 from helpers.clientFinder.dataLookup import dataLookup
 from helpers.clientFinder.nameLookup import nameLookup
-# from helpers.operations.addHandler import addOnuService
 from helpers.operations.addHandler import addOnuServiceNew
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 
 
 def existingLookup(comm, command, quit, olt, action):
+    """
+    comm        :   ssh connection handler [class]
+    command     :   sends ssh commands [func]
+    quit        :   terminates the ssh connection [func]
+    olt         :   defines the selected olt [var:str]
+    action      :   defines the type of lookup of the client [var:str]
+    """
     lookupType = inp(
         "Buscar cliente por serial, por nombre o por Datos (F/S/P/ID) [S | N | D] : "
     )
