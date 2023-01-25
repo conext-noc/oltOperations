@@ -1,3 +1,4 @@
+from helpers.info.hashMaps import devices
 from helpers.utils.decoder import decoder
 from helpers.utils.printer import inp, log, colorFormatter
 from helpers.utils.ssh import ssh
@@ -12,18 +13,18 @@ from scripts.MG import migration
 from scripts.OX import operate
 from scripts.VC import verifyTraffic
 from scripts.XP import portOperation
-from helpers.info.hashMaps import devices
 
 
 def olt():
     """    
-    This module finds all the data corresponding to a given client
+    This module handles all olt requests
     """
     oltOptions = ["1", "2", "3"]
     olt = inp("Seleccione la OLT [1 | 2 | 3] : ").upper()
+    debugging = input('Desea debbug los comandos [mostrar comandos]? (y/n): ').lower().strip() == 'y'
     if olt in oltOptions:
         ip = devices[f"OLT{olt}"]
-        (comm, command, quit) = ssh(ip)
+        (comm, command, quit) = ssh(ip, debugging)
         decoder(comm)
 
         action = inp(

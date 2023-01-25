@@ -11,8 +11,9 @@ def rtr():
     rtrTypes = ["E1", "E2", "A1", "A2"]
     rt = inp(
         "Selecciona el router a monitorear [E1 | E2 | A1 | A2] : ")
+    debugging = input('Desea debbug los comandos [mostrar comandos]? (y/n): ').lower().strip() == 'y'
     ip = devices[f"RTR{rt}"]["ip"]
-    (comm, command, quit) = ssh(ip)
+    (comm, command, quit) = ssh(ip, debugging)
     if rt in rtrTypes:
         decoder(comm)
         if "E" in rt:

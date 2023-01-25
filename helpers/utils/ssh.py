@@ -10,7 +10,7 @@ password = os.environ["password"]
 port = os.environ["port"]
 
 
-def ssh(ip):
+def ssh(ip, debugging):
     delay = 1.5
     conn = paramiko.SSHClient()
     conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -25,10 +25,10 @@ def ssh(ip):
     def command(cmd):
         comm.send(cmd)
         sleep(delay)
-        # uncomment this for ssh debugging
-#         print(f"""
-# {cmd}
-#               """)
+        if debugging:
+            print(f"""
+{cmd}
+                """)
         enter()
 
     def quit():

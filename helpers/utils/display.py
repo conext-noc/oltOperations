@@ -2,7 +2,6 @@ from helpers.utils.printer import colorFormatter, inp, log
 
 
 def display(data, tp):
-    print(data)
     """
     tp ==> type
     tp == A => all data will be displayed
