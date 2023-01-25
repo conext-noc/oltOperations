@@ -9,8 +9,8 @@ def upgradeData(comm, command, quit, olt, action):
     In this module the Names and data plan of the clients will be updated
     This will require a list of clients that will contain: 
     {
-      "first_ame",
-      "last_ame",
+      "first_name",
+      "last_name",
       "nif",
       "contract",
       "olt",
