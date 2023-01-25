@@ -27,8 +27,9 @@ def ssh(ip, debugging):
         sleep(delay)
         if debugging:
             print(f"""
-{cmd}
+LIMMMMMMMMPIOOOOOOOOO
                 """)
+# {cmd}
         enter()
 
     def quit():
