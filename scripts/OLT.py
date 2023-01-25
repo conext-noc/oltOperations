@@ -16,6 +16,9 @@ from helpers.info.hashMaps import devices
 
 
 def olt():
+    """    
+    This module finds all the data corresponding to a given client
+    """
     oltOptions = ["1", "2", "3"]
     olt = inp("Seleccione la OLT [1 | 2 | 3] : ").upper()
     if olt in oltOptions:

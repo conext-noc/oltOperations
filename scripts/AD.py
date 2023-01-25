@@ -6,6 +6,14 @@ from helpers.fileFormatters.fileHandler import fileToDict
 
 def upgradeData(comm, command, quit, olt, action):
     """
+    comm        :   ssh connection handler [class]
+    command     :   sends ssh commands [func]
+    quit        :   terminates the ssh connection [func]
+    olt         :   defines the selected olt [var:str]
+    action      :   defines the type of lookup/action of the client [var:str]
+    
+    This module starts the mass modification of clients in  olt
+    
     In this module the Names and data plan of the clients will be updated
     This will require a list of clients that will contain: 
     {

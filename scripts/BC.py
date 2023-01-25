@@ -12,6 +12,8 @@ def existingLookup(comm, command, quit, olt, action):
     quit        :   terminates the ssh connection [func]
     olt         :   defines the selected olt [var:str]
     action      :   defines the type of lookup of the client [var:str]
+    
+    This module finds all the data corresponding to a given client
     """
     lookupType = inp(
         "Buscar cliente por serial, por nombre o por Datos (F/S/P/ID) [S | N | D] : "
@@ -48,8 +50,6 @@ def existingLookup(comm, command, quit, olt, action):
 
     display(client, "B")
     # add wan profile if not exist
-    # if data["wan"][0]["spid"] == None:
-    #     addOnuServiceNew(comm, command, data) if olt == "1" else addOnuService(
-    #         comm, command, data
-    #     )
+    # if client["wan"][0]["spid"] == None:
+    #     addOnuServiceNew(comm, command, client)
     return

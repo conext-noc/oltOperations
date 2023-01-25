@@ -9,6 +9,15 @@ from helpers.utils.sheets import modify
 
 
 def modifyClient(comm, command, quit, olt, act):
+    """
+    comm        :   ssh connection handler [class]
+    command     :   sends ssh commands [func]
+    quit        :   terminates the ssh connection [func]
+    olt         :   defines the selected olt [var:str]
+    action      :   defines the type of lookup/action of the client [var:str]
+    
+    This module modifies the data of a given client
+    """
     proceed = None
     action = inp(
         """

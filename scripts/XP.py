@@ -5,6 +5,15 @@ from datetime import datetime
 
 
 def portOperation(comm, command, quit, olt, action):
+    """
+    comm        :   ssh connection handler [class]
+    command     :   sends ssh commands [func]
+    quit        :   terminates the ssh connection [func]
+    olt         :   defines the selected olt [var:str]
+    action      :   defines the type of lookup/action of the client [var:str]
+    
+    This module requests the status of a given port on the olt
+    """
     keep = True
     lst = []
     portCount = []

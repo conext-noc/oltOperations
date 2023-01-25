@@ -8,6 +8,15 @@ from time import sleep
 
 
 def verifyTraffic(comm,command,quit,olt, action):
+    """
+    comm        :   ssh connection handler [class]
+    command     :   sends ssh commands [func]
+    quit        :   terminates the ssh connection [func]
+    olt         :   defines the selected olt [var:str]
+    action      :   defines the type of lookup/action of the client [var:str]
+    
+    This module monitors the real time traffic of a given client
+    """
     speedUpArr = []
     speedDownArr = []
     lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")

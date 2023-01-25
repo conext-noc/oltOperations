@@ -4,11 +4,17 @@ from helpers.info.plans import PLANS
 from helpers.operations.spid import spidCalc
 from helpers.utils.printer import colorFormatter, inp, log
 
-# MODIFY THIS
-
 
 def migration(comm, command, quit, olt, action):
     """
+    comm        :   ssh connection handler [class]
+    command     :   sends ssh commands [func]
+    quit        :   terminates the ssh connection [func]
+    olt         :   defines the selected olt [var:str]
+    action      :   defines the type of lookup/action of the client [var:str]
+    
+    This starts the migration from olts
+
     lst should be formatted as the data object across the app
     {
       "first_name",
@@ -54,7 +60,8 @@ def migration(comm, command, quit, olt, action):
         command(
             f' service-port {SPID} vlan {plans[client["plan_name"]]["vlan"]} gpon {client["frame"]}/{client["slot"]}/{client["port"]} ont {client["onu_id"]} gemport {plans[client["plan_name"]]["gem_port"]} multi-service user-vlan {plans[client["plan_name"]]["vlan"]} tag-transform transparent inbound traffic-table index {plans[client["plan_name"]]["plan"]} outbound traffic-table index {plans[client["plan_name"]]["plan"]}')
         command(f"interface gpon {client['frame']}/{client['slot']}")
-        command(f"ont wan-config {client['port']} {client['onu_id']} ip-index 2 profile-id 0")
+        command(
+            f"ont wan-config {client['port']} {client['onu_id']} ip-index 2 profile-id 0")
         command("quit")
         resp = f"""
     | {NAME} {client["frame"]}/{client["slot"]}/{client["port"]}/{client["onu_id"]}
