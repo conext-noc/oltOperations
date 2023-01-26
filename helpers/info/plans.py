@@ -56,7 +56,7 @@ planX15Maps = {
     "16": "OZ_DEDICADO-10",
     "20": "OZ_DEDICADO-5",
     "23": "OZ_START",
-    "25": "OS_FAMILY",
+    "25": "OZ_FAMILY",
     "39": "OZ_MAGICAL",
     "40": "OZ_NEXT",
     "41": "OZ EMPRENDE",
