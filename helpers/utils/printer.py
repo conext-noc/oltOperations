@@ -20,11 +20,13 @@ color = {
     "fail": "\u001b[38;5;1m",
     "end": "\u001b[0m",
     "info": "\u001b[38;5;3m",
+    "normal":""
 }
 
 
 def colorFormatter(txt, variant):
-    return color[variant] + txt + color["end"]
+    paint = "normal" if variant == "" else variant
+    return color[paint] + txt + color["end"]
 
 
 def log(value):
