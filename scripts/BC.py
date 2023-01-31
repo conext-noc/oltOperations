@@ -40,8 +40,8 @@ def existingLookup(comm, command, quit, olt, action):
                 f"{client['frame']}/{client['slot']}/{client['port']}",
                 client["id"],
                 client["name"],
-                client["runState"],
-                client["controlFlag"],
+                client["status"],
+                client["state"],
                 client["sn"],
             )
             log(resp)
