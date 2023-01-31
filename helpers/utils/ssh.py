@@ -3,6 +3,8 @@ from time import sleep
 import paramiko
 from dotenv import load_dotenv
 
+from helpers.utils.printer import colorFormatter, log
+
 load_dotenv()
 
 username = os.environ["user"]
@@ -26,9 +28,8 @@ def ssh(ip, debugging):
         comm.send(cmd)
         sleep(delay)
         if debugging:
-            print(f"""
-{cmd}
-                """)
+            log(colorFormatter(f"""
+{cmd}""","info"))
         enter()
 
     def quit():
@@ -42,3 +43,4 @@ def ssh(ip, debugging):
         command("sys")
 
     return (comm, command, quit)
+

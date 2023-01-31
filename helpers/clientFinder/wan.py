@@ -1,3 +1,4 @@
+from time import sleep
 from helpers.utils.decoder import decoder, check
 from helpers.failHandler.fail import failChecker
 from helpers.operations.spid import ontSpid
@@ -19,29 +20,23 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
     planMap = planX15Maps if OLT == "2" else planX2Maps if OLT == "3" else planX15NMaps
     (result, failSpid) = ontSpid(comm, command, FRAME, SLOT, PORT, ID)
     if failSpid == None:
-        command(f"display ont wan-info {FRAME}/{SLOT} {PORT} {ID} | exclude IPv6 | exclude Prefix | exclude DS | exclude NAT | exclude type | exclude address | exclude Default | exclude DNS | exclude 60 | exclude mask")
+        command(f"display ont wan-info {FRAME}/{SLOT} {PORT} {ID} | exclude IPv6 | exclude Prefix | exclude DS | exclude NAT | exclude type | exclude Default | exclude DNS | exclude 60 | exclude mask")
+        sleep(3)
         value = decoder(comm)
         fail = failChecker(value)
-        data = check(value, "IPv4 Connection status     : Connected")
-        if (data != None and fail == None):
-            (_, s) = data.span()
-            activeVlan = int(value[s+33:s+37])
+        regexIp = check(value, ip)
+        regexVl = check(value, vlan)
+        if (fail == None and regexIp != None and regexVl != None):
+            (_, sIp) = regexIp.span()
+            (eIp, s) = regexVl.span()
+            activeVlan = int(value[s:s+4])
+            IPADDRESS = value[sIp: eIp - 1].replace(" ", "").replace("\n", "")
         for wanData in result:
             plan = planMap[str(wanData["RX"])]
-            STATE = wanData["STATE"] if activeVlan == None else (
-                "used" if wanData["ID"] == activeVlan else "not used")
+            STATE = "used" if wanData["ID"] == activeVlan else wanData["STATE"] if activeVlan == None else "not used"
             prov = wanMapper[OLT][f"{wanData['ID']}"]
             WAN.append(
                 {"vlan": wanData["ID"], "spid": wanData["SPID"], "plan": plan, "state": STATE, "plan_name": f"{plan}_{prov}"})
-        command(f" display  ont  wan-info  {FRAME}/{SLOT}  {PORT}  {ID}")
-        val = decoder(comm)
-        failIp = failChecker(val)
-        if failIp == None:
-            (_, s) = check(val, ip).span()
-            (e, _) = check(val, endIp).span()
-            IPADDRESS = val[s: e - 1].replace(" ", "").replace("\n", "")
-        else:
-            IPADDRESS = failIp
         return (IPADDRESS, WAN)
     else:
         FAIL = failSpid

@@ -52,6 +52,7 @@ planX15Maps = {
     "6": "OZ_LIFT",
     "7": "OZ_FAMILY",
     "9": "OZ_VOIP",
+    "11": "OZ_DEDICADO_150",
     "15": "UNLIMITED",
     "16": "OZ_DEDICADO-10",
     "20": "OZ_DEDICADO-5",
