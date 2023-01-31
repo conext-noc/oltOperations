@@ -110,12 +110,12 @@ def portOperation(comm, command, quit, olt, action):
             if action == "DT":
                 if STATE == "deactivated":
                     portCount[FSP] += 1
+                    color = ""
                     totalDeactClients += 1
                     if str(TIME) != "nan" and str(TIME) != "-":
                         t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
                         t2 = datetime.fromisoformat(str(datetime.now()))
                         clientTime = t2 - t1
-                        color = ""
                         if clientTime.days <= 60:
                             color = "suspended"
                         if clientTime.days > 60:
