@@ -36,7 +36,7 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
             STATE = "used" if wanData["ID"] == activeVlan else wanData["STATE"] if activeVlan == None else "not used"
             prov = wanMapper[OLT][f"{wanData['ID']}"]
             WAN.append(
-                {"vlan": wanData["ID"], "spid": wanData["SPID"], "plan": plan, "state": STATE, "plan_name": f"{plan}_{prov}"})
+                {"vlan": wanData["ID"], "spid": wanData["SPID"], "state": STATE, "plan_name": f"{plan}_{prov}"})
         return (IPADDRESS, WAN)
     else:
         FAIL = failSpid

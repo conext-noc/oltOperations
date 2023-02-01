@@ -38,7 +38,6 @@ def cpdc(comm, command, quit, olt, action):
         for idx,wanData in enumerate(WAN):
             data[f"vlan_{idx}"] = wanData['vlan']
             data[f"spid_{idx}"] = wanData['spid']
-            data[f"plan_{idx}"] = wanData['plan']
             data[f"plan_name_{idx}"] = wanData['plan_name']
         clientList.append(data)
     path = filedialog.askdirectory()
