@@ -33,7 +33,7 @@ $ """
     lookupType = inp(
         "Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
     client = dataLookup(comm, command, olt, lookupType)
-    if client["fail"] != None:
+    if client["fail"] == None:
         proceed = display(client, "A")
         if not proceed:
             log(colorFormatter("Cancelando...", "warning"))
@@ -124,4 +124,4 @@ $ """
             quit()
             return
     else:
-        log(colorFormatter(client["fail"],"fail"))
+        log(colorFormatter(f"{client['fail']}","fail"))
