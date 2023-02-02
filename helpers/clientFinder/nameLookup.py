@@ -21,6 +21,7 @@ def nameLookup(comm, command, quit):
     sleep(5)
     value = decoder(comm)
     regex = checkIter(value, condition)
+    # print(value)
     FAIL = failChecker(value)
     portRange = []
     if FAIL == None:
@@ -28,6 +29,9 @@ def nameLookup(comm, command, quit):
         for port in range(0, ttlPorts):
             portRange.append({"sInfo": regex[port+1][1], "eInfo": regex[port + 2]
                              [0], "sDesc": regex[port + 3][1], "eDesc": regex[port + 4][0]})
+        for i in range(0,1):
+            print("info",value[portRange[i]["sInfo"]:portRange[i]["eInfo"]])
+            print("desc",value[portRange[i]["sDesc"]:portRange[i]["eDesc"]])
         for info in portRange:
             valueInfo = dataToDict(
                 infoHeader, value[info["sInfo"]:info["eInfo"]])
