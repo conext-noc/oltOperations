@@ -43,7 +43,7 @@ def serialSearch(comm, command, SN):
         (_, eID) = check(value, existing["ONTID"]).span()
         (_, sDESC) = check(value, existing["DESC"]).span()
         (eDESC, sLDC) = check(value, existing["LDC"]).span()
-        (eLDC,_) = check(value, existing["LUT"]).span()
+        (eLDC,sLDT) = check(value, existing["LUT"]).span()
         (_, sCF) = check(value, existing["CF"]).span()
         (eCF, sRE) = check(value, existing["RE"]).span()
         (eRE, _) = check(value, existing["CS"]).span()
