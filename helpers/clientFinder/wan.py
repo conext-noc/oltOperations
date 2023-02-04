@@ -12,15 +12,15 @@ vlan = "Manage VLAN                : "
 planMap = {"VLANID": "VLAN ID             : ",
            "PLAN": "Inbound table name  : "}
 
-def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
+def wan(comm, command, client):
     IPADDRESS = None
     FAIL = None
     WAN = []
     activeVlan = None
-    planMap = planX15Maps if OLT == "2" else planX2Maps if OLT == "3" else planX15NMaps
-    (result, failSpid) = ontSpid(comm, command, FRAME, SLOT, PORT, ID)
+    planMap = planX15Maps if client["olt"] == "2" else planX2Maps if client["olt"] == "3" else planX15NMaps
+    (result, failSpid) = ontSpid(comm, command, client)
     if failSpid == None:
-        command(f"display ont wan-info {FRAME}/{SLOT} {PORT} {ID} | exclude IPv6 | exclude Prefix | exclude DS | exclude NAT | exclude type | exclude Default | exclude DNS | exclude 60 | exclude mask")
+        command(f"display ont wan-info {client['frame']}/{client['slot']} {client['port']} {client['onu_id']} | exclude IPv6 | exclude Prefix | exclude DS | exclude NAT | exclude type | exclude Default | exclude DNS | exclude 60 | exclude mask")
         sleep(3)
         value = decoder(comm)
         fail = failChecker(value)
@@ -34,7 +34,7 @@ def wan(comm, command, FRAME, SLOT, PORT, ID, OLT):
         for wanData in result:
             plan = planMap[str(wanData["RX"])]
             STATE = "used" if wanData["ID"] == activeVlan else wanData["STATE"] if activeVlan == None else "not used"
-            prov = wanMapper[OLT][f"{wanData['ID']}"]
+            prov = wanMapper[client["olt"]][f"{wanData['ID']}"]
             WAN.append(
                 {"vlan": wanData["ID"], "spid": wanData["SPID"], "state": STATE, "plan_name": f"{plan}_{prov}"})
         return (IPADDRESS, WAN)

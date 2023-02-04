@@ -32,7 +32,8 @@ def cpdc(comm, command, quit, olt, action):
     clientList = []
     print(f"the total # of clients @ port {clients[0]['frame']}/{clients[0]['slot']}/{clients[0]['port']} is : {len(clients)}")
     for client in clients:
-        (_, WAN) = wan(comm,command,client['frame'], client['slot'],client['port'], client['onu_id'], olt)
+        client["olt"] = olt
+        (_, WAN) = wan(comm,command,client)
         data = client.copy()
         print(f"{client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']}")
         for idx,wanData in enumerate(WAN):

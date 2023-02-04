@@ -1,4 +1,5 @@
 from helpers.clientFinder.dataLookup import dataLookup
+from helpers.clientFinder.lookup import lookup
 from helpers.clientFinder.nameLookup import nameLookup
 from helpers.operations.addHandler import addOnuServiceNew
 from helpers.utils.display import display
@@ -18,11 +19,7 @@ def existingLookup(comm, command, quit, olt, action):
     lookupType = inp(
         "Buscar cliente por serial, por nombre o por Datos (F/S/P/ID) [S | N | D] : "
     )
-    client = (
-        dataLookup(comm, command, olt, lookupType)
-        if lookupType != "N"
-        else nameLookup(comm, command, quit)
-    )
+    client = lookup(comm, command, olt, lookupType)
 
     if client["fail"] != None:
         log(colorFormatter(client["fail"], "fail"))

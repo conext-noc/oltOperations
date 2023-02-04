@@ -22,14 +22,13 @@ existing = {
 
 # improve this to return an object
 
-def serialSearch(comm, command, SN):
-    FAIL = None
-    command(f"display ont info by-sn {SN} | no-more")
+def serialSearch(comm, command, data):
+    command(f"display ont info by-sn {data['sn']} | no-more")
     sleep(3)
     val = decoder(comm)
     regex = checkIter(val,existingCond)
-    FAIL = failChecker(val)
-    if FAIL == None:
+    data["fail"] = failChecker(val)
+    if data["fail"] == None:
         (_, s) = regex[0]
         (e, _) = regex[len(regex) - 1]
         value = val[s:e]
@@ -38,23 +37,27 @@ def serialSearch(comm, command, SN):
         reFSP = checkIter(valFSP, "/")
         (_, eSLOT) = reFSP[0]
         (_, ePORT) = reFSP[1]
-        SLOT = valFSP[eSLOT : eSLOT + 1].replace("\n", "")
-        PORT = valFSP[ePORT : ePORT + 2].replace("\n", "")
         (_, eID) = check(value, existing["ONTID"]).span()
         (_, sDESC) = check(value, existing["DESC"]).span()
         (eDESC, sLDC) = check(value, existing["LDC"]).span()
-        (eLDC,sLDT) = check(value, existing["LUT"]).span()
+        (eLDC,_) = check(value, existing["LUT"]).span()
+        (_,sLDT) = check(value, existing["LDT"]).span()
+        (eLDT,_) = check(value, existing["LDGT"]).span()
         (_, sCF) = check(value, existing["CF"]).span()
         (eCF, sRE) = check(value, existing["RE"]).span()
         (eRE, _) = check(value, existing["CS"]).span()
-        FRAME = 0
-        ID = value[eID : eID + 3].replace("\n", "")
-        NAME = sub(" +", " ", value[sDESC:eDESC]).replace("\n", "")
-        STATE = value[sCF:eCF].replace("\n", "")
-        STATUS = value[sRE:eRE]
-        LDC = value[sLDC:eLDC]
-        data = {"frame":FRAME, "slot":SLOT, "port":PORT,"onu_id":ID}
-        ONT_TYPE = typeCheck(comm,command,data)
-        return (FRAME, SLOT, PORT, ID, NAME,STATUS, STATE,ONT_TYPE,LDC, FAIL)
-    else:
-        return (None, None, None, None, None, None,None,None,None, FAIL)
+
+        data["frame"]="0"
+        data["slot"]= valFSP[eSLOT : eSLOT + 1].replace("\n", "")
+        data["port"]= valFSP[ePORT : ePORT + 2].replace("\n", "")
+        data["onu_id"]=value[eID : eID + 3].replace("\n", "")
+        data["name"]=sub(" +", " ", value[sDESC:eDESC]).replace("\n", "")
+        data["control_flag"]=value[sCF:eCF].replace("\n", "")
+        data["run_state"]=value[sRE:eRE]
+        data["device"]=None
+        data["last_down_cause"]=value[sLDC:eLDC].replace("\n", "").replace("\r", "")
+        data["last_down_date"]=value[sLDT:eLDT][:10].replace("\n", "").replace("\r", "")
+        data["last_down_time"]=value[sLDT:eLDT][11:].replace("\n", "").replace("\r", "")
+        data["device"] = typeCheck(comm,command,data)
+    
+    return data

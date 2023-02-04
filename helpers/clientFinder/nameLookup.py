@@ -14,9 +14,8 @@ newCondSn = "Ont SN              : "
 newCondTime = "Ont autofind time   : "
 
 
-def nameLookup(comm, command, quit):
+def nameLookup(comm, command, NAME):
     clients = []
-    NAME = inp("Ingrese el Nombre del Cliente a buscar : ")
     command(f'display ont info by-desc "{NAME}" | no-more ')
     sleep(5)
     value = decoder(comm)
@@ -50,17 +49,17 @@ def nameLookup(comm, command, quit):
 
         # data parsing
         for (name, status) in zip(names, statuses):
+            print(name)
             clients.append({
                 "frame": "0",
                 "slot": name["slot/port"].split("/")[0],
                 "port": name["slot/port"].split("/")[1],
-                "id": str(name["onu_id"])[:-2],
-                "name": f'{name["first_name"]} {name["last_name"]} {name["contract"]}',
+                "id": str(name["onu_id"])[:-2] if "." in str(name["onu_id"]) else str(name["onu_id"]),
+                "name": f'{name["first_name"]} {name["last_name"]} {str(name["contract"]).zfill(10)}',
                 "state": status["state"],
                 "status": status["status"],
                 "sn": status["sn"]
             })
-        quit()
         return {
             "data": clients,
             "fail": FAIL

@@ -17,9 +17,11 @@ def display(data, tp):
     |ID                  :   {data["onu_id"]}
     |NAME                :   {data["name"]}
     |SN                  :   {data["sn"]}
-    |STATE               :   {data["state"]}
-    |STATUS              :   {data["status"]}
+    |CONTROL FLAG        :   {data["control_flag"]}
+    |RUN STATE           :   {data["run_state"]}
     |LAST DOWN CAUSE     :   {data["last_down_cause"]}
+    |LAST DOWN TIME      :   {data["last_down_time"]}
+    |LAST DOWN DATE      :   {data["last_down_date"]}
     |ONT TYPE            :   {data["device"]}
     |TEMPERATURA         :   {data["temp"]}
     |POTENCIA            :   {data["pwr"]}
@@ -40,15 +42,15 @@ def display(data, tp):
         proceed = True if val == "Y" and tp == "A" else False
     if tp == "I":
         str1 = f"""
-    FRAME               :   {data["frame"]}
-    SLOT                :   {data["slot"]}
-    PORT                :   {data["port"]}
-    ID                  :   {data["onu_id"]}
-    SN                  :   {data["sn"]}
-    ONT TYPE            :   {data["device"]}
-    NAME                :   {data["name"]}
-    STATE               :   {data["state"]}
-    STATUS              :   {data["status"]}
+    |FRAME               :   {data["frame"]}
+    |SLOT                :   {data["slot"]}
+    |PORT                :   {data["port"]}
+    |ID                  :   {data["onu_id"]}
+    |SN                  :   {data["sn"]}
+    |ONT TYPE            :   {data["device"]}
+    |NAME                :   {data["name"]}
+    |CONTROL FLAG        :   {data["control_flag"]}
+    |RUN STATE           :   {data["run_state"]}
                     """
         log(colorFormatter(str1, "ok"))
         val = inp("desea continuar? [Y|N] : ").upper()
