@@ -21,7 +21,7 @@ def olt():
     """
     oltOptions = ["1", "2", "3"]
     olt = inp("Seleccione la OLT [1 | 2 | 3] : ").upper()
-    debugging = input('Desea debbug los comandos [mostrar comandos]? (y/n): ').lower().strip() == 'y'
+    debugging = input('Enable debug [mostrar comandos]? (y/n): ').lower().strip() == 'y'
     if olt in oltOptions:
         ip = devices[f"OLT{olt}"]
         (comm, command, quit) = ssh(ip, debugging)
