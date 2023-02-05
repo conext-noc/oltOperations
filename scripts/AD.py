@@ -38,8 +38,8 @@ def upgradeData(comm, command, quit, olt, action):
         command(f"interface gpon {client['frame']}/{client['slot']}")
         command(f'ont modify {client["port"]} {client["onu_id"]} desc "{DESC}"')
         command("quit")
-        (_, WAN) = wan(comm, command, client)
-        for wanConf in WAN:
+        (_, client["wan"]) = wan(comm, command, client)
+        for wanConf in client["wan"]:
             command(
                 f"service-port {wanConf['spid']} inbound traffic-table name {client['plan']} outbound traffic-table name {client['plan']}")
             log(colorFormatter(
