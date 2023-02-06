@@ -1,5 +1,4 @@
-from time import sleep
-from helpers.clientFinder.dataLookup import dataLookup
+from helpers.clientFinder.lookup import lookup
 from helpers.operations.addHandler import addOnuServiceNew
 from helpers.operations.spid import spidCalc, verifySPID
 from helpers.utils.display import display
@@ -32,7 +31,7 @@ $ """
     )
     lookupType = inp(
         "Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
-    client = dataLookup(comm, command, olt, lookupType)
+    client = lookup(comm, command, olt, lookupType)
     if client["fail"] == None:
         proceed = display(client, "A")
         if not proceed:
