@@ -1,4 +1,5 @@
 from helpers.clientFinder.dataLookup import dataLookup
+from helpers.clientFinder.lookup import lookup
 from helpers.clientFinder.newLookup import newLookup
 from helpers.clientFinder.ontType import typeCheck
 from helpers.clientFinder.optical import opticalValues
@@ -56,7 +57,7 @@ def confirmNew(comm, command, quit, olt, action):
     elif "P" in action:
         lookupType = inp(
             "Buscar cliente por serial o por Datos de OLT [S | D] : ")
-        client = dataLookup(comm, command, olt, lookupType)
+        client = lookup(comm, command, olt, lookupType)
         if client["fail"] == None:
             proceed = display(client, "I")
             client["nif"] = inp(

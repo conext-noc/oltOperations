@@ -1,4 +1,5 @@
 from helpers.clientFinder.dataLookup import dataLookup
+from helpers.clientFinder.lookup import lookup
 from helpers.failHandler.fail import failChecker
 from helpers.utils.decoder import check, checkIter, decoder
 from helpers.utils.display import display
@@ -20,7 +21,7 @@ def verifyTraffic(comm,command,quit,olt, action):
     speedUpArr = []
     speedDownArr = []
     lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
-    data = dataLookup(comm, command, olt, lookupType)
+    data = lookup(comm, command, olt, lookupType)
     if data["fail"] != None:
         log(colorFormatter(data["fail"], "fail"))
         quit()

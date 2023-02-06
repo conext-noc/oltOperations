@@ -1,5 +1,6 @@
 from tkinter import filedialog
 from helpers.clientFinder.dataLookup import dataLookup
+from helpers.clientFinder.lookup import lookup
 from helpers.fileFormatters.fileHandler import fileToDict
 from helpers.utils.decoder import decoder
 from helpers.utils.display import display
@@ -34,7 +35,7 @@ def operate(comm, command, quit, olt, action):
     elif "U" in action:
         lookupType = inp(
             "Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
-        data = dataLookup(comm, command, olt, lookupType)
+        data = lookup(comm, command, olt, lookupType)
         if data["fail"] == None:
             actionList = [data]
             proceed = display(data, "A")

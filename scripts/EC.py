@@ -1,4 +1,5 @@
 from helpers.clientFinder.dataLookup import dataLookup
+from helpers.clientFinder.lookup import lookup
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.utils.sheets import delete
@@ -15,7 +16,7 @@ def deleteClient(comm, command, quit, olt, action):
     This module deletes a given client
     """
     lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
-    client = dataLookup(comm,command,olt,lookupType)
+    client = lookup(comm,command,olt,lookupType)
     if client["fail"] != None:
         log(colorFormatter(client["fail"], "fail"))
         quit()
