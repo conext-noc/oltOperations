@@ -19,7 +19,6 @@ def verify(lst, action, olt):
             SN = value[clientSN:clientSN+16]
             obj = {
                     "Cliente": client["name"],
-                    "Cliente/NIF":client["Cliente/NIF"],
                     "Referencia":client["Referencia"],
                     "Olt": client["olt"],
                     "Frame": client["frame"],
@@ -27,17 +26,18 @@ def verify(lst, action, olt):
                     "Puerto Olt": client["port"],
                     "Onu ID": client["onu_id"],
                     "Serial del ONT": SN,
-                    "ID externo": client["ID"]
+                    "Identificación externa": client["Identificación externa"],
+                    "ID": client["ID"]
                 }
             if SN != client["sn"]:
                 val = obj
                 log(colorFormatter("ALGO SALIO MAL!", "info"))
                 val['odooSN'] = client['sn']
-                val['Estado del contrato'] = STATUS
+                val['Etapa'] = STATUS
                 clientLst.append(val)
             else:
                 val = obj
-                val['Estado del contrato'] = "Suspendido" if STATUS == "deactivated" else "Activo" if STATUS == "active" else None
+                val['Etapa'] = "Suspendido" if STATUS == "deactivated" else "Activo" if STATUS == "active" else None
                 clientLst.append(val)
                 
     log("Selecciona la carpeta de resultados...")
