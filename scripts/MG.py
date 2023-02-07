@@ -37,11 +37,16 @@ def migration(comm, command, quit, olt, action):
     for client in lst:
         plans = PLANS['1']
 
-        NAME = f'{client["first_name"].upper()} {client["last_name"].upper()} {str(client["contract"]).zfill(10)}'
+        NAME = f'{client["first_name"].upper()} {client["last_name"].upper()} {str(client["contract"])[:-2].zfill(10) if "." in str(client["contract"]) else str(client["contract"]).zfill(10)}'
+        
+        FRAME = str(client["frame"])[:-2] if "." in str(client["frame"]) else str(client["frame"])
+        SLOT = str(client["slot"])[:-2] if "." in str(client["slot"]) else str(client["slot"])
+        PORT = str(client["port"])[:-2] if "." in str(client["port"]) else str(client["port"])
+        ID = str(client["onu_id"])[:-2] if "." in str(client["onu_id"]) else str(client["onu_id"])
 
-        command(f"interface gpon {client['frame']}/{client['slot']}")
+        command(f"interface gpon {FRAME}/{SLOT}")
 
-        command(f'ont add {client["port"]} {client["onu_id"]} sn-auth {client["sn"]} omci ont-lineprofile-id {plans[client["plan_name"]]["line_profile"]} ont-srvprofile-id {plans[client["plan_name"]]["srv_profile"]} desc "{NAME}" ')
+        command(f'ont add {PORT} {ID} sn-auth {client["sn"]} omci ont-lineprofile-id {plans[client["plan_name"]]["line_profile"]} ont-srvprofile-id {plans[client["plan_name"]]["srv_profile"]} desc "{NAME}" ')
 
         SPID = spidCalc(client)["I"]
 
@@ -58,13 +63,13 @@ def migration(comm, command, quit, olt, action):
         command("quit")
 
         command(
-            f' service-port {SPID} vlan {plans[client["plan_name"]]["vlan"]} gpon {client["frame"]}/{client["slot"]}/{client["port"]} ont {client["onu_id"]} gemport {plans[client["plan_name"]]["gem_port"]} multi-service user-vlan {plans[client["plan_name"]]["vlan"]} tag-transform transparent inbound traffic-table index {plans[client["plan_name"]]["plan"]} outbound traffic-table index {plans[client["plan_name"]]["plan"]}')
-        command(f"interface gpon {client['frame']}/{client['slot']}")
+            f' service-port {SPID} vlan {plans[client["plan_name"]]["vlan"]} gpon {client["frame"]}/{client["slot"]}/{PORT} ont {ID} gemport {plans[client["plan_name"]]["gem_port"]} multi-service user-vlan {plans[client["plan_name"]]["vlan"]} tag-transform transparent inbound traffic-table index {plans[client["plan_name"]]["plan"]} outbound traffic-table index {plans[client["plan_name"]]["plan"]}')
+        command(f"interface gpon {FRAME}/{SLOT}")
         command(
             f"ont wan-config {client['port']} {client['onu_id']} ip-index 2 profile-id 0")
         command("quit")
         resp = f"""
-    | {NAME} {client["frame"]}/{client["slot"]}/{client["port"]}/{client["onu_id"]}
+    | {NAME} {client["frame"]}/{client["slot"]}/{PORT}/{ID}
     | {client["plan_name"]}
     Successfully Migrated!
         """
