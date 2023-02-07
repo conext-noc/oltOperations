@@ -31,6 +31,7 @@ def operate(comm, command, quit, olt, action):
         log("Selecciona la lista de clientes...")
         fileName = filedialog.askopenfilename()
         actionList = fileToDict(fileName, fileType)
+        print(actionList)
         proceed = True
     elif "U" in action:
         lookupType = inp(
@@ -45,13 +46,13 @@ def operate(comm, command, quit, olt, action):
 
     if proceed:
         for client in actionList:
-            NAME = client["name"]
-            FRAME = client["frame"]
-            SLOT = client["slot"]
-            PORT = client["port"]
-            ID = client["onu_id"]
-            OLT = client["olt"]
-            SN = client["sn"]
+            NAME = str(client["name"])
+            FRAME = str(client["frame"])[:-2] if "." in str(client["frame"]) else str(client["frame"])
+            SLOT = str(client["slot"])[:-2] if "." in str(client["slot"]) else str(client["slot"])
+            PORT = str(client["port"])[:-2] if "." in str(client["port"]) else str(client["port"])
+            ID = str(client["onu_id"])[:-2] if "." in str(client["onu_id"]) else str(client["onu_id"])
+            OLT = str(client["olt"])[:-2] if "." in str(client["olt"]) else str(client["olt"])
+            SN = str(client["sn"])
             if str(OLT) == str(olt):
                 command(f"interface gpon {FRAME}/{SLOT}")
                 command(f"ont {operation} {PORT} {ID}")

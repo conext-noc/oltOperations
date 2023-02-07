@@ -10,8 +10,8 @@ def verify(lst, action, olt):
     for client in lst:
         if str(client["olt"]) == str(olt):
             value = open(
-                f"{action}_{client['frame']}-{client['slot']}-{client['port']}-{client['id']}_OLT{client['olt']}.txt").read()
-            os.remove(f"{action}_{client['frame']}-{client['slot']}-{client['port']}-{client['id']}_OLT{client['olt']}.txt")
+                f"{action}_{client['frame']}-{client['slot']}-{client['port']}-{client['onu_id']}_OLT{client['olt']}.txt").read()
+            os.remove(f"{action}_{client['frame']}-{client['slot']}-{client['port']}-{client['onu_id']}_OLT{client['olt']}.txt")
             (_, sStatus) = check(value, "Control flag            : ").span()
             (eStatus, _) = check(value, "Run state").span()
             (_, clientSN) = check(value, "SN                      : ").span()
