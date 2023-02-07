@@ -35,8 +35,9 @@ def wan(comm, command, client):
             plan = planMap[str(wanData["RX"])]
             STATE = "used" if wanData["ID"] == activeVlan else wanData["STATE"] if activeVlan == None else "not used"
             prov = wanMapper[client["olt"]][f"{wanData['ID']}"]
+            PROVIDER = "INTER" if prov == "1" else "2" if prov == "2" else "PUBLICAS"
             WAN.append(
-                {"vlan": wanData["ID"], "spid": wanData["SPID"], "state": STATE, "plan_name": f"{plan}_{prov}"})
+                {"vlan": wanData["ID"], "spid": wanData["SPID"], "state": STATE, "plan_name": f"{plan}_{prov}", "provider": PROVIDER})
         return (IPADDRESS, WAN)
     else:
         FAIL = failSpid

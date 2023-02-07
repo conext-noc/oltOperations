@@ -1,9 +1,7 @@
-from helpers.clientFinder.dataLookup import dataLookup
 from helpers.clientFinder.lookup import lookup
-from helpers.clientFinder.nameLookup import nameLookup
-from helpers.operations.addHandler import addOnuServiceNew
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
+from helpers.utils.template import approvedDis
 
 
 def existingLookup(comm, command, quit, olt, action):
@@ -46,6 +44,8 @@ def existingLookup(comm, command, quit, olt, action):
         return
 
     display(client, "B")
+    displayTemplate = inp("Desea la plantilla de datos operacionales? [Y/N] : ").upper().strip() == 'Y'
+    approvedDis(client) if displayTemplate else None
     # add wan profile if not exist
     # if client["wan"][0]["spid"] == None:
     #     addOnuServiceNew(comm, command, client)

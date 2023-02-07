@@ -35,3 +35,12 @@ def denied(data, reason):
     |POTENCIA    :   {data['pwr']}
     |RAZÓN       :   {reason}"""
     log(colorFormatter(template, "warning"))
+
+def approvedDis(data):
+    template = f"""
+    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['onu_id']} 
+    |OLT  {data['olt']}  {data["wan"][0]["provider"]}  {data["wan"][0]["plan_name"]}
+    |TEMPERATURA :   {data['temp']}
+    |POTENCIA    :   {data['pwr']}
+    |SPID        :   {data["wan"][0]["spid"]}"""
+    log(colorFormatter(template, "success"))
