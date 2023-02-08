@@ -34,8 +34,8 @@ def portOperation(comm, command, quit, olt, action):
         totalDeactM2M = 0
         totalDeactClients = 0
         log(
-            "| {:^15} | {:^6} | {:^40} | {:^11} | {:^7} | {:^15} | {:^6} | {:^24} | {:^24} | {:^10} | {:^16} |".format(
-                "frame/slot/port",
+            "| {:^6} | {:^6} | {:^40} | {:^11} | {:^7} | {:^15} | {:^6} | {:^24} | {:^24} | {:^10} | {:^16} |".format(
+                "f/s/p",
                 "onu_id",
                 "name",
                 "state",
@@ -51,7 +51,7 @@ def portOperation(comm, command, quit, olt, action):
         for client in clients:
             FSP = client["fsp"]
             ID = client["onu_id"]
-            NAME = client["name"]
+            NAME = client["name"][:40]
             STATUS = str(client["status"]).replace(" ", "").replace(" \n", "")
             STATE = client["state"]
             CF = client["state"]
@@ -62,7 +62,7 @@ def portOperation(comm, command, quit, olt, action):
             DATE = client["last_down_date"]
             PWR = client["pwr"]
             CT = f"{DATE} {TIME}"
-            resp = "| {:^6} | {:^3} | {:^56} | {:^11} | {:^10} | {:^15} | {:^6} | {:^10} | {:^10} | {:^10} | {:^16} |".format(
+            resp = "| {:^6} | {:^6} | {:^40} | {:^11} | {:^7} | {:^15} | {:^6} | {:^24} | {:^24} | {:^10} | {:^16} |".format(
                 FSP, ID, NAME, STATE, STATUS, CAUSE,PWR, TIME, DATE, TP, SN
             )
             if action == "VP":
