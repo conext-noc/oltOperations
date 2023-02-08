@@ -24,6 +24,7 @@ Que cambio se realizara?
   > (CT)    :   Cambiar Titular
   > (CO)    :   Cambiar ONT
   > (CP)    :   Cambiar Plan & Vlan
+  > (CV)    :   Cambiar Proveedor
   > (ES)    :   Eliminar Service Port
   > (AS)    :   Agregar Service Port
   > (AV)    :   Agregar Voip [Solo OLT 1 (X15 nueva)]
@@ -115,7 +116,21 @@ $ """
             )
             quit()
             return
-            
+        if action == "CV":
+            for wanData in client["wan"]:
+                command(f"undo service-port {wanData['spid']}")
+            client['plan_name'] = inp("Ingrese el Nuevo plan a instalar : ")
+            client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
+            addOnuServiceNew(comm, command, client)
+            verifySPID(comm, command, client)
+            log(
+                colorFormatter(
+                    f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha Agregado el plan y vlan a {client['plan_name']} @ {client['wan'][0]['vlan']}",
+                    "info",
+                )
+            )
+            quit()
+            return
         if action == "AV":
             client["wan"][0]["spid"] = spidCalc(client)["V"]
             log(colorFormatter(
