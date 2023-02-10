@@ -28,3 +28,36 @@
 
 
 ####################             IN MAINTANCE             ####################
+
+from tkinter import filedialog
+from helpers.fileFormatters.fileHandler import dictToFile, fileToDict
+
+
+def compare():
+  fileOLT = "./DATA_DE_CLIENTES_OLT.xlsx"
+  fileODOO = "./DATA_DE_CLIENTES_ODOO.xlsx"
+  olt = fileToDict(fileOLT, "E")
+  odoo = fileToDict(fileODOO, "E")
+  print(olt[0])
+  print(odoo[0])
+  client = []
+  for odooClient in odoo:
+    for oltClient in olt:
+      if oltClient["sn"] == odooClient["Serial del ONT"]:
+        client.append({
+          "name": odooClient["Cliente"],
+          "contract": str(odooClient["Referencia"]).zfill(10),
+          "ID externo": odooClient["ID.1"],
+          "frame":oltClient["frame"],
+          "slot":oltClient["slot"],
+          "port":oltClient["port"],
+          "onu_id":oltClient["onu_id"],
+          "device":oltClient["device"],
+          "sn":oltClient["sn"],
+          "state":oltClient["state"],
+          "olt": "La Lago"
+        })
+  print("Selecciona la carpeta de resultados...")
+  path = filedialog.askdirectory()
+  dictToFile("RESULTADO", "E", path, client, False)
+compare()

@@ -19,8 +19,8 @@ def fileToDict(fileName, fileType):
 def dictToFile(fileName, fileType, path, data, show):
   value = pd.DataFrame.from_records(data)
   resPath = f"{path}/" if show else ""
-  value.to_csv(f"{resPath}/{fileName}.csv",
-                index=None) if fileType == "C" else value.to_excel(f"{resPath}/{fileName}.xlsx")
+  value.to_csv(f"{resPath}{fileName}.csv",
+                index=None) if fileType == "C" else value.to_excel(f"{resPath}{fileName}.xlsx")
 
 def dataToDict(header, data):
   value = re.sub(" +", " ", data).replace(" ", ",")
