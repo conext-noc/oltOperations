@@ -31,7 +31,6 @@ def operate(comm, command, quit, olt, action):
         log("Selecciona la lista de clientes...")
         fileName = filedialog.askopenfilename()
         actionList = fileToDict(fileName, fileType)
-        print(actionList)
         proceed = True
     elif "U" in action:
         lookupType = inp(

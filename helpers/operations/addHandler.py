@@ -63,10 +63,10 @@ def addOnuServiceNew(comm, command, data):
         f"ont policy-route-config {data['port']} {data['onu_id']} profile-id {profileId}")
 
     command("quit")
-    command(f"""service-port 
-{data['wan'][0]['spid']} vlan {data['wan'][0]['vlan']} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['onu_id']} gemport {data["wan"][0]['gem_port']} multi-service user-vlan {data['wan'][0]['vlan']} tag-transform transparent inbound traffic-table index {data["wan"][0]["plan"]} outbound traffic-table index {data["wan"][0]["plan"]}"""
+    command(f"""service-port {data['wan'][0]['spid']} vlan {data['wan'][0]['vlan']} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['onu_id']} gemport {data["wan"][0]['gem_port']} multi-service user-vlan {data['wan'][0]['vlan']} tag-transform transparent inbound traffic-table index {data["wan"][0]["plan"]} outbound traffic-table index {data["wan"][0]["plan"]}"""
             )
     output = decoder(comm)
+    # print(output)
     # IPADDRESS = None
     # while IPADDRESS == None:
     #     (IPADDRESS, _) = wan(comm, command, data['frame'], data['slot'], data['port'], data['onu_id'], data['olt'])
