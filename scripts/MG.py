@@ -19,7 +19,6 @@ def migration(comm, command, quit, olt, action):
     {
       "first_name",
       "last_name",
-      "nif",
       "contract",
       "olt",
       "frame",
