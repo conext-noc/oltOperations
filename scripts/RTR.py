@@ -1,5 +1,4 @@
 from time import sleep
-from beeprint import pp
 from helpers.info.hashMaps import devices
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.utils.decoder import checkIter, decoder
