@@ -1,4 +1,5 @@
 from time import sleep
+from beeprint import pp
 from helpers.info.hashMaps import devices
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.utils.decoder import checkIter, decoder
@@ -41,35 +42,32 @@ def rtr():
                 log(res)
             quit()
         if "A" in rt:
-            pool = devices[f"RTR{rt}"]["pool"]
+            dhcp = devices[f"RTR{rt}"]["pool"]
             sectionMapper = devices[f"RTR{rt}"]["section"]
             sections = []
             ranges = []
-            ipAddressess = []
-            command("sys")
-            command(f"ip pool dhcp_server_residencial_{pool} server")
-            command(f"display ip pool name dhcp_server_residencial_{pool} conflict decline | no-more")
-            value = decoder(comm)
-            regex = checkIter(value,rtrConflicts["condition"])
-            (_,start) = regex[1]
-            (end,_) = regex[2]
-            summary = dataToDict(rtrConflicts["headerConf"], value[start:end])
-            for idx, section in enumerate(summary):
-                log(colorFormatter(f"En segmento {idx + 1} hay {section['conflict']} conflictos", "info"))
-                if int(section["conflict"]) > 0:
-                    sections.append(sectionMapper[str(idx + 1)])
-            for section in sections:
-                (_,start) = regex[section["start"]]
-                (end,_) = regex[section["end"]]
-                data = dataToDict(rtrConflicts["headerSect"], value[start:end])
-                ranges.append(data)
+            for pool in dhcp:
+                command(f"ip pool dhcp_server_{pool} server")
+                command(f"display ip pool name dhcp_server_{pool} conflict decline | no-more")
+                value = decoder(comm)
+                regex = checkIter(value,rtrConflicts["condition"])
+                (_,start) = regex[1]
+                (end,_) = regex[2]
+                summary = dataToDict(rtrConflicts["headerConf"], value[start:end])
+                sections.append({f"{pool}":summary,"value":value, "regex": regex})
+            for section, pool in zip(sections,dhcp):
+                for idx, st in enumerate(section[pool]):
+                    log(colorFormatter(f"En segmento {idx + 1} del pool [{pool}] hay {st['conflict']} conflictos", "info"))
+                    if int(st["conflict"]) > 0:
+                        (_,start) = section["regex"][sectionMapper[str(idx + 1)]["start"]]
+                        (end,_) = section["regex"][sectionMapper[str(idx + 1)]["end"]]
+                        data = dataToDict(rtrConflicts["headerSect"], section["value"][start:end])
+                        ranges.append({"data":data, "pool": pool})
             for rg in ranges:
-                for ipAddStatus in rg:
-                    ipAddressess.append(ipAddStatus["ip"])
-                    
-            for ip in ipAddressess:
-                command(f"reset conflict-ip-address {ip}")
-                log(colorFormatter(f"Conflicto eliminado en la ip {ip}", "success"))
+                command(f"ip pool dhcp_server_{rg['pool']} server")
+                for address in rg["data"]:
+                    command(f"reset conflict-ip-address {address['ip']}")
+                    log(colorFormatter(f"Conflicto eliminado en la ip {address['ip']}", "success"))
             quit()
     else:
         resp = colorFormatter(
