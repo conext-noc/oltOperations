@@ -17,6 +17,11 @@ def portOperation(comm, command, quit, olt, action):
     keep = True
     lst = []
     portCount = []
+    vp_active_cnt = 0
+    vp_deactive_cnt = 0
+    vp_los_cnt = 0
+    vp_off_cnt = 0
+    vp_ttl = 0
     if action == "VP":
         FRAME = inp("Ingrese frame de cliente  : ")
         SLOT = inp("Ingrese slot de cliente   : ")
@@ -66,9 +71,12 @@ def portOperation(comm, command, quit, olt, action):
                 FSP, ID, NAME, STATE, STATUS, CAUSE,PWR, TIME, DATE, TP, SN
             )
             if action == "VP":
+                vp_ttl += 1
                 if CF == "active":
+                    vp_active_cnt += 1
                     if STATUS == "offline":
                         if CAUSE == "LOSi/LOBi" or CAUSE == "LOS":
+                            vp_los_cnt += 1
                             CT = f"{DATE} {TIME}"
                             if str(TIME) != "nan" and str(TIME) != "-":
                                 t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
@@ -79,6 +87,7 @@ def portOperation(comm, command, quit, olt, action):
                                 color = "warning"
                         elif CAUSE == "dying-gasp":
                             color = "off"
+                            vp_off_cnt += 1
                         elif CAUSE == "nan":
                             color = "problems"
                         elif (
@@ -91,6 +100,7 @@ def portOperation(comm, command, quit, olt, action):
                     else:
                         color = "activated"
                 else:
+                    vp_deactive_cnt += 1
                     color = "suspended"
                 log(colorFormatter(resp, color))
             if action == "CA":
@@ -123,6 +133,15 @@ def portOperation(comm, command, quit, olt, action):
                             totalDeactM2M += 1
                     resp = colorFormatter(resp, color)
                     log(resp)
+        log(f"""
+En el puerto {FSP}:
+El total del clientes en el puerto es       :   {vp_ttl}
+El total del clientes activos es            :   {vp_active_cnt}
+El total del clientes desactivados es       :   {vp_deactive_cnt}
+El total del clientes activos en corte es   :   {vp_los_cnt}
+El total del clientes activos apagados es   :   {vp_off_cnt}
+
+                    """) if action == "VP" else None
         preg = inp("continuar? [Y | N] : ") if action == "VP" else None
         FRAME = inp("Ingrese frame de cliente  : ") if action == "VP" and preg == "Y" else None
         SLOT = inp("Ingrese slot de cliente   : ") if action == "VP" and preg == "Y" else None
