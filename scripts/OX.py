@@ -58,10 +58,10 @@ def operate(comm, command, quit, olt, action):
                 command(f"display ont info {PORT} {ID}")
                 command("q")
 
-                log(colorFormatter("""
-    |{} 
-    |{}/{}/{}/{} @ OLT {} - {}
-    """.format(NAME, FRAME, SLOT, PORT, ID, OLT, resultedAction), "success"))
+                log(colorFormatter(f"""
+    |{NAME} 
+    |{FRAME}/{SLOT}/{PORT}/{ID} @ OLT {OLT} - {resultedAction}
+    """, "success"))
                 output = decoder(comm)
                 if "U" not in action:
                     file = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
