@@ -143,6 +143,11 @@ El total del clientes activos apagados es   :   {vp_off_cnt}
 
                     """) if action == "VP" else None
         preg = inp("continuar? [Y | N] : ") if action == "VP" else None
+        vp_active_cnt = 0
+        vp_deactive_cnt = 0
+        vp_los_cnt = 0
+        vp_off_cnt = 0
+        vp_ttl = 0
         FRAME = inp("Ingrese frame de cliente  : ") if action == "VP" and preg == "Y" else None
         SLOT = inp("Ingrese slot de cliente   : ") if action == "VP" and preg == "Y" else None
         PORT = inp("Ingrese puerto de cliente : ") if action == "VP" and preg == "Y" else None
