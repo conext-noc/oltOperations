@@ -44,3 +44,19 @@ def approvedDis(data):
     |POTENCIA    :   {data['pwr']}
     |SPID        :   {data["wan"][0]["spid"]}"""
     log(colorFormatter(template, "success"))
+    
+def change(data, changeType, newVal):
+    types = {
+        "CP": "cambiado el Plan a",
+        "CT": "cambiado el Nombre a",
+        "CO": "cambiado el ONT a",
+        "CV": "cambiado el Proveedor a",
+        "ES": "Elimiado el SPID",
+        "AS": "Agregado el plan y vlan a",
+    }
+    msg = """
+    |Al cliente {}
+    |{}/{}/{}/{}
+    |se le ha {} '{}'
+    """.format(data["name"], data["frame"], data["slot"], data["port"], data["onu_id"],types[changeType],newVal)
+    return msg

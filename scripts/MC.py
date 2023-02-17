@@ -2,6 +2,7 @@ from helpers.clientFinder.lookup import lookup
 from helpers.operations.addHandler import addOnuServiceNew
 from helpers.operations.spid import spidCalc, verifySPID
 from helpers.utils.display import display
+from helpers.utils.template import change
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.info.plans import PLANS
 from helpers.utils.sheets import modify
@@ -44,12 +45,8 @@ $ """
             command(f"interface gpon {client['frame']}/{client['slot']}")
             command(f'ont modify {client["port"]} {client["onu_id"]} desc "{NEW_NAME}" ')
             command("quit")
-            log(
-                colorFormatter(
-                    f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha cambiado el nombre a '{NEW_NAME}'",
-                    "success",
-                )
-            )
+            msg = change(client,action,NEW_NAME)
+            log(colorFormatter(msg,"success"))
             modify(client["sn"], NEW_NAME, "NAME")
             quit()
             return
@@ -58,12 +55,8 @@ $ """
             command(f"interface gpon {client['frame']}/{client['slot']}")
             command(f'ont modify {client["port"]} {client["onu_id"]} sn "{NEW_SN}" ')
             command("quit")
-            log(
-                colorFormatter(
-                    f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha cambiado el serial a '{NEW_SN}'",
-                    "success",
-                )
-            )
+            msg = change(client,action,NEW_SN)
+            log(colorFormatter(msg,"success"))
             modify(client["sn"], NEW_SN, "SN")
             quit()
             return
@@ -78,12 +71,8 @@ $ """
             command("quit")
             addOnuServiceNew(comm, command, client)
             verifySPID(comm, command, client)
-            log(
-                colorFormatter(
-                    f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha Cambiado el plan y vlan a {client['plan_name']} @ {client['wan'][0]['vlan']}",
-                    "success",
-                )
-            )
+            msg = change(client,action,client['plan_name'])
+            log(colorFormatter(msg,"success"))
             modify(client["sn"], client['plan_name'], "PLAN")
             modify(client["sn"], client['wan'][0]['vlan'], "PROVIDER")
             quit()
@@ -95,12 +84,8 @@ $ """
                     idx, wan["vlan"], wan["spid"]))
             DEL_SPID = int(inp("Ingrese el SPID a eliminar : "))
             command(f"undo service-port {DEL_SPID}")
-            log(
-                colorFormatter(
-                    f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha eliminado el SPID {DEL_SPID}",
-                    "info",
-                )
-            )
+            msg = change(client,action,DEL_SPID)
+            log(colorFormatter(msg,"info"))
             quit()
             return
         if action == "AS":
@@ -108,12 +93,9 @@ $ """
             client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
             addOnuServiceNew(comm, command, client)
             verifySPID(comm, command, client)
-            log(
-                colorFormatter(
-                    f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha Agregado el plan y vlan a {client['plan_name']} @ {client['wan'][0]['vlan']}",
-                    "info",
-                )
-            )
+            newVal = f"{client['plan_name']} @ {client['wan'][0]['vlan']}"
+            msg = change(client,action,newVal)
+            log(colorFormatter(msg,"info"))
             quit()
             return
         if action == "CV":
@@ -123,12 +105,8 @@ $ """
             client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
             addOnuServiceNew(comm, command, client)
             verifySPID(comm, command, client)
-            log(
-                colorFormatter(
-                    f"Al cliente {client['name']} {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} se le ha Agregado el plan y vlan a {client['plan_name']} @ {client['wan'][0]['vlan']}",
-                    "info",
-                )
-            )
+            msg = change(client,action,client['plan_name'])
+            log(colorFormatter(msg,"info"))
             quit()
             return
         if action == "AV":
