@@ -29,8 +29,16 @@ def addONUNew(comm, command, data):
 
 
 def addOnuServiceNew(comm, command, data):
+    ###########         OLD          ###########
     data["wan"][0]["spid"] = spidCalc(data)["I"] if "_IP" not in data["plan_name"] and data["olt"] == "1" else spidCalc(
         data)["P"] if "_IP" in data["plan_name"] and data["olt"] == "1" else availableSpid(comm, command)
+    ###########         OLD          ###########
+    
+    
+    ###########			IP MIGRATIONS    		 ###########
+    # data["wan"][0]["spid"] = spidCalc(data)["I"] if "_IP" not in data["plan_name"] else spidCalc(data)["P"]
+    ###########			IP MIGRATIONS    		 ###########
+    
 
     log(
         colorFormatter(
@@ -50,22 +58,34 @@ def addOnuServiceNew(comm, command, data):
     IPADD = inp(
         "Ingrese la IPv4 Publica del cliente : ") if "_IP" in data["plan_name"] else None
 
+    ###########         OLD          ###########
     command(
         f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']}"
     ) if "_IP" not in data["plan_name"] else command(f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 static ip-address {IPADD} mask 255.255.255.128 gateway 181.232.181.129 pri-dns 9.9.9.9 slave-dns 149.112.112.112 vlan 102") if "_IP" in data["plan_name"] and data["olt"] == "1" else None
+    ###########         OLD          ###########
+    
+    
+    ###########			IP MIGRATIONS    		 ###########
+    # command(f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']}") if "_IP" not in data["plan_name"] else command(f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 static ip-address {IPADD} mask 255.255.255.128 gateway 181.232.181.129 pri-dns 9.9.9.9 slave-dns 149.112.112.112 vlan 102")
+    ###########			IP MIGRATIONS    		 ###########
 
-    command(
-        f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
+    command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
 
+    ###########         OLD          ###########
     profileId = "2" if data["olt"] == "1" else "1"
+    ###########         OLD          ###########
+    
+    
+    ###########			IP MIGRATIONS    		 ###########
+    # profileId = "2"
+    ###########			IP MIGRATIONS    		 ###########
 
-    command(
-        f"ont policy-route-config {data['port']} {data['onu_id']} profile-id {profileId}")
+    command(f"ont policy-route-config {data['port']} {data['onu_id']} profile-id {profileId}")
 
     command("quit")
     command(f"""service-port {data['wan'][0]['spid']} vlan {data['wan'][0]['vlan']} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['onu_id']} gemport {data["wan"][0]['gem_port']} multi-service user-vlan {data['wan'][0]['vlan']} tag-transform transparent inbound traffic-table index {data["wan"][0]["plan"]} outbound traffic-table index {data["wan"][0]["plan"]}"""
             )
-    output = decoder(comm)
+    # output = decoder(comm)
     # print(output)
     # IPADDRESS = None
     # while IPADDRESS == None:

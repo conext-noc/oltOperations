@@ -37,12 +37,16 @@ def confirmNew(comm, command, quit, olt, action):
 
             client["plan_name"] = inp("Ingrese plan del cliente : ")
 
-            client["line_profile"] = PLANS[client["olt"]
-                                           ][client["plan_name"]]["line_profile"]
-            client["srv_profile"] = PLANS[client["olt"]
-                                          ][client["plan_name"]]["srv_profile"]
-
+            ###########	OLD      ###########
+            client["line_profile"] = PLANS[client["olt"]][client["plan_name"]]["line_profile"]
+            client["srv_profile"] = PLANS[client["olt"]][client["plan_name"]]["srv_profile"]
             client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
+            
+            ###########			IP MIGRATIONS    		 ###########
+            # client["line_profile"] = PLANS[client["plan_name"]]["line_profile"]
+            # client["srv_profile"] = PLANS[client["plan_name"]]["srv_profile"]
+            # client["wan"][0] = PLANS[client["plan_name"]]
+            ###########			IP MIGRATIONS    		 ###########
 
             client["name"] = inp("Ingrese nombre del cliente : ")[:56]
             client["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ")
@@ -65,12 +69,16 @@ def confirmNew(comm, command, quit, olt, action):
 
             client["plan_name"] = inp("Ingrese plan del cliente : ")
 
-            client["line_profile"] = PLANS[client["olt"]
-                                           ][client["plan_name"]]["line_profile"]
-            client["srv_profile"] = PLANS[client["olt"]
-                                          ][client["plan_name"]]["srv_profile"]
-
+            ###########	OLD      ###########
+            client["line_profile"] = PLANS[client["olt"]][client["plan_name"]]["line_profile"]
+            client["srv_profile"] = PLANS[client["olt"]][client["plan_name"]]["srv_profile"]
             client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
+            
+            ###########			IP MIGRATIONS    		 ###########
+            # client["line_profile"] = PLANS[client["plan_name"]]["line_profile"]
+            # client["srv_profile"] = PLANS[client["plan_name"]]["srv_profile"]
+            # client["wan"][0] = PLANS[client["plan_name"]]
+            ###########			IP MIGRATIONS    		 ###########
 
             command(
                 f"ont modify {client['port']} {client['onu_id']} ont-lineprofile-id {client['line_profile']}")

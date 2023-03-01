@@ -64,8 +64,15 @@ $ """
             for wanData in client["wan"]:
                 command(f"undo service-port {wanData['spid']}")
             client['plan_name'] = inp("Ingrese el Nuevo plan a instalar : ")
-            client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
             command(f"interface gpon {client['frame']}/{client['slot']}")
+            ###########         OLD          ###########
+            client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
+            ###########         OLD          ###########
+    
+    
+            ###########			IP MIGRATIONS    		 ###########
+            # client["wan"][0] = PLANS[client["plan_name"]]
+            ###########			IP MIGRATIONS    		 ###########
             command(f"ont modify {client['port']} {client['onu_id']} ont-lineprofile-id {client['wan'][0]['line_profile']}")
             command(f"ont modify {client['port']} {client['onu_id']} ont-srvprofile-id {client['wan'][0]['srv_profile']}")
             command("quit")
@@ -102,7 +109,14 @@ $ """
             for wanData in client["wan"]:
                 command(f"undo service-port {wanData['spid']}")
             client['plan_name'] = inp("Ingrese el Nuevo plan a instalar : ")
+            ###########         OLD          ###########
             client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
+            ###########         OLD          ###########
+    
+    
+            ###########			IP MIGRATIONS    		 ###########
+            # client["wan"][0] = PLANS[client["plan_name"]]
+            ###########			IP MIGRATIONS    		 ###########
             addOnuServiceNew(comm, command, client)
             verifySPID(comm, command, client)
             msg = change(client,action,client['plan_name'])
