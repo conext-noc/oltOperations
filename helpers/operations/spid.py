@@ -1,3 +1,4 @@
+from time import sleep
 from helpers.utils.decoder import decoder, check, checkIter
 from helpers.failHandler.fail import failChecker
 from helpers.utils.printer import log, colorFormatter
@@ -19,9 +20,10 @@ spidCheck = {
 }
 
 
-def ontSpid(comm, command, FRAME, SLOT, PORT, ID):
+def ontSpid(comm, command, client):
     command(
-        f" display  service-port  port  {FRAME}/{SLOT}/{PORT}  ont  {ID}  |  no-more")
+        f"display service-port port {client['frame']}/{client['slot']}/{client['port']} ont {client['onu_id']}  |  no-more")
+    sleep(2)
     value = decoder(comm)
     fail = failChecker(value)
     if fail == None:
@@ -84,7 +86,7 @@ STATE           :   {}
 
 def spidCalc(data):
     SPID = 12288*(int(data["slot"]) - 1) + 771 * \
-        int(data["port"]) + 3 * int(data["id"])
+        int(data["port"]) + 3 * int(data["onu_id"])
     return {
         "I": SPID,
         "P": SPID + 1,

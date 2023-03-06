@@ -8,10 +8,15 @@ from helpers.utils.printer import colorFormatter, log
 def verify(lst, action, olt):
     clientLst = []
     for client in lst:
-        if str(client["olt"]) == str(olt):
+        OLT = str(client["olt"])[:-2] if "." in str(client["olt"]) else str(client["olt"])
+        if OLT == str(olt):
+            FRAME = str(client["frame"])[:-2] if "." in str(client["frame"]) else str(client["frame"])
+            SLOT = str(client["slot"])[:-2] if "." in str(client["slot"]) else str(client["slot"])
+            PORT = str(client["port"])[:-2] if "." in str(client["port"]) else str(client["port"])
+            ID = str(client["onu_id"])[:-2] if "." in str(client["onu_id"]) else str(client["onu_id"])
             value = open(
-                f"{action}_{client['frame']}-{client['slot']}-{client['port']}-{client['id']}_OLT{client['olt']}.txt").read()
-            os.remove(f"{action}_{client['frame']}-{client['slot']}-{client['port']}-{client['id']}_OLT{client['olt']}.txt")
+                f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt").read()
+            os.remove(f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt")
             (_, sStatus) = check(value, "Control flag            : ").span()
             (eStatus, _) = check(value, "Run state").span()
             (_, clientSN) = check(value, "SN                      : ").span()
@@ -19,25 +24,25 @@ def verify(lst, action, olt):
             SN = value[clientSN:clientSN+16]
             obj = {
                     "Cliente": client["name"],
-                    "Cliente/NIF":client["Cliente/NIF"],
                     "Referencia":client["Referencia"],
                     "Olt": client["olt"],
                     "Frame": client["frame"],
                     "Slot": client["slot"],
                     "Puerto Olt": client["port"],
-                    "Onu ID": client["id"],
+                    "Onu ID": client["onu_id"],
                     "Serial del ONT": SN,
-                    "ID externo": client["ID"]
+                    "Identificación externa": client["Identificación externa"],
+                    "ID": client["ID"]
                 }
             if SN != client["sn"]:
                 val = obj
                 log(colorFormatter("ALGO SALIO MAL!", "info"))
                 val['odooSN'] = client['sn']
-                val['Estado del contrato'] = STATUS
+                val['Etapa'] = STATUS
                 clientLst.append(val)
             else:
                 val = obj
-                val['Estado del contrato'] = "Suspendido" if STATUS == "deactivated" else "Activo" if STATUS == "active" else None
+                val['Etapa'] = "Suspendido" if STATUS == "deactivated" else "Activo" if STATUS == "active" else None
                 clientLst.append(val)
                 
     log("Selecciona la carpeta de resultados...")
