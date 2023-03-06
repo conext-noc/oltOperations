@@ -1,27 +1,30 @@
+from helpers.info.hashMaps import devices
 from helpers.utils.decoder import decoder
 from helpers.utils.printer import inp, log, colorFormatter
 from helpers.utils.ssh import ssh
 from time import sleep
 from scripts.AD import upgradeData
 from scripts.BC import existingLookup
+from scripts.CPDC import cpdc
 from scripts.EC import deleteClient
-from scripts.IX import confirm
-from scripts.IXN import confirmNew
+from scripts.IX import confirmNew
 from scripts.MC import modifyClient
-from scripts.MG1 import migration
-from scripts.MG2 import addWanConfig
-
+from scripts.MG import migration
 from scripts.OX import operate
 from scripts.VC import verifyTraffic
 from scripts.XP import portOperation
 
 
 def olt():
+    """    
+    This module handles all olt requests
+    """
     oltOptions = ["1", "2", "3"]
     olt = inp("Seleccione la OLT [1 | 2 | 3] : ").upper()
+    debugging = input('Enable debug [mostrar comandos]? (y/n): ').lower().strip() == 'y'
     if olt in oltOptions:
-        ip = "181.232.180.7" if olt == "1" else "181.232.180.5" if olt == "2" else "181.232.180.6"
-        (comm, command, quit) = ssh(ip)
+        ip = devices[f"OLT{olt}"]
+        (comm, command, quit) = ssh(ip, debugging)
         decoder(comm)
 
         action = inp(
@@ -42,39 +45,31 @@ Que accion se realizara?
     > (DT)  :   Desactivados Totales
     > (MG)  :   Migracion OLT
     > (AD)  :   Actualizacion de datos en olt
+    > (DC)  :   CPDC
 $ """
         )
-        if action == "RL":
-            operate(comm,command,quit,olt,action)
-        if action == "RU":
-            operate(comm,command,quit,olt,action)
-        if action == "SL":
-            operate(comm,command,quit,olt,action)
-        if action == "SU":
-            operate(comm,command,quit,olt,action)
-        if action == "IN":
-            confirm(comm,command,quit,olt,action) if olt != "1" else confirmNew(comm,command,quit,olt,action)
-        if action == "IP":
-            confirm(comm,command,quit,olt,action) if olt != "1" else confirmNew(comm,command,quit,olt,action)
-        if action == "BC":
-            existingLookup(comm,command,quit,olt)
-        if action == "EC":
-            deleteClient(comm,command,quit,olt)
-        if action == "MC":
-            modifyClient(comm,command,quit,olt)
-        if action == "VC":
-            verifyTraffic(comm,command,quit,olt)
-        if action == "VP":
-            portOperation(comm,command,quit,olt,action)
-        if action == "CA":
-            portOperation(comm,command,quit,olt,action)
-        if action == "DT":
-            portOperation(comm,command,quit,olt,action)
-        if action == "MG":
-            stage = inp("Que etapa de migracion desea utilizar [1 | 2] : ")
-            migration(comm,command,quit,olt) if stage == "1" else addWanConfig(comm,command,quit,olt) if stage == "2" else None
-        if action == "AD":
-            upgradeData(comm, command, quit, olt)
+
+
+        modules = {
+            "RL": operate,
+            "RU": operate,
+            "SL": operate,
+            "SU": operate,
+            "IN": confirmNew,
+            "IP": confirmNew,
+            "BC": existingLookup,
+            "EC": deleteClient,
+            "MC": modifyClient,
+            "VC": verifyTraffic,
+            "VP": portOperation,
+            "CA": portOperation,
+            "DT": portOperation,
+            "MG": migration,
+            "AD": upgradeData,
+            "DC": cpdc,
+        }
+
+        modules[action](comm, command, quit, olt, action)
     else:
         resp = colorFormatter(
             f"No se puede Conectar a la OLT, Error OLT {olt} no existe", "warning")
