@@ -8,6 +8,7 @@ def approved(data):
     |OLT  {data['olt']}  {data["wan"][0]["provider"]}  {data["plan_name"]}
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
+    |SN          :   {data['sn']}
     |SPID        :   {data["wan"][0]["spid"]}"""
     log(colorFormatter(template, "success"))
     return [
@@ -33,6 +34,7 @@ def denied(data, reason):
     |OLT  {data['olt']}  {data["wan"][0]["provider"]}  {data["plan_name"]}
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
+    |SN          :   {data['sn']}
     |RAZÓN       :   {reason}"""
     log(colorFormatter(template, "warning"))
 
@@ -42,6 +44,7 @@ def approvedDis(data):
     |OLT  {data['olt']}  {data["wan"][0]["provider"]}  {data["wan"][0]["plan_name"]}
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
+    |SN          :   {data['sn']}
     |SPID        :   {data["wan"][0]["spid"]}"""
     log(colorFormatter(template, "success"))
     

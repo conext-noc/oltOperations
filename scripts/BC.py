@@ -26,12 +26,12 @@ def existingLookup(comm, command, quit, olt, action):
     if lookupType == "N":
         clients = client["data"]
         log(
-            "| {:^6} | {:^3} | {:^40} | {:^10} | {:^15} | {:^16} |".format(
-                "F/S/P", "ID", "NAME", "STATUS", "STATE", "SN"
+            "| {:^6} | {:^7} | {:^40} | {:^10} | {:^15} | {:^16} |".format(
+                "F/S/P", "ONU_ID", "NAME", "STATUS", "STATE", "SN"
             )
         )
         for client in clients:
-            resp = "| {:^6} | {:^3} | {:^40} | {:^10} | {:^15} | {:^16} |".format(
+            resp = "| {:^6} | {:^7} | {:^40} | {:^10} | {:^15} | {:^16} |".format(
                 f"{client['frame']}/{client['slot']}/{client['port']}",
                 client["id"],
                 client["name"],

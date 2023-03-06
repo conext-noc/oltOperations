@@ -14,7 +14,7 @@ def display(data, tp):
     |FRAME               :   {data["frame"]}
     |SLOT                :   {data["slot"]}
     |PORT                :   {data["port"]}
-    |ID                  :   {data["onu_id"]}
+    |ONU_ID              :   {data["onu_id"]}
     |NAME                :   {data["name"]}
     |SN                  :   {data["sn"]}
     |CONTROL FLAG        :   {data["control_flag"]}
@@ -45,7 +45,7 @@ def display(data, tp):
     |FRAME               :   {data["frame"]}
     |SLOT                :   {data["slot"]}
     |PORT                :   {data["port"]}
-    |ID                  :   {data["onu_id"]}
+    |ONU_ID              :   {data["onu_id"]}
     |SN                  :   {data["sn"]}
     |ONT TYPE            :   {data["device"]}
     |NAME                :   {data["name"]}
