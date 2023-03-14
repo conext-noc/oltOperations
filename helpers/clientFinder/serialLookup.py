@@ -34,9 +34,9 @@ def serialSearch(comm, command, data):
         value = val[s:e]
         (_, eFSP) = check(value, existing["FSP"]).span()
         valFSP = value[eFSP : eFSP + 6].replace("\n", "")
-        reFSP = checkIter(valFSP, "/")
-        (_, eSLOT) = reFSP[0]
-        (_, ePORT) = reFSP[1]
+        FRAME = int(valFSP.split("/")[0])
+        SLOT = int(valFSP.split("/")[1])
+        PORT = int(valFSP.split("/")[2])
         (_, eID) = check(value, existing["ONTID"]).span()
         (_, sDESC) = check(value, existing["DESC"]).span()
         (eDESC, sLDC) = check(value, existing["LDC"]).span()
@@ -47,9 +47,9 @@ def serialSearch(comm, command, data):
         (eCF, sRE) = check(value, existing["RE"]).span()
         (eRE, _) = check(value, existing["CS"]).span()
 
-        data["frame"]="0"
-        data["slot"]= valFSP[eSLOT : eSLOT + 1].replace("\n", "")
-        data["port"]= valFSP[ePORT : ePORT + 2].replace("\n", "")
+        data["frame"]= FRAME
+        data["slot"]= SLOT
+        data["port"]= PORT
         data["onu_id"]=value[eID : eID + 3].replace("\n", "")
         data["name"]=sub(" +", " ", value[sDESC:eDESC]).replace("\n", "")
         data["control_flag"]=value[sCF:eCF].replace("\n", "")
