@@ -49,12 +49,11 @@ def nameLookup(comm, command, NAME):
 
         # data parsing
         for (name, status) in zip(names, statuses):
-            print(name)
             clients.append({
                 "frame": "0",
                 "slot": name["slot/port"].split("/")[0],
                 "port": name["slot/port"].split("/")[1],
-                "id": str(name["onu_id"])[:-2] if "." in str(name["onu_id"]) else str(name["onu_id"]),
+                "onu_id": str(name["onu_id"])[:-2] if "." in str(name["onu_id"]) else str(name["onu_id"]),
                 "name": f'{name["first_name"]} {name["last_name"]} {str(name["contract"]).zfill(10)}',
                 "state": status["state"],
                 "status": status["status"],

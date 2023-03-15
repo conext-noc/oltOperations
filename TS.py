@@ -1,6 +1,38 @@
 ####################             IN MAINTANCE             ####################
 
+from helpers.clientFinder.dataLookup import dataLookup
+from helpers.clientFinder.nameLookup import nameLookup
+from helpers.utils.decoder import decoder
+from helpers.utils.printer import inp
+from helpers.info.hashMaps import devices
+from helpers.utils.ssh import ssh
 
+
+def ts():
+  oltOptions = ["1", "2", "3"]
+  olt = inp("Seleccione la OLT [1 | 2 | 3] : ").upper()
+  debugging = input('Enable debug [mostrar comandos]? (y/n): ').lower().strip() == 'y'
+  if olt in oltOptions:
+      ip = devices[f"OLT{olt}"]
+      (comm, command, quit) = ssh(ip, debugging)
+      decoder(comm)
+      # new lookup by contract #
+      contract = inp("Ingrese el contrato del cliente : ")
+      clientData = nameLookup(comm,command, contract)
+      if clientData['fail'] == None and len(clientData) != 0:
+        
+        # SCH
+        client = dataLookup(comm, command, clientData['data'][0])
+        print(client)
+        
+        # OPS
+        client = dataLookup(comm, command, clientData['data'][0])
+        
+        # MOD
+        client = dataLookup(comm, command, clientData['data'][0])
+        
+      quit()
+ts()
 
 ####################             IN MAINTANCE             ####################
 

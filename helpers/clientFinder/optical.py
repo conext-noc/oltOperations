@@ -1,3 +1,4 @@
+from time import sleep
 from helpers.utils.decoder import decoder, check
 from helpers.failHandler.fail import failChecker
 from helpers.utils.printer import log
@@ -7,10 +8,13 @@ conditionPwr = "Rx optical power\(dBm\)                  : "
 
 
 def opticalValues(comm, command, data, show):
+    value = decoder(comm)
     TEMP = None
     PWR = None
     command(f'  interface  gpon  {data["frame"]}/{data["slot"]}  ')
+    sleep(2)
     command(f'  display  ont  optical-info  {data["port"]}  {data["onu_id"]}  |  no-more')
+    sleep(2)
     command('quit')
     value = decoder(comm)
     fail = failChecker(value)
