@@ -63,3 +63,7 @@ def nameLookup(comm, command, NAME):
             "data": clients,
             "fail": FAIL
         }
+    return {
+        "data": [],
+        "fail": FAIL
+    }

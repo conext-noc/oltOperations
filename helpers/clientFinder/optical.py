@@ -8,7 +8,6 @@ conditionPwr = "Rx optical power\(dBm\)                  : "
 
 
 def opticalValues(comm, command, data, show):
-    value = decoder(comm)
     TEMP = None
     PWR = None
     command(f'  interface  gpon  {data["frame"]}/{data["slot"]}  ')
