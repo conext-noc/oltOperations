@@ -27,7 +27,8 @@ def confirmNew(comm, command, quit, olt, action):
     client = clientData.copy()
     client['olt'] = olt
     if "N" in action:
-        (client["sn"], FSP) = newLookup(comm, command, olt)
+        NEW_SN = inp("Ingrese el Serial del Cliente a buscar : ").upper()
+        (client["sn"], FSP) = newLookup(comm, command, olt, NEW_SN)
         val = inp("desea continuar? [Y|N] : ").upper()
         proceed = True if val == "Y" and client["sn"] != None else False
         if proceed:

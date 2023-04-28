@@ -13,8 +13,7 @@ newCondSn = "Ont SN              : "
 newCondTime = "Ont autofind time   : "
 
 
-def newLookup(comm, command, olt):
-    SN_NEW = inp("Ingrese el Serial del Cliente a buscar : ").upper()
+def newLookup(comm, command, olt, SN_NEW):
     SN_FINAL = None
     FSP_FINAL = None
     client = []
