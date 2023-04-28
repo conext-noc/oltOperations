@@ -1,6 +1,53 @@
 ####################             IN MAINTANCE             ####################
 
+from helpers.clientFinder.dataLookup import dataLookup
+from helpers.clientFinder.nameLookup import nameLookup
+from helpers.utils.decoder import decoder
+from helpers.utils.printer import inp
+from helpers.info.hashMaps import devices
+from helpers.utils.ssh import ssh
 
+
+exGETReq = {
+	"clients":[
+		{
+			"contract":"0000000245",
+			"action": "R"
+		},
+  {
+			"contract":"0000000260",
+			"action": "R"
+		}
+	]
+}
+
+def ts():
+  oltOptions = ["1", "2", "3"]
+  olt = "1"
+  debugging = False
+  if olt in oltOptions:
+      ip = "181.232.180.7"
+      (comm, command, quit) = ssh(ip, debugging)
+      decoder(comm)
+      # new lookup by contract #
+      # contract = inp("Ingrese el contrato del cliente : ")
+      contract = "0000000000"
+      clientData = nameLookup(comm,command, contract)
+      if clientData['fail'] == None and len(clientData) != 0:
+        
+        # SCH
+        client = dataLookup(comm, command, clientData['data'][0])
+        print(client)
+        
+        # OPS
+        client = dataLookup(comm, command, clientData['data'][0])
+
+        # MOD
+        client = dataLookup(comm, command, clientData['data'][0])
+        return
+      print(clientData['fail'].replace("\x1b[38;5;1m", "").replace("\x1b[0m",""))
+      quit()
+ts()
 
 ####################             IN MAINTANCE             ####################
 

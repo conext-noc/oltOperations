@@ -7,6 +7,7 @@ from helpers.fileFormatters.fileHandler import dataToDict
 conditionSpidOnt = "CTRL_C to break"
 condition = "-----------------------------------------------------------------------------"
 spidHeader = "SPID,ID,ATT,PORT_TYPE,F/S,/P,VPI,VCI,FLOW_TYPE,FLOW_PARA,RX,TX,STATE,"
+spidHeader10 = ",SPID,ID,ATT,PORT_TYPE,F/S/P,VPI,VCI,FLOW_TYPE,FLOW_PARA,RX,TX,STATE,"
 conditionSPID = """Next valid free service virtual port ID: """
 spidCheck = {
     "index": "Index               : ",
@@ -30,7 +31,7 @@ def ontSpid(comm, command, client):
         limits = checkIter(value, condition)
         (_, s) = limits[1]
         (e, _) = limits[2]
-        data = dataToDict(spidHeader, value[s: e - 2])
+        data = dataToDict(spidHeader, value[s: e - 2]) if int(client['slot']) < 10 else dataToDict(spidHeader10, value[s: e - 2])
         return (data, None)
     else:
         return (None, fail)

@@ -33,7 +33,7 @@ def existingLookup(comm, command, quit, olt, action):
         for client in clients:
             resp = "| {:^6} | {:^7} | {:^40} | {:^10} | {:^15} | {:^16} |".format(
                 f"{client['frame']}/{client['slot']}/{client['port']}",
-                client["id"],
+                client["onu_id"],
                 client["name"],
                 client["status"],
                 client["state"],

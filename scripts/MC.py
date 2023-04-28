@@ -6,6 +6,7 @@ from helpers.utils.template import change
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.info.plans import PLANS
 from helpers.utils.sheets import modify
+from helpers.clientFinder.newLookup import newLookup
 
 
 def modifyClient(comm, command, quit, olt, act):
@@ -51,7 +52,12 @@ $ """
             quit()
             return
         if action == "CO":
-            NEW_SN = inp("Ingrese el Nuevo serial de ONT del cliente : ")
+            SN = inp("Ingrese el Nuevo serial de ONT del cliente : ")
+            (NEW_SN, FSP) = newLookup(comm, command, olt, SN)
+            if NEW_SN == None:
+                log(colorFormatter(f"El ONT {SN} No se encuentra en la OLT, Intente cambiar de OLT o verificar el SN","fail"))
+                quit()
+                return
             command(f"interface gpon {client['frame']}/{client['slot']}")
             command(f'ont modify {client["port"]} {client["onu_id"]} sn "{NEW_SN}" ')
             command("quit")
