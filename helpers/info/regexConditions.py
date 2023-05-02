@@ -1,6 +1,7 @@
 table = {
     "condition_summary": "------------------------------------------------------------------------------",
     "condition_port": "-----------------------------------------------------------------------------",
+    "condition_wan":"-----------------------------------------------------------------------------",
     "options_summary": [
         {
             "name": "state",
@@ -31,6 +32,13 @@ table = {
             "header_1": ",f/s/p,onu_id,name1,name2,name3,name4,name5,name6,name7,name8,name9,name10,name11,name12,name13,name14,name15,name16,name17,name18,name19,name20,name21",
         },
     ],
+    "options_wan":
+        {
+            "start": 13,
+            "end": 14,
+            "header": "spid,vlan,vlan_att,port_type,f/s,/p,onu_id,vci,flow_type,vlan_idx,plan_idx,tx,state,",
+            "header_1": "spid,vlan,vlan_att,port_type,f/s/p,onu_id,vci,flow_type,vlan_idx,plan_idx,tx,state,"
+        }
 }
 
 ports = {

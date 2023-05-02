@@ -1043,3 +1043,34 @@ PLANS = {
 #         },
 # }
 ###########			IP MIGRATIONS    		 ###########
+
+
+PLAN_IDX = {
+    "210":"OZ_0",
+    "211":"OZ_PLUS",
+    "212":"OZ_MAX",
+    "213":"OZ_NEXT",
+    "214":"OZ_MAGICAL",
+    "215":"OZ_SKY",
+    "311":"OZ_PLUS",
+    "312":"OZ_MAX",
+    "313":"OZ_NEXT",
+    "314":"OZ_MAGICAL",
+    "315":"OZ_SKY",
+}
+
+VLAN_IDX = {
+    "2100":"VNET",
+    "2101":"VNET",
+    "2102":"VNET",
+    "2103":"VNET",
+    "2104":"VNET",
+    "2105":"VNET",
+    "3100":"INTER",
+    "3101":"INTER",
+    "3102":"INTER",
+    "3103":"INTER",
+    "3104":"INTER",
+    "3105":"INTER",
+    "102":"IP"
+}

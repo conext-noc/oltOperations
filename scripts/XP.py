@@ -22,6 +22,7 @@ def portOperation(comm, command, quit, olt, action):
     vp_los_cnt = 0
     vp_off_cnt = 0
     vp_ttl = 0
+    FSP = None
     if action == "VP":
         FRAME = inp("Ingrese frame de cliente  : ")
         SLOT = inp("Ingrese slot de cliente   : ")
@@ -39,7 +40,7 @@ def portOperation(comm, command, quit, olt, action):
         totalDeactM2M = 0
         totalDeactClients = 0
         log(
-            "| {:^6} | {:^6} | {:^40} | {:^11} | {:^7} | {:^15} | {:^6} | {:^24} | {:^24} | {:^10} | {:^16} |".format(
+            "| {:^6} | {:^6} | {:^40} | {:^11} | {:^7} | {:^15} | {:^6} | {:^14} | {:^14} | {:^10} | {:^16} | {:^10} | {:^8} |".format(
                 "f/s/p",
                 "onu_id",
                 "name",
@@ -51,6 +52,8 @@ def portOperation(comm, command, quit, olt, action):
                 "last_down_date",
                 "device",
                 "sn",
+                "plan",
+                "provider"
             )
         )
         for client in clients:
@@ -67,8 +70,10 @@ def portOperation(comm, command, quit, olt, action):
             DATE = client["last_down_date"]
             PWR = client["pwr"]
             CT = f"{DATE} {TIME}"
-            resp = "| {:^6} | {:^6} | {:^40} | {:^11} | {:^7} | {:^15} | {:^6} | {:^24} | {:^24} | {:^10} | {:^16} |".format(
-                FSP, ID, NAME, STATE, STATUS, CAUSE,PWR, TIME, DATE, TP, SN
+            PLAN = client["plan"]
+            PROVIDER = client["vlan"]
+            resp = "| {:^6} | {:^6} | {:^40} | {:^11} | {:^7} | {:^15} | {:^6} | {:^14} | {:^14} | {:^10} | {:^16} | {:^10} | {:^8} |".format(
+                FSP, ID, NAME, STATE, STATUS, CAUSE,PWR, TIME, DATE, TP, SN, PLAN, PROVIDER
             )
             if action == "VP":
                 vp_ttl += 1
