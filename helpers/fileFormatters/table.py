@@ -8,7 +8,7 @@ from helpers.info.regexConditions import table
 from helpers.info.plans import PLAN_IDX, VLAN_IDX
 
 
-def clientsTable(comm, command, lst):
+def clientsTable(comm, command, lst, olt):
     CLIENTS = []
     for idx, lt in enumerate(lst):
         clientsSummary = []
@@ -110,7 +110,7 @@ def clientsTable(comm, command, lst):
                         }
                     )
             for (summ, port, wan) in zip(clientsSummary, clientsPort, valueWanData):
-                if summ["onu_id"] == port["onu_id"] and summ["onu_id"] == wan["onu_id"]:
+                if summ["onu_id"] == port["onu_id"] and summ["onu_id"] == wan["onu_id"] and olt == "1":
                     CLIENTS.append(
                         {
                             "fsp": summ["fsp"],
@@ -129,6 +129,27 @@ def clientsTable(comm, command, lst):
                             "device": summ["device"],
                             "plan": PLAN_IDX[str(wan["plan_idx"])],
                             "vlan": VLAN_IDX[str(wan["vlan_idx"])]
+                        }
+                    )
+                elif summ["onu_id"] == port["onu_id"] and olt != "1":
+                    CLIENTS.append(
+                        {
+                            "fsp": summ["fsp"],
+                            "frame": FRAME,
+                            "slot": SLOT,
+                            "port": PORT,
+                            "onu_id": summ["onu_id"],
+                            "name": port["name"],
+                            "status": summ["status"],
+                            "pwr": summ["pwr"],
+                            "state": port["state"],
+                            "last_down_cause": summ["last_down_cause"],
+                            "last_down_time": summ["last_down_time"],
+                            "last_down_date": summ["last_down_date"],
+                            "sn": summ["sn"],
+                            "device": summ["device"],
+                            "plan": "NA",
+                            "vlan": "NA"
                         }
                     )
             log(f"{idx} {fsp} done")

@@ -35,7 +35,7 @@ def portOperation(comm, command, quit, olt, action):
         lst = ports["olt"][olt]
         portCount = ports["count"][olt]
     while keep:
-        clients = clientsTable(comm, command, lst)
+        clients = clientsTable(comm, command, lst, olt)
         totalClients = len(clients)
         totalDeactM2M = 0
         totalDeactClients = 0
