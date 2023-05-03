@@ -22,6 +22,9 @@ def portOperation(comm, command, quit, olt, action):
     vp_los_cnt = 0
     vp_off_cnt = 0
     vp_ttl = 0
+    vp_inter = 0
+    vp_vnet = 0
+    vp_public_ip = 0
     FSP = None
     if action == "VP":
         FRAME = inp("Ingrese frame de cliente  : ")
@@ -75,6 +78,12 @@ def portOperation(comm, command, quit, olt, action):
             resp = "| {:^6} | {:^6} | {:^40} | {:^11} | {:^7} | {:^15} | {:^6} | {:^14} | {:^14} | {:^10} | {:^16} | {:^10} | {:^8} |".format(
                 FSP, ID, NAME, STATE, STATUS, CAUSE,PWR, TIME, DATE, TP, SN, PLAN, PROVIDER
             )
+            if client["vlan"] == "INTER":
+                vp_inter += 1
+            if client["vlan"] == "VNET":
+                vp_vnet += 1
+            if client["vlan"] == "IP":
+                vp_public_ip += 1
             if action == "VP":
                 vp_ttl += 1
                 if CF == "active":
@@ -140,11 +149,15 @@ def portOperation(comm, command, quit, olt, action):
                     log(resp)
         log(f"""
 En el puerto {FSP}:
-El total del clientes en el puerto es       :   {vp_ttl}
-El total del clientes activos es            :   {vp_active_cnt}
-El total del clientes desactivados es       :   {vp_deactive_cnt}
-El total del clientes activos en corte es   :   {vp_los_cnt}
-El total del clientes activos apagados es   :   {vp_off_cnt}
+El total de clientes en el puerto es       :   {vp_ttl}
+El total de clientes activos es            :   {vp_active_cnt}
+El total de clientes desactivados es       :   {vp_deactive_cnt}
+El total de clientes activos en corte es   :   {vp_los_cnt}
+El total de clientes activos apagados es   :   {vp_off_cnt}
+El total de clientes con VNET es           :   {vp_vnet}
+El total de clientes con INTER es          :   {vp_inter}
+El total de clientes con IP PÚBLICA es     :   {vp_public_ip}
+
 
                     """) if action == "VP" else None
         preg = inp("continuar? [Y | N] : ") if action == "VP" else None

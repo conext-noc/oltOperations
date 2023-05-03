@@ -149,7 +149,7 @@ def clientsTable(comm, command, lst, olt):
                             "sn": summ["sn"],
                             "device": summ["device"],
                             "plan": "NA",
-                            "vlan": "NA"
+                            "vlan": VLAN_IDX[str(wan["vlan_idx"])]
                         }
                     )
             log(f"{idx} {fsp} done")
