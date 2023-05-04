@@ -110,7 +110,8 @@ def clientsTable(comm, command, lst, olt):
                         }
                     )
             for (summ, port, wan) in zip(clientsSummary, clientsPort, valueWanData):
-                if summ["onu_id"] == port["onu_id"] and summ["onu_id"] == wan["onu_id"] and olt == "1":
+                onu_id_condition = summ["onu_id"] == port["onu_id"] and summ["onu_id"] == wan["onu_id"] if olt == "1" else summ["onu_id"] == port["onu_id"]
+                if onu_id_condition:
                     CLIENTS.append(
                         {
                             "fsp": summ["fsp"],
@@ -127,29 +128,8 @@ def clientsTable(comm, command, lst, olt):
                             "last_down_date": summ["last_down_date"],
                             "sn": summ["sn"],
                             "device": summ["device"],
-                            "plan": PLAN_IDX[str(wan["plan_idx"])],
-                            "vlan": VLAN_IDX[str(wan["vlan_idx"])]
-                        }
-                    )
-                elif summ["onu_id"] == port["onu_id"] and olt != "1":
-                    CLIENTS.append(
-                        {
-                            "fsp": summ["fsp"],
-                            "frame": FRAME,
-                            "slot": SLOT,
-                            "port": PORT,
-                            "onu_id": summ["onu_id"],
-                            "name": port["name"],
-                            "status": summ["status"],
-                            "pwr": summ["pwr"],
-                            "state": port["state"],
-                            "last_down_cause": summ["last_down_cause"],
-                            "last_down_time": summ["last_down_time"],
-                            "last_down_date": summ["last_down_date"],
-                            "sn": summ["sn"],
-                            "device": summ["device"],
-                            "plan": "NA",
-                            "vlan": "NA"
+                            "plan": PLAN_IDX[str(wan["plan_idx"])] if str(wan["plan_idx"]) in PLAN_IDX else "NA",
+                            "vlan": VLAN_IDX[str(wan["vlan_idx"])] if str(wan["vlan_idx"]) in VLAN_IDX else "NA"
                         }
                     )
             log(f"{idx} {fsp} done")
