@@ -78,13 +78,14 @@ def portOperation(comm, command, quit, olt, action):
             resp = "| {:^6} | {:^6} | {:^40} | {:^11} | {:^7} | {:^15} | {:^6} | {:^14} | {:^14} | {:^10} | {:^16} | {:^10} | {:^8} |".format(
                 FSP, ID, NAME, STATE, STATUS, CAUSE,PWR, TIME, DATE, TP, SN, PLAN, PROVIDER
             )
-            if client["vlan"] == "INTER":
-                vp_inter += 1
-            if client["vlan"] == "VNET":
-                vp_vnet += 1
-            if client["vlan"] == "IP":
-                vp_public_ip += 1
+            
             if action == "VP":
+                if client["vlan"] == "INTER":
+                    vp_inter += 1
+                if client["vlan"] == "VNET":
+                    vp_vnet += 1
+                if client["vlan"] == "IP":
+                    vp_public_ip += 1
                 vp_ttl += 1
                 if CF == "active":
                     vp_active_cnt += 1
@@ -166,6 +167,9 @@ El total de clientes con IP PÚBLICA es     :   {vp_public_ip}
         vp_los_cnt = 0
         vp_off_cnt = 0
         vp_ttl = 0
+        vp_vnet = 0
+        vp_inter = 0
+        vp_public_ip = 0
         FRAME = inp("Ingrese frame de cliente  : ") if action == "VP" and preg == "Y" else None
         SLOT = inp("Ingrese slot de cliente   : ") if action == "VP" and preg == "Y" else None
         PORT = inp("Ingrese puerto de cliente : ") if action == "VP" and preg == "Y" else None
