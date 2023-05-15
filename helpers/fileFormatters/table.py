@@ -110,12 +110,11 @@ def clientsTable(comm, command, lst, olt):
                         }
                     )
             for (summ, port, wan) in zip(clientsSummary, clientsPort, valueWanData):
-
                 if (olt == "1" or olt == "2"): PLAN = PLAN_IDX
                 if (olt == "3"): PLAN = PLAN_OLT_3
 
                 onu_id_condition = summ["onu_id"] == port["onu_id"] and summ["onu_id"] == wan["onu_id"] if olt == "1" else summ["onu_id"] == port["onu_id"]
-                
+                print(str(wan["plan_idx"]))
                 if onu_id_condition:
                     CLIENTS.append(
                         {

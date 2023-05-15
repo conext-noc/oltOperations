@@ -25,6 +25,16 @@ def portOperation(comm, command, quit, olt, action):
     vp_inter = 0
     vp_vnet = 0
     vp_public_ip = 0
+    OZ_0 = 0
+    OZ_MAX = 0
+    OZ_SKY = 0
+    OZ_MAGICAL = 0
+    OZ_NEXT = 0
+    OZ_PLUS = 0
+    OZ_DEDICADO = 0
+    OZ_DEDICADO_150 = 0
+    OZ_CONECTA = 0
+    NA = 0
     FSP = None
     if action == "VP":
         FRAME = inp("Ingrese frame de cliente  : ")
@@ -80,12 +90,36 @@ def portOperation(comm, command, quit, olt, action):
             )
             
             if action == "VP":
+                #PROVIDER
                 if client["vlan"] == "INTER":
                     vp_inter += 1
                 if client["vlan"] == "VNET":
                     vp_vnet += 1
                 if client["vlan"] == "IP":
                     vp_public_ip += 1
+                
+                #PLAN
+                if client["plan"] == "OZ_0":
+                    OZ_0 += 1
+                elif client["plan"] == "OZ_MAX":
+                    OZ_MAX += 1
+                elif client["plan"] == "OZ_SKY":
+                    OZ_SKY += 1
+                elif client["plan"] == "OZ_MAGICAL":
+                    OZ_MAGICAL += 1
+                elif client["plan"] == "OZ_NEXT":
+                    OZ_NEXT += 1
+                elif client["plan"] == "OZ_PLUS":
+                    OZ_PLUS += 1
+                elif client["plan"] == "OZ_DEDICADO_10":
+                    OZ_DEDICADO += 1
+                elif client["plan"] == "OZ_DEDICADO_150":
+                    OZ_DEDICADO_150 += 1
+                elif client["plan"] == "OZ_CONECTA":
+                    OZ_CONECTA += 1
+                else:
+                    NA += 1
+
                 vp_ttl += 1
                 if CF == "active":
                     vp_active_cnt += 1
@@ -150,17 +184,29 @@ def portOperation(comm, command, quit, olt, action):
                     log(resp)
         log(f"""
 En el puerto {FSP}:
-El total de clientes en el puerto es       :   {vp_ttl}
-El total de clientes activos es            :   {vp_active_cnt}
-El total de clientes desactivados es       :   {vp_deactive_cnt}
-El total de clientes activos en corte es   :   {vp_los_cnt}
-El total de clientes activos apagados es   :   {vp_off_cnt}
-El total de clientes con VNET es           :   {vp_vnet}
-El total de clientes con INTER es          :   {vp_inter}
-El total de clientes con IP PÚBLICA es     :   {vp_public_ip}
+El total de clientes en el puerto es           :   {vp_ttl}
+El total de clientes activos es                :   {vp_active_cnt}
+El total de clientes desactivados es           :   {vp_deactive_cnt}
+El total de clientes activos en corte es       :   {vp_los_cnt}
+El total de clientes activos apagados es       :   {vp_off_cnt}
 
+Proveedores :
+El total de clientes con VNET es               :   {vp_vnet}
+El total de clientes con INTER es              :   {vp_inter}
+El total de clientes con IP PÚBLICA es         :   {vp_public_ip}
 
-                    """) if action == "VP" else None
+Planes :
+El total de clientes con Plan FAMILY           :   {OZ_0}
+El total de clientes con Plan MAX              :   {OZ_MAX}
+El total de clientes con Plan SKY              :   {OZ_SKY}
+El total de clientes con Plan MAGICAL          :   {OZ_MAGICAL}
+El total de clientes con Plan NEXT             :   {OZ_NEXT}
+El total de clientes con Plan PLUS             :   {OZ_PLUS}
+El total de clientes con Plan DEDICADO 10Mbps  :   {OZ_DEDICADO}
+El total de clientes con Plan DEDICADO 150Mbps :   {OZ_DEDICADO_150}
+El total de clientes con Plan CONECTA          :   {OZ_CONECTA}
+El total de Clientes sin Plan Asignado         :   {NA}
+""") if action == "VP" else None
         preg = inp("continuar? [Y | N] : ") if action == "VP" else None
         vp_active_cnt = 0
         vp_deactive_cnt = 0
@@ -170,6 +216,16 @@ El total de clientes con IP PÚBLICA es     :   {vp_public_ip}
         vp_vnet = 0
         vp_inter = 0
         vp_public_ip = 0
+        OZ_0 = 0
+        OZ_MAX = 0
+        OZ_SKY = 0
+        OZ_MAGICAL = 0
+        OZ_NEXT = 0
+        OZ_PLUS = 0
+        OZ_DEDICADO = 0
+        OZ_DEDICADO_150 = 0
+        OZ_CONECTA = 0
+        NA = 0
         FRAME = inp("Ingrese frame de cliente  : ") if action == "VP" and preg == "Y" else None
         SLOT = inp("Ingrese slot de cliente   : ") if action == "VP" and preg == "Y" else None
         PORT = inp("Ingrese puerto de cliente : ") if action == "VP" and preg == "Y" else None

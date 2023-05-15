@@ -1058,7 +1058,9 @@ PLAN_IDX = {
     "45":"OZ_SKY",
     "46":"OZ_MAX",
     "47":"OZ_PLUS",
-    "48":"DEDICADO_10",
+    "48":"OZ_DEDICADO_10",
+    "11":"OZ_DEDICADO_150",
+    "44":"OZ_CONECTA"
 }
 
 PLAN_OLT_3 = {
@@ -1068,7 +1070,10 @@ PLAN_OLT_3 = {
     "47":"OZ_SKY",
     "48":"OZ_MAX",
     "49":"OZ_PLUS",
-    "50":"DEDICADO_10"
+    "50":"OZ_DEDICADO_10",
+    "11":"OZ_DEDICADO_150",
+    "44":"OZ_CONECTA"
+
 }
 
 VLAN_IDX = {
