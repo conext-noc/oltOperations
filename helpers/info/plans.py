@@ -1052,11 +1052,23 @@ PLAN_IDX = {
     "213":"OZ_NEXT",
     "214":"OZ_MAGICAL",
     "215":"OZ_SKY",
-    "311":"OZ_PLUS",
-    "312":"OZ_MAX",
-    "313":"OZ_NEXT",
-    "314":"OZ_MAGICAL",
-    "315":"OZ_SKY",
+    "7":"OZ_0",
+    "39":"OZ_MAGICAL",
+    "40":"OZ_NEXT",
+    "45":"OZ_SKY",
+    "46":"OZ_MAX",
+    "47":"OZ_PLUS",
+    "48":"DEDICADO_10",
+}
+
+PLAN_OLT_3 = {
+    "7":"OZ_0",
+    "32":"OZ_MAGICAL",
+    "33":"OZ_NEXT",
+    "47":"OZ_SKY",
+    "48":"OZ_MAX",
+    "49":"OZ_PLUS",
+    "50":"DEDICADO_10"
 }
 
 VLAN_IDX = {
@@ -1078,8 +1090,3 @@ VLAN_IDX = {
     "1104": "IP"
 }
 
-# VLAN_OLT = {
-#     "1101": "INTER",
-#     "1102": "VNET",
-#     "1104": "IP"
-# }
