@@ -354,6 +354,31 @@ ports = {
     },
 }
 
+vp_count = {
+    "1": {
+        "vp_active_cnt": 0,
+        "vp_deactive_cnt": 0,
+        "vp_los_cnt": 0,
+        "vp_off_cnt": 0,
+    },
+    "2": {
+        "vp_ttl" : 0,
+        "vp_vnet" : 0,
+        "vp_inter" : 0,
+        "vp_public_ip" : 0,
+        "OZ_0" : 0,
+        "OZ_MAX" : 0,
+        "OZ_SKY" : 0,
+        "OZ_MAGICAL" : 0,
+        "OZ_NEXT" : 0,
+        "OZ_PLUS" : 0,
+        "OZ_DEDICADO" : 0,
+        "OZ_DEDICADO_150" : 0,
+        "OZ_CONECTA" : 0,
+        "NA" : 0,
+    },
+}
+
 speed = {
     "up": "Up traffic \(kbps\)          : ",
     "down": "Down traffic \(kbps\)        : ",
