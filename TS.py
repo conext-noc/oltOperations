@@ -1,53 +1,39 @@
 ####################             IN MAINTANCE             ####################
+import pygsheets
 
-from helpers.clientFinder.dataLookup import dataLookup
-from helpers.clientFinder.nameLookup import nameLookup
-from helpers.utils.decoder import decoder
-from helpers.utils.printer import inp
-from helpers.info.hashMaps import devices
-from helpers.utils.ssh import ssh
+path = "./service_account_olt_operations.json"
 
-
-exGETReq = {
-	"clients":[
-		{
-			"contract":"0000000245",
-			"action": "R"
-		},
-  {
-			"contract":"0000000260",
-			"action": "R"
-		}
-	]
+cell_map_creds = {
+    "USER": "A2:A4",
+    "PASS": "B2:B4",
 }
 
-def ts():
-  oltOptions = ["1", "2", "3"]
-  olt = "1"
-  debugging = False
-  if olt in oltOptions:
-      ip = "181.232.180.7"
-      (comm, command, quit) = ssh(ip, debugging)
-      decoder(comm)
-      # new lookup by contract #
-      # contract = inp("Ingrese el contrato del cliente : ")
-      contract = "0000000000"
-      clientData = nameLookup(comm,command, contract)
-      if clientData['fail'] == None and len(clientData) != 0:
-        
-        # SCH
-        client = dataLookup(comm, command, clientData['data'][0])
-        print(client)
-        
-        # OPS
-        client = dataLookup(comm, command, clientData['data'][0])
+gc = pygsheets.authorize(service_account_file=path)
+sh_creds = gc.open("CREDS")
+wks_creds = sh_creds[0]
 
-        # MOD
-        client = dataLookup(comm, command, clientData['data'][0])
-        return
-      print(clientData['fail'].replace("\x1b[38;5;1m", "").replace("\x1b[0m",""))
-      quit()
-ts()
+
+def get_creds():
+    creds = []
+    users = [
+        item
+        for sublist in wks_creds.get_values_batch([cell_map_creds["USER"]])[0]
+        for item in sublist
+    ]
+    passwords = [
+        item
+        for sublist in wks_creds.get_values_batch([cell_map_creds["PASS"]])[0]
+        for item in sublist
+    ]
+    for idx, (user, passwd) in enumerate(zip(users, passwords)):
+        creds.append(
+          {f"{idx + 1}":{f"user": user, f"password": passwd}},
+          )
+    # users = wks_creds.get_values_batch([cell_map_creds['USER']])[0]
+    return creds
+
+
+print(get_creds())
 
 ####################             IN MAINTANCE             ####################
 
