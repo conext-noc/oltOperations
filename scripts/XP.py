@@ -24,10 +24,7 @@ def portOperation(comm, command, quit, olt, action):
         SLOT = inp("Ingrese slot de cliente   : ")
         PORT = inp("Ingrese puerto de cliente : ")
         lst = [{"fsp": f"{FRAME}/{SLOT}/{PORT}"}]
-    if action == "CA":
-        lst = ports["olt"][olt]
-        portCount = ports["count"][olt]
-    if action == "DT":
+    if action == "CA" or "DT" or "VT":
         lst = ports["olt"][olt]
         portCount = ports["count"][olt]
     while keep:
@@ -72,7 +69,7 @@ def portOperation(comm, command, quit, olt, action):
                 FSP, ID, NAME, STATE, STATUS, CAUSE,PWR, TIME, DATE, TP, SN, PLAN, PROVIDER
             )
             
-            if action == "VP":
+            if action == "VP" or "VT":
                 #Count for plans, providers and total clients
                 portHandler(client)
 
@@ -130,9 +127,9 @@ def portOperation(comm, command, quit, olt, action):
                         t1 = datetime.strptime(CT, "%Y-%m-%d %H:%M:%S")
                         t2 = datetime.fromisoformat(str(datetime.now()))
                         clientTime = t2 - t1
-                        if clientTime.days <= 60:
+                        if clientTime.days <= 90:
                             color = "suspended"
-                        if clientTime.days > 60:
+                        if clientTime.days > 90:
                             color = "suspended+"
                             totalDeactM2M += 1
                     resp = colorFormatter(resp, color)
@@ -146,9 +143,9 @@ El total de clientes activos en corte es       :   {vp_count['1']['vp_los_cnt']}
 El total de clientes activos apagados es       :   {vp_count['1']['vp_off_cnt']}
 
 Proveedores :
-El total de clientes con VNET es            :   {vp_count['2']['vp_vnet']}
-El total de clientes con INTER es           :   {vp_count['2']['vp_inter']}
-El total de clientes con IP PÚBLICA es      :   {vp_count['2']['vp_public_ip']}
+El total de clientes con VNET es           :   {vp_count['2']['vp_vnet']}
+El total de clientes con INTER es          :   {vp_count['2']['vp_inter']}
+El total de clientes con IP PÚBLICA es     :   {vp_count['2']['vp_public_ip']}
 
 Planes :
 El total de clientes con Plan FAMILY        :   {vp_count['2']['OZ_0']}
@@ -157,10 +154,10 @@ El total de clientes con Plan SKY           :   {vp_count['2']['OZ_SKY']}
 El total de clientes con Plan MAGICAL       :   {vp_count['2']['OZ_MAGICAL']}
 El total de clientes con Plan NEXT          :   {vp_count['2']['OZ_NEXT']}
 El total de clientes con Plan PLUS          :   {vp_count['2']['OZ_PLUS']}
-El total de clientes con Plan DEDICADO      :   {vp_count['2']['OZ_DEDICADO'] + vp_count['2']['OZ_DEDICADO_150']}
+El total de clientes con Planes DEDICADOS   :   {vp_count['2']['OZ_DEDICADO']}
 El total de clientes con Plan CONECTA       :   {vp_count['2']['OZ_CONECTA']}
 El total de Clientes sin Plan Asignado      :   {vp_count['2']['NA']}
-""")if action == "VP" else None
+""")if action == "VP" or "VT" else None
         dictToZero(vp_count['1'])
         dictToZero(vp_count['2'])
         preg = inp("continuar? [Y | N] : ") if action == "VP" else None
@@ -173,5 +170,5 @@ El total de Clientes sin Plan Asignado      :   {vp_count['2']['NA']}
             for res in portCount.items():
                 log("In Port {:^6} the total suspended are : {:^3}".format(res[0],res[1]))
             log(f"In olt {olt} the total suspended are {totalDeactClients}")
-            log(f"In olt {olt} the total suspended with more than 2 Months are {totalDeactM2M}")
+            log(f"In olt {olt} the total suspended with more than 3 Months are {totalDeactM2M}")
             log(f"In olt {olt} the total clients are {totalClients}")
