@@ -24,7 +24,7 @@ def portOperation(comm, command, quit, olt, action):
         SLOT = inp("Ingrese slot de cliente   : ")
         PORT = inp("Ingrese puerto de cliente : ")
         lst = [{"fsp": f"{FRAME}/{SLOT}/{PORT}"}]
-    if action == "CA" or "DT" or "VT":
+    if action == "CA" or action == "DT" or action == "VT":
         lst = ports["olt"][olt]
         portCount = ports["count"][olt]
     while keep:
@@ -69,7 +69,7 @@ def portOperation(comm, command, quit, olt, action):
                 FSP, ID, NAME, STATE, STATUS, CAUSE,PWR, TIME, DATE, TP, SN, PLAN, PROVIDER
             )
             
-            if action == "VP" or "VT":
+            if action == "VP" or action == "VT":
                 #Count for plans, providers and total clients
                 portHandler(client)
 
@@ -157,7 +157,7 @@ El total de clientes con Plan PLUS          :   {vp_count['2']['OZ_PLUS']}
 El total de clientes con Planes DEDICADOS   :   {vp_count['2']['OZ_DEDICADO']}
 El total de clientes con Plan CONECTA       :   {vp_count['2']['OZ_CONECTA']}
 El total de Clientes sin Plan Asignado      :   {vp_count['2']['NA']}
-""")if action == "VP" or "VT" else None
+""")if action == "VP" or action == "VT" else None
         dictToZero(vp_count['1'])
         dictToZero(vp_count['2'])
         preg = inp("continuar? [Y | N] : ") if action == "VP" else None
