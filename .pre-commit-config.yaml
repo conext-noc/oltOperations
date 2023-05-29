@@ -1,0 +1,14 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+        args:
+          - --config=./conext_db.toml
+
+  - repo: https://github.com/PyCQA/pylint
+    rev: v3.0.0a6
+    hooks:
+      - id: pylint
+        args:
+          - --rcfile=./.pylintrc
