@@ -41,6 +41,7 @@ Que accion se realizara?
     > (MC)  :   Modificar Cliente
     > (VC)  :   Verificar consumo
     > (VP)  :   Verificacion de puerto
+    > (VT)  :   Verificacion Total de Puertos en una OLT
     > (CA)  :   Clientes con averias (corte de fibra)
     > (DT)  :   Desactivados Totales
     > (MG)  :   Migracion OLT
@@ -62,6 +63,7 @@ $ """
             "MC": modifyClient,
             "VC": verifyTraffic,
             "VP": portOperation,
+            "VT": portOperation,
             "CA": portOperation,
             "DT": portOperation,
             "MG": migration,

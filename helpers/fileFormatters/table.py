@@ -5,13 +5,15 @@ from helpers.failHandler.fail import failChecker
 from helpers.utils.printer import colorFormatter,log
 from helpers.fileFormatters.fileHandler import dataToDict
 from helpers.info.regexConditions import table
+from helpers.info.plans import PLAN_IDX, PLAN_OLT_3 ,VLAN_IDX
 
 
-def clientsTable(comm, command, lst):
+def clientsTable(comm, command, lst, olt):
     CLIENTS = []
     for idx, lt in enumerate(lst):
         clientsSummary = []
         clientsPort = []
+        clientsWanData = []
         fsp = lt["fsp"]
         command(f"display ont info summary {fsp} | no-more")
         sleep(3)
@@ -19,6 +21,8 @@ def clientsTable(comm, command, lst):
         SLOT = int(fsp.split("/")[1])
         PORT = int(fsp.split("/")[2])
         command(f"display ont info {FRAME} {SLOT} {PORT} all  | no-more")
+        sleep(3)
+        command(f"display service-port port {fsp}  | no-more")
         sleep(3)
         value = decoder(comm)
         fail = failChecker(value)
@@ -29,6 +33,7 @@ def clientsTable(comm, command, lst):
             valueStateSumm = []
             reSumm = checkIter(value, table["condition_summary"])
             rePort = checkIter(value, table["condition_port"])
+            reWan = checkIter(value, table["condition_wan"])
             for op in table["options_summary"]:
                 name = op["name"]
                 start = op["start"]
@@ -51,6 +56,14 @@ def clientsTable(comm, command, lst):
                     valueNamesPort = dataToDict(header, value[s:e])
                 else:
                     valueStatePort = dataToDict(header, value[s:e])
+                    
+                    
+            wan_start = table["options_wan"]["start"]
+            wan_end = table["options_wan"]["end"]
+            wan_header = table["options_wan"]["header"] if SLOT != 10 else table["options_wan"]["header_1"]
+            (_, w_s) = reWan[wan_start]
+            (w_e, _) = reWan[wan_end]
+            valueWanData = dataToDict(wan_header, value[w_s:w_e])
 
             for (status, names) in zip(valueStateSumm, valueNamesSumm):
                 if int(status["onu_id"]) == int(names["onu_id"]):
@@ -96,8 +109,12 @@ def clientsTable(comm, command, lst):
                             "name": name
                         }
                     )
-            for (summ, port) in zip(clientsSummary, clientsPort):
-                if summ["onu_id"] == port["onu_id"]:
+            for (summ, port, wan) in zip(clientsSummary, clientsPort, valueWanData):
+                if (olt == "1" or olt == "2"): PLAN = PLAN_IDX
+                if (olt == "3"): PLAN = PLAN_OLT_3
+
+                onu_id_condition = summ["onu_id"] == port["onu_id"] and summ["onu_id"] == wan["onu_id"] if olt == "1" else summ["onu_id"] == port["onu_id"]
+                if onu_id_condition:
                     CLIENTS.append(
                         {
                             "fsp": summ["fsp"],
@@ -114,6 +131,8 @@ def clientsTable(comm, command, lst):
                             "last_down_date": summ["last_down_date"],
                             "sn": summ["sn"],
                             "device": summ["device"],
+                            "plan": PLAN[str(wan["plan_idx"])] if str(wan["plan_idx"]) in PLAN else "NA",
+                            "vlan": VLAN_IDX[str(wan["vlan_idx"])] if str(wan["vlan_idx"]) in VLAN_IDX else "NA"
                         }
                     )
             log(f"{idx} {fsp} done")
