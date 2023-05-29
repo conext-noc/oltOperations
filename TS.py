@@ -1,39 +1,59 @@
 ####################             IN MAINTANCE             ####################
-import pygsheets
 
-path = "./service_account_olt_operations.json"
+# import os
+# from dotenv import load_dotenv
+# import boto3
+# from botocore.exceptions import NoCredentialsError
 
-cell_map_creds = {
-    "USER": "A2:A4",
-    "PASS": "B2:B4",
-}
-
-gc = pygsheets.authorize(service_account_file=path)
-sh_creds = gc.open("CREDS")
-wks_creds = sh_creds[0]
+# load_dotenv()
 
 
-def get_creds():
-    creds = []
-    users = [
-        item
-        for sublist in wks_creds.get_values_batch([cell_map_creds["USER"]])[0]
-        for item in sublist
-    ]
-    passwords = [
-        item
-        for sublist in wks_creds.get_values_batch([cell_map_creds["PASS"]])[0]
-        for item in sublist
-    ]
-    for idx, (user, passwd) in enumerate(zip(users, passwords)):
-        creds.append(
-          {f"{idx + 1}":{f"user": user, f"password": passwd}},
-          )
-    # users = wks_creds.get_values_batch([cell_map_creds['USER']])[0]
-    return creds
+# def get_health_status(environment_name):
+#     data = {"Ops-env": {}, "Ins-env": {}, "Sch-env": {}, "Mod-env": {}, "Mod-env": {}}
+#     envs = ["Ops-env", "Ins-env", "Sch-env", "Mod-env", "Mon-env"]
+#     try:
+#         # Create a session using your AWS access key and secret access key
+#         session = boto3.Session(
+#             aws_access_key_id=os.environ["AWS_ACCESS_KEY"],
+#             aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"],
+#         )
+
+#         # Create an AWS Elastic Beanstalk client
+#         eb_client = session.client("elasticbeanstalk")
+
+#         # Get information about the environment
+#         for idx, environment in enumerate(envs):
+#             eb_envs = eb_client.describe_environments(EnvironmentNames=[environment])
+#             if len(eb_envs["Environments"]) == 0:
+#                 data[environment] = None
+#             else:
+#                 response = eb_envs["Environments"][0]
+#                 data[environment]["health"] = (
+#                     response["HealthStatus"]
+#                     if "HealthStatus" in response
+#                     else response["Health"]
+#                 )
+#                 data[environment]["application"] = response["ApplicationName"]
+#                 data[environment]["version"] = response["VersionLabel"]
+#                 data[environment]["status"] = response["Status"]
+#         return data
+
+#     except NoCredentialsError:
+#         print(
+#             """Unable to locate AWS credentials.
+#             Make sure you have valid AWS access key and secret access key."""
+#         )
+#         return None
 
 
-print(get_creds())
+# # Replace 'your-environment-name' with the actual name of your Elastic Beanstalk environment
+# environment_name = "Ops-env"
+
+# # Get the health status of the Elastic Beanstalk instance
+# status = get_health_status(environment_name)
+
+# if status:
+#     print(f"The health status of the environment '{environment_name}' is: {status}")
 
 ####################             IN MAINTANCE             ####################
 
