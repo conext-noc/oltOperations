@@ -5,7 +5,7 @@ from helpers.failHandler.fail import failChecker
 from helpers.utils.printer import colorFormatter,log
 from helpers.fileFormatters.fileHandler import dataToDict
 from helpers.info.regexConditions import table
-from helpers.info.plans import PLAN_IDX, VLAN_IDX
+from helpers.info.plans import PLAN_IDX, PLAN_OLT_3 ,VLAN_IDX
 
 
 def clientsTable(comm, command, lst, olt):
@@ -110,6 +110,9 @@ def clientsTable(comm, command, lst, olt):
                         }
                     )
             for (summ, port, wan) in zip(clientsSummary, clientsPort, valueWanData):
+                if (olt == "1" or olt == "2"): PLAN = PLAN_IDX
+                if (olt == "3"): PLAN = PLAN_OLT_3
+
                 onu_id_condition = summ["onu_id"] == port["onu_id"] and summ["onu_id"] == wan["onu_id"] if olt == "1" else summ["onu_id"] == port["onu_id"]
                 if onu_id_condition:
                     CLIENTS.append(
@@ -128,7 +131,7 @@ def clientsTable(comm, command, lst, olt):
                             "last_down_date": summ["last_down_date"],
                             "sn": summ["sn"],
                             "device": summ["device"],
-                            "plan": PLAN_IDX[str(wan["plan_idx"])] if str(wan["plan_idx"]) in PLAN_IDX else "NA",
+                            "plan": PLAN[str(wan["plan_idx"])] if str(wan["plan_idx"]) in PLAN else "NA",
                             "vlan": VLAN_IDX[str(wan["vlan_idx"])] if str(wan["vlan_idx"]) in VLAN_IDX else "NA"
                         }
                     )
