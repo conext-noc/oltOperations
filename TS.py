@@ -1,53 +1,59 @@
 ####################             IN MAINTANCE             ####################
 
-from helpers.clientFinder.dataLookup import dataLookup
-from helpers.clientFinder.nameLookup import nameLookup
-from helpers.utils.decoder import decoder
-from helpers.utils.printer import inp
-from helpers.info.hashMaps import devices
-from helpers.utils.ssh import ssh
+# import os
+# from dotenv import load_dotenv
+# import boto3
+# from botocore.exceptions import NoCredentialsError
+
+# load_dotenv()
 
 
-exGETReq = {
-	"clients":[
-		{
-			"contract":"0000000245",
-			"action": "R"
-		},
-  {
-			"contract":"0000000260",
-			"action": "R"
-		}
-	]
-}
+# def get_health_status(environment_name):
+#     data = {"Ops-env": {}, "Ins-env": {}, "Sch-env": {}, "Mod-env": {}, "Mod-env": {}}
+#     envs = ["Ops-env", "Ins-env", "Sch-env", "Mod-env", "Mon-env"]
+#     try:
+#         # Create a session using your AWS access key and secret access key
+#         session = boto3.Session(
+#             aws_access_key_id=os.environ["AWS_ACCESS_KEY"],
+#             aws_secret_access_key=os.environ["AWS_SECRET_ACCESS_KEY"],
+#         )
 
-def ts():
-  oltOptions = ["1", "2", "3"]
-  olt = "1"
-  debugging = False
-  if olt in oltOptions:
-      ip = "181.232.180.7"
-      (comm, command, quit) = ssh(ip, debugging)
-      decoder(comm)
-      # new lookup by contract #
-      # contract = inp("Ingrese el contrato del cliente : ")
-      contract = "0000000000"
-      clientData = nameLookup(comm,command, contract)
-      if clientData['fail'] == None and len(clientData) != 0:
-        
-        # SCH
-        client = dataLookup(comm, command, clientData['data'][0])
-        print(client)
-        
-        # OPS
-        client = dataLookup(comm, command, clientData['data'][0])
+#         # Create an AWS Elastic Beanstalk client
+#         eb_client = session.client("elasticbeanstalk")
 
-        # MOD
-        client = dataLookup(comm, command, clientData['data'][0])
-        return
-      print(clientData['fail'].replace("\x1b[38;5;1m", "").replace("\x1b[0m",""))
-      quit()
-ts()
+#         # Get information about the environment
+#         for idx, environment in enumerate(envs):
+#             eb_envs = eb_client.describe_environments(EnvironmentNames=[environment])
+#             if len(eb_envs["Environments"]) == 0:
+#                 data[environment] = None
+#             else:
+#                 response = eb_envs["Environments"][0]
+#                 data[environment]["health"] = (
+#                     response["HealthStatus"]
+#                     if "HealthStatus" in response
+#                     else response["Health"]
+#                 )
+#                 data[environment]["application"] = response["ApplicationName"]
+#                 data[environment]["version"] = response["VersionLabel"]
+#                 data[environment]["status"] = response["Status"]
+#         return data
+
+#     except NoCredentialsError:
+#         print(
+#             """Unable to locate AWS credentials.
+#             Make sure you have valid AWS access key and secret access key."""
+#         )
+#         return None
+
+
+# # Replace 'your-environment-name' with the actual name of your Elastic Beanstalk environment
+# environment_name = "Ops-env"
+
+# # Get the health status of the Elastic Beanstalk instance
+# status = get_health_status(environment_name)
+
+# if status:
+#     print(f"The health status of the environment '{environment_name}' is: {status}")
 
 ####################             IN MAINTANCE             ####################
 
