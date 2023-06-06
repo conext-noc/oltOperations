@@ -1,4 +1,5 @@
-from helpers.clientFinder.dataLookup import dataLookup
+import os
+from dotenv import load_dotenv
 from helpers.clientFinder.lookup import lookup
 from helpers.clientFinder.newLookup import newLookup
 from helpers.clientFinder.ontType import typeCheck
@@ -11,26 +12,29 @@ from helpers.utils.sheets import insert
 from helpers.utils.template import approved, denied
 from helpers.info.plans import PLANS
 from helpers.info.hashMaps import clientData
+from helpers.utils.request import add_client_data
+
+load_dotenv()
 
 
-def confirmNew(comm, command, quit, olt, action):
+def confirmNew(comm, command, quit_ssh, olt, action):
     """
     comm        :   ssh connection handler [class]
     command     :   sends ssh commands [func]
-    quit        :   terminates the ssh connection [func]
+    quit_ssh        :   terminates the ssh connection [func]
     olt         :   defines the selected olt [var:str]
     action      :   defines the type of lookup/action of installation of the client [var:str]
-    
+
     This module adds a previous client or a new client into the olt
     """
     proceed = None
     client = clientData.copy()
-    client['olt'] = olt
+    client["olt"] = olt
     if "N" in action:
         NEW_SN = inp("Ingrese el Serial del Cliente a buscar : ").upper()
         (client["sn"], FSP) = newLookup(comm, command, olt, NEW_SN)
         val = inp("desea continuar? [Y|N] : ").upper()
-        proceed = True if val == "Y" and client["sn"] != None else False
+        proceed = bool(val == "Y" and client["sn"] is not None)
         if proceed:
             client["frame"] = int(FSP.split("/")[0])
             client["slot"] = int(FSP.split("/")[1])
@@ -39,10 +43,14 @@ def confirmNew(comm, command, quit, olt, action):
             client["plan_name"] = inp("Ingrese plan del cliente : ")
 
             ###########	OLD      ###########
-            client["line_profile"] = PLANS[client["olt"]][client["plan_name"]]["line_profile"]
-            client["srv_profile"] = PLANS[client["olt"]][client["plan_name"]]["srv_profile"]
+            client["line_profile"] = PLANS[client["olt"]][client["plan_name"]][
+                "line_profile"
+            ]
+            client["srv_profile"] = PLANS[client["olt"]][client["plan_name"]][
+                "srv_profile"
+            ]
             client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
-            
+
             ###########			IP MIGRATIONS    		 ###########
             # client["line_profile"] = PLANS[client["plan_name"]]["line_profile"]
             # client["srv_profile"] = PLANS[client["plan_name"]]["srv_profile"]
@@ -52,29 +60,29 @@ def confirmNew(comm, command, quit, olt, action):
             client["name"] = inp("Ingrese nombre del cliente : ")[:56]
             client["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ")
 
-            (client["onu_id"], client["fail"]) = addONUNew(
-                comm, command, client)
-        else:
-            log(colorFormatter("SN no aparece en OLT, Saliendo...", "warning"))
-            quit()
-            return
+            (client["onu_id"], client["fail"]) = addONUNew(comm, command, client)
+
+        log(colorFormatter("SN no aparece en OLT, Saliendo...", "warning"))
+        quit_ssh()
 
     elif "P" in action:
-        lookupType = inp(
-            "Buscar cliente por serial o por Datos de OLT [S | D] : ")
+        lookupType = inp("Buscar cliente por serial o por Datos de OLT [S | D] : ")
         client = lookup(comm, command, olt, lookupType)
-        if client["fail"] == None:
+        if client["fail"] is None:
             proceed = display(client, "I")
-            client["nif"] = inp(
-                "Ingrese el NIF del cliente [V123 | J123]: ").upper()
+            client["nif"] = inp("Ingrese el NIF del cliente [V123 | J123]: ").upper()
 
             client["plan_name"] = inp("Ingrese plan del cliente : ")
 
             ###########	OLD      ###########
-            client["line_profile"] = PLANS[client["olt"]][client["plan_name"]]["line_profile"]
-            client["srv_profile"] = PLANS[client["olt"]][client["plan_name"]]["srv_profile"]
+            client["line_profile"] = PLANS[client["olt"]][client["plan_name"]][
+                "line_profile"
+            ]
+            client["srv_profile"] = PLANS[client["olt"]][client["plan_name"]][
+                "srv_profile"
+            ]
             client["wan"][0] = PLANS[client["olt"]][client["plan_name"]]
-            
+
             ###########			IP MIGRATIONS    		 ###########
             # client["line_profile"] = PLANS[client["plan_name"]]["line_profile"]
             # client["srv_profile"] = PLANS[client["plan_name"]]["srv_profile"]
@@ -82,17 +90,16 @@ def confirmNew(comm, command, quit, olt, action):
             ###########			IP MIGRATIONS    		 ###########
 
             command(
-                f"ont modify {client['port']} {client['onu_id']} ont-lineprofile-id {client['line_profile']}")
+                f"ont modify {client['port']} {client['onu_id']} ont-lineprofile-id {client['line_profile']}"
+            )
             command(
-                f"ont modify {client['port']} {client['onu_id']} ont-srvprofile-id {client['srv_profile']}")
-        else:
-            log(colorFormatter(client["fail"], "fail"))
-            quit()
-            return
+                f"ont modify {client['port']} {client['onu_id']} ont-srvprofile-id {client['srv_profile']}"
+            )
+        log(colorFormatter(client["fail"], "fail"))
+        quit_ssh()
 
-    if client["onu_id"] != None and proceed:
-        (client["temp"], client["pwr"]) = opticalValues(
-            comm, command, client, True)
+    if client["onu_id"] is not None and proceed:
+        (client["temp"], client["pwr"]) = opticalValues(comm, command, client, True)
 
         value = inp(
             f"""
@@ -104,20 +111,35 @@ def confirmNew(comm, command, quit, olt, action):
         if not install:
             reason = inp("Por que no se le asignara servicio? : ").upper()
             denied(client, reason)
-            quit()
+            quit_ssh()
             return
         client["device"] = typeCheck(comm, command, client)
-        log(colorFormatter(
-            f"El tipo de ONT del cliente es {client['device']}", "ok"))
+        log(colorFormatter(f"El tipo de ONT del cliente es {client['device']}", "ok"))
 
         addOnuServiceNew(comm, command, client)
 
         verifySPID(comm, command, client)
         wksArr = approved(client)
         insert(wksArr)
-        quit()
+        data = {
+            "API_KEY": os.environ["API_KEY"],
+            "client": {
+                "frame": client["frame"],
+                "slot": client["slot"],
+                "port": client["port"],
+                "onu_id": client["onu_id"],
+                "name": client["name"],
+                "status": "online",
+                "state": "active",
+                "sn": client["sn"],
+                "device": client["device"],
+                "plan": client["plan_name"][:-2],
+                "vlan": client["wan"][0]["provider"],
+            },
+        }
+        add_client_data(data)
+        quit_ssh()
         return
-    else:
-        log(colorFormatter("Saliendo..., Cliente no se agrego en OLT", "warning"))
-        quit()
-        return
+    log(colorFormatter("Saliendo..., Cliente no se agrego en OLT", "warning"))
+    quit_ssh()
+    return
