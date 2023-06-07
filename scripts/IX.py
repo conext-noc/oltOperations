@@ -119,26 +119,37 @@ def confirmNew(comm, command, quit_ssh, olt, action):
 
         addOnuServiceNew(comm, command, client)
 
-        verifySPID(comm, command, client)
-        wksArr = approved(client)
-        insert(wksArr)
         data = {
             "API_KEY": os.environ["API_KEY"],
             "client": {
                 "frame": client["frame"],
                 "slot": client["slot"],
                 "port": client["port"],
-                "onu_id": client["onu_id"],
+                "onu_id": int(client["onu_id"]),
                 "name": client["name"],
                 "status": "online",
                 "state": "active",
+                "pwr": client["pwr"],
+                "last_down_cause": "dying-gasp",
+                "last_down_time": "-",
+                "last_down_date": "-",
                 "sn": client["sn"],
                 "device": client["device"],
                 "plan": client["plan_name"][:-2],
                 "vlan": client["wan"][0]["provider"],
             },
         }
-        add_client_data(data)
+        api_response = add_client_data(data)
+        if api_response.message != "User added successfully!":
+            log(
+                colorFormatter(
+                    f"Cliente no se agrego a BD, Agg a BD Manualmente, {api_response.message} : {api_response.client.message}",
+                    "warning",
+                )
+            )
+        verifySPID(comm, command, client)
+        wksArr = approved(client)
+        insert(wksArr)
         quit_ssh()
         return
     log(colorFormatter("Saliendo..., Cliente no se agrego en OLT", "warning"))
