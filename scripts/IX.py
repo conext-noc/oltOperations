@@ -137,6 +137,7 @@ def confirmNew(comm, command, quit_ssh, olt, action):
                 "device": client["device"],
                 "plan": client["plan_name"][:-2],
                 "vlan": client["wan"][0]["provider"],
+                "fsp": f"{client['frame']}/{client['slot']}/{client['port']}",
             },
         }
         api_response = add_client_data(data)
