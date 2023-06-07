@@ -36,7 +36,7 @@ def serialSearch(comm, command, data):
         (e, _) = regex[len(regex) - 1]
         value = val[s:e]
         (_, eFSP) = check(value, existing["FSP"]).span()
-        valFSP = value[eFSP : eFSP + 6].replace("\n", "")
+        valFSP = value[eFSP : eFSP + 7].replace("\n", "")
         FRAME = int(valFSP.split("/")[0])
         SLOT = int(valFSP.split("/")[1])
         PORT = int(valFSP.split("/")[2])

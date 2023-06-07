@@ -1,7 +1,7 @@
 table = {
     "condition_summary": "------------------------------------------------------------------------------",
     "condition_port": "-----------------------------------------------------------------------------",
-    "condition_wan":"-----------------------------------------------------------------------------",
+    "condition_wan": "-----------------------------------------------------------------------------",
     "options_summary": [
         {
             "name": "state",
@@ -32,13 +32,12 @@ table = {
             "header_1": ",f/s/p,onu_id,name1,name2,name3,name4,name5,name6,name7,name8,name9,name10,name11,name12,name13,name14,name15,name16,name17,name18,name19,name20,name21",
         },
     ],
-    "options_wan":
-        {
-            "start": 13,
-            "end": 14,
-            "header": "spid,vlan,vlan_att,port_type,f/s,/p,onu_id,vci,flow_type,vlan_idx,plan_idx,tx,state,",
-            "header_1": "spid,vlan,vlan_att,port_type,f/s/p,onu_id,vci,flow_type,vlan_idx,plan_idx,tx,state,"
-        }
+    "options_wan": {
+        "start": 13,
+        "end": 14,
+        "header": "spid,vlan,vlan_att,port_type,f/s,/p,onu_id,vci,flow_type,vlan_idx,plan_idx,tx,state,",
+        "header_1": "spid,vlan,vlan_att,port_type,f/s/p,onu_id,vci,flow_type,vlan_idx,plan_idx,tx,state,",
+    },
 }
 
 ports = {
@@ -226,7 +225,7 @@ ports = {
             "0/3/4": 0,
             "0/3/5": 0,
             "0/3/6": 0,
-            #"0/3/7": 0,
+            "0/3/7": 0,
             "0/3/8": 0,
             "0/3/9": 0,
             "0/3/10": 0,
@@ -338,19 +337,19 @@ vp_count = {
         "vp_off_cnt": 0,
     },
     "2": {
-        "vp_ttl" : 0,
-        "vp_vnet" : 0,
-        "vp_inter" : 0,
-        "vp_public_ip" : 0,
-        "OZ_0" : 0,
-        "OZ_MAX" : 0,
-        "OZ_SKY" : 0,
-        "OZ_MAGICAL" : 0,
-        "OZ_NEXT" : 0,
-        "OZ_PLUS" : 0,
-        "OZ_DEDICADO" : 0,
-        "OZ_CONECTA" : 0,
-        "NA" : 0,
+        "vp_ttl": 0,
+        "vp_vnet": 0,
+        "vp_inter": 0,
+        "vp_public_ip": 0,
+        "OZ_0": 0,
+        "OZ_MAX": 0,
+        "OZ_SKY": 0,
+        "OZ_MAGICAL": 0,
+        "OZ_NEXT": 0,
+        "OZ_PLUS": 0,
+        "OZ_DEDICADO": 0,
+        "OZ_CONECTA": 0,
+        "NA": 0,
     },
 }
 
@@ -361,15 +360,15 @@ speed = {
 }
 
 interface = {
-    "start":"InUti/OutUti: input utility/output utility",
-    "end":"NULL0",
-    "header":"Interface,PHY,Protocol,InUti,OutUti,inErrors,outErrors\n",
+    "start": "InUti/OutUti: input utility/output utility",
+    "end": "NULL0",
+    "header": "Interface,PHY,Protocol,InUti,OutUti,inErrors,outErrors\n",
 }
 
 rtrConflicts = {
     "condition": "---------------------------------------------------------------------------------------",
     "headerConf": "NA,ID,start,end,total,used,idle,conflict,disable,reserved,staticBind",
-    "headerSect": "ip,mac,userId,lease,status,index,na"
+    "headerSect": "ip,mac,userId,lease,status,index,na",
 }
 
 wanMapper = {
@@ -377,27 +376,25 @@ wanMapper = {
         "2100": "2",
         "2101": "2",
         "2102": "2",
-        "2102": "2",
         "2103": "2",
         "2104": "2",
         "2105": "2",
         "3100": "1",
         "3101": "1",
         "3102": "1",
-        "3102": "1",
         "3103": "1",
         "3104": "1",
         "3105": "1",
-        "102": "IP"
+        "102": "IP",
     },
     "2": {
-        "101":"VOIP",
+        "101": "VOIP",
         "1101": "1",
         "1102": "2",
         "1104": "IP",
     },
     "3": {
-        "101":"VOIP",
+        "101": "VOIP",
         "1101": "1",
         "1102": "2",
         "1104": "IP",

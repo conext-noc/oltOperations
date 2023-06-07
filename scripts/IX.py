@@ -62,8 +62,9 @@ def confirmNew(comm, command, quit_ssh, olt, action):
 
             (client["onu_id"], client["fail"]) = addONUNew(comm, command, client)
 
-        log(colorFormatter("SN no aparece en OLT, Saliendo...", "warning"))
-        quit_ssh()
+        else:
+            log(colorFormatter("SN no aparece en OLT, Saliendo...", "warning"))
+            quit_ssh()
 
     elif "P" in action:
         lookupType = inp("Buscar cliente por serial o por Datos de OLT [S | D] : ")
