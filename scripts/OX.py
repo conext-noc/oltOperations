@@ -80,7 +80,6 @@ def operate(comm, command, quit_ssh, olt, action):
                 command(f"ont {operation} {PORT} {ID}")
                 command(f"display ont info {PORT} {ID}")
                 command("q")
-                command("quit")
 
                 log(
                     colorFormatter(
