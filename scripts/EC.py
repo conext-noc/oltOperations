@@ -1,12 +1,8 @@
-import os
-from dotenv import load_dotenv
 from helpers.clientFinder.lookup import lookup
 from helpers.utils.display import display
 from helpers.utils.printer import colorFormatter, inp, log
 from helpers.utils.sheets import delete
 from helpers.utils.request import delete_client_data
-
-load_dotenv()
 
 
 def deleteClient(comm, command, quit_ssh, olt, _):
@@ -35,12 +31,20 @@ def deleteClient(comm, command, quit_ssh, olt, _):
         log(f"El SPID {wan['spid']} ha sido liberado!")
     command(f"interface gpon {client['frame']}/{client['slot']}")
     command(f"ont delete {client['port']} {client['onu_id']}")
+
+    api_response = delete_client_data(client["sn"], "S")
+    log(
+        colorFormatter(
+            f"Cliente no se elimino en BD, Eliminar en BD Manualmente, {api_response.message} : {api_response.client.message}",
+            "warning",
+        )
+    ) if api_response.message != "Client deleted successfully!" else log(
+        colorFormatter(
+            "Cliente eliminado de BD.",
+            "success",
+        )
+    )
     delete(client["sn"])
-    data = {
-        "API_KEY": os.environ["API_KEY"],
-        "contract": client["name"].split(" ")[2].zfill(10),
-    }
-    delete_client_data(data)
     log(
         colorFormatter(
             f"El cliente {client['name']} de {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} ha sido eliminado  ",

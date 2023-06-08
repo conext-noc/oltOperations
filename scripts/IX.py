@@ -1,5 +1,3 @@
-import os
-from dotenv import load_dotenv
 from helpers.clientFinder.lookup import lookup
 from helpers.clientFinder.newLookup import newLookup
 from helpers.clientFinder.ontType import typeCheck
@@ -13,8 +11,6 @@ from helpers.utils.template import approved, denied
 from helpers.info.plans import PLANS
 from helpers.info.hashMaps import clientData
 from helpers.utils.request import add_client_data
-
-load_dotenv()
 
 
 def confirmNew(comm, command, quit_ssh, olt, action):
@@ -118,36 +114,18 @@ def confirmNew(comm, command, quit_ssh, olt, action):
         log(colorFormatter(f"El tipo de ONT del cliente es {client['device']}", "ok"))
 
         addOnuServiceNew(comm, command, client)
-
-        data = {
-            "API_KEY": os.environ["API_KEY"],
-            "client": {
-                "frame": client["frame"],
-                "slot": client["slot"],
-                "port": client["port"],
-                "onu_id": int(client["onu_id"]),
-                "name": client["name"],
-                "status": "online",
-                "state": "active",
-                "pwr": client["pwr"],
-                "last_down_cause": "dying-gasp",
-                "last_down_time": "-",
-                "last_down_date": "-",
-                "sn": client["sn"],
-                "device": client["device"],
-                "plan": client["plan_name"][:-2],
-                "vlan": client["wan"][0]["provider"],
-                "fsp": f"{client['frame']}/{client['slot']}/{client['port']}",
-            },
-        }
-        api_response = add_client_data(data)
-        if api_response.message != "User added successfully!":
-            log(
-                colorFormatter(
-                    f"Cliente no se agrego a BD, Agg a BD Manualmente, {api_response.message} : {api_response.client.message}",
-                    "warning",
-                )
+        api_response = add_client_data(client)
+        log(
+            colorFormatter(
+                f"Cliente no se agrego a BD, Agg a BD Manualmente, {api_response.message} : {api_response.client.message}",
+                "warning",
             )
+        ) if api_response.message != "User added successfully!" else log(
+            colorFormatter(
+                "Cliente agregado a BD.",
+                "success",
+            )
+        )
         verifySPID(comm, command, client)
         wksArr = approved(client)
         insert(wksArr)
