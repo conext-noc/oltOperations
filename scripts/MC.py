@@ -54,22 +54,11 @@ $ """
             name_1 = NEW_NAME.split(" ")[0]
             name_2 = NEW_NAME.split(" ")[1]
             contract = NEW_NAME.split(" ")[2]
-            api_response = modify_client_data(
+            modify_client_data(
                 client["sn"],
                 "S",
                 "CT",
                 {"name_1": name_1, "name_2": name_2, "contract": contract},
-            )
-            log(
-                colorFormatter(
-                    f"Cliente no se modifico en BD, Modificar en BD Manualmente, {api_response.message} : {api_response.client.message}",
-                    "warning",
-                )
-            ) if api_response.message != "Client updated successfully!" else log(
-                colorFormatter(
-                    "Cliente modificado en BD.",
-                    "success",
-                )
             )
             log(colorFormatter(msg, "success"))
             modify(client["sn"], NEW_NAME, "NAME")
@@ -92,22 +81,11 @@ $ """
             command(f'ont modify {client["port"]} {client["onu_id"]} sn "{NEW_SN}" ')
             command("quit")
             msg = change(client, action, NEW_SN)
-            api_response = modify_client_data(
+            modify_client_data(
                 client["sn"],
                 "S",
                 "CO",
                 {"sn": NEW_SN},
-            )
-            log(
-                colorFormatter(
-                    f"Cliente no se modifico en BD, Modificar en BD Manualmente, {api_response.message} : {api_response.client.message}",
-                    "warning",
-                )
-            ) if api_response.message != "Client updated successfully!" else log(
-                colorFormatter(
-                    "Cliente modificado en BD.",
-                    "success",
-                )
             )
             log(colorFormatter(msg, "success"))
             modify(client["sn"], NEW_SN, "SN")
@@ -136,22 +114,11 @@ $ """
             addOnuServiceNew(comm, command, client)
             verifySPID(comm, command, client)
             msg = change(client, action, client["plan_name"])
-            api_response = modify_client_data(
+            modify_client_data(
                 client["sn"],
                 "S",
                 "CO",
                 {"plan": client["plan_name"], "provider": client["wan"][0]["provider"]},
-            )
-            log(
-                colorFormatter(
-                    f"Cliente no se modifico en BD, Modificar en BD Manualmente, {api_response.message} : {api_response.client.message}",
-                    "warning",
-                )
-            ) if api_response.message != "Client updated successfully!" else log(
-                colorFormatter(
-                    "Cliente modificado en BD.",
-                    "success",
-                )
             )
             log(colorFormatter(msg, "success"))
             modify(client["sn"], client["plan_name"], "PLAN")
@@ -195,22 +162,11 @@ $ """
             addOnuServiceNew(comm, command, client)
             verifySPID(comm, command, client)
             msg = change(client, action, client["plan_name"])
-            api_response = modify_client_data(
+            modify_client_data(
                 client["sn"],
                 "S",
                 "CO",
                 {"plan": client["plan_name"], "provider": client["wan"][0]["provider"]},
-            )
-            log(
-                colorFormatter(
-                    f"Cliente no se modifico en BD, Modificar en BD Manualmente, {api_response.message} : {api_response.client.message}",
-                    "warning",
-                )
-            ) if api_response.message != "Client updated successfully!" else log(
-                colorFormatter(
-                    "Cliente modificado en BD.",
-                    "success",
-                )
             )
             log(colorFormatter(msg, "info"))
             quit_ssh()

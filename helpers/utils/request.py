@@ -30,7 +30,7 @@ def add_client_data(payload):
                 "frame": str(payload["frame"]),
                 "slot": str(payload["slot"]),
                 "port": str(payload["port"]),
-                "onu_id": str(payload["onu_is"]),
+                "onu_id": str(payload["onu_id"]),
                 "name": payload["name"],
                 "status": "online",
                 "pwr": payload["pwr"],

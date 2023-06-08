@@ -114,18 +114,7 @@ def confirmNew(comm, command, quit_ssh, olt, action):
         log(colorFormatter(f"El tipo de ONT del cliente es {client['device']}", "ok"))
 
         addOnuServiceNew(comm, command, client)
-        api_response = add_client_data(client)
-        log(
-            colorFormatter(
-                f"Cliente no se agrego a BD, Agg a BD Manualmente, {api_response.message} : {api_response.client.message}",
-                "warning",
-            )
-        ) if api_response.message != "User added successfully!" else log(
-            colorFormatter(
-                "Cliente agregado a BD.",
-                "success",
-            )
-        )
+        add_client_data(client)
         verifySPID(comm, command, client)
         wksArr = approved(client)
         insert(wksArr)

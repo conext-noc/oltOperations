@@ -93,20 +93,7 @@ def operate(comm, command, quit_ssh, olt, action):
                 )
                 output = decoder(comm)
 
-                api_response = modify_client_data(
-                    SN, "S", "OX", {"state": resultedActionDB}
-                )
-                log(
-                    colorFormatter(
-                        f"Cliente no se modifico en BD, Modificar en BD Manualmente, {api_response.message} : {api_response.client.message}",
-                        "warning",
-                    )
-                ) if api_response.message != "Client updated successfully!" else log(
-                    colorFormatter(
-                        "Cliente modificado en BD.",
-                        "success",
-                    )
-                )
+                modify_client_data(SN, "S", "OX", {"state": resultedActionDB})
                 if "U" not in action:
                     file = f"{action}_{FRAME}-{SLOT}-{PORT}-{ID}_OLT{OLT}.txt"
                     print(output, file=open(file, "a", encoding="utf-8"), flush=True)
