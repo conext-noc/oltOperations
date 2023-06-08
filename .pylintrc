@@ -446,7 +446,19 @@ disable=raw-checker-failed,
         consider-using-with,
         inconsistent-return-statements,
       #   later on delete this 👇
+
       duplicate-code
+# ************* Module scripts.OX
+# scripts/OX.py:2:0: W0611: Unused dataLookup imported from helpers.clientFinder.dataLookup (unused-import)
+# scripts/OX.py:1:0: R0801: Similar lines in 2 files
+# ==scripts.EC:[23:28]
+# ==scripts.MC:[39:45]
+#     proceed = display(client, "A")
+#     if not proceed:
+#         log(colorFormatter("Cancelando...", "warning"))
+#         quit_ssh()
+#         return (duplicate-code)
+
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
