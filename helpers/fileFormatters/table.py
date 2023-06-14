@@ -48,7 +48,7 @@ def clientsTable(comm, command, lst, olt):
                 name = op["name"]
                 start = op["start"]
                 end = op["end"]
-                header = op["header"] if SLOT != 10 else op["header_1"]
+                header = op["header"] if SLOT < 10 else op["header_1"]
                 (_, s) = rePort[start]
                 (e, _) = rePort[end]
                 if name == "names":
