@@ -445,9 +445,14 @@ disable=raw-checker-failed,
         too-many-branches,
         consider-using-with,
         inconsistent-return-statements,
+        broad-exception-caught,
+        duplicate-code,
+        pointless-statement,
+        duplicate-key,
+        dangerous-default-value
+
       #   later on delete this 👇
 
-      duplicate-code
 # ************* Module scripts.OX
 # scripts/OX.py:2:0: W0611: Unused dataLookup imported from helpers.clientFinder.dataLookup (unused-import)
 # scripts/OX.py:1:0: R0801: Similar lines in 2 files

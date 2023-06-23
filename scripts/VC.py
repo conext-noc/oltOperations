@@ -1,64 +1,73 @@
-from helpers.clientFinder.dataLookup import dataLookup
-from helpers.clientFinder.lookup import lookup
-from helpers.failHandler.fail import failChecker
-from helpers.utils.decoder import check, checkIter, decoder
-from helpers.utils.display import display
-from helpers.utils.printer import colorFormatter, inp, log
-from helpers.info.regexConditions import speed
 from time import sleep
+from helpers.handlers.fail import fail_checker
+from helpers.utils.decoder import decoder, check, check_iter
+from helpers.handlers.display import display
+from helpers.handlers.printer import inp, log
+from helpers.constants.regex_conditions import speed
+from helpers.handlers.request import db_request
+from helpers.constants.definitions import payload, endpoints
+from helpers.finder.optical import optical_values
+from helpers.finder.last_down_onu import down_values
+from helpers.handlers.spid import calculate_spid
 
 
-def verifyTraffic(comm,command,quit,olt, action):
-    """
-    comm        :   ssh connection handler [class]
-    command     :   sends ssh commands [func]
-    quit        :   terminates the ssh connection [func]
-    olt         :   defines the selected olt [var:str]
-    action      :   defines the type of lookup/action of the client [var:str]
-    
-    This module monitors the real time traffic of a given client
-    """
-    speedUpArr = []
-    speedDownArr = []
-    lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
-    data = lookup(comm, command, olt, lookupType)
-    if data["fail"] != None:
-        log(colorFormatter(data["fail"], "fail"))
-        quit()
+def client_traffic(comm, command, quit_ssh, device, _):
+    speed_up_arr = []
+    speed_down_arr = []
+    payload["lookup_type"] = inp(
+        "Buscar cliente por contrato, serial o datos [C | S | D] : "
+    )
+    payload["lookup_value"] = inp("Ingrese el contrato, serial o datos (f/s/p/id) : ")
+    req = db_request(endpoints["get_client"], payload)
+    if req["error"]:
+        log(req["message"], "fail")
+        quit_ssh()
         return
-    proceed = display(data,"A")
+    client = req["data"]
+    client["olt"] = device
+    (client["temp"], client["pwr"]) = optical_values(comm, command, client, False)
+    (
+        client["last_down_cause"],
+        client["last_down_time"],
+        client["last_down_date"],
+    ) = down_values(comm, command, client, False)
+    client["spid"] = calculate_spid(client)[
+        "I" if "_IP" not in client["plan_name"] else "P"
+    ]
+    proceed = display(client, "A")
     if not proceed:
-        log(colorFormatter("Cancelando...", "warning"))
-        quit()
+        log("Cancelando...", "warning")
+        quit_ssh()
         return
-    command(f"interface gpon {data['frame']}/{data['slot']}")
+    command(f"interface gpon {client['frame']}/{client['slot']}")
     for i in range(0, 10):
-        command(f"display ont traffic {data['port']} {data['onu_id']}")
+        command(f"display ont traffic {client['port']} {client['onu_id']}")
         sleep(5)
-        outputSpeed = decoder(comm)
-        fail = failChecker(outputSpeed)
-        if fail == None:
-            (_, sUpSpeed) = check(outputSpeed, speed["up"]).span()
-            (eUpSpeed, sDownSpeed) = check(outputSpeed, speed["down"]).span()
-            (eDownSpeed, _) = checkIter(outputSpeed, speed["cond"])[2]
-            upSpeed = int(outputSpeed[sUpSpeed:eUpSpeed])
-            downSpeed = int(outputSpeed[sDownSpeed:eDownSpeed])
-            speedUpArr.append(upSpeed)
-            speedDownArr.append(downSpeed)
+        output_speed = decoder(comm)
+        fail = fail_checker(output_speed)
+        if fail is None:
+            (_, s_up_speed) = check(output_speed, speed["up"]).span()
+            (e_up_speed, s_down_speed) = check(output_speed, speed["down"]).span()
+            (e_down_speed, _) = check_iter(output_speed, speed["cond"])[2]
+            up_speed = int(output_speed[s_up_speed:e_up_speed])
+            down_speed = int(output_speed[s_down_speed:e_down_speed])
+            speed_up_arr.append(up_speed)
+            speed_down_arr.append(down_speed)
         else:
-            speedUpArr.append(0)
-            speedDownArr.append(0)
+            speed_up_arr.append(0)
+            speed_down_arr.append(0)
         i = i + 1
     command("quit")
-    upLen = len(speedUpArr)
-    upSum = sum(speedUpArr)
-    upAVG = upSum / upLen
-    downLen = len(speedDownArr)
-    downSum = sum(speedDownArr)
-    downAVG = downSum / downLen
+    up_len = len(speed_up_arr)
+    up_sum = sum(speed_up_arr)
+    up_avg = up_sum / up_len
+    down_len = len(speed_down_arr)
+    down_sum = sum(speed_down_arr)
+    down_avg = down_sum / down_len
     log(
         f"""
-El consumo promedio del ONT es {upAVG} Kbps [UP] y {downAVG} Kbps [DOWN]
-"""
+El consumo promedio del ONT es {up_avg} Kbps [UP] y {down_avg} Kbps [DOWN]
+""",
+        "info",
     )
-    quit()
+    quit_ssh()

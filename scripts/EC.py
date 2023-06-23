@@ -1,44 +1,64 @@
-from helpers.clientFinder.lookup import lookup
-from helpers.utils.display import display
-from helpers.utils.printer import colorFormatter, inp, log
-from helpers.utils.sheets import delete
-from helpers.utils.request import delete_client_data
+from helpers.handlers import request, printer, spid, display
+from helpers.finder import optical, last_down_onu
+from helpers.constants import definitions
+
+# FUNCTION IMPORT DEFINITIONS
+db_request = request.db_request
+inp = printer.inp
+log = printer.log
+calculate_spid = spid.calculate_spid
+endpoints = definitions.endpoints
+olt_devices = definitions.olt_devices
+payload = definitions.payload
+down_values = last_down_onu.down_values
+optical_values = optical.optical_values
+display = display.display
 
 
-def deleteClient(comm, command, quit_ssh, olt, _):
-    """
-    comm        :   ssh connection handler [class]
-    command     :   sends ssh commands [func]
-    quit_ssh        :   terminates the ssh connection [func]
-    olt         :   defines the selected olt [var:str]
-    _      :   defines the type of lookup/action of the client [var:str]
-
-    This module deletes a given client
-    """
-    lookupType = inp("Buscar cliente por serial o por Datos (F/S/P/ID) [S | D] : ")
-    client = lookup(comm, command, olt, lookupType)
-    if client["fail"] is not None:
-        log(colorFormatter(client["fail"], "fail"))
+def client_delete(comm, command, quit_ssh, device, _):
+    payload["lookup_type"] = inp(
+        "Buscar cliente por contrato, serial o datos [C | S | D] : "
+    )
+    payload["lookup_value"] = inp("Ingrese el contrato, serial o datos (f/s/p/id) : ")
+    req = db_request(endpoints["get_client"], payload)
+    if req["error"]:
+        log(req["message"], "fail")
         quit_ssh()
         return
+    client = req["data"]
+    client["olt"] = device
+    (client["temp"], client["pwr"]) = optical_values(comm, command, client, False)
+    (
+        client["last_down_cause"],
+        client["last_down_time"],
+        client["last_down_date"],
+    ) = down_values(comm, command, client, False)
+    client["spid"] = calculate_spid(client)[
+        "I" if "_IP" not in client["plan_name"] else "P"
+    ]
     proceed = display(client, "A")
+
     if not proceed:
-        log(colorFormatter("Cancelando...", "warning"))
+        log("Cancelando...", "info")
         quit_ssh()
         return
-    for wan in client["wan"]:
-        command(f"undo service-port {wan['spid']}")
-        log(f"El SPID {wan['spid']} ha sido liberado!")
+
+    command(f"undo service-port {client['spid']}")
+    log(f"El SPID {client['spid']} ha sido liberado!", "info")
     command(f"interface gpon {client['frame']}/{client['slot']}")
     command(f"ont delete {client['port']} {client['onu_id']}")
-
-    delete_client_data(client["sn"], "S")
-    delete(client["sn"])
     log(
-        colorFormatter(
-            f"El cliente {client['name']} de {client['frame']}/{client['slot']}/{client['port']}/{client['onu_id']} @ OLT {client['olt']} ha sido eliminado  ",
-            "success",
-        )
+        f'Cliente {client["name_1"]} {client["name_2"]} {client["contract"]} ha sido eliminado',
+        "info",
     )
+
+    payload["lookup_type"] = "C"
+    payload["lookup_value"] = str(client["contract"])
+    req = db_request(endpoints["remove_client"], payload)
+    if req["error"]:
+        log("an error occurred removing client from db", "fail")
+    else:
+        log("successfully removed client from db", "success")
+
     quit_ssh()
     return

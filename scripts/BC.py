@@ -1,52 +1,46 @@
-from helpers.clientFinder.lookup import lookup
-from helpers.utils.display import display
-from helpers.utils.printer import colorFormatter, inp, log
-from helpers.utils.template import approvedDis
+from helpers.handlers import request, printer, spid, display, template
+from helpers.finder import optical, last_down_onu
+from helpers.constants import definitions
+
+# FUNCTION IMPORT DEFINITIONS
+db_request = request.db_request
+inp = printer.inp
+log = printer.log
+calculate_spid = spid.calculate_spid
+endpoints = definitions.endpoints
+olt_devices = definitions.olt_devices
+payload = definitions.payload
+down_values = last_down_onu.down_values
+optical_values = optical.optical_values
+display = display.display
+approvedDis = template.approvedDis
 
 
-def existingLookup(comm, command, quit, olt, action):
-    """
-    comm        :   ssh connection handler [class]
-    command     :   sends ssh commands [func]
-    quit        :   terminates the ssh connection [func]
-    olt         :   defines the selected olt [var:str]
-    action      :   defines the type of lookup of the client [var:str]
-    
-    This module finds all the data corresponding to a given client
-    """
-    lookupType = inp(
-        "Buscar cliente por serial, por nombre o por Datos (F/S/P/ID) [S | N | D] : "
+def client_lookup(comm, command, quit_ssh, device, _):
+    payload["lookup_type"] = inp(
+        "Buscar cliente por contrato, serial o datos [C | S | D] : "
     )
-    client = lookup(comm, command, olt, lookupType)
-
-    if client["fail"] != None:
-        log(colorFormatter(client["fail"], "fail"))
+    payload["lookup_value"] = inp("Ingrese el contrato, serial o datos (f/s/p/id) : ")
+    req = db_request(endpoints["get_client"], payload)
+    if req["error"]:
+        log(req["message"], "fail")
+        quit_ssh()
         return
-
-    if lookupType == "N":
-        clients = client["data"]
-        log(
-            "| {:^6} | {:^7} | {:^40} | {:^10} | {:^15} | {:^16} |".format(
-                "F/S/P", "ONU_ID", "NAME", "STATUS", "STATE", "SN"
-            )
-        )
-        for client in clients:
-            resp = "| {:^6} | {:^7} | {:^40} | {:^10} | {:^15} | {:^16} |".format(
-                f"{client['frame']}/{client['slot']}/{client['port']}",
-                client["onu_id"],
-                client["name"],
-                client["status"],
-                client["state"],
-                client["sn"],
-            )
-            log(resp)
-        quit()
-        return
-
+    client = req["data"]
+    client["olt"] = device
+    (client["temp"], client["pwr"]) = optical_values(comm, command, client, False)
+    (
+        client["last_down_cause"],
+        client["last_down_time"],
+        client["last_down_date"],
+    ) = down_values(comm, command, client, False)
+    client["spid"] = calculate_spid(client)[
+        "I" if "_IP" not in client["plan_name"] else "P"
+    ]
     display(client, "B")
-    displayTemplate = inp("Desea la plantilla de datos operacionales? [Y/N] : ").upper().strip() == 'Y'
+    displayTemplate = (
+        inp("Desea la plantilla de datos operacionales? [Y/N] : ").upper().strip()
+        == "Y"
+    )
     approvedDis(client) if displayTemplate else None
-    # add wan profile if not exist
-    # if client["wan"][0]["spid"] == None:
-    #     addOnuServiceNew(comm, command, client)
     return
