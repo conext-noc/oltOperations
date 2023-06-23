@@ -77,10 +77,10 @@ quieres proceder con la instalacion? [Y | N] : """
     if not install:
         reason = inp("Por que no se le asignara servicio? : ").upper()
         denied(client, reason)
-        quit_ssh()
         command(f'interface gpon {client["frame"]} {client["slot"]}')
         command(f'ont delete {client["port"]} {client["onu_id"]}')
         log("Cliente no se agrego apropiadamente en OLT, eliminando...", "warning")
+        quit_ssh()
         return
 
     client["device"] = type_finder(comm, command, client)
