@@ -18,7 +18,7 @@ approvedDis = template.approvedDis
 
 def client_lookup(comm, command, quit_ssh, device, _):
     payload["lookup_type"] = inp(
-        "Buscar cliente por Contrato, Serial o Datos [C | S | D] : "
+        "Buscar cliente por contrato, serial o datos [C | S | D] : "
     )
     payload["lookup_value"] = inp("Ingrese el contrato, serial o datos (f/s/p/id) : ")
     req = db_request(endpoints["get_client"], payload)
