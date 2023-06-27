@@ -492,13 +492,13 @@ ports = {
 
 vp_count = {
     "1": {
+        "vp_ttl": 0,
         "vp_active_cnt": 0,
         "vp_deactive_cnt": 0,
         "vp_los_cnt": 0,
         "vp_off_cnt": 0,
     },
     "2": {
-        "vp_ttl": 0,
         "vp_vnet": 0,
         "vp_inter": 0,
         "vp_public_ip": 0,

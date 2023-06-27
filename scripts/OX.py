@@ -18,7 +18,7 @@ file_to_dict = file_formatter.file_to_dict
 def client_operate(_, command, quit_ssh, __, action):
     clients = []
     if "U" in action:
-        payload["lookup_type"] = inp("enter lookup type [C | S | D] : ")
+        payload["lookup_type"] = inp("Buscar cliente por Contrato, Serial o Datos [C | S | D] : ")
         payload["lookup_value"] = inp("enter value : ")
         req = db_request(endpoints["get_client"], payload)
         if req["error"]:
