@@ -27,6 +27,13 @@ def portOperation(comm, command, quit, olt, action):
     if action == "CA" or action == "DT" or action == "VT":
         lst = ports["olt"][olt]
         portCount = ports["count"][olt]
+    if action == "VP" or action == "VT":
+        pwr_monitor = bool(
+            inp("Desea filtrar por potencias altas?[Y | N] : ").strip() == "Y"
+        )
+        pwr_limit = (
+            abs(float(inp("Ingrese el valor de potencia : "))) if pwr_monitor else None
+        )
     while keep:
         clients = clientsTable(comm, command, lst, olt)
         totalClients = len(clients)
@@ -103,7 +110,14 @@ def portOperation(comm, command, quit, olt, action):
                 else:
                     vp_count['1']['vp_deactive_cnt'] += 1
                     color = "suspended"
-                log(colorFormatter(resp, color))
+                
+                if pwr_monitor: {
+                    log(colorFormatter(resp, color)) if abs(
+                    float(PWR if PWR != "-" else "0.0")
+                ) >= pwr_limit else None
+                } 
+                else : log(colorFormatter(resp, color))
+
             if action == "CA":
                  if str(TIME) != "nan" and str(TIME) != "-":
                     if STATUS == "offline":
