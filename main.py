@@ -64,9 +64,7 @@ $ """
                 if action != "MR"
                 else inp("Selecciona el router a monitorear [E1 | E2 | A1 | A2] : ")
             )
-            debug = bool(
-                inp("Enable debug [mostrar comandos]? (y/n): ").upper().strip() == "Y"
-            )
+            debug = bool(inp("Enable debug [mostrar comandos]? (y/n): ").strip() == "Y")
             (comm, command, quit_ssh) = ssh(devices[device], debug)
 
             modules[action](comm, command, quit_ssh, device, action)

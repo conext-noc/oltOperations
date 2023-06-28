@@ -1,7 +1,7 @@
 from helpers.handlers import request, printer, spid, port_condition
 from helpers.finder import last_down_onu, table
 from helpers.constants import definitions, regex_conditions
-from helpers.utils import portHandler 
+from helpers.utils import portHandler
 
 # FUNCTION IMPORT DEFINITIONS
 db_request = request.db_request
@@ -23,9 +23,16 @@ dictToZero = portHandler.dictToZero
 def client_ports(comm, command, quit_ssh, device, action):
     keep = True
     lst = []
+    clt = {}
     payload["lookup_type"] = action
     payload["lookup_value"] = (
         inp("Ingrese el f/s/p a monitorear : ") if "VP" in action else None
+    )
+    pwr_monitor = bool(
+        inp("Desea filtrar por potencias altas?[Y | N] : ").strip() == "Y"
+    )
+    pwr_limit = (
+        abs(float(inp("Ingrese el valor de potencia : "))) if pwr_monitor else None
     )
     lst = (
         [{"fsp": payload["lookup_value"]}]
@@ -66,16 +73,21 @@ def client_ports(comm, command, quit_ssh, device, action):
             last_down_cause = str(clt["last_down_cause"])
             client_row = f"""| {clt['fsp']:^6} | {clt['onu_id']:^6} | {clt["name"]:^54} | {clt['state']:^11} | {clt['status']:^7} | {last_down_cause:^15} | {clt['pwr']:^6} | {last_down_time:^14} | {last_down_date:^14} | {clt['device']:^10} | {clt['sn']:^16} | {clt['plan_name_id']:^15} |"""
 
-            portCounter(alert, clt['plan_name_id'])
-            vp_count['1']['vp_ttl'] += 1
+            portCounter(alert, clt["plan_name_id"])
+            vp_count["1"]["vp_ttl"] += 1
 
-            if action in ["VP", "VT"]:
+            if action in ["VP", "VT"] and not pwr_monitor:
                 log(client_row, alert)
+            if action in ["VP", "VT"] and pwr_monitor:
+                log(client_row, alert) if abs(
+                    float(clt["pwr"] if clt["pwr"] != "-" else "0.0")
+                ) >= pwr_limit else None
             if action == "CA":
                 log(client_row, alert) if alert in ["los", "los+"] else None
             if action == "DT":
                 log(client_row, alert) if alert in ["suspended", "suspended+"] else None
-        log(f"""
+        log(
+            f"""
 En el Puerto {clt['fsp']}:
 El total de clientes en el puerto es           :   {vp_count['1']['vp_ttl']}
 El total de clientes activos es                :   {vp_count['1']['vp_active_cnt']}
@@ -98,9 +110,11 @@ El total de clientes con Plan PLUS          :   {vp_count['2']['OZ_PLUS']}
 El total de clientes con Planes DEDICADOS   :   {vp_count['2']['OZ_DEDICADO']}
 El total de clientes con Plan CONECTA       :   {vp_count['2']['OZ_CONECTA']}
 El total de Clientes sin Plan Asignado      :   {vp_count['2']['NA']}
-""", "normal")if action in ["VP", "VT"] else None
-        dictToZero(vp_count['1'])
-        dictToZero(vp_count['2'])
+""",
+            "normal",
+        ) if action in ["VP", "VT"] else None
+        dictToZero(vp_count["1"])
+        dictToZero(vp_count["2"])
         preg = inp("continuar? [Y | N] : ") if action == "VP" else None
         payload["lookup_value"] = (
             inp("Ingrese el f/s/p a monitorear : ")
