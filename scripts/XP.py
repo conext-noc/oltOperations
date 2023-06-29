@@ -56,6 +56,7 @@ def client_ports(comm, command, quit_ssh, device, action):
                     name = f"{client['name_1']} {client['name_2']} {client['contract']}"
                     client["name"] = name
                     client["pwr"] = client_lst["pwr"]
+                    client["status"] = client_list["status"]
                     client["last_down_time"] = client_lst["last_down_time"]
                     client["last_down_date"] = client_lst["last_down_date"]
                     client["last_down_cause"] = client_lst["last_down_cause"]
