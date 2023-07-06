@@ -1,4 +1,4 @@
-from helpers.handlers import request, printer, spid, add_onu, template
+from helpers.handlers import request, printer, spid, add_onu, template, display
 from helpers.finder import optical, last_down_onu, device_type, new_onu
 from helpers.constants import definitions
 
@@ -19,6 +19,8 @@ client_payload = definitions.client_payload
 type_finder = device_type.type_finder
 approved = template.approved
 denied = template.denied
+display = display.display
+approvedDis = template.approvedDis
 
 
 def client_install(comm, command, quit_ssh, device, _):
@@ -54,14 +56,22 @@ def client_install(comm, command, quit_ssh, device, _):
     client["srv_profile"] = plan["srv_profile"]
     client["wan"][0] = plan
 
-    client["name_1"] = inp("Ingrese nombre_1 del cliente : ")
-    client["name_2"] = inp("Ingrese nombre_2 del cliente : ")
+    client["name_1"] = inp(
+        "Ingrese Primer nombre del cliente, nombre de empresa o residencia-condominio : "
+    ).replace(" ", "_")
+    client["name_2"] = inp(
+        "Ingrese Segundo nombre del cliente, ca o nombre de residencia-condominio : "
+    ).replace(" ", "_")
     client["contract"] = inp("Ingrese contrato del cliente : ")[:10].zfill(10)
 
     while len(f'{client["name_1"]} {client["name_2"]} {client["contract"]}') > 56:
         log("Nombre muy largo... intente nuevamente", "warning")
-        client["name_1"] = inp("Ingrese nombre_1 del cliente : ")
-        client["name_2"] = inp("Ingrese nombre_2 del cliente : ")
+        client["name_1"] = inp(
+            "Ingrese Primer nombre del cliente, nombre de empresa o residencia-condominio : "
+        ).replace(" ", "_")
+        client["name_2"] = inp(
+            "Ingrese Segundo nombre del cliente, ca o nombre de residencia-condominio : "
+        ).replace(" ", "_")
         client["contract"] = inp("Ingrese contrato del cliente : ")[:10].zfill(10)
 
     (client["onu_id"], client["fail"]) = add_client(comm, command, client)
@@ -105,6 +115,13 @@ quieres proceder con la instalacion? [Y | N] : """
         log("an error occurred adding to db", "fail")
     else:
         log("successfully added client to db", "success")
+    approved(client)
+    display(client, "B")
+    displayTemplate = (
+        inp("Desea la plantilla de datos operacionales? [Y/N] : ").upper().strip()
+        == "Y"
+    )
+    approvedDis(client) if displayTemplate else None
 
     quit_ssh()
     return

@@ -21,6 +21,11 @@ def client_lookup(comm, command, quit_ssh, device, _):
         "Buscar cliente por Contrato, Serial o Datos [C | S | D] : "
     )
     payload["lookup_value"] = inp("Ingrese el contrato, serial o datos (f/s/p/id) : ")
+    payload["lookup_value"] = (
+        payload["lookup_value"].zfill(10)
+        if payload["lookup_type"] == "C"
+        else payload["lookup_value"]
+    )
     req = db_request(endpoints["get_client"], payload)
     if req["error"]:
         log(req["message"], "fail")
@@ -33,6 +38,7 @@ def client_lookup(comm, command, quit_ssh, device, _):
         client["last_down_cause"],
         client["last_down_time"],
         client["last_down_date"],
+        client["status"],
     ) = down_values(comm, command, client, False)
     client["spid"] = calculate_spid(client)[
         "I" if "_IP" not in client["plan_name"] else "P"
