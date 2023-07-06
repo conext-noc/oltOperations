@@ -34,6 +34,7 @@ def client_modify(comm, command, quit_ssh, device, _):
         client["last_down_cause"],
         client["last_down_time"],
         client["last_down_date"],
+        client["status"],
     ) = down_values(comm, command, client, False)
     client["spid"] = calculate_spid(client)[
         "I" if "_IP" not in client["plan_name"] else "P"

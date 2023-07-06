@@ -31,7 +31,7 @@ def approved(data):
 def denied(data, reason):
     template = f"""
     |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['onu_id']} 
-    |OLT  {data['olt']}  {data["wan"][0]["provider"]}  {data["plan_name"]}
+    |OLT  {data['olt']}  {data["provider"]}  {data["plan_name"]}
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
     |SN          :   {data['sn']}
@@ -43,11 +43,11 @@ def approvedDis(data):
     template = f"""
     |{f'{data["name_1"]} {data["name_2"]} {data["contract"]}'} 
     |{data['frame']}/{data['slot']}/{data['port']}/{data['onu_id']} 
-    |OLT  {data['olt']}  {data["wan"][0]["provider"]}  {data["wan"][0]["plan_name"]}
+    |OLT  {data['olt']}  {data["provider"]}  {data["plan_name"]}
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
     |SN          :   {data['sn']}
-    |SPID        :   {data["wan"][0]["spid"]}"""
+    |SPID        :   {data["spid"]}"""
     log(template, "success")
 
 
