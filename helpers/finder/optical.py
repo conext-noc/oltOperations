@@ -9,6 +9,7 @@ def optical_values(comm, command, data, show):
     TEMP = None
     PWR = None
     command(f'  interface  gpon  {data["frame"]}/{data["slot"]}  ')
+    sleep(5)
     command(
         f'  display  ont  optical-info  {data["port"]}  {data["onu_id"]}  |  no-more'
     )
