@@ -1,6 +1,6 @@
 headers = {"Content-Type": "application/json"}
-domain = "http://127.0.0.1:8000"
-# domain = "http://db-api.conext.net.ve"
+# domain = "http://127.0.0.1:8000"
+domain = "http://db-api.conext.net.ve"
 payload = {"lookup_type": None, "lookup_value": None}
 payload_add = {"data": None}
 endpoints = {
