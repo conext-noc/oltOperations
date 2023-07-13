@@ -46,7 +46,9 @@ def client_delete(comm, command, quit_ssh, device, _):
 
     command(f"undo service-port {client['spid']}")
     log(f"El SPID {client['spid']} ha sido liberado!", "info")
+    # add time
     command(f"interface gpon {client['frame']}/{client['slot']}")
+    # add time
     command(f"ont delete {client['port']} {client['onu_id']}")
     log(
         f'Cliente {client["name_1"]} {client["name_2"]} {client["contract"]} ha sido eliminado',

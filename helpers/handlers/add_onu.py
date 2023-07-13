@@ -8,6 +8,7 @@ from helpers.handlers.fail import fail_checker
 
 def add_client(comm, command, data):
     command(f"interface gpon {data['frame']}/{data['slot']}")
+    sleep(3)
     command(
         f'ont add {data["port"]} sn-auth {data["sn"]} omci ont-lineprofile-id {data["line_profile"]} ont-srvprofile-id {data["srv_profile"]} desc "{data["name_1"]} {data["name_2"]} {data["contract"]}" '
     )
@@ -36,7 +37,7 @@ def add_service(command, data):
     log(f'El SPID que se le agregara al cliente es : {data["wan"][0]["spid"]}', "ok")
 
     command(f"interface gpon {data['frame']}/{data['slot']}")
-
+    sleep(3)
     add_vlan = inp("Se agregara vlan al puerto? [Y | N] : ")
 
     command(
@@ -49,6 +50,7 @@ def add_service(command, data):
         else None
     )
 
+    sleep(3)
     command(
         f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']}"
     ) if "_IP" not in data["plan_name"] else command(
@@ -60,11 +62,13 @@ def add_service(command, data):
     command(f"ont policy-route-config {data['port']} {data['onu_id']} profile-id 2")
 
     command("quit")
+    sleep(3)
     command(
         f"""service-port {data['wan'][0]['spid']} vlan {data['wan'][0]['vlan']} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['onu_id']} gemport {data["wan"][0]['gem_port']} multi-service user-vlan {data['wan'][0]['vlan']} tag-transform transparent inbound traffic-table index {data["wan"][0]["plan_idx"]} outbound traffic-table index {data["wan"][0]["plan_idx"]}"""
     )
 
-    sleep(2)
+    sleep(3)
     command(f"interface gpon {data['frame']}/{data['slot']}")
+    sleep(3)
     command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0")
     command("quit")

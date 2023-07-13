@@ -1,3 +1,4 @@
+from time import sleep
 from helpers.handlers import request, printer, spid, add_onu, display
 from helpers.finder import optical, last_down_onu
 from helpers.constants import definitions
@@ -67,15 +68,17 @@ $ """
     if change_type == "CT":
         new_values["name_1"] = inp("Ingrese el nuevo nombre_1 : ")
         new_values["name_2"] = inp("Ingrese el nuevo nombre_2 : ")
-        new_values["contract"] = inp("Ingrese el nuevo contrato : ")
-        command(f'interface gpon {client["frame"]} {client["slot"]}')
+        new_values["contract"] = inp("Ingrese el nuevo contrato : ").zfill(10)
+        command(f'interface gpon {client["frame"]}/{client["slot"]}')
+        sleep(3)
         command(
             f'ont modify {client["port"]} {client["onu_id"]} desc "{new_values["name_1"]} {new_values["name_2"]} {new_values["contract"]}"'
         )
+        sleep(3)
 
     if change_type == "CP":
         new_values["plan_name"] = inp("Ingrese el nuevo plan a instalar : ")
-        db_plans = db_request(endpoints["get_plans"])["data"]
+        db_plans = db_request(endpoints["get_plans"], {})["data"]
         plan_lists = [item["plan_name"] for item in db_plans]
 
         if new_values["plan_name"] not in plan_lists:
@@ -87,21 +90,29 @@ $ """
             None,
         )
 
+        sleep(3)
         command(f'undo service-port {client["spid"]}')
-        command(f'interface gpon {client["frame"]} {client["slot"]}')
+        sleep(3)
+        command(f'interface gpon {client["frame"]}/{client["slot"]}')
+        sleep(3)
         command(
             f"ont modify {client['port']} {client['onu_id']} ont-lineprofile-id {plan['line_profile']}"
         )
+        sleep(3)
         command(
             f"ont modify {client['port']} {client['onu_id']} ont-srvprofile-id {plan['srv_profile']}"
         )
-        client["wan"][0] = plan
+        sleep(3)
+        client["wan"] = [plan]
         client["plan_name"] = new_values["plan_name"]
         add_service(command, client)
+        sleep(3)
 
     if change_type == "CO":
         new_values["sn"] = inp("Ingrese el nuevo serial del cliente : ")
-        command(f'interface gpon {client["frame"]} {client["slot"]}')
+        sleep(3)
+        command(f'interface gpon {client["frame"]}/{client["slot"]}')
+        sleep(3)
         command(f'ont modify {client["port"]} {client["onu_id"]} sn {new_values["sn"]}')
 
     if change_type == "ES":

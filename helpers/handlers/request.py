@@ -10,7 +10,7 @@ headers = definitions.headers
 load_dotenv()
 
 
-def db_request(endpoint: str, data: dict = {}):
+def db_request(endpoint: str, data: dict):
     data["API_KEY"] = os.environ["API_KEY"]
     payload = json.dumps(data)
     url = f"{domain}{endpoint}"

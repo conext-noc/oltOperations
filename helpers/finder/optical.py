@@ -8,12 +8,13 @@ from helpers.constants.regex_conditions import condition_onu_pwr, condition_onu_
 def optical_values(comm, command, data, show):
     TEMP = None
     PWR = None
+    sleep(8)
     command(f'  interface  gpon  {data["frame"]}/{data["slot"]}  ')
-    sleep(5)
+    sleep(8)
     command(
         f'  display  ont  optical-info  {data["port"]}  {data["onu_id"]}  |  no-more'
     )
-    sleep(7)
+    sleep(8)
     command("quit")
     value = decoder(comm)
     fail = fail_checker(value)
