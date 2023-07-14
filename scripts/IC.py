@@ -40,7 +40,7 @@ def client_install(comm, command, quit_ssh, device, _):
 
     client["plan_name"] = inp("Ingrese plan del cliente : ")
 
-    db_plans = db_request(endpoints["get_plans"])["data"]
+    db_plans = db_request(endpoints["get_plans"],{})["data"]
     plan_lists = [item["plan_name"] for item in db_plans]
 
     if client["plan_name"] not in plan_lists:
