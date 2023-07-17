@@ -8,8 +8,9 @@ def type_finder(comm, command, data):
     ONT_TYPE = None
     FAIL = None
     command(f"  interface  gpon  {data['frame']}/{data['slot']}  ")
+    sleep(7)
     command(f"  display  ont  version  {data['port']}  {data['onu_id']}  ")
-    sleep(5)
+    sleep(7)
     command("quit")
     value = decoder(comm)
     FAIL = fail_checker(value)
