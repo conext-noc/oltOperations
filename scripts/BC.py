@@ -22,9 +22,7 @@ def client_lookup(comm, command, quit_ssh, device, _):
     )
     payload["lookup_value"] = inp("Ingrese el contrato, serial o datos (f/s/p/id) : ")
     payload["lookup_value"] = (
-        payload["lookup_value"].zfill(10)
-        if payload["lookup_type"] == "C"
-        else payload["lookup_value"]
+        payload["lookup_value"].zfill(10) if payload["lookup_type"] == "C" else None
     )
     req = db_request(endpoints["get_client"], payload)
     if req["error"]:

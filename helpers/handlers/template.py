@@ -3,7 +3,7 @@ from helpers.handlers.printer import log
 
 def approved(data):
     template = f"""
-    |f'{data["name_1"]} {data["name_2"]} {data["contract"]}'  |  {data['frame']}/{data['slot']}/{data['port']}/{data['onu_id']} 
+    |{data["name_1"]} {data["name_2"]} {data["contract"]}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['onu_id']} 
     |OLT  {data['olt']}  {data["wan"][0]["provider"]}  {data["plan_name"]}
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
@@ -13,7 +13,6 @@ def approved(data):
     return [
         data["sn"],
         f'{data["name_1"]} {data["name_2"]} {data["contract"]}',
-        data["nif"],
         data["olt"],
         data["frame"],
         data["slot"],

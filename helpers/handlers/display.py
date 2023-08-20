@@ -17,9 +17,9 @@ def display(data, tp):
 |SN                  :   {data["sn"]}
 |CONTROL FLAG        :   {data["state"]}
 |RUN STATE           :   {data["status"]}
-|LAST DOWN CAUSE     :   {data["last_down_cause"]}
-|LAST DOWN TIME      :   {data["last_down_time"]}
-|LAST DOWN DATE      :   {data["last_down_date"]}
+|LAST DOWN CAUSE     :   {data.get("last_down_cause") or "N/A"}
+|LAST DOWN TIME      :   {data.get("last_down_time") or "N/A"}
+|LAST DOWN DATE      :   {data.get("last_down_date") or "N/A"}
 |ONT TYPE            :   {data["device"]}
 |TEMPERATURA         :   {data["temp"]}
 |POTENCIA            :   {data["pwr"]}

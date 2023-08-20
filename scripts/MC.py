@@ -23,6 +23,9 @@ def client_modify(comm, command, quit_ssh, device, _):
         "Buscar cliente por Contrato, Serial o Datos [C | S | D] : "
     )
     payload["lookup_value"] = inp("Ingrese el contrato, serial o datos (f/s/p/id) : ")
+    payload["lookup_value"] = (
+        payload["lookup_value"].zfill(10) if payload["lookup_type"] == "C" else None
+    )
     req = db_request(endpoints["get_client"], payload)
     if req["error"]:
         log(req["message"], "fail")

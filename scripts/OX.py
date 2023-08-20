@@ -18,8 +18,15 @@ file_to_dict = file_formatter.file_to_dict
 def client_operate(_, command, quit_ssh, __, action):
     clients = []
     if "U" in action:
-        payload["lookup_type"] = inp("Buscar cliente por Contrato, Serial o Datos [C | S | D] : ")
-        payload["lookup_value"] = inp("enter value : ")
+        payload["lookup_type"] = inp(
+            "Buscar cliente por Contrato, Serial o Datos [C | S | D] : "
+        )
+        payload["lookup_value"] = inp(
+            "Ingrese el contrato, serial o datos (f/s/p/id) : "
+        )
+        payload["lookup_value"] = (
+            payload["lookup_value"].zfill(10) if payload["lookup_type"] == "C" else None
+        )
         req = db_request(endpoints["get_client"], payload)
         if req["error"]:
             log(req["message"], "fail")
@@ -42,16 +49,18 @@ def client_operate(_, command, quit_ssh, __, action):
     resulted_operation = "active" if "R" in action else "deactivated"
     result = "Reactivado" if "R" in action else "Suspendido"
 
-    for client in clients:
+    list_len = len(clients)
+
+    for curr, client in enumerate(clients):
         command(f'interface gpon {client["frame"]}/{client["slot"]}')
-        command(f'ont {operation} {client["port"]}/{client["onu_id"]}')
+        command(f'ont {operation} {client["port"]} {client["onu_id"]}')
 
         payload["change_field"] = "OX"
-        payload["new_values"] = resulted_operation
+        payload["new_values"] = {"state": resulted_operation}
         req = db_request(endpoints["update_client"], payload)
 
         log(
-            f'Cliente {client["name_1"]} {client["name_2"]} {client["contract"]} ha sido {result}',
+            f'{curr + 1} | Cliente {client["name_1"]} {client["name_2"]} {client["contract"]} ha sido {result} | progreso {(curr+1)*100/list_len}%',
             "info",
         )
     return

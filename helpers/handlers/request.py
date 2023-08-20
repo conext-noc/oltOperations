@@ -26,3 +26,15 @@ def db_request(endpoint: str, data: dict):
         return response_json
     except requests.RequestException as e:
         return {"error": True, "message": f"An error occurred: {str(e)}", "data": None}
+
+
+db_request(
+    "update-client",
+    {
+        "lookup_type": "C",
+        "lookup_value": "0000777773",
+        "API_KEY": "pykboz-metcew-fihVe2K2.p##/5We$tt!&",
+        "change_field": "OX",
+        "new_values": "deactivated",
+    },
+)
