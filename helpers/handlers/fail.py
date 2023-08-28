@@ -9,6 +9,7 @@ FAILS = {
     "4": "WAN port does not exist",
     "5": "The ONT does not exist",
     "6": "Port does not exist",
+    "7": "There is no ONT available"
 }
 
 

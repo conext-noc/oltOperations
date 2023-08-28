@@ -10,6 +10,7 @@ from scripts.IC import client_install
 from scripts.EC import client_delete
 from scripts.MC import client_modify
 from scripts.VC import client_traffic
+from scripts.SYNC_DB import db_sync
 
 
 def main():
@@ -31,6 +32,7 @@ Que accion se realizara?
     > (VT)  :   [OLT] Verificacion Total de Puertos en una OLT
     > (CA)  :   [OLT] Clientes con averias (corte de fibra)
     > (DT)  :   [OLT] Desactivados Totales
+    > (DB)  :   [OLT] Sincronizar estatus de corte db-olt
     > (MR)  :   [RTR] Monitorear Router
 $ """
             )
@@ -50,6 +52,7 @@ $ """
                 "CA": client_ports,
                 "DT": client_ports,
                 "MR": "interface_traffic",
+                "DB": db_sync
             }
 
             MOD_KEYS = modules.keys()
