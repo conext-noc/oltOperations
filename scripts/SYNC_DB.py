@@ -14,7 +14,7 @@ def clientsTable(comm, command, fsp):
     SLOT = int(fsp.split("/")[1])
     PORT = int(fsp.split("/")[2])
     command(f"display ont info {FRAME} {SLOT} {PORT} all  | no-more")
-    sleep(3)
+    sleep(5)
     value = decoder(comm)
     fail = fail_checker(value)
     if fail != None:
