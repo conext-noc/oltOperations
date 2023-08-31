@@ -117,6 +117,10 @@ $ """
         command(f'interface gpon {client["frame"]}/{client["slot"]}')
         sleep(3)
         command(f'ont modify {client["port"]} {client["onu_id"]} sn {new_values["sn"]}')
+        add_vlan = inp("Se agregara vlan al puerto? [Y | N] : ")
+        command(
+            f" ont port native-vlan {client['port']} {client['onu_id']} eth 1 vlan {client['vlan']} "
+        ) if add_vlan == "Y" else None
 
     if change_type == "ES":
         command(f'undo service-port {client["spid"]}')
