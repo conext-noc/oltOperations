@@ -4,7 +4,6 @@ import userpaths
 
 docs = userpaths.get_my_documents()
 date = datetime.now()
-fl = f"{date.year}-{date.month}-{date.day}.txt"
 
 color = {
     "activated": "\u001b[38;5;2m",
@@ -24,6 +23,7 @@ color = {
     "normal": "",
 }
 
+USER_NAME = ""
 
 def color_formatter(txt, variant):
     paint = "normal" if variant == "" else variant
@@ -31,6 +31,7 @@ def color_formatter(txt, variant):
 
 
 def log(value, variant):
+    fl = f"{USER_NAME}_{date.year}-{date.month}-{date.day}.txt"
     currTime = datetime.now()
     now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
     print(color_formatter(value, variant))
@@ -38,6 +39,10 @@ def log(value, variant):
 
 
 def inp(message):
+    global USER_NAME
+    if USER_NAME == "":
+        USER_NAME = input("ingrese su nombre : ").upper()
+    fl = f"{USER_NAME}_{date.year}-{date.month}-{date.day}.txt"
     currTime = datetime.now()
     now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
     data = input(message).upper()

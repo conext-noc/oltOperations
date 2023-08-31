@@ -1,6 +1,5 @@
 import traceback
 from time import sleep
-from helpers.handlers.printer import inp, log
 from helpers.constants.definitions import rtr_devices, olt_devices
 from helpers.utils.ssh import ssh
 from scripts.BC import client_lookup
@@ -11,7 +10,7 @@ from scripts.EC import client_delete
 from scripts.MC import client_modify
 from scripts.VC import client_traffic
 from scripts.SYNC_DB import db_sync
-
+from helpers.handlers.printer import inp, log
 
 def main():
     try:

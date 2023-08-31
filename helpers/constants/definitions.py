@@ -1,5 +1,6 @@
 headers = {"Content-Type": "application/json"}
 # domain = "http://127.0.0.1:7000"
+USER_NAME = ""
 domain = "http://db-api.conext.net.ve"
 payload = {"lookup_type": None, "lookup_value": None}
 payload_add = {"data": None}
