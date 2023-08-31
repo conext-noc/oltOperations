@@ -1,3 +1,4 @@
+from time import sleep
 from helpers.handlers import request, printer, spid, display
 from helpers.finder import optical, last_down_onu
 from helpers.constants import definitions
@@ -49,10 +50,11 @@ def client_delete(comm, command, quit_ssh, device, _):
 
     command(f"undo service-port {client['spid']}")
     log(f"El SPID {client['spid']} ha sido liberado!", "info")
-    # add time
+    sleep(3)
     command(f"interface gpon {client['frame']}/{client['slot']}")
-    # add time
+    sleep(3)
     command(f"ont delete {client['port']} {client['onu_id']}")
+    sleep(3)
     log(
         f'Cliente {client["name_1"]} {client["name_2"]} {client["contract"]} ha sido eliminado',
         "info",
