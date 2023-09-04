@@ -6,7 +6,7 @@ from helpers.handlers.printer import log
 
 def ssh(ip, debugging):
     count = 1
-    delay = 0.1
+    delay = 0.5
     conn = paramiko.SSHClient()
     conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     comm = None

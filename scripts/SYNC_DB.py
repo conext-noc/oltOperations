@@ -28,6 +28,7 @@ def clientsTable(comm, command, fsp):
         CLIENTS.append({
           "fspi": f"{client['F/']}{client['S/P']}/{client['ID']}" if SLOT < 10 else f"{client['F/S/P']}/{client['ID']}",
           "olt": 1,
+          "sn": client["SN"],
           "state": client["state"]
         })
     log(f"{fsp} done", "success")
@@ -39,7 +40,7 @@ def db_sync(comm,command, quit_ssh, olt, action):
         if slot == 8 or slot == 9:
             continue
         else:
-            for port in range(0,16):
+            for port in range(0,15):
                 clients = clientsTable(comm, command, f"0/{slot}/{port}")
                 for client in clients:
                     payload["lookup_type"] = "D"
@@ -47,5 +48,11 @@ def db_sync(comm,command, quit_ssh, olt, action):
                     payload["new_values"] = {"state": client["state"]}
                     payload["change_field"] = "OX"
                     response = db_request(endpoints["update_client"], payload)
-                    log(f'{response["message"]} - {response["data"]["contract"]} - {client["fspi"]}',"success") if not response["error"] else log(f'{response["message"]} - {client["fspi"]}',"fail")
+                    if not response["error"]:
+                        if response["data"]["sn"] == client["sn"]:
+                            log(f'{response["message"]} - {response["data"]["contract"]} - {client["fspi"]} | SN DB : {response["data"]["sn"]} - SN OLT {client["fspi"]} : ',"success")
+                        else:
+                            log(f'{response["message"]} - {response["data"]["contract"]} - {client["fspi"]} | SN DB : {response["data"]["sn"]} - SN OLT {client["fspi"]} : ',"warning")
+                    else:
+                        log(f'{response["message"]} - {client["fspi"]}',"fail")
     quit_ssh()
