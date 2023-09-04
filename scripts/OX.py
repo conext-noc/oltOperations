@@ -25,7 +25,7 @@ def client_operate(_, command, quit_ssh, __, action):
             "Ingrese el contrato, serial o datos (f/s/p/id) : "
         )
         payload["lookup_value"] = (
-            payload["lookup_value"].zfill(10) if payload["lookup_type"] == "C" else None
+            payload["lookup_value"].zfill(10) if payload["lookup_type"] == "C" else payload["lookup_value"]
         )
         req = db_request(endpoints["get_client"], payload)
         if req["error"]:
