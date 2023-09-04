@@ -115,6 +115,10 @@ quieres proceder con la instalacion? [Y | N] : """
         log("an error occurred adding to db", "fail")
     else:
         log("successfully added client to db", "success")
+    client['olt'] = device
+    client['provider'] = client['plan_name'].split("_")[2]
+    client['spid'] = client["wan"][0]["spid"]
+    client['vlan'] = client["wan"][0]["vlan"]
     approved(client)
     display(client, "B")
     displayTemplate = (
@@ -122,6 +126,5 @@ quieres proceder con la instalacion? [Y | N] : """
         == "Y"
     )
     approvedDis(client) if displayTemplate else None
-
     quit_ssh()
     return
