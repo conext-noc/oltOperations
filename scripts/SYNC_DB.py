@@ -50,9 +50,9 @@ def db_sync(comm,command, quit_ssh, olt, action):
                     response = db_request(endpoints["update_client"], payload)
                     if not response["error"]:
                         if response["data"]["sn"] == client["sn"]:
-                            log(f'{response["message"]} - {response["data"]["contract"]} - {client["fspi"]} | SN DB : {response["data"]["sn"]} - SN OLT {client["fspi"]} : ',"success")
+                            log(f'{response["message"]} - {response["data"]["contract"]} - {client["fspi"]} | SN DB : {response["data"]["sn"]} - SN OLT {client["sn"]} : ',"success")
                         else:
-                            log(f'{response["message"]} - {response["data"]["contract"]} - {client["fspi"]} | SN DB : {response["data"]["sn"]} - SN OLT {client["fspi"]} : ',"warning")
+                            log(f'{response["message"]} - {response["data"]["contract"]} - {client["fspi"]} | SN DB : {response["data"]["sn"]} - SN OLT {client["sn"]} : ',"warning")
                     else:
                         log(f'{response["message"]} - {client["fspi"]}',"fail")
     quit_ssh()
