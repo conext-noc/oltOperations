@@ -116,7 +116,7 @@ quieres proceder con la instalacion? [Y | N] : """
     else:
         log("successfully added client to db", "success")
     client['olt'] = device
-    client['provider'] = client['plan_name'].split("_")[2]
+    client['provider'] = client["wan"][0]["provider"]
     client['spid'] = client["wan"][0]["spid"]
     client['vlan'] = client["wan"][0]["vlan"]
     approved(client)
