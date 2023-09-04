@@ -7,7 +7,7 @@ from helpers.constants.definitions import ont_type_start, ont_type_end
 def type_finder(comm, command, data):
     ONT_TYPE = None
     FAIL = None
-    _ = decoder(comm)
+    val = decoder(comm)
     command(f"  interface  gpon  {data['frame']}/{data['slot']}  ")
     sleep(7)
     command(f"  display  ont  version  {data['port']}  {data['onu_id']}  ")
