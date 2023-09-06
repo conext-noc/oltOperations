@@ -9,6 +9,7 @@ from scripts.IC import client_install
 from scripts.EC import client_delete
 from scripts.MC import client_modify
 from scripts.VC import client_traffic
+from scripts.MR import router_monitor
 from scripts.SYNC_DB import db_sync
 from helpers.handlers.printer import inp, log
 
@@ -50,7 +51,7 @@ $ """
                 "VT": client_ports,
                 "CA": client_ports,
                 "DT": client_ports,
-                "MR": "interface_traffic",
+                "MR": router_monitor,
                 "DB": db_sync
             }
 

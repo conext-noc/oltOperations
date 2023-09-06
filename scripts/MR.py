@@ -1,3 +1,4 @@
+from time import sleep
 from helpers.constants.regex_conditions import routers_ints, rtr_conflicts
 from helpers.handlers.printer import log
 from helpers.utils.decoder import decoder, check_iter
@@ -11,8 +12,8 @@ def router_monitor(comm, command, quit_ssh, device, _):
         interfaces = []
         intList = routers_ints[f"RTR{device}"]["ints"]
         for i in range(0, 5):
-            print(i)
             command("display interface brief | no-more")
+            sleep(2)
             value = decoder(comm)
             for interface in intList:
                 interfaces.append(int_formatter(value, interface))
@@ -35,37 +36,24 @@ def router_monitor(comm, command, quit_ssh, device, _):
         quit_ssh()
 
     if "A" in device:
-        dhcp = routers_ints[f"deviceR{device}"]["pool"]
-        section_mapper = routers_ints[f"RTR{device}"]["section"]
+        dhcp = routers_ints[f"RTR{device}"]["pool"]
         sections = []
-        ranges = []
         for pool in dhcp:
-            command(f"ip pool dhcp_server_{pool} server")
             command(
                 f"display ip pool name dhcp_server_{pool} conflict decline | no-more"
             )
             value = decoder(comm)
             regex = check_iter(value, rtr_conflicts["condition"])
-            (_, start) = regex[1]
-            (end, _) = regex[2]
-            summary = data_to_dict(rtr_conflicts["headerConf"], value[start:end])
-            sections.append({f"{pool}": summary, "value": value, "regex": regex})
-        for section, pool in zip(sections, dhcp):
-            for idx, st in enumerate(section[pool]):
+            (_, start) = regex[4]
+            (end, _) = regex[5]
+            summary = data_to_dict(rtr_conflicts["header"], value[start:end])
+            sections.append({"pool": pool, "data": summary})
+        for section in sections:
+            command(f"ip pool dhcp_server_{section['pool']} server")
+            for ips in section["data"]:
+                command(f"reset conflict-ip-address {ips['IP']}")
                 log(
-                    f"En segmento {idx + 1} del pool [{pool}] hay {st['conflict']} conflictos",
-                    "info",
+                    f"Conflicto eliminado en la ip {ips['IP']} en el segmento {section['pool']}",
+                    "success",
                 )
-                if int(st["conflict"]) > 0:
-                    (_, start) = section["regex"][section_mapper[str(idx + 1)]["start"]]
-                    (end, _) = section["regex"][section_mapper[str(idx + 1)]["end"]]
-                    data = data_to_dict(
-                        rtr_conflicts["headerSect"], section["value"][start:end]
-                    )
-                    ranges.append({"data": data, "pool": pool})
-        for rg in ranges:
-            command(f"ip pool dhcp_server_{rg['pool']} server")
-            for address in rg["data"]:
-                command(f"reset conflict-ip-address {address['ip']}")
-                log(f"Conflicto eliminado en la ip {address['ip']}", "success")
         quit_ssh()

@@ -531,7 +531,6 @@ routers_ints = {
     "RTRA1": {
         "ip": "181.232.180.3",
         "pool": [
-            "residencial_1",
             "plan_0_inet1",
             "plan_0_inet2",
             "plan_1_inet1",
@@ -544,16 +543,11 @@ routers_ints = {
             "plan_4_inet2",
             "plan_5_inet1",
             "plan_5_inet2",
-        ],
-        "section": {
-            "1": {"start": 4, "end": 5},
-            "2": {"start": 7, "end": 8},
-        },
+        ]
     },
     "RTRA2": {
         "ip": "181.232.180.4",
         "pool": [
-            "residencial_2",
             "plan_0_inet1",
             "plan_0_inet2",
             "plan_1_inet1",
@@ -563,22 +557,17 @@ routers_ints = {
             "plan_4_inet2",
             "plan_5_inet1",
             "plan_5_inet2",
-        ],
-        "section": {
-            "1": {"start": 4, "end": 5},
-            "2": {"start": 7, "end": 8},
-        },
+        ]
     },
 }
 
 interface = {
     "start": "InUti/OutUti: input utility/output utility",
     "end": "NULL0",
-    "header": "Interface,PHY,Protocol,InUti,OutUti,inErrors,outErrors\n",
+    "header": "Interface,PHY,Protocol,InUti,OutUti,inErrors,outErrors,\n",
 }
 
 rtr_conflicts = {
     "condition": "---------------------------------------------------------------------------------------",
-    "headerConf": "NA,ID,start,end,total,used,idle,conflict,disable,reserved,staticBind",
-    "headerSect": "ip,mac,userId,lease,status,index,na",
+    "header": "IP,MAC,USER_ID,LEASE,STATE,STATUS,",
 }
