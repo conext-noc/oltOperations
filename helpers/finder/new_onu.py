@@ -14,7 +14,6 @@ newCondTime = "Ont autofind time   : "
 
 
 def new_lookup(comm, command, SN_NEW):
-    value = decoder(comm)
     SN_FINAL = None
     FSP_FINAL = None
     client = []
