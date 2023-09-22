@@ -26,15 +26,9 @@ def optical_values(comm, command, data, show):
     re_pwr_rx = check(value, condition_onu_pwr_rx)
     re_temp = check(value, condition_onu_temp)
     if fail is None:
-        if re_pwr is not None:
-            (_, eT) = re_temp.span()
-            (_, eP) = re_pwr.span()
-            (_, ePRx) = re_pwr_rx.span()
-            
-            PWR = value[eP : eP + PWR_LEN]
-            TEMP = (
-                value[eT : eT + TEMP_LEN].replace("\n", "").replace(" ", "").replace("\r", "")
-            )
-            PWR_RX = value[ePRx : ePRx + PWR_LEN]
+        if re_pwr is not None and re_pwr_rx is not None:
+            TEMP = re_temp.group(1)
+            PWR = re_pwr.group(1)
+            PWR_RX = re_pwr_rx.group(1)
     log(fail, "fail") if show and fail is not None else None
     return (TEMP, PWR, PWR_RX)

@@ -2,6 +2,7 @@ from time import sleep
 import paramiko
 from helpers.handlers.sheets import get_creds
 from helpers.handlers.printer import log
+from helpers.utils.decoder import decoder
 
 
 def ssh(ip, debugging):
@@ -53,5 +54,5 @@ def ssh(ip, debugging):
         command("scroll 512")
     else:
         command("sys")
-
+    decoder(comm)
     return (comm, command, quit_ssh)
