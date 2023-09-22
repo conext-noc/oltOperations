@@ -75,11 +75,13 @@ def client_install(comm, command, quit_ssh, device, _):
         client["contract"] = inp("Ingrese contrato del cliente : ")[:10].zfill(10)
 
     (client["onu_id"], client["fail"]) = add_client(comm, command, client)
-    (client["temp"], client["pwr"]) = optical_values(comm, command, client, True)
+    (client["temp"], client["pwr"], client["pwr_rx"]) = optical_values(comm, command, client, True)
 
     value = inp(
         f"""
-La potencia del ONT es : {client["pwr"]} y la temperatura es : {client["temp"]}
+La potencia de Recepcion del ONT es {client["pwr_rx"]}
+La potencia del ONT es : {client["pwr"]}
+La temperatura es : {client["temp"]}
 quieres proceder con la instalacion? [Y | N] : """
     )
     install = True if value == "Y" else False if value == "N" else None

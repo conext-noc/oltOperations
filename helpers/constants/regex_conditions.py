@@ -1,5 +1,6 @@
 condition_onu_temp = "Temperature\(C\)                         : "
 condition_onu_pwr = "Rx optical power\(dBm\)                  : "
+condition_onu_pwr_rx = "OLT Rx ONT optical power(dBm)          : "
 
 condition_onu_last_down_cause = ("Last down cause         : ", "Last up time")
 condition_onu_last_down_time = ("Last down time          : ", "Last dying gasp time")

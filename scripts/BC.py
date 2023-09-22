@@ -31,7 +31,7 @@ def client_lookup(comm, command, quit_ssh, device, _):
         return
     client = req["data"]
     client["olt"] = device
-    (client["temp"], client["pwr"]) = optical_values(comm, command, client, False)
+    (client["temp"], client["pwr"], client["pwr_rx"]) = optical_values(comm, command, client, False)
     (
         client["last_down_cause"],
         client["last_down_time"],

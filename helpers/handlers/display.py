@@ -23,6 +23,7 @@ def display(data, tp):
 |ONT TYPE            :   {data["device"]}
 |TEMPERATURA         :   {data["temp"]}
 |POTENCIA            :   {data["pwr"]}
+|POTENCIA RX OLT     :   {data["pwr_rx"]}
 |VLAN                :   {data["vlan"]}
 |PLAN                :   {data["plan_name"]}
 |SPID                :   {data["spid"]}
