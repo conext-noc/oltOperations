@@ -96,7 +96,9 @@ quieres proceder con la instalacion? [Y | N] : """
         return
 
     (client["device"], client["vendor"]) = type_finder(comm, command, client)
-    log(f"El tipo de ONT del cliente es {client['device']} {client['vendor']}", "ok")
+    if client["vendor"] == "BDCM":
+        client['device'] = client['vendor']
+    log(f"El tipo de ONT del cliente es {client['device']}", "ok")
 
     add_service(command, client)
     
