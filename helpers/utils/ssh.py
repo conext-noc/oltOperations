@@ -1,8 +1,9 @@
 from time import sleep
 import paramiko
-from helpers.handlers.sheets import get_creds
+from helpers.handlers.request import db_request
 from helpers.handlers.printer import log
 from helpers.utils.decoder import decoder
+from helpers.constants.definitions import endpoints
 
 
 def ssh(ip, debugging):
@@ -12,13 +13,13 @@ def ssh(ip, debugging):
     conn.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     comm = None
     cont = True
-    creds = get_creds()
+    creds = db_request(endpoints["get_creds"], {})
 
     # Handling multiple SSH sessions
     while cont and count <= 3:
         try:
-            username = creds[count - 1][f"user_{count}"]
-            password = creds[count - 1][f"password_{count}"]
+            username = creds["data"][count]["user_name"]
+            password = creds["data"][count]["password"]
             port = 22
             conn.connect(ip, port, username, password)
             comm = conn.invoke_shell()
