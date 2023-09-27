@@ -38,6 +38,7 @@ client_place_holder = {
     "state": None,
     "status": None,
     "type": None,
+    "vendor": None,
     "ip_address": None,
     "plan_name": None,
     "spid": None,
@@ -73,7 +74,8 @@ client_payload = {
 }
 
 
-ont_type_start = "OntProductDescription    : "
-ont_type_end = "GPON"
+ont_type_start = "Equipment-ID             : "
+ont_type_end = "Main Software Version"
+ont_type_vendor = "Vendor-ID                : "
 
 change_types = ["CT", "CP", "CO"]

@@ -51,13 +51,21 @@ def add_service(command, data):
     )
 
     sleep(3)
+    
+    internet_index = 2 if data['vendor'] != "BDCM" else 1
+    
     command(
         f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']}"
-    ) if "_IP" not in data["plan_name"] else command(
+    ) if "_IP" not in data["plan_name"] and data['vendor'] != "BDCM" else command(
         f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 static ip-address {IPADD} mask 255.255.255.128 gateway 181.232.181.129 pri-dns 9.9.9.9 slave-dns 149.112.112.112 vlan 102"
-    )
+    ) if "_IP" in data["plan_name"] and data['vendor'] != "BDCM" else command(f"ont ipconfig {data['port']} {data['onu_id']} ip-index 1 dhcp vlan {data['wan'][0]['vlan']} priority 0")
+    sleep(3)
 
-    command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
+    if data['vendor'] == "BDCM":
+        command(f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']} priority 5")
+    
+    
+    command(f"ont internet-config {data['port']} {data['onu_id']} ip-index {internet_index}")
 
     command(f"ont policy-route-config {data['port']} {data['onu_id']} profile-id 2")
 
@@ -70,5 +78,10 @@ def add_service(command, data):
     sleep(3)
     command(f"interface gpon {data['frame']}/{data['slot']}")
     sleep(3)
-    command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0")
+    command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0") if data['vendor'] != "BDCM" else command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 1 profile-id 0")
+    sleep(3)
+    if data['vendor'] == "BDCM":
+        command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0")
+        command(f"ont fec {data['port']} {data['onu_id']} use-profile-config")
+        sleep(3)
     command("quit")

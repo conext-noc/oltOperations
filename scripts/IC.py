@@ -65,7 +65,7 @@ def client_install(comm, command, quit_ssh, device, _):
     client["contract"] = inp("Ingrese contrato del cliente : ")[:10].zfill(10)
 
     while len(f'{client["name_1"]} {client["name_2"]} {client["contract"]}') > 56:
-        log("Nombre muy largo... intente nuevamente", "warning")
+        log("nombre total excede los 56 caracteres maximos permitidos ... intente nuevamente", "warning")
         client["name_1"] = inp(
             "Ingrese Primer nombre del cliente, nombre de empresa o residencia-condominio : "
         ).replace(" ", "_")
@@ -79,8 +79,8 @@ def client_install(comm, command, quit_ssh, device, _):
 
     value = inp(
         f"""
-La potencia de Recepcion del ONT es {client["pwr_rx"]}
-La potencia del ONT es : {client["pwr"]}
+La potencia de Recepcion del OLT : {client["pwr_rx"]}
+La potencia de Recepcion del ONT : {client["pwr"]}
 La temperatura es : {client["temp"]}
 quieres proceder con la instalacion? [Y | N] : """
     )
@@ -95,10 +95,13 @@ quieres proceder con la instalacion? [Y | N] : """
         quit_ssh()
         return
 
-    client["device"] = type_finder(comm, command, client)
-    log(f"El tipo de ONT del cliente es {client['device']}", "ok")
+    (client["device"], client["vendor"]) = type_finder(comm, command, client)
+    log(f"El tipo de ONT del cliente es {client['device']} {client['vendor']}", "ok")
 
     add_service(command, client)
+    
+    client['status'] = "online"
+    client['state'] = "active"
 
     for key in client_payload:
         client_payload[key] = client[key]
@@ -108,8 +111,6 @@ quieres proceder con la instalacion? [Y | N] : """
     client_payload[
         "fspi"
     ] = f'{client["frame"]}/{client["slot"]}/{client["port"]}/{client["onu_id"]}'
-    client_payload["status"] = "online"
-    client_payload["state"] = "active"
     client_payload["spid"] = client["wan"][0]["spid"]
     payload_add["data"] = client_payload.copy()
     req = db_request(endpoints["add_client"], payload_add)
