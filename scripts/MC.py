@@ -1,6 +1,6 @@
 from time import sleep
 from helpers.handlers import request, printer, spid, add_onu, display
-from helpers.finder import optical, last_down_onu
+from helpers.finder import optical, last_down_onu, device_type
 from helpers.constants import definitions
 
 # FUNCTION IMPORT DEFINITIONS
@@ -14,6 +14,7 @@ payload = definitions.payload
 down_values = last_down_onu.down_values
 change_types = definitions.change_types
 add_service = add_onu.add_service
+type_finder = device_type.type_finder
 optical_values = optical.optical_values
 display = display.display
 
@@ -108,6 +109,9 @@ $ """
         sleep(3)
         client["wan"] = [plan]
         client["plan_name"] = new_values["plan_name"]
+        (client["device"], client["vendor"]) = type_finder(comm, command, client)
+        if client["vendor"] == "BDCM":
+            client['device'] = client['vendor']
         add_service(command, client)
         sleep(3)
 
