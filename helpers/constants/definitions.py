@@ -76,6 +76,6 @@ client_payload = {
 
 ont_type_start = "Equipment-ID             : "
 ont_type_end = "Main Software Version"
-ont_type_vendor = "Vendor-ID                : "
+ont_type_equipment_id = "Equipment-ID             : "
 
 change_types = ["CT", "CP", "CO"]
