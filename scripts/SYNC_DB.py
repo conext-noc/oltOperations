@@ -35,7 +35,7 @@ def clientsTable(comm, command, fsp):
     return CLIENTS
 
 def db_sync(comm,command, quit_ssh, olt, action):
-    _ = decoder(comm)
+    # data = decoder(comm)
     for slot in range(1,16):
         if slot == 8 or slot == 9:
             continue
@@ -44,7 +44,7 @@ def db_sync(comm,command, quit_ssh, olt, action):
                 clients = clientsTable(comm, command, f"0/{slot}/{port}")
                 for client in clients:
                     payload["lookup_type"] = "D"
-                    payload["lookup_value"] = client["fspi"]
+                    payload["lookup_value"] = client["fspi"] + f"/{olt}"
                     payload["new_values"] = {"state": client["state"]}
                     payload["change_field"] = "OX"
                     response = db_request(endpoints["update_client"], payload)

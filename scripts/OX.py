@@ -15,7 +15,7 @@ down_values = last_down_onu.down_values
 file_to_dict = file_formatter.file_to_dict
 
 
-def client_operate(_, command, quit_ssh, __, action):
+def client_operate(_, command, quit_ssh, device, action):
     clients = []
     if "U" in action:
         payload["lookup_type"] = inp(
@@ -25,8 +25,8 @@ def client_operate(_, command, quit_ssh, __, action):
             "Ingrese el contrato, serial o datos (f/s/p/id) : "
         )
         payload["lookup_value"] = (
-            payload["lookup_value"].zfill(10) if payload["lookup_type"] == "C" else payload["lookup_value"]
-        )
+        payload["lookup_value"].zfill(10) if payload["lookup_type"] == "C" else payload["lookup_value"] + f"/{device}" if payload["lookup_type"] == "D" else payload["lookup_value"]
+    )
         req = db_request(endpoints["get_client"], payload)
         if req["error"]:
             log(req["message"], "fail")
