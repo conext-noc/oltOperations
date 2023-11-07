@@ -29,7 +29,7 @@ def approved(data):
 
 def denied(data, reason):
     template = f"""
-    |{data['name']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['onu_id']} 
+    |{data['name_1']}  |  {data['frame']}/{data['slot']}/{data['port']}/{data['onu_id']} 
     |OLT  {data['olt']}  {data["provider"]}  {data["plan_name"]}
     |TEMPERATURA :   {data['temp']}
     |POTENCIA    :   {data['pwr']}
