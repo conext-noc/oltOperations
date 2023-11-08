@@ -31,7 +31,10 @@ def down_values(comm, command, data, show):
     if fail is not None and re_cause_start is None:
         log(fail, "fail") if show else None
         return (CAUSE, TIME, DATE, STATUS)
-
+    
+    if re_cause_start is None:
+        return (CAUSE, TIME, DATE, STATUS)
+    
     (_, s_c) = re_cause_start.span()
     (e_c, _) = re_cause_end.span()
     (_, s_t) = re_time_start.span()
