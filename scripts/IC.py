@@ -115,9 +115,8 @@ quieres proceder con la instalacion? [Y | N] : """
         client_payload["device"] = client["device"]
         payload_add["data"] = client_payload.copy()
         req = db_request(endpoints["add_client"], payload_add)
+        
         if req["error"]:
-            # print(req["message"])
-            # print(payload_add["data"])
             log("an error occurred adding to db", "fail")
         else:
             log("successfully added client to db", "success")
