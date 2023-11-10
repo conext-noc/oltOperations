@@ -23,7 +23,9 @@ display = display.display
 approvedDis = template.approvedDis
 
 
+
 def client_install(comm, command, quit_ssh, device, _):
+    
     client = client_place_holder.copy()
     NEW_SN = inp("Ingrese el Serial del Cliente a buscar : ").upper()
     (client["sn"], client["fsp"]) = new_lookup(comm, command, NEW_SN)
@@ -92,6 +94,32 @@ quieres proceder con la instalacion? [Y | N] : """
         command(f'interface gpon {client["frame"]} {client["slot"]}')
         command(f'ont delete {client["port"]} {client["onu_id"]}')
         log("Cliente no se agrego apropiadamente en OLT, eliminando...", "warning")
+
+        (client["device"], client["vendor"]) = type_finder(comm, command, client)
+        if client["vendor"] == "BDCM":
+            client['device'] = client['vendor']
+        # log(f"El tipo de ONT del cliente es {client['device']}", "ok")
+        
+        client['status'] = "offline"
+        client['state'] = "deactivate"
+
+        for key in client_payload:
+            client_payload[key] = client[key]
+
+        client_payload["olt"] = device
+        client_payload["fsp"] = f'{client["frame"]}/{client["slot"]}/{client["port"]}'
+        client_payload[
+            "fspi"
+        ] = f'{client["frame"]}/{client["slot"]}/{client["port"]}/{client["onu_id"]}'
+        client_payload["spid"] = 0
+        client_payload["device"] = client["device"]
+        payload_add["data"] = client_payload.copy()
+        req = db_request(endpoints["add_client"], payload_add)
+        
+        if req["error"]:
+            log("an error occurred adding to db", "fail")
+        else:
+            log("successfully added client to db", "success")
         quit_ssh()
         return
 
@@ -120,6 +148,7 @@ quieres proceder con la instalacion? [Y | N] : """
         log("an error occurred adding to db", "fail")
     else:
         log("successfully added client to db", "success")
+
     client['olt'] = device
     client['provider'] = client["wan"][0]["provider"]
     client['spid'] = client["wan"][0]["spid"]
