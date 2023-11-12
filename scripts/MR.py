@@ -38,6 +38,7 @@ def router_monitor(comm, command, quit_ssh, device, _):
     if "A" in device:
         dhcp = routers_ints[f"RTR{device}"]["pool"]
         sections = []
+        command("sys")
         for pool in dhcp:
             command(
                 f"display ip pool name dhcp_server_{pool} conflict decline | no-more"
