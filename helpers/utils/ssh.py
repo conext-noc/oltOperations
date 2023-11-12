@@ -55,5 +55,5 @@ def ssh(ip, debugging):
         command("scroll 512")
     else:
         command("sys")
-    decoder(comm)
+    val = decoder(comm)
     return (comm, command, quit_ssh)
