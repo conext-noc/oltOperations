@@ -29,6 +29,7 @@ def device_acl(comm, command, quit_ssh, device, _):
         ]
     # STEP 3 : GET ACL DATA STORED IN DB [✅]
     acl_db_rules = db_request(endpoints["get_acls"], {})["data"]
+    
     # STEP 4 : CORRELATE & FIND POTENTIAL MISMATCH []
     for live_rule in live_rules:
             for db_rule in acl_db_rules:
