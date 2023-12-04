@@ -1,5 +1,6 @@
 from datetime import datetime
 import userpaths
+import warnings
 
 
 docs = userpaths.get_my_documents()
@@ -29,14 +30,18 @@ def color_formatter(txt, variant):
     paint = "normal" if variant == "" else variant
     return color[paint] + txt + color["end"]
 
-
 def log(value, variant):
     fl = f"{USER_NAME}_{date.year}-{date.month}-{date.day}.txt"
     currTime = datetime.now()
     now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
-    print(color_formatter(value, variant))
-    print(f"{now}\n{value}", file=open(f"{docs}/logs/{fl}", "a", encoding="utf-8"))
-
+    formatted_value = color_formatter(value, variant)
+    
+    # Open the file using the 'with' statement to ensure it's properly closed
+    with open(f"{docs}/logs/{fl}", "a", encoding="utf-8") as log_file:
+        # Ignore ResourceWarning
+        warnings.filterwarnings("ignore", category=ResourceWarning)
+        print(formatted_value)
+        print(f"{now}\n{value}", file=log_file)
 
 def inp(message):
     global USER_NAME
@@ -46,8 +51,11 @@ def inp(message):
     currTime = datetime.now()
     now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
     data = input(message).upper()
-    print(
-        f"{now}\n{message} {data}",
-        file=open(f"{docs}/logs/{fl}", "a", encoding="utf-8"),
-    )
+    
+    # Open the file using the 'with' statement to ensure it's properly closed
+    with open(f"{docs}/logs/{fl}", "a", encoding="utf-8") as log_file:
+        # Ignore ResourceWarning
+        warnings.filterwarnings("ignore", category=ResourceWarning)
+        print(f"{now}\n{message} {data}", file=log_file)
+    
     return data

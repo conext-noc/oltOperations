@@ -2,6 +2,7 @@ import traceback
 from time import sleep
 from helpers.constants.definitions import rtr_devices, olt_devices
 from helpers.utils.ssh import ssh
+from scripts.ACL import device_acl
 from scripts.BC import client_lookup
 from scripts.OX import client_operate
 from scripts.XP import client_ports
@@ -34,6 +35,8 @@ Que accion se realizara?
     > (DT)  :   [OLT] Desactivados Totales
     > (DB)  :   [OLT] Sincronizar estatus de corte db-olt
     > (MR)  :   [RTR] Monitorear Router
+    > (OA)  :   [OLT] validar/actualizar acl lists en OLT
+    > (RA)  :   [RTR] validar/actualizar acl lists en RTR
 $ """
             )
 
@@ -52,7 +55,9 @@ $ """
                 "CA": client_ports,
                 "DT": client_ports,
                 "MR": router_monitor,
-                "DB": db_sync
+                "DB": db_sync,
+                "RA": device_acl,
+                "OA": device_acl,
             }
 
             MOD_KEYS = modules.keys()
@@ -61,10 +66,10 @@ $ """
                 sleep(2)
                 return
 
-            devices = olt_devices if action != "MR" else rtr_devices
+            devices = olt_devices if action not in ["MR", "RA"] else rtr_devices
             device = (
                 inp("Seleccione la OLT a usar [1 | 2 | 3] : ")
-                if action != "MR"
+                if action not in ["MR", "RA"]
                 else inp("Selecciona el router a monitorear [E1 | E2 | A1 | A2] : ")
             )
             debug = bool(inp("Enable debug [mostrar comandos]? (y/n): ").strip() == "Y")

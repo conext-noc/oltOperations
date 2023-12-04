@@ -54,6 +54,10 @@ def ssh(ip, debugging):
         command("config")
         command("scroll 512")
     else:
+        command("\n")
+        command("N")
+        command("\n")
         command("sys")
     val = decoder(comm)
+    # print(val)
     return (comm, command, quit_ssh)

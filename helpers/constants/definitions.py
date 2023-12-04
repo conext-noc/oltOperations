@@ -1,6 +1,5 @@
 headers = {"Content-Type": "application/json"}
-# domain = "http://127.0.0.1:7000"
-USER_NAME = ""
+# domain = "http://127.0.0.1:8000"
 domain = "http://db-api.conext.net.ve"
 payload = {"lookup_type": None, "lookup_value": None}
 payload_add = {"data": None}
@@ -12,6 +11,7 @@ endpoints = {
     "remove_client": "/remove-client",
     "get_plans": "/get-plans",
     "get_creds": "/get-creds",
+    "get_acls": "/get-acls",
 }
 olt_devices = {"1": "181.232.180.7", "2": "181.232.180.5", "3": "181.232.180.6"}
 rtr_devices = {
@@ -20,7 +20,8 @@ rtr_devices = {
     "A1": "181.232.180.3",
     "A2": "181.232.180.4",
 }
-
+rtrs = ["A1", "A2", "E1", "E2"]
+olts = ["1", "2", "3"]
 client_place_holder = {
     "fail": None,
     "name_1": None,
