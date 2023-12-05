@@ -1,6 +1,7 @@
-from helpers.handlers import request, printer, spid, display, template
+from helpers.handlers import request, printer, spid, display, template, wan_handler
 from helpers.finder import optical, last_down_onu
 from helpers.constants import definitions
+from helpers.handlers.enable_wan_handler import enable_wan
 
 # FUNCTION IMPORT DEFINITIONS
 db_request = request.db_request
@@ -14,6 +15,7 @@ down_values = last_down_onu.down_values
 optical_values = optical.optical_values
 display = display.display
 approvedDis = template.approvedDis
+wan_data = wan_handler.wan_data
 
 
 def client_lookup(comm, command, quit_ssh, device, _):
@@ -59,7 +61,9 @@ def client_lookup(comm, command, quit_ssh, device, _):
     client["spid"] = calculate_spid(client)[
         "I" if "_IP" not in client["plan_name"] else "P"
     ]
+    (client["ip"], client["mask"]) = wan_data(comm, command, client)
     display(client, "B")
+    enable_wan(command, client)
     displayTemplate = (
         inp("Desea la plantilla de datos operacionales? [Y/N] : ").upper().strip()
         == "Y"
