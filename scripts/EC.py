@@ -1,5 +1,5 @@
 from time import sleep
-from helpers.handlers import request, printer, spid, display
+from helpers.handlers import request, printer, spid, display, wan_handler
 from helpers.finder import optical, last_down_onu
 from helpers.constants import definitions
 
@@ -14,6 +14,7 @@ payload = definitions.payload
 down_values = last_down_onu.down_values
 optical_values = optical.optical_values
 display = display.display
+wan_data = wan_handler.wan_data
 
 
 def client_delete(comm, command, quit_ssh, device, _):
@@ -49,6 +50,7 @@ def client_delete(comm, command, quit_ssh, device, _):
     client["spid"] = calculate_spid(client)[
         "I" if "_IP" not in client["plan_name"] else "P"
     ]
+    (client["ip"], client["mask"]) = wan_data(comm, command, client)
     proceed = display(client, "A")
 
     if not proceed:
@@ -69,7 +71,7 @@ def client_delete(comm, command, quit_ssh, device, _):
     )
 
     payload["lookup_type"] = "C"
-    payload["lookup_value"] = str(client["contract"])
+    payload["lookup_value"] = {"contract":str(client["contract"]), "olt": device}
     req = db_request(endpoints["remove_client"], payload)
     if req["error"]:
         log("an error occurred removing client from db", "fail")

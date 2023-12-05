@@ -1,4 +1,4 @@
-from helpers.handlers import request, printer, spid, add_onu, template, display
+from helpers.handlers import request, printer, spid, add_onu, template, display, wan_handler
 from helpers.finder import optical, last_down_onu, device_type, new_onu
 from helpers.constants import definitions
 
@@ -21,6 +21,7 @@ approved = template.approved
 denied = template.denied
 display = display.display
 approvedDis = template.approvedDis
+wan_data = wan_handler.wan_data
 
 
 
@@ -78,6 +79,7 @@ def client_install(comm, command, quit_ssh, device, _):
 
     (client["onu_id"], client["fail"]) = add_client(comm, command, client)
     (client["temp"], client["pwr"], client["pwr_rx"]) = optical_values(comm, command, client, True)
+    (client["ip"], client["mask"]) = wan_data(comm, command, client)
 
     value = inp(
         f"""
@@ -143,6 +145,7 @@ quieres proceder con la instalacion? [Y | N] : """
     ] = f'{client["frame"]}/{client["slot"]}/{client["port"]}/{client["onu_id"]}'
     client_payload["spid"] = client["wan"][0]["spid"]
     payload_add["data"] = client_payload.copy()
+    print(payload_add)
     req = db_request(endpoints["add_client"], payload_add)
     if req["error"]:
         log("an error occurred adding to db", "fail")

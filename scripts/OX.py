@@ -47,7 +47,7 @@ def client_operate(_, command, quit_ssh, device, action):
 
         for client in action_list:
             payload["lookup_type"] = "C"
-            payload["lookup_value"] = client["contract"]
+            payload["lookup_value"] = {"contract": client["contract"], "olt": client["olt"]}
             req = db_request(endpoints["get_client"], payload)
             clients.append(req["data"])
 
