@@ -17,6 +17,8 @@ def display(data, tp):
 |SN                         :   {data["sn"]}
 |CONTROL FLAG               :   {data["state"]}
 |RUN STATE                  :   {data["status"]}
+|DIRECCION IP               :   {data["ip"]}
+|MASCARA DE SUBRED          :   {data["mask"]}
 |LAST DOWN CAUSE            :   {data.get("last_down_cause") or "N/A"}
 |LAST DOWN TIME             :   {data.get("last_down_time") or "N/A"}
 |LAST DOWN DATE             :   {data.get("last_down_date") or "N/A"}

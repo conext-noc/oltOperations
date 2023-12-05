@@ -1,5 +1,6 @@
 from time import sleep
 from helpers.handlers.fail import fail_checker
+from helpers.handlers.wan_handler import wan_data
 from helpers.utils.decoder import decoder, check, check_iter
 from helpers.handlers.display import display
 from helpers.handlers.printer import inp, log
@@ -46,6 +47,7 @@ def client_traffic(comm, command, quit_ssh, device, _):
     client["spid"] = calculate_spid(client)[
         "I" if "_IP" not in client["plan_name"] else "P"
     ]
+    (client["ip"], client["mask"]) = wan_data(comm, command, client)
     proceed = display(client, "A")
     if not proceed:
         log("Cancelando...", "warning")

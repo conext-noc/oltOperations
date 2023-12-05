@@ -1,5 +1,5 @@
 from time import sleep
-from helpers.handlers import request, printer, spid, add_onu, display
+from helpers.handlers import request, printer, spid, add_onu, display, wan_handler
 from helpers.finder import optical, last_down_onu, device_type
 from helpers.constants import definitions
 
@@ -17,6 +17,7 @@ add_service = add_onu.add_service
 type_finder = device_type.type_finder
 optical_values = optical.optical_values
 display = display.display
+wan_data = wan_handler.wan_data
 
 
 def client_modify(comm, command, quit_ssh, device, _):
@@ -52,6 +53,7 @@ def client_modify(comm, command, quit_ssh, device, _):
     client["spid"] = calculate_spid(client)[
         "I" if "_IP" not in client["plan_name"] else "P"
     ]
+    (client["ip"], client["mask"]) = wan_data(comm, command, client)
     proceed = display(client, "A")
 
     if not proceed:
