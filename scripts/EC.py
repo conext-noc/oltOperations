@@ -20,10 +20,18 @@ def client_delete(comm, command, quit_ssh, device, _):
     payload["lookup_type"] = inp(
         "Buscar cliente por Contrato, Serial o Datos [C | S | D] : "
     )
-    payload["lookup_value"] = inp("Ingrese el contrato, serial o datos (f/s/p/id) : ")
-    payload["lookup_value"] = (
-        payload["lookup_value"].zfill(10) if payload["lookup_type"] == "C" else payload["lookup_value"]
+    value = inp("Ingrese el contrato, serial o datos (f/s/p/id) : ")
+
+    value = value.zfill(10) if payload["lookup_type"] == "C" else value
+    value_class = (
+        "contract"
+        if payload["lookup_type"] == "C"
+        else "fspi"
+        if payload["lookup_type"] == "D"
+        else "serial"
     )
+
+    payload["lookup_value"] = {"olt": device, f"{value_class}": value}
     req = db_request(endpoints["get_client"], payload)
     if req["error"]:
         log(req["message"], "fail")
