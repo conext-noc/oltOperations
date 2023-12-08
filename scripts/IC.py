@@ -145,7 +145,7 @@ quieres proceder con la instalacion? [Y | N] : """
     ] = f'{client["frame"]}/{client["slot"]}/{client["port"]}/{client["onu_id"]}'
     client_payload["spid"] = client["wan"][0]["spid"]
     payload_add["data"] = client_payload.copy()
-    print(payload_add)
+    # print(payload_add)
     req = db_request(endpoints["add_client"], payload_add)
     if req["error"]:
         log("an error occurred adding to db", "fail")
