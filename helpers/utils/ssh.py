@@ -16,7 +16,7 @@ def ssh(ip, debugging):
     creds = db_request(endpoints["get_creds"], {})
 
     # Handling multiple SSH sessions
-    while cont and count <= 3:
+    while cont and count <= 2:
         try:
             username = creds["data"][count]["user_name"]
             password = creds["data"][count]["password"]
