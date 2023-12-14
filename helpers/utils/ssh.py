@@ -25,7 +25,12 @@ def ssh(ip, debugging):
             conn.connect(ip, port, username, password)
             comm = conn.invoke_shell()
             cont = False
-        except paramiko.ssh_exception.AuthenticationException or TimeoutError:
+        except paramiko.ssh_exception.AuthenticationException:
+            log(f"retrying to re-connect with {username} @ {ip}", "info")
+            cont = True
+            count += 1
+            continue
+        except TimeoutError:
             log(f"retrying to re-connect with {username} @ {ip}", "info")
             cont = True
             count += 1
