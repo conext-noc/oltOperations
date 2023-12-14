@@ -29,13 +29,13 @@ def ssh(ip, debugging):
             log(f"failed to connect with {username} @ {ip}", "info")
             cont = True
             count += 1
-            log(f"retrying to re-connect with {creds['data'][count]['user_name']} @ {ip}", "info")
+            log(f"retrying to re-connect with {creds['data'][count if count < 3 else 2]['user_name']} @ {ip}", "info")
             continue
         except TimeoutError:
             log(f"failed to connect with {username} @ {ip}", "info")
             cont = True
             count += 1
-            log(f"retrying to re-connect with {creds['data'][count]['user_name']} @ {ip}", "info")
+            log(f"retrying to re-connect with {creds['data'][count if count < 3 else 2]['user_name']} @ {ip}", "info")
             continue
         break
 
