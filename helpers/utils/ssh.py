@@ -22,7 +22,7 @@ def ssh(ip, debugging):
             password = creds["data"][count]["password"]
             port = 22
             log(f"trying to connect with {username} @ {ip}", "info")
-            conn.connect(ip, port, username, password)
+            conn.connect(ip, port, username, password, timeout=10)
             comm = conn.invoke_shell()
             cont = False
         except paramiko.ssh_exception.AuthenticationException:
