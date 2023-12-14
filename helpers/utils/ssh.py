@@ -26,14 +26,16 @@ def ssh(ip, debugging):
             comm = conn.invoke_shell()
             cont = False
         except paramiko.ssh_exception.AuthenticationException:
-            log(f"retrying to re-connect with {username} @ {ip}", "info")
+            log(f"failed to connect with {username} @ {ip}", "info")
             cont = True
             count += 1
+            log(f"retrying to re-connect with {creds['data'][count]['user_name']} @ {ip}", "info")
             continue
         except TimeoutError:
-            log(f"retrying to re-connect with {username} @ {ip}", "info")
+            log(f"failed to connect with {username} @ {ip}", "info")
             cont = True
             count += 1
+            log(f"retrying to re-connect with {creds['data'][count]['user_name']} @ {ip}", "info")
             continue
         break
 
