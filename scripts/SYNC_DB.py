@@ -36,6 +36,7 @@ def clientsTable(comm, command, fsp):
 
 def db_sync(comm,command, quit_ssh, olt, action):
     # data = decoder(comm)
+    # make req to active ports
     for slot in range(1,16):
         if slot == 8 or slot == 9:
             continue
