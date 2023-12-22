@@ -7,3 +7,4 @@ def enable_wan(command, client, ena=False):
     if "Y" == enable:
         command("diagnose")
         command(f"ont wan-access http {client['frame']}/{client['slot']}/{client['port']} {client['onu_id']} enable")
+        command("quit")
