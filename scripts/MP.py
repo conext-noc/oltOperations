@@ -51,9 +51,9 @@ def data_plan_migration(comm,command, quit_ssh, device, _):
                     ][0]
                     spid_data = calculate_spid(client_req)
                     spid = (
-                        spid_data["I"]
+                        spid_data["P"]
                         if "IP" in client_req["plan_name_id"]
-                        else spid_data["P"]
+                        else spid_data["I"]
                     )
                     client = client_req.copy()
 
