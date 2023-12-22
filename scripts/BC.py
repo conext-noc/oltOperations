@@ -63,7 +63,7 @@ def client_lookup(comm, command, quit_ssh, device, _):
     ]
     (client["ip"], client["mask"]) = wan_data(comm, command, client)
     display(client, "B")
-    enable_wan(command, client)
+    enable_wan(command, client, False)
     displayTemplate = (
         inp("Desea la plantilla de datos operacionales? [Y/N] : ").upper().strip()
         == "Y"

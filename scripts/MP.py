@@ -78,7 +78,7 @@ def data_plan_migration(comm,command, quit_ssh, device, _):
                         command(f'interface gpon {client["frame"]}/{client["slot"]}')
                         command(f"ont reset {client['port']} {client['onu_id']}")
                         command('quit')
-                    enable_wan(command, client)
+                    enable_wan(command, client, True)
 
     quit_ssh()
     return
