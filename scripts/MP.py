@@ -78,7 +78,6 @@ def data_plan_migration(comm,command, quit_ssh, device, _):
                         command(f'interface gpon {client["frame"]}/{client["slot"]}')
                         command(f"ont reset {client['port']} {client['onu_id']}")
                         command('quit')
-                    enable_wan(command, client, True)
                     payload_new = {"type": "a","change_field": "CP","lookup_type":"C","lookup_value":{ "contract":client['contract'],"olt": device},"new_values": {"plan_name": new_plan["plan_name"]}}
                     req = db_request(endpoints["update_client"], payload_new)
                     if req["error"]:
