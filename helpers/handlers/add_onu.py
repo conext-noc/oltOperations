@@ -1,10 +1,9 @@
 from time import sleep
-
 from helpers.handlers.printer import log, inp
 from helpers.utils.decoder import decoder, check
 from helpers.handlers.spid import calculate_spid
 from helpers.handlers.fail import fail_checker
-
+from helpers.constants.definitions import bridges
 
 def add_client(comm, command, data):
     command(f"interface gpon {data['frame']}/{data['slot']}")
@@ -83,5 +82,58 @@ def add_service(command, data):
     if data['vendor'] == "BDCM":
         command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0")
         command(f"ont fec {data['port']} {data['onu_id']} use-profile-config")
+        sleep(3)
+    command("quit")
+
+
+def add_service_mp(command, client, new_plan):
+    log(f'El SPID que se le agregara al cliente es : {client["spid"]}', "ok")
+
+    command(f"interface gpon {client['frame']}/{client['slot']}")
+    sleep(3)
+
+    command(
+        f" ont port native-vlan {client['port']} {client['onu_id']} eth 1 vlan {client['vlan']} "
+    ) if client['device'] in bridges else None
+
+    IPADD = (
+        inp("Ingrese la IPv4 Publica del cliente : ")
+        if "_IP" in new_plan["plan_name"]
+        else None
+    )
+
+    sleep(3)
+    
+    internet_index = 2 if client['device'] != "BDCM" else 1
+    
+    command(
+        f"ont ipconfig {client['port']} {client['onu_id']} ip-index 2 dhcp vlan {new_plan['vlan']}"
+    ) if "_IP" not in client["plan_name"] and client['device'] != "BDCM" else command(
+        f"ont ipconfig {client['port']} {client['onu_id']} ip-index 2 static ip-address {IPADD} mask 255.255.255.128 gateway 181.232.181.129 pri-dns 9.9.9.9 slave-dns 149.112.112.112 vlan 102"
+    ) if "_IP" in new_plan["plan_name"] and client['device'] != "BDCM" else command(f"ont ipconfig {client['port']} {client['onu_id']} ip-index 1 dhcp vlan {new_plan['vlan']} priority 0")
+    sleep(3)
+
+    if client['device'] == "BDCM":
+        command(f"ont ipconfig {client['port']} {client['onu_id']} ip-index 2 dhcp vlan {new_plan['vlan']} priority 5")
+    
+    
+    command(f"ont internet-config {client['port']} {client['onu_id']} ip-index {internet_index}")
+
+    command(f"ont policy-route-config {client['port']} {client['onu_id']} profile-id 2")
+
+    command("quit")
+    sleep(3)
+    command(
+        f"""service-port {client['spid']} vlan {client['vlan']} gpon {client['frame']}/{client['slot']}/{client['port']} ont {client['onu_id']} gemport {new_plan['gem_port']} multi-service user-vlan {new_plan['vlan']} tag-transform transparent inbound traffic-table index {new_plan["plan_idx"]} outbound traffic-table index {new_plan["plan_idx"]}"""
+    )
+
+    sleep(3)
+    command(f"interface gpon {client['frame']}/{client['slot']}")
+    sleep(3)
+    command(f"ont wan-config {client['port']} {client['onu_id']} ip-index 2 profile-id 0") if client['device'] != "BDCM" else command(f"ont wan-config {client['port']} {client['onu_id']} ip-index 1 profile-id 0")
+    sleep(3)
+    if client['device'] == "BDCM":
+        command(f"ont wan-config {client['port']} {client['onu_id']} ip-index 2 profile-id 0")
+        command(f"ont fec {client['port']} {client['onu_id']} use-profile-config")
         sleep(3)
     command("quit")
