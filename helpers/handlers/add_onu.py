@@ -93,7 +93,7 @@ def add_service_mp(command, client, new_plan):
     sleep(3)
 
     command(
-        f" ont port native-vlan {client['port']} {client['onu_id']} eth 1 vlan {client['vlan']} "
+        f" ont port native-vlan {client['port']} {client['onu_id']} eth 1 vlan {new_plan['vlan']} "
     ) if client['device'] in bridges else None
 
     IPADD = (
