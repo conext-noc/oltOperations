@@ -91,4 +91,4 @@ ont_type_equipment_id = "Equipment-ID             : "
 
 change_types = ["CT", "CP", "CO"]
 
-bridges = ["EG8120L", "EG8010Hv6", "EchoLife HG8010H", "EchoLife EG8120L", "010H", "OptiXstar EG8010Hv6", "EG8120L \r "]
+bridges = ["EG8120L", "EG8010Hv6", "EchoLife HG8010H ", "EchoLife EG8120L ", "010H", "OptiXstar EG8010Hv6 ", "EG8120L \r "]

@@ -1,4 +1,4 @@
-SELECT * FROM db_api_clients WHERE plan_name='OZ_PLUS_1';
+SELECT * FROM db_api_clients WHERE plan_name='OZ_PLUS_2';
 -- SELECT * FROM db_api_alarms;
 -- SELECT * FROM db_api_ports;
 -- SELECT * FROM db_api_aclrules;
