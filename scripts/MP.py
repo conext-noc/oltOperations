@@ -74,10 +74,10 @@ def data_plan_migration(comm,command, quit_ssh, device, _):
                         f"ont modify {client['port']} {client['onu_id']} ont-srvprofile-id {new_plan['srv_profile']}"
                     )
                     add_service_mp(command, client, new_plan)
-                    if client["device"] in bridges:
-                        command(f'interface gpon {client["frame"]}/{client["slot"]}')
-                        command(f"ont reset {client['port']} {client['onu_id']}")
-                        command('quit')
+                    # if client["device"] in bridges:
+                    #     command(f'interface gpon {client["frame"]}/{client["slot"]}')
+                    #     command(f"ont reset {client['port']} {client['onu_id']}")
+                    #     command('quit')
                     payload_new = {"type": "a","change_field": "CP","lookup_type":"C","lookup_value":{ "contract":client['contract'],"olt": device},"new_values": {"plan_name": new_plan["plan_name"]}}
                     req = db_request(endpoints["update_client"], payload_new)
                     if req["error"]:
