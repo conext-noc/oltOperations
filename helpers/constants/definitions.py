@@ -4,24 +4,24 @@ domain = "http://db-api.conext.net.ve"
 payload = {"lookup_type": None, "lookup_value": None}
 payload_add = {"data": None}
 endpoints = {
-    "add_client":"/add-client",
-    "get_client":"/get-client",
-    "get_clients":"/get-clients",
-    "update_client":"/update-client",
-    "remove_client":"/remove-client",
-    "get_plans":"/get-plans",
-    "add_ports":"/add-ports",
-    "get_ports":"/get-ports",
-    "open_ports":"/open-ports",
-    "disable_ports":"/disable-ports",
-    "get_alarms":"/get-alarms",
-    "add_alarms":"/add-alarms",
-    "empty_alarms":"/empty-alarms",
-    "ms_health_check":"/ms-health-check",
-    "populate":"/populate",
-    "get_creds":"/get-creds",
-    "get_acls":"/get-acls",
-    "create_acls":"/create-acls",
+    "add_client": "/add-client",
+    "get_client": "/get-client",
+    "get_clients": "/get-clients",
+    "update_client": "/update-client",
+    "remove_client": "/remove-client",
+    "get_plans": "/get-plans",
+    "add_ports": "/add-ports",
+    "get_ports": "/get-ports",
+    "open_ports": "/open-ports",
+    "disable_ports": "/disable-ports",
+    "get_alarms": "/get-alarms",
+    "add_alarms": "/add-alarms",
+    "empty_alarms": "/empty-alarms",
+    "ms_health_check": "/ms-health-check",
+    "populate": "/populate",
+    "get_creds": "/get-creds",
+    "get_acls": "/get-acls",
+    "create_acls": "/create-acls",
 }
 olt_devices = {"1": "181.232.180.7", "2": "181.232.180.5", "3": "181.232.180.6"}
 rtr_devices = {
@@ -84,11 +84,6 @@ client_payload = {
     "spid": None,
 }
 
-
-ont_type_start = "Equipment-ID             : "
-ont_type_end = "Main Software Version"
-ont_type_equipment_id = "Equipment-ID             : "
-
 change_types = ["CT", "CP", "CO"]
 
-bridges = ["EG8120L", "EG8010Hv6", "EchoLife HG8010H ", "EchoLife EG8120L ", "010H", "OptiXstar EG8010Hv6 ", "EG8120L \r "]
+bridges = ["EG8120L", "EG8010Hv6", "010H", "1126"]

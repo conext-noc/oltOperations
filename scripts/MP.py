@@ -1,4 +1,5 @@
 from time import sleep
+from helpers.finder.device_type import type_finder
 from helpers.handlers.add_onu import add_service_mp
 from helpers.handlers.enable_wan_handler import enable_wan
 from helpers.handlers.printer import inp, log
@@ -73,11 +74,12 @@ def data_plan_migration(comm,command, quit_ssh, device, _):
                     command(
                         f"ont modify {client['port']} {client['onu_id']} ont-srvprofile-id {new_plan['srv_profile']}"
                     )
+                    (client['device'], client['vendor']) = type_finder(comm,command, client)
                     add_service_mp(command, client, new_plan)
-                    # if client["device"] in bridges:
-                    #     command(f'interface gpon {client["frame"]}/{client["slot"]}')
-                    #     command(f"ont reset {client['port']} {client['onu_id']}")
-                    #     command('quit')
+                    if client["device"] in bridges:
+                        command(f'interface gpon {client["frame"]}/{client["slot"]}')
+                        command(f"ont reset {client['port']} {client['onu_id']}")
+                        command('quit')
                     payload_new = {"type": "a","change_field": "CP","lookup_type":"C","lookup_value":{ "contract":client['contract'],"olt": device},"new_values": {"plan_name": new_plan["plan_name"]}}
                     req = db_request(endpoints["update_client"], payload_new)
                     if req["error"]:
