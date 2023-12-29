@@ -86,4 +86,4 @@ client_payload = {
 
 change_types = ["CT", "CP", "CO"]
 
-bridges = ["EG8120L", "EG8010Hv6", "010H", "1126"]
+bridges = ["EG8120L", "EG8010Hv6", "010H"]
