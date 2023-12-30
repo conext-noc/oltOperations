@@ -1,40 +1,67 @@
 ####################             IN MAINTANCE             ####################
-import json
-from time import sleep
-from helpers.utils.decoder import decoder, check
-from helpers.handlers.file_formatter import file_to_dict
-from helpers.utils.ssh import ssh
+import ipaddress
+import re
 
-clients = file_to_dict("data.csv", "C")
 
-clients_list = [
-    {"contract": str(client["Referencia"]).zfill(10), "action": "S"}
-    for client in clients
-]
+data = """
+---
+  F/S/P                   : 0/3/14
+  ONT-ID                  : 17
+  Control flag            : active
+  Run state               : offline
+  Config state            : initial
+  Match state             : initial
+  DBA type                : SR
+  ONT distance(m)         : -
+  ONT last distance(m)    : 15813
+  ONT battery state       : -
+  ONT power type          : -
+  Memory occupation       : -
+  CPU occupation          : -
+  Temperature             : -
+  Authentic type          : SN-auth
+  SN                      : 48575443B1E211A4 (HWTC-B1E211A4)
+  Management mode         : OMCI
+  Software work mode      : normal
+  Isolation state         : normal
+  ONT IP 0 address/mask   : -
+  ONT IP 2 address/mask   : -
+  Description             : ELENY MONTERO 0000007851
+  Last down cause         : dying-gasp
+  Last up time            : 2023-12-25 19:51:20-04:00
+  Last down time          : 2023-12-30 09:15:32-04:00
+  Last dying gasp time    : 2023-12-30 09:15:32-04:00
+  ONT online duration     : -
+  ONT system up duration  : -
+  Type C support          : Not support
+  Interoperability-mode   : Unknown
+  Power reduction status  : -
+  ONT NNI type            : auto
+  ONT actual NNI type     : -
+  Last ONT actual NNI type: 2.5G/1.25G
+  FEC upstream state      : use-profile-config
+  VS-ID                   : 0
+  VS name                 : admin-vs
+  Global ONT-ID           : 17
+"""
 
-count = 1
-(comm, command, quit_ssh) = ssh("181.232.180.7", True)
-sleep(2)
-result = decoder(comm)
-real_deacts = []
-real_actives = []
-for client in clients_list:
-    command(f"display ont info by-desc {client['contract']}")
-    print(count, client)
-    sleep(5)
-    res = decoder(comm)
-    result += res
-    condition = check(res," deactivated ")
-    if condition == None:
-        print(client,"its active")
-        real_actives.append(client)
-        continue
-    print(client,"its deactivated")
-    real_deacts.append(client)
-    count += 1
-print(result, file=open('result_s.txt','w'))
-print(json.dumps({"clients":real_deacts}), file=open('action_s_real.json','w'))
-print(json.dumps({"clients":real_actives}), file=open('action_r_real.json','w'))
+ont_ips = {f"ONT IP {x} address/mask": None for x in range(1, 3)}
+
+ip_matches = re.findall(r"ONT IP (\d) address/mask\s*:\s*(.+)", data)
+
+for match in ip_matches:
+    ont_ips[f"ONT IP {match[0]} address/mask"] = match[1]
+
+ip_addr = [ip for ip in ont_ips.values() if ip is not None and "-" != ip]
+
+network = ipaddress.IPv4Network(ip_addr[0] if len(ip_addr) > 0 else '0.0.0.0/0', strict=False)
+
+# Get the IP address and subnet mask
+ip_address = network.network_address
+subnet_mask = network.netmask
+
+print(f"IP Address: {ip_address}")
+print(f"Subnet Mask: {subnet_mask}")
 
 
 ####################             IN MAINTANCE             ####################
