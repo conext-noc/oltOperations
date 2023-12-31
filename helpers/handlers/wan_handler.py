@@ -3,6 +3,7 @@ import time
 from helpers.utils.decoder import check_iter, decoder
 import ipaddress
 
+
 def wan_data(comm, command, client):
     ont_net = ["", ""]
     command(
@@ -29,7 +30,11 @@ def wan_data(comm, command, client):
         for match in ip_matches:
             ont_ips[f"ONT IP {match[0]} address/mask"] = match[1]
 
-        ip_addr = [ip for ip in ont_ips.values() if ip is not None and "-" != ip]
+        ip_addr = [
+            ip.replace("\r", "").replace(" ", "").replace("\n", "")
+            for ip in ont_ips.values()
+            if ip is not None and "-" != ip
+        ]
 
         network = ipaddress.IPv4Network(
             ip_addr[0] if len(ip_addr) > 0 else "0.0.0.0/0", strict=False
