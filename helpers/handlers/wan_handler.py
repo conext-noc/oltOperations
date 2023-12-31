@@ -21,7 +21,7 @@ def wan_data(comm, command, client):
         (_, start) = regex[0]
         (end, _) = regex[1]
 
-        ont_section = output[start:end]
+        ont_section = output[start:end].replace("\r", "")
 
         ont_ips = {f"ONT IP {x} address/mask": None for x in range(1, 3)}
 
@@ -31,7 +31,7 @@ def wan_data(comm, command, client):
             ont_ips[f"ONT IP {match[0]} address/mask"] = match[1]
 
         ip_addr = [
-            ip.replace("\r", "").replace(" ", "").replace("\n", "")
+            ip
             for ip in ont_ips.values()
             if ip is not None and "-" != ip
         ]
