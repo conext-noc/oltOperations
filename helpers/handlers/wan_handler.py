@@ -36,12 +36,12 @@ def wan_data(comm, command, client):
             if ip is not None and "-" != ip
         ]
 
-        network = ipaddress.IPv4Network(
-            ip_addr[0] if len(ip_addr) > 0 else "0.0.0.0/0", strict=False
-        )
+        # network = ipaddress.IPv4Network(
+        #     ip_addr[0] if len(ip_addr) > 0 else "0.0.0.0/0", strict=False
+        # )
 
         # Get the IP address and subnet mask
-        ont_net[0] = network.network_address
-        ont_net[1] = network.netmask
+        ont_net[0] = ip_addr[0].split("/")[0]
+        ont_net[1] = f'/{ip_addr[0].split("/")[1]}'
 
     return ont_net
