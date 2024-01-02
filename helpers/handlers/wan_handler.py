@@ -41,7 +41,7 @@ def wan_data(comm, command, client):
         # )
 
         # Get the IP address and subnet mask
-        ont_net[0] = ip_addr[0].split("/")[0]
-        ont_net[1] = f'/{ip_addr[0].split("/")[1]}'
+        ont_net[0] = ip_addr[0].split("/")[0] if len(ip_addr) > 0 else "-"
+        ont_net[1] = f'/{ip_addr[0].split("/")[1]}' if len(ip_addr) > 0 else "-"
 
     return ont_net
