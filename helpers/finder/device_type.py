@@ -1,4 +1,5 @@
 import re
+from time import sleep
 from helpers.utils.decoder import check_iter, decoder
 from helpers.handlers.fail import fail_checker
 
@@ -7,7 +8,9 @@ def type_finder(comm, command, data):
     ONT_EQUIPMENT_ID = None
     FAIL = None
     command(f"interface gpon {data['frame']}/{data['slot']}")
+    sleep(3)
     command(f"display ont version {data['port']} {data['onu_id']}")
+    sleep(3)
     output = decoder(comm)
     FAIL = fail_checker(output)
     regex = check_iter(
