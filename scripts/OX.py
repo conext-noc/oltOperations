@@ -2,6 +2,10 @@ from tkinter import filedialog
 from helpers.handlers import request, printer, spid, file_formatter
 from helpers.finder import last_down_onu
 from helpers.constants import definitions
+from helpers.constants.snmp_data import map_ports,SNMP_OIDS
+from helpers.utils.snmp import SNMP_set
+from dotenv import load_dotenv
+import os
 
 # FUNCTION IMPORT DEFINITIONS
 db_request = request.db_request
@@ -14,6 +18,7 @@ payload = definitions.payload
 down_values = last_down_onu.down_values
 file_to_dict = file_formatter.file_to_dict
 
+load_dotenv()
 
 def client_operate(_, command, quit_ssh, device, action):
     clients = []
@@ -51,15 +56,20 @@ def client_operate(_, command, quit_ssh, device, action):
             req = db_request(endpoints["get_client"], payload)
             clients.append(req["data"])
 
-    operation = "activate" if "R" in action else "deactivate"
+    # operation = "activate" if "R" in action else "deactivate"
+    operation = '1' if "R" in action else '2'
     resulted_operation = "active" if "R" in action else "deactivated"
     result = "Reactivado" if "R" in action else "Suspendido"
 
     list_len = len(clients)
 
     for curr, client in enumerate(clients):
-        command(f'interface gpon {client["frame"]}/{client["slot"]}')
-        command(f'ont {operation} {client["port"]} {client["onu_id"]}')
+        fsp = f"{client["frame"]}/{client["slot"]}/{client["port"]}"
+
+        for fsp_oid,value in map_ports.items():
+            if value == fsp:
+                olt = client["olt"]
+                SNMP_set(os.getenv('SNMP_WRITE'),olt_devices[str(olt)],SNMP_OIDS['STATE'],161,fsp_oid,client["onu_id"],operation)
 
         payload["change_field"] = "OX"
         payload["new_values"] = {"state": resulted_operation}
