@@ -46,9 +46,10 @@ def optical_value_snmp(data):
     PWR_RX = None
     for oid_port, fsp in map_ports.items():
         if fsp == data["fsp"]:
-            TEMP = SNMP_get(os.getenv("SNMP_READ"),olt_devices[data["olt"]],SNMP_OIDS["TEMPERATURE"],161,oid_port,data["onu_id"])
-            PWR_UNFORMAT = SNMP_get(os.getenv("SNMP_READ"),olt_devices[data["olt"]],SNMP_OIDS["POWER"],161,oid_port,data["onu_id"])
+            olt = data["olt"]
+            TEMP = SNMP_get(os.getenv("SNMP_READ"),olt_devices[str(olt)],SNMP_OIDS["TEMPERATURE"],161,oid_port,data["onu_id"])
+            PWR_UNFORMAT = SNMP_get(os.getenv("SNMP_READ"),olt_devices[str(olt)],SNMP_OIDS["POWER"],161,oid_port,data["onu_id"])
             PWR = (int(PWR_UNFORMAT)/100)
-            PWR_RX_UNFORMAT = SNMP_get(os.getenv("SNMP_READ"),olt_devices[data["olt"]],SNMP_OIDS["POWER_RX_OLT"],161,oid_port,data["onu_id"])
+            PWR_RX_UNFORMAT = SNMP_get(os.getenv("SNMP_READ"),olt_devices[str(olt)],SNMP_OIDS["POWER_RX_OLT"],161,oid_port,data["onu_id"])
             PWR_RX = ((int(PWR_RX_UNFORMAT) - 10000)/100)
     return (TEMP, PWR, PWR_RX)
