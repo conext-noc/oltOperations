@@ -64,7 +64,7 @@ def client_operate(_, command, quit_ssh, device, action):
     list_len = len(clients)
 
     for curr, client in enumerate(clients):
-        fsp = f"{client["frame"]}/{client["slot"]}/{client["port"]}"
+        fsp = f"{client['frame']}/{client['slot']}/{client['port']}"
 
         for fsp_oid,value in map_ports.items():
             if value == fsp:
