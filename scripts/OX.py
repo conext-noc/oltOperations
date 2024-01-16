@@ -69,7 +69,7 @@ def client_operate(_, command, quit_ssh, device, action):
         for fsp_oid,value in map_ports.items():
             if value == fsp:
                 olt = client["olt"]
-                print(os.getenv("SNMP_WRITE"),olt_devices[str(olt)],SNMP_OIDS["STATE"],161,fsp_oid,client["onu_id"],operation)
+                SNMP_set(os.environ["SNMP_WRITE"],olt_devices[str(olt)],SNMP_OIDS["STATE"],161,fsp_oid,client["onu_id"],operation)
 
         payload["change_field"] = "OX"
         payload["new_values"] = {"state": resulted_operation}

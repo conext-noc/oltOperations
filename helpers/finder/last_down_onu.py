@@ -65,11 +65,11 @@ def down_values_SNMP(data):
     STATUS = None
     for oid_port, fsp in map_ports.items():
         if fsp == data["fsp"]:
-            cause_unformat = SNMP_get(os.getenv('SNMP_READ'),olt_devices[data["olt"]],SNMP_OIDS['LAST_DOWN_CAUSE'],161,oid_port,data["onu_id"])
+            cause_unformat = SNMP_get(os.environ["SNMP_READ"],olt_devices[data["olt"]],SNMP_OIDS['LAST_DOWN_CAUSE'],161,oid_port,data["onu_id"])
             if cause_unformat in LAST_DOWN_CAUSE.keys():
                 CAUSE = LAST_DOWN_CAUSE[cause_unformat]
                 
-            time_and_date_unformat = SNMP_get(os.getenv('SNMP_READ'),olt_devices[data["olt"]],SNMP_OIDS['LAST_DOWN_TIME'],161,oid_port,data["onu_id"])
+            time_and_date_unformat = SNMP_get(os.environ["SNMP_READ"],olt_devices[data["olt"]],SNMP_OIDS['LAST_DOWN_TIME'],161,oid_port,data["onu_id"])
             YEAR = time_and_date_unformat[:6]
             MONTH = time_and_date_unformat[6:8]
             DAY = time_and_date_unformat[8:10]
@@ -79,5 +79,5 @@ def down_values_SNMP(data):
   
             DATE = f"{int(YEAR,16)}-{int(MONTH,16)}-{int(DAY,16)}"
             TIME = f"{int(HOURS,16)}:{int(MINUTE,16)}:{int(SECONDS,16)}"
-            STATUS = SNMP_get(os.getenv('SNMP_READ'),olt_devices[data["olt"]],SNMP_OIDS['STATUS'],161,oid_port,data["onu_id"])
+            STATUS = SNMP_get(os.environ["SNMP_READ"],olt_devices[data["olt"]],SNMP_OIDS['STATUS'],161,oid_port,data["onu_id"])
     return (CAUSE, TIME, DATE, STATUS)
