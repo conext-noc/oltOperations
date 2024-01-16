@@ -11,8 +11,8 @@ calculate_spid = spid.calculate_spid
 endpoints = definitions.endpoints
 olt_devices = definitions.olt_devices
 payload = definitions.payload
-down_values = last_down_onu.down_values
-optical_values = optical.optical_values
+down_values = last_down_onu.down_values_SNMP
+optical_values = optical.optical_value_snmp
 display = display.display
 approvedDis = template.approvedDis
 wan_data = wan_handler.wan_data
@@ -41,15 +41,13 @@ def client_lookup(comm, command, quit_ssh, device, _):
         return
     client = req["data"]
     client["olt"] = device
-    (client["temp"], client["pwr"], client["pwr_rx"]) = optical_values(
-        comm, command, client, False
-    )
+    (client["temp"], client["pwr"], client["pwr_rx"]) = optical_values(client)
     (
         client["last_down_cause"],
         client["last_down_time"],
         client["last_down_date"],
         client["status"],
-    ) = down_values(comm, command, client, False)
+    ) = down_values(client)
     provider = (
         "INTER"
         if "_1" in client["plan_name"]
