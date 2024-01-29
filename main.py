@@ -4,6 +4,7 @@ from helpers.constants.definitions import rtr_devices, olt_devices
 from helpers.utils.ssh import ssh
 from scripts.ACL import device_acl
 from scripts.BC import client_lookup
+from scripts.DB_PURGE import db_purge
 from scripts.MP import data_plan_migration
 from scripts.OX import client_operate
 from scripts.XP import client_ports
@@ -35,6 +36,7 @@ Que accion se realizara?
     > (CA)  :   [OLT] Clientes con averias (corte de fibra)
     > (DT)  :   [OLT] Desactivados Totales
     > (DB)  :   [OLT] Sincronizar estatus de corte db-olt
+    > (BP)  :   [OLT] Lista de Clientes en OLT (para db)
     > (MP)  :   [OLT] Migrar Planes
     > (MR)  :   [RTR] Monitorear Router
     > (OA)  :   [OLT] validar/actualizar acl lists en OLT
@@ -58,6 +60,7 @@ $ """
                 "DT": client_ports,
                 "MR": router_monitor,
                 "DB": db_sync,
+                "BP": db_purge,
                 "MP": data_plan_migration,
                 "RA": device_acl,
                 "OA": device_acl,
