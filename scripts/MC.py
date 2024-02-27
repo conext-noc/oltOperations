@@ -2,6 +2,8 @@ from time import sleep
 from helpers.handlers import request, printer, spid, add_onu, display, wan_handler
 from helpers.finder import optical, last_down_onu, device_type
 from helpers.constants import definitions
+from helpers.handlers.enable_wan_handler import enable_wan
+from helpers.handlers.template import approvedDis
 
 # FUNCTION IMPORT DEFINITIONS
 db_request = request.db_request
@@ -83,6 +85,9 @@ $ """
         new_values["name_1"] = inp("Ingrese el nuevo nombre_1 : ")
         new_values["name_2"] = inp("Ingrese el nuevo nombre_2 : ")
         new_values["contract"] = inp("Ingrese el nuevo contrato : ").zfill(10)
+        client["name_1"] = new_values["name_1"]
+        client["name_2"] = new_values["name_2"]
+        client["contract"] = new_values["contract"]
         command(f'interface gpon {client["frame"]}/{client["slot"]}')
         sleep(3)
         command(
@@ -127,6 +132,7 @@ $ """
 
     if change_type == "CO":
         new_values["sn"] = inp("Ingrese el nuevo serial del cliente : ")
+        client["sn"] = new_values["sn"]
         sleep(3)
         command(f'interface gpon {client["frame"]}/{client["slot"]}')
         sleep(3)
@@ -150,5 +156,13 @@ $ """
             log("an error occurred updating client from db", "fail")
         else:
             log("successfully updated client from db", "success")
+    
+    display(client, "B")
+    enable_wan(command, client, False)
+    displayTemplate = (
+        inp("Desea la plantilla de datos operacionales? [Y/N] : ").upper().strip()
+        == "Y"
+    )
+    approvedDis(client) if displayTemplate else None
     quit_ssh()
     return

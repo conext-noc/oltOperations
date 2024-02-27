@@ -50,7 +50,7 @@ def inp(message):
     fl = f"{USER_NAME}_{date.year}-{date.month}-{date.day}.txt"
     currTime = datetime.now()
     now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
-    data = input(message).upper()
+    data = input(message).upper().replace(" ","_")
     
     # Open the file using the 'with' statement to ensure it's properly closed
     with open(f"{docs}/logs/{fl}", "a", encoding="utf-8") as log_file:
