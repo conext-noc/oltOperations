@@ -86,8 +86,8 @@ $ """
     except KeyboardInterrupt:
         log("Saliendo...", "warning")
         sleep(0.5)
-    except Exception:
-        log(f"Error At : {traceback.format_exc()}", "fail")
+    except Exception as e:
+        log(f"Error At : {traceback.format_exc()} || {e.__traceback__.tb_lineno}", "fail")
         sleep(10)
 
 
