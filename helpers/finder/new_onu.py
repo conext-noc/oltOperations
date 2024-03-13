@@ -37,7 +37,7 @@ def new_lookup(comm, command, SN_NEW):
         aSN = result[eSN : eSN + 16].replace("\n", "").replace(" ", "")
         aFSP = result[sFSP : sFSP + 7].replace("\n", "").replace(" ", "")
         client.append({"fsp": aFSP.replace("\r", ""), "sn": aSN, "idx": ont + 1})
-    log("| {:^3} | {:^6} | {:^16} |".format("IDX", "F/S/P", "SN"), "normal")
+    log("| {:^3} | {:^7} | {:^16} |".format("IDX", "F/S/P", "SN"), "normal")
 
     for ont in client:
         count = []
@@ -45,16 +45,16 @@ def new_lookup(comm, command, SN_NEW):
             SN_FINAL = ont["sn"]
             FSP_FINAL = ont["fsp"]
             log(
-                "| {:^3} | {:^6} | {:^16} |".format(ont["idx"], ont["fsp"], ont["sn"]),
+                "| {:^3} | {:^7} | {:^16} |".format(ont["idx"], ont["fsp"], ont["sn"]),
                 "success",
             )
             count.append({"sn": SN_FINAL, "fsp": FSP_FINAL})
         else:
-            log("| {:^3} | {:^6} | {:^16} |".format(ont["idx"], ont["fsp"], ont["sn"]), "normal")
+            log("| {:^3} | {:^7} | {:^16} |".format(ont["idx"], ont["fsp"], ont["sn"]), "normal")
         if len(count) > 1:
-            log("| {:^3} | {:^6} | {:^16} |".format("IDX", "F/S/P", "sn"), "normal")
+            log("| {:^3} | {:^7} | {:^16} |".format("IDX", "F/S/P", "sn"), "normal")
             for idx, res in enumerate(count):
-                log("| {:^3} | {:^6} | {:^16} |".format(idx, res["fsp"], res["sn"]))
+                log("| {:^3} | {:^7} | {:^16} |".format(idx, res["fsp"], res["sn"]))
             ix = inp("SELECCIONE EL INDEX DEL SERIAL A UTILIZAR : ")
             SN_FINAL = res[ix]["sn"]
             FSP_FINAL = res[ix]["fsp"]
