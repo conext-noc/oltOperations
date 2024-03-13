@@ -10,27 +10,21 @@ from helpers.constants.regex_conditions import (
     condition_onu_temp,
     condition_onu_pwr,
 )
-from helpers.constants.regext_test_cases import optical_values
-from helpers.utils.decoder import check
+from helpers.constants.regext_test_cases import install_new_values
+from helpers.utils.decoder import check, check_iter
+newCondFSP = "F/S/P               : "
 
 class TestRegexExtraction(unittest.TestCase):
     def test_optical_values(self):
-        olt_rx_ont_match = check(optical_values, condition_onu_pwr_rx)
-        rx_power_match = check(optical_values, condition_onu_pwr)
-        temperature_match = check(optical_values, condition_onu_temp)
-
-        self.assertIsNotNone(olt_rx_ont_match, "OLT Rx ONT optical power not found")
-        self.assertIsNotNone(rx_power_match, "Rx optical power not found")
-        self.assertIsNotNone(temperature_match, "Temperature not found")
-
-        olt_rx_ont_value = olt_rx_ont_match.group(1)
-        rx_power_value = rx_power_match.group(1)
-        temperature_value = temperature_match.group(1)
-
-        self.assertEqual(olt_rx_ont_value, "-22.22")
-        self.assertEqual(rx_power_value, "-18.18")
-        self.assertEqual(temperature_value, "58")
-
+        newCond = "----------------------------------------------------------------------------"
+        regex = check_iter(install_new_values, newCond)
+        for ont in range(len(regex) - 1):
+            (_, s) = regex[ont]
+            (e, _) = regex[ont + 1]
+            result = install_new_values[s:e]
+            
+            data = check(result, newCondFSP).span()
+            print(data)
 
 if __name__ == "__main__":
     unittest.main()

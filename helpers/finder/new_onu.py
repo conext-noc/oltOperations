@@ -13,6 +13,7 @@ newCondSn = "Ont SN              : "
 
 
 def new_lookup(comm, command, SN_NEW):
+    value = decoder(comm)
     SN_FINAL = None
     FSP_FINAL = None
     client = []
@@ -24,9 +25,15 @@ def new_lookup(comm, command, SN_NEW):
         (_, s) = regex[ont]
         (e, _) = regex[ont + 1]
         result = value[s:e]
-        (_, sFSP) = check(result, newCondFSP).span()
+        fsp_data_regex = check(result, newCondFSP)
+        if fsp_data_regex is None:
+            continue
+        (_, sFSP) = fsp_data_regex.span()
         # (eFSP, _) = check(result, newCondFSPEnd).span()
-        (_, eSN) = check(result, newCondSn).span()
+        sn_data_regex = check(result, newCondSn)
+        if sn_data_regex is None:
+            continue
+        (_, eSN) = sn_data_regex.span()
         aSN = result[eSN : eSN + 16].replace("\n", "").replace(" ", "")
         aFSP = result[sFSP : sFSP + 7].replace("\n", "").replace(" ", "")
         client.append({"fsp": aFSP.replace("\r", ""), "sn": aSN, "idx": ont + 1})
