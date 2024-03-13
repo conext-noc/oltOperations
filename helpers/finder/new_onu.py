@@ -13,7 +13,7 @@ newCondSn = "Ont SN              : "
 
 
 def new_lookup(comm, command, SN_NEW):
-    value = decoder(comm)
+    decoder(comm)
     SN_FINAL = None
     FSP_FINAL = None
     client = []
