@@ -57,16 +57,21 @@ def add_service(command, data):
     
      # base config
     command(f"ont fec {data['port']} {data['onu_id']} use-profile-config")
+    sleep(1)
     command(f"ont policy-route-config {data['port']} {data['onu_id']} profile-id 2")
+    sleep(1)
     command(
         f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0"
     )
+    sleep(1)
     command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
+    sleep(1)
 
     if data["device"] in bridges:
         command(
             f"ont port native-vlan {data['port']} {data['onu_id']} eth 1 vlan {data['wan'][0]['vlan']} priority 0"
         )
+        sleep(1)
 
     internet_conf = ""
     ip_index = 2 if data["device"] != "BDCM" else 1
@@ -82,24 +87,34 @@ def add_service(command, data):
     # per device custom config
     if data["device"] in bridges and data["device"] == "EG8120L":
         command(f"ont port route {data['port']} {data['onu_id']} eth 1 disable")
+        sleep(1)
         command(f"ont port route {data['port']} {data['onu_id']} eth 2 disable")
+        sleep(1)
 
     if data["device"] not in bridges and data["device"] != "BDCM":
         command(f"ont port route {data['port']} {data['onu_id']} eth 1 enable")
+        sleep(1)
         command(f"ont port route {data['port']} {data['onu_id']} eth 2 enable")
+        sleep(1)
         command(f"ont port route {data['port']} {data['onu_id']} eth 3 enable")
+        sleep(1)
         command(f"ont port route {data['port']} {data['onu_id']} eth 4 enable")
+        sleep(1)
 
     if data["device"] not in bridges and data["device"] == "BDCM":
         command(
             f"ont wan-config {data['port']} {data['onu_id']} ip-index 1 profile-id 0"
         )
+        sleep(1)
         command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 1")
+        sleep(1)
         command(
             f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']} priority 5"
         )
+        sleep(1)
 
     command(f"ont ipconfig {data['port']} {data['onu_id']} {internet_conf}")
+    sleep(1)
     command("quit")
 
     sleep(3)
