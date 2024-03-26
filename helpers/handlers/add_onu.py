@@ -34,7 +34,7 @@ def add_service(command, data):
         else calculate_spid(data)["P"]
     )
     
-    log(f'El SPID que se le agregara al cliente es : {data["spid"]}', "ok")
+    log(f'El SPID que se le agregara al cliente es : {data["wan"][0]["spid"]}', "ok")
 
     command(f"interface gpon {data['frame']}/{data['slot']}")
     sleep(3)
@@ -104,9 +104,9 @@ def add_service(command, data):
 
     sleep(3)
     command(
-        f"""service-port {data['spid']} vlan {data['wan'][0]['vlan']} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['onu_id']} gemport {data['wan'][0]['gem_port']} multi-service user-vlan {data['wan'][0]['vlan']} tag-transform transparent inbound traffic-table index {data['wan'][0]["plan_idx"]} outbound traffic-table index {data["wan"][0]["plan_idx"]}"""
+        f"""service-port {data["wan"][0]["spid"]} vlan {data['wan'][0]['vlan']} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['onu_id']} gemport {data['wan'][0]['gem_port']} multi-service user-vlan {data['wan'][0]['vlan']} tag-transform transparent inbound traffic-table index {data['wan'][0]["plan_idx"]} outbound traffic-table index {data["wan"][0]["plan_idx"]}"""
     )
-    
+
 
 def add_service_mp(command, client, new_plan):
     log(f'El SPID que se le agregara al cliente es : {client["spid"]}', "ok")
