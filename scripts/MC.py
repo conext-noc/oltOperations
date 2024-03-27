@@ -124,7 +124,7 @@ $ """
         sleep(3)
         client["wan"] = [plan]
         client["plan_name"] = new_values["plan_name"]
-        (client["device"], client["vendor"]) = type_finder(comm, command, client)
+        (client["device"], client["vendor"], client["software"]) = type_finder(comm, command, client)
         if client["vendor"] == "BDCM":
             client['device'] = client['vendor']
         add_service(command, client)

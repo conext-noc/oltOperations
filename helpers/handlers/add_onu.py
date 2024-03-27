@@ -55,24 +55,6 @@ def add_service(command, data):
         else None
     )
     
-     # base config
-    command(f"ont fec {data['port']} {data['onu_id']} use-profile-config")
-    sleep(1)
-    command(f"ont policy-route-config {data['port']} {data['onu_id']} profile-id 2")
-    sleep(1)
-    command(
-        f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0"
-    )
-    sleep(1)
-    command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
-    sleep(1)
-
-    if data["device"] in bridges:
-        command(
-            f"ont port native-vlan {data['port']} {data['onu_id']} eth 1 vlan {data['wan'][0]['vlan']} priority 0"
-        )
-        sleep(1)
-
     internet_conf = ""
     ip_index = 2 if data["device"] != "BDCM" else 1
     ip_priority = 5 if data["device"] != "BDCM" else 0
@@ -83,38 +65,41 @@ def add_service(command, data):
         )
     else:
         internet_conf = f"ip-index {ip_index} static ip-address {IPADD} mask 255.255.255.128 gateway {IPGW} pri-dns 9.9.9.9 slave-dns 149.112.112.112 vlan {IPVLAN}"
-
-    # per device custom config
-    if data["device"] in bridges and data["device"] == "EG8120L":
-        command(f"ont port route {data['port']} {data['onu_id']} eth 1 disable")
-        sleep(1)
-        command(f"ont port route {data['port']} {data['onu_id']} eth 2 disable")
-        sleep(1)
-
-    if data["device"] not in bridges and data["device"] != "BDCM":
-        command(f"ont port route {data['port']} {data['onu_id']} eth 1 enable")
-        sleep(1)
-        command(f"ont port route {data['port']} {data['onu_id']} eth 2 enable")
-        sleep(1)
-        command(f"ont port route {data['port']} {data['onu_id']} eth 3 enable")
-        sleep(1)
-        command(f"ont port route {data['port']} {data['onu_id']} eth 4 enable")
-        sleep(1)
-
+        
+    
     if data["device"] not in bridges and data["device"] == "BDCM":
-        command(
-            f"ont wan-config {data['port']} {data['onu_id']} ip-index 1 profile-id 0"
-        )
-        sleep(1)
-        command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 1")
-        sleep(1)
         command(
             f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']} priority 5"
         )
-        sleep(1)
+        command(
+            f"ont wan-config {data['port']} {data['onu_id']} ip-index 1 profile-id 0"
+        )
+        command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 1")
 
     command(f"ont ipconfig {data['port']} {data['onu_id']} {internet_conf}")
-    sleep(1)
+    command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0")
+    command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
+    command(f"ont policy-route-config {data['port']} {data['onu_id']} profile-id 2")
+    command(f"ont fec {data['port']} {data['onu_id']} use-profile-config")
+
+    if data["device"] in bridges:
+        command(
+            f"ont port native-vlan {data['port']} {data['onu_id']} eth 1 vlan {data['wan'][0]['vlan']} priority 0"
+        )
+        sleep(1)
+
+    # per device custom config
+    if data["device"] in bridges and data["device"] == "EG8120L" and data.get("software") == "V3R017C10S120":
+        command(f"ont port route {data['port']} {data['onu_id']} eth 1 disable")
+        command(f"ont port route {data['port']} {data['onu_id']} eth 2 disable")
+
+    if data["device"] not in bridges and data["device"] != "BDCM":
+        command(f"ont port route {data['port']} {data['onu_id']} eth 1 enable")
+        command(f"ont port route {data['port']} {data['onu_id']} eth 2 enable")
+        command(f"ont port route {data['port']} {data['onu_id']} eth 3 enable")
+        command(f"ont port route {data['port']} {data['onu_id']} eth 4 enable")
+
+
     command("quit")
 
     sleep(3)

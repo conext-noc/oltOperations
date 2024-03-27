@@ -97,7 +97,7 @@ quieres proceder con la instalacion? [Y | N] : """
         command(f'ont delete {client["port"]} {client["onu_id"]}')
         log("Cliente no se agrego apropiadamente en OLT, eliminando...", "warning")
 
-        (client["device"], client["vendor"]) = type_finder(comm, command, client)
+        (client["device"], client["vendor"], client["software"]) = type_finder(comm, command, client)
         if client["vendor"] == "BDCM":
             client['device'] = client['vendor']
         # log(f"El tipo de ONT del cliente es {client['device']}", "ok")
