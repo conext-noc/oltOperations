@@ -67,6 +67,12 @@ def add_service(command, data):
         internet_conf = f"ip-index {ip_index} static ip-address {IPADD} mask 255.255.255.128 gateway {IPGW} pri-dns 9.9.9.9 slave-dns 149.112.112.112 vlan {IPVLAN}"
         
     
+    command(f"ont ipconfig {data['port']} {data['onu_id']} {internet_conf}")
+    command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0")
+    command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
+    command(f"ont policy-route-config {data['port']} {data['onu_id']} profile-id 2")
+    command(f"ont fec {data['port']} {data['onu_id']} use-profile-config")
+
     if data["device"] not in bridges and data["device"] == "BDCM":
         command(
             f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']} priority 5"
@@ -75,12 +81,6 @@ def add_service(command, data):
             f"ont wan-config {data['port']} {data['onu_id']} ip-index 1 profile-id 0"
         )
         command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 1")
-
-    command(f"ont ipconfig {data['port']} {data['onu_id']} {internet_conf}")
-    command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0")
-    command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
-    command(f"ont policy-route-config {data['port']} {data['onu_id']} profile-id 2")
-    command(f"ont fec {data['port']} {data['onu_id']} use-profile-config")
 
     if data["device"] in bridges:
         command(
