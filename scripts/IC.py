@@ -125,7 +125,7 @@ quieres proceder con la instalacion? [Y | N] : """
         quit_ssh()
         return
 
-    (client["device"], client["vendor"]) = type_finder(comm, command, client)
+    (client["device"], client["vendor"], client["software"]) = type_finder(comm, command, client)
     if client["vendor"] == "BDCM":
         client['device'] = client['vendor']
     log(f"El tipo de ONT del cliente es {client['device']}", "ok")
