@@ -24,25 +24,20 @@ class TestRegexExtraction(unittest.TestCase):
         ONT_VERSION = None
         ONT_EQUIPMENT_ID = None
         output = version_values
-        regex = check_iter(
-            output,
-            "--------------------------------------------------------------------------",
-        )
         FAIL = fail_checker(output)
-        if len(regex) > 0 and FAIL is None:
-            [(_, start), (end, _)] = regex
-            version_match = re.search(r"Main Software Version\s+:\s+(\S+)", output[start:end])
+        if FAIL is None:
+            version_match = re.search(r"Main Software Version\s+:\s+(\S+)", output)
             if version_match:
                 ONT_VERSION = version_match.group().replace(" \r", "").replace("Main Software Version    : ", "")
-            id_match = re.search(r"Equipment-ID\s+:\s+([^\n]+)", output[start:end])
+            id_match = re.search(r"Equipment-ID\s+:\s+([^\n]+)", output)
             if id_match:
                 ONT_EQUIPMENT_ID = id_match.group(1).replace(" \r", "").replace("Equipment-ID : ", "")
 
         self.assertIsInstance(ONT_VERSION, str)
         self.assertIsInstance(ONT_EQUIPMENT_ID, str)
         
-        self.assertRegex(output[start:end], r"Main Software Version\s+:\s+(\S+)")
-        self.assertRegex(output[start:end], r"Equipment-ID\s+:\s+[^\n]+")
+        self.assertRegex(output, r"Main Software Version\s+:\s+(\S+)")
+        self.assertRegex(output, r"Equipment-ID\s+:\s+[^\n]+")
 
         self.assertEqual(ONT_VERSION, "V5R020C00S080")
         self.assertEqual(ONT_EQUIPMENT_ID, "EG8145X6")
