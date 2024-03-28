@@ -829,3 +829,29 @@ MARLLM01(config)#display ont autofind all | no-more
    The number of GPON autofind ONT is 43
 
 MARLLM01(config)#"""
+
+version_values = """
+MARLLM01(config)#display ont version 0  1 3 7
+{ <cr>||<K> }:
+
+  Command:
+          display ont version 0  1 3 7
+  --------------------------------------------------------------------------
+  F/S/P                    : 0/1/3
+  ONT-ID                   : 7
+  Vendor-ID                : HWTC
+  ONT Version              : 22AD.A
+  Product-ID               : 22a
+  Equipment-ID             : EG8145X6
+  Main Software Version    : V5R020C00S080
+  Standby Software Version : V5R020C00S070
+  OntProductDescription    : OptiXstar EG8145X6 GPON Terminal (CLASS B+/PROD
+                             UCT ID:2150084405HYM7076782/CHIP:00000020210603
+                             )
+  Support XML Version      : 1.3.0.0
+  Ont MAC                  : 30C5-0F51-AC92
+  Ont Equipment SN         : 2150084405HYM7076782
+  --------------------------------------------------------------------------
+
+MARLLM01(config)#"""
+
