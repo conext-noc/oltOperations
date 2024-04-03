@@ -67,22 +67,30 @@ def add_service(command, data):
         internet_conf = f"ip-index {ip_index} static ip-address {IPADD} mask 255.255.255.128 gateway {IPGW} pri-dns 9.9.9.9 slave-dns 149.112.112.112 vlan {IPVLAN}"
         
     
+    sleep(1)
     command(f"ont ipconfig {data['port']} {data['onu_id']} {internet_conf}")
+    sleep(1)
     command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0")
+    sleep(1)
     command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 2")
+    sleep(1)
     command(f"ont policy-route-config {data['port']} {data['onu_id']} profile-id 2")
+    sleep(1)
     command(f"ont fec {data['port']} {data['onu_id']} use-profile-config")
 
     if data["device"] not in bridges and data["device"] == "BDCM":
         command(
             f"ont ipconfig {data['port']} {data['onu_id']} ip-index 2 dhcp vlan {data['wan'][0]['vlan']} priority 5"
         )
+        sleep(1)
         command(
             f"ont wan-config {data['port']} {data['onu_id']} ip-index 1 profile-id 0"
         )
+        sleep(1)
         command(f"ont internet-config {data['port']} {data['onu_id']} ip-index 1")
 
     if data["device"] in bridges:
+        sleep(1)
         command(
             f"ont port native-vlan {data['port']} {data['onu_id']} eth 1 vlan {data['wan'][0]['vlan']} priority 0"
         )
@@ -90,13 +98,19 @@ def add_service(command, data):
 
     # per device custom config
     if data["device"] in bridges and data["device"] == "EG8120L" and data.get("software") == "V3R017C10S120":
+        sleep(1)
         command(f"ont port route {data['port']} {data['onu_id']} eth 1 disable")
+        sleep(1)
         command(f"ont port route {data['port']} {data['onu_id']} eth 2 disable")
 
     if data["device"] not in bridges and data["device"] != "BDCM":
+        sleep(1)
         command(f"ont port route {data['port']} {data['onu_id']} eth 1 enable")
+        sleep(1)
         command(f"ont port route {data['port']} {data['onu_id']} eth 2 enable")
+        sleep(1)
         command(f"ont port route {data['port']} {data['onu_id']} eth 3 enable")
+        sleep(1)
         command(f"ont port route {data['port']} {data['onu_id']} eth 4 enable")
 
 
@@ -106,7 +120,10 @@ def add_service(command, data):
     command(
         f"""service-port {data["wan"][0]["spid"]} vlan {data['wan'][0]['vlan']} gpon {data['frame']}/{data['slot']}/{data['port']} ont {data['onu_id']} gemport {data['wan'][0]['gem_port']} multi-service user-vlan {data['wan'][0]['vlan']} tag-transform transparent inbound traffic-table index {data['wan'][0]["plan_idx"]} outbound traffic-table index {data["wan"][0]["plan_idx"]}"""
     )
-
+    sleep(5)
+    command(f"interface gpon {data['frame']}/{data['slot']}")
+    command(f"ont wan-config {data['port']} {data['onu_id']} ip-index 2 profile-id 0")
+    command("quit")
 
 def add_service_mp(command, client, new_plan):
     log(f'El SPID que se le agregara al cliente es : {client["spid"]}', "ok")
