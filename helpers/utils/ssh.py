@@ -1,7 +1,7 @@
 from time import sleep
 import paramiko
 from helpers.handlers.request import db_request
-from helpers.handlers.printer import log
+from helpers.handlers.printer import log, debug_log
 from helpers.utils.decoder import decoder
 from helpers.constants.definitions import endpoints
 
@@ -47,6 +47,7 @@ def ssh(ip, debugging):
     def command(cmd):
         comm.send(cmd)
         sleep(delay)
+        debug_log(cmd)
         if debugging:
             log(
                 f"""

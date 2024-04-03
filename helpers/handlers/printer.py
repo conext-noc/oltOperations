@@ -43,6 +43,15 @@ def log(value, variant):
         print(formatted_value)
         print(f"{now}\n{value}", file=log_file)
 
+def debug_log(value):
+    fl = f"{USER_NAME}_{date.year}-{date.month}-{date.day}.txt"
+    currTime = datetime.now()
+    now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
+    with open(f"{docs}/logs/{fl}", "a", encoding="utf-8") as log_file:
+        # Ignore ResourceWarning
+        warnings.filterwarnings("ignore", category=ResourceWarning)
+        print(f"{now}\n{value}", file=log_file)
+
 def inp(message):
     global USER_NAME
     if USER_NAME == "":
