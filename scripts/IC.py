@@ -157,10 +157,6 @@ quieres proceder con la instalacion? [Y | N] : """
     client['vlan'] = client["wan"][0]["vlan"]
     approved(client)
     display(client, "B")
-    displayTemplate = (
-        inp("Desea la plantilla de datos operacionales? [Y/N] : ").upper().strip()
-        == "Y"
-    )
-    approvedDis(client) if displayTemplate else None
+    approvedDis(client)
     quit_ssh()
     return

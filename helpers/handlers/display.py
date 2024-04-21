@@ -9,26 +9,26 @@ def display(data, tp):
     """
     proceed = False
     res = f"""
-|FRAME                      :   {data.get("frame", "N/A")}
-|SLOT                       :   {data.get("slot", "N/A")}
-|PORT                       :   {data.get("port", "N/A")}
-|ONU_ID                     :   {data.get("onu_id", "N/A")}
-|NAME                       :   {f'{data.get("name_1", "N/A")} {data.get("name_2", "N/A")} {data.get("contract", "N/A")}'}
-|SN                         :   {data.get("sn", "N/A")}
-|CONTROL FLAG               :   {data.get("state", "N/A")}
-|RUN STATE                  :   {data.get("status", "N/A")}
-|DIRECCION IP               :   {data.get("ip", "N/A")}
-|MASCARA DE SUBRED          :   {data.get("mask", "N/A")}
-|LAST DOWN CAUSE            :   {data.get("last_down_cause", "N/A")}
-|LAST DOWN TIME             :   {data.get("last_down_time", "N/A")}
-|LAST DOWN DATE             :   {data.get("last_down_date", "N/A")}
-|ONT TYPE                   :   {data.get("device", "N/A")}
-|TEMPERATURA                :   {data.get("temp", "N/A")}
-|POTENCIA DE RECEPCION ONT  :   {data.get("pwr", "N/A")}
-|POTENCIA DE RECEPCION OLT  :   {data.get("pwr_rx", "N/A")}
-|VLAN                       :   {data.get("vlan", "N/A")}
-|PLAN                       :   {data.get("plan_name", "N/A")}
-|SPID                       :   {data.get("spid", "N/A")}
+|FRAME                      :   {data.get("frame", "*")}
+|SLOT                       :   {data.get("slot", "*")}
+|PORT                       :   {data.get("port", "*")}
+|ONU_ID                     :   {data.get("onu_id", "*")}
+|NAME                       :   {f'{data.get("name_1", "*")} {data.get("name_2", "*")} {data.get("contract", "*")}'}
+|SN                         :   {data.get("sn", "*")}
+|CONTROL FLAG               :   {data.get("state", "*")}
+|RUN STATE                  :   {data.get("status", "*")}
+|DIRECCION IP               :   {data.get("ip", "*")}
+|MASCARA DE SUBRED          :   {data.get("mask", "*")}
+|LAST DOWN CAUSE            :   {data.get("last_down_cause", "*")}
+|LAST DOWN TIME             :   {data.get("last_down_time", "*")}
+|LAST DOWN DATE             :   {data.get("last_down_date", "*")}
+|ONT TYPE                   :   {data.get("device", "*")}
+|TEMPERATURA                :   {data.get("temp", "*")}
+|POTENCIA DE RECEPCION ONT  :   {data.get("pwr", "*")}
+|POTENCIA DE RECEPCION OLT  :   {data.get("pwr_rx", "*")}
+|VLAN                       :   {data.get("vlan", "*")}
+|PLAN                       :   {data.get("plan_name", "*")}
+|SPID                       :   {data.get("spid", "*")}
             """
     log(res, "ok")
     val = inp("desea continuar? [Y|N] : ").upper() if tp == "A" else None
