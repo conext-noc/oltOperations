@@ -1,3 +1,50 @@
+from typing import Dict, List, Union, Optional
+import dataclasses
+
+@dataclasses
+class Client:
+    """General Class for client data
+    """
+    contract: str
+    name_1: str
+    name_2: str
+    frame: int
+    slot: int
+    port: int
+    onu_id: int
+    olt: int
+    fsp: str
+    fspi: str
+    status: str
+    state: str
+    vlan: int
+    plan_name: str
+    provider: str
+    device: str
+    sn: str
+    vendor: str
+    last_down_cause: str
+    last_down_time: str
+    last_down_date: str
+    temperature: float
+    rx_power: float
+    tx_power: float
+    line_profile: str
+    srv_profile: str
+    spid: int
+
+@dataclasses
+class ClientRequest:
+    contract: str
+    frame: Optional[int] = 0
+    slot: Optional[int] = 1
+    port: Optional[int] = 0
+    onu_id: Optional[int] = 0
+    olt: Optional[int] = 1
+    fsp: Optional[str] = "0/1/0"
+    fspi: Optional[str] = "0/1/0/0"
+    sn: Optional[str] = "48575443ABCD1234"
+
 headers = {"Content-Type": "application/json"}
 # domain = "http://127.0.0.1:8000"
 domain = "http://db-api.conext.net.ve"
