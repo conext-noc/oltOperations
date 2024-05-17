@@ -1,7 +1,7 @@
 from typing import Dict, List, Union, Optional
 import dataclasses
 
-@dataclasses
+@dataclasses.dataclass
 class Client:
     """General Class for client data
     """
@@ -33,7 +33,7 @@ class Client:
     srv_profile: str
     spid: int
 
-@dataclasses
+@dataclasses.dataclass
 class ClientRequest:
     contract: str
     frame: Optional[int] = 0

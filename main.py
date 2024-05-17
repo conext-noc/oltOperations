@@ -35,7 +35,7 @@ Que accion se realizara?
     > (VT)  :   [OLT] Verificacion Total de Puertos en una OLT
     > (CA)  :   [OLT] Clientes con averias (corte de fibra)
     > (DT)  :   [OLT] Desactivados Totales
-    > (DB)  :   [OLT] Sincronizar estatus de corte db-olt
+    > (DB)  :   [OLT] Sincronizacion de clientes en DB y OLT
     > (BP)  :   [OLT] Lista de Clientes en OLT (para db)
     > (MP)  :   [OLT] Migrar Planes
     > (MR)  :   [RTR] Monitorear Router
