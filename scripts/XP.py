@@ -90,7 +90,7 @@ def client_ports(comm, command, quit_ssh, device, action):
         log(
             f"""
 En el Puerto {clt['fsp']}:
-El total de clientes en el puerto es           :   {vp_count['1']['vp_ttl']}
+El total de clientes en el puerto es           :   {vp_count['1']['vp_ttl']} 
 El total de clientes activos es                :   {vp_count['1']['vp_active_cnt']}
 El total de clientes desactivados es           :   {vp_count['1']['vp_deactive_cnt']}
 El total de clientes activos en corte es       :   {vp_count['1']['vp_los_cnt']}
