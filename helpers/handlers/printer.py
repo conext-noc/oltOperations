@@ -26,15 +26,15 @@ color = {
 
 USER_NAME = ""
 
-def color_formatter(txt, variant):
+def color_formatter(*,txt:str, variant: str):
     paint = "normal" if variant == "" else variant
     return color[paint] + txt + color["end"]
 
-def log(value, variant):
+def log(*,value:str, variant: str = ""):
     fl = f"{USER_NAME}_{date.year}-{date.month}-{date.day}.txt"
     currTime = datetime.now()
     now = f"[{currTime.hour}:{currTime.minute}:{currTime.second}]"
-    formatted_value = color_formatter(value, variant)
+    formatted_value = color_formatter(txt=value, variant=variant)
     
     # Open the file using the 'with' statement to ensure it's properly closed
     with open(f"{docs}/logs/{fl}", "a", encoding="utf-8") as log_file:

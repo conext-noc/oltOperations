@@ -1,49 +1,148 @@
+import json
+from os import device_encoding, getcwd
 from typing import Dict, List, Union, Optional
 import dataclasses
 
 @dataclasses.dataclass
-class Client:
-    """General Class for client data
-    """
-    contract: str
-    name_1: str
-    name_2: str
+class AvailableOnu:
     frame: int
+    slot: int
+    port: int
+    olt: int
+    fsp: str
+    sn: str
+    device: str
+
+
+@dataclasses.dataclass
+class OnuLookup:
+    slot: int
+    port: int
+    olt: int
+    external_id: Optional[str] = "-"
+
+
+@dataclasses.dataclass
+class OnuDeactivatedResponse:
+    frame: 0
     slot: int
     port: int
     onu_id: int
     olt: int
-    fsp: str
-    fspi: str
-    status: str
     state: str
-    vlan: int
-    plan_name: str
-    provider: str
-    device: str
+    zone: str
     sn: str
-    vendor: str
-    last_down_cause: str
-    last_down_time: str
-    last_down_date: str
-    temperature: float
-    rx_power: float
-    tx_power: float
-    line_profile: str
-    srv_profile: str
-    spid: int
+
 
 @dataclasses.dataclass
-class ClientRequest:
+class OnuAlarmResponse:
+    frame: 0
+    slot: int
+    port: int
+    onu_id: int
+    olt: int
+    status: str
+    date: str
+    zone: str
+    sn: str
+
+
+@dataclasses.dataclass
+class InstallRequest:
     contract: str
-    frame: Optional[int] = 0
-    slot: Optional[int] = 1
-    port: Optional[int] = 0
-    onu_id: Optional[int] = 0
-    olt: Optional[int] = 1
-    fsp: Optional[str] = "0/1/0"
-    fspi: Optional[str] = "0/1/0/0"
-    sn: Optional[str] = "48575443ABCD1234"
+    name: str
+    pon: str
+    olt: int
+    sn: str
+    slot: int
+    port: int
+    device: str
+    plan: str
+    profile: str
+    address: str
+    vlan: int
+    fsp: str
+    mode: str
+    temp: float
+    power: float
+    frame: 0
+    odb: Optional[str] = "Splitter1"
+    latitude: Optional[float] = 10.653860
+    longitude: Optional[float] = -71.645966
+    
+    def to_json(self) -> str:
+        return json.dumps(dataclasses.asdict(self), indent=4)
+
+@dataclasses.dataclass
+class Client:
+    contract: str
+    name: str
+    pon: str
+    olt: int
+    sn: str
+    frame: 0
+    slot: int
+    port: int
+    onu_id: int
+    device: str
+    profile: str
+    address: str
+    vlan: int
+    mode: str
+    zone: str
+    power: float
+    status: str
+    state: str
+    has_tr069: bool = False
+    temp: Optional[float] = 25.0
+    plan: Optional[str] = ""
+    odb: Optional[str] = "CP1-FDT1-DB1-FAT1"
+    latitude: Optional[float] = 10.653860
+    longitude: Optional[float] = -71.645966
+
+
+@dataclasses.dataclass
+class Onu:
+    device: str
+    mode: str
+
+
+@dataclasses.dataclass
+class StaticIp:
+    sn: str
+    contract: str
+    ip: str
+    mask: str
+    vlan: int
+
+
+@dataclasses.dataclass
+class Plan:
+    profile: str
+    name: str
+    line_profile: str
+    srv_profile: str
+    gem_port: int
+    vlan: int
+    traffic_table: int
+
+
+@dataclasses.dataclass
+class Zone:
+    name: str
+    zone_id: int
+
+
+@dataclasses.dataclass
+class ODB:
+    name: str
+    zone_id: int
+    odb_id: int
+    ports: int
+    latitude: float = 10.653860
+    longitude: float = -71.645966
+
+CONF_FILES = f"{getcwd()}/configs"
 
 headers = {"Content-Type": "application/json"}
 # domain = "http://127.0.0.1:8000"
