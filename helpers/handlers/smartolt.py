@@ -93,7 +93,7 @@ class SmartOLT():
             onus_list = [
                 onu
                 for onu in response.json()["onus"]
-                if onu["sn"][4:] == lookup.external_id[8:]
+                if onu["sn"][4:] == lookup.external_id
             ]
         response: List[Client] = []
         for onu in onus_list:
@@ -107,7 +107,10 @@ class SmartOLT():
                     olt=int(onu["olt_id"]),
                     status=str(onu["status"]),
                     state=str(onu["administrative_status"]),
-                    signal=str(onu["signal"]),
+                    pon=str(onu["pon_type"]),
+                    address=str(onu["address"]),
+                    plan=str(onu['service_ports'][0]['upload_speed']),
+                    vlan=int(onu['service_ports'][0]['vlan']),
                     longitude=float(
                         onu["longitude"] if onu["longitude"] is not None else 0.0
                     ),

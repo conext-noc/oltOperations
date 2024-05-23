@@ -14,5 +14,6 @@ plan_list = [
 
 onu_list = [
   Onu(device="EG8141A5", mode="Routing"),
+  Onu(device="EG8145X6", mode="Routing"),
   Onu(device="EG8010Hv6", mode="Bridging"),
 ]

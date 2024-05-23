@@ -14,18 +14,20 @@ def onu_install(*, smart_olt_client: SmartOLT, **kwargs):
             "IDX", "F/S/P", "SN", "EQUIPO"
         )
     )
-    selected_onu: AvailableOnu = None
+    selected_onu: AvailableOnu = AvailableOnu(frame=0, slot=0, port=0, olt=0, fsp="-", sn="-", device="-")
+    onu_exists: bool = False
     for idx, available_onu in enumerate(all_available_onus):
         text = "| {:^3} | {:^7} | {:^16} | {:^12} |".format(
             idx, available_onu.fsp, available_onu.sn, available_onu.device
         )
-        if available_onu.sn != sn_to_install:
-            log(value=text)
-        else:
-            log(value=text, variant="success")
+        if available_onu.sn == sn_to_install:
             selected_onu = available_onu
+            onu_exists = True
+            log(value=text, variant="success")
+        else:
+            log(value=text)
 
-    if selected_onu is None:
+    if not onu_exists:
         log(value="No se encontro ningun ONT con ese SN...", variant="warning")
         return
 

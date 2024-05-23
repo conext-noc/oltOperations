@@ -75,7 +75,6 @@ class InstallRequest:
 
 @dataclasses.dataclass
 class Client:
-    contract: str
     name: str
     pon: str
     olt: int
@@ -85,7 +84,7 @@ class Client:
     port: int
     onu_id: int
     device: str
-    profile: str
+    # profile: str
     address: str
     vlan: int
     mode: str
@@ -95,6 +94,7 @@ class Client:
     state: str
     has_tr069: bool = False
     temp: Optional[float] = 25.0
+    contract: Optional[str] = ""
     plan: Optional[str] = ""
     odb: Optional[str] = "CP1-FDT1-DB1-FAT1"
     latitude: Optional[float] = 10.653860

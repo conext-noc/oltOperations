@@ -28,9 +28,9 @@ $ """
                 "1": (onu_operate, "enable"),
                 "2": (onu_operate, "disable"),
                 "3": (onu_install, "install"),
-                "4": (onu_display, "table"),
+                "4": (onu_display, "single"),
                 "5": (onu_update, "serial"),
-                "6": (onu_display, "single"),
+                "6": (onu_display, "table"),
             }
 
             MOD_KEYS = modules.keys()
