@@ -83,7 +83,7 @@ def gather_onu_data(comm, command, slot, port, onu_id):
     spid_index = None
     vlan_id = None
     device = None
-    device_db = None
+    device_db = ""
     traffic_table = None
 
     command(f"display service-port port 0/{slot}/{port} ont {onu_id} | no-more")
@@ -244,7 +244,7 @@ def migration(comm, command, quit_ssh, device,*args, **kwargs):
         port = inp("Ingrese el puerto del ONT : ")
         onu_count = inp("Ingrese la cantidad de ont a migrar : ")
         onu_list = {}
-        for onu in onu_count:
+        for onu in range(onu_count):
             onu_id = inp(f"Ingrese el ID del ONT {onu} : ")
             onu_list[onu_id] = {
                 "fsp": f"0/{slot}/{port}",
