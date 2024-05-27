@@ -181,3 +181,61 @@ snmp_down_causes = {
 
 snmp_status_types = {"1": "online", "2": "offline"}
 snmp_state_types = {"1": "activate", "2": "deactivate"}
+
+ONT_ROUTING_CONFIG = """
+ interface gpon 0/{slot}
+ ont add {port} {id} sn-auth "{sn}" omci ont-lineprofile-id {line_profile} ont-srvprofile-id {srv_profile} desc "{name}"
+ ont optical-alarm-profile {port} {id} profile-id 3
+ ont alarm-policy {port} {id} policy-id 1
+ ont ipconfig {port} {id} ip-index 1 dhcp vlan {vlan} priority 0
+ ont internet-config {port} {id} ip-index 1
+ ont wan-config {port} {id} ip-index 1 profile-id 0
+ ont policy-route-config {port} {id} profile-id 0
+ ont fec {port} {id} use-profile-config
+ ont port route {port} {id} eth 1 enable
+ ont port route {port} {id} eth 2 enable
+ ont port route {port} {id} eth 3 enable
+ ont port route {port} {id} eth 4 enable
+ ont port route {port} {id} eth 5 enable
+ ont port route {port} {id} eth 6 enable
+ ont port route {port} {id} eth 7 enable
+ ont port route {port} {id} eth 8 enable
+quit
+service-port {spid} vlan {vlan} gpon 0/{slot}/{port} ont {id} gemport {gem_port} multi-service user-vlan {vlan} tag-transform transparent inbound traffic-table index {traffic_table} outbound traffic-table index {traffic_table}"""
+
+ONT_BRIDGING_CONFIG = """
+interface gpon 0/{slot}
+ ont add {port} {id} sn-auth "{sn}" omci ont-lineprofile-id {line_profile} ont-srvprofile-id {srv_profile} desc "{name}"
+ ont optical-alarm-profile {port} {id} profile-id 3
+ ont alarm-policy {port} {id} policy-id 1
+ ont fec {port} {id} use-profile-config
+ ont port native-vlan {port} {id} eth 1 vlan {vlan} priority 0
+ ont port native-vlan {port} {id} eth 2 vlan {vlan} priority 0
+ ont port native-vlan {port} {id} eth 3 vlan {vlan} priority 0
+ ont port native-vlan {port} {id} eth 4 vlan {vlan} priority 0
+ ont port native-vlan {port} {id} eth 5 vlan {vlan} priority 0
+ ont port native-vlan {port} {id} eth 6 vlan {vlan} priority 0
+ ont port native-vlan {port} {id} eth 7 vlan {vlan} priority 0
+ ont port native-vlan {port} {id} eth 8 vlan {vlan} priority 0
+quit
+service-port {spid} vlan {vlan} gpon 0/{slot}/{port} ont {id} gemport {gem_port} multi-service user-vlan {vlan} tag-transform transparent inbound traffic-table index {traffic_table} outbound traffic-table index {traffic_table}"""
+
+# HG81126
+BDCM_CONFIG = """
+interface gpon 0/{slot}
+ ont add {port} {id} sn-auth "{sn}" omci ont-lineprofile-id {line_profile} ont-srvprofile-id {srv_profile} desc "{name}"
+ ont optical-alarm-profile {port} {id} profile-id 3
+ ont alarm-policy {port} {id} policy-id 1
+ ont ipconfig {port} {id} ip-index 1 dhcp vlan {vlan} priority 0
+ ont ipconfig {port} {id} ip-index 2 dhcp vlan {vlan} priority 5
+ ont wan-config {port} {id} ip-index 2 profile-id 0
+ ont wan-config {port} {id} ip-index 1 profile-id 0
+ ont internet-config {port} {id} ip-index 2
+ ont internet-config {port} {id} ip-index 1
+ ont policy-route-config {port} {id} profile-id 2
+ ont fec {port} {id} use-profile-config
+quit
+service-port {spid} vlan {vlan} gpon 0/{slot}/{port} ont {id} gemport {gem_port} multi-service user-vlan {vlan} tag-transform transparent inbound traffic-table index {traffic_table} outbound traffic-table index {traffic_table}"""
+
+ROUTING_ONUS = ["EG8141A5","EG8145V5", "EG8145X6","HG8321R", "HG8546M", "HS8145V","HS8546V5"]
+BDCM_ONU = "HG81126"

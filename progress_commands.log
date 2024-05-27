@@ -1,0 +1,9 @@
+undo service-port 0
+interface gpon 0/1
+ont delete 0 0
+
+ interface gpon 0/1
+ ont add 0 0 sn-auth "48575443EF10DB9F" omci ont-lineprofile-id 7 ont-srvprofile-id 112 desc "ARMINDO PEROZO 0000000294"
+ ont optical-alarm-profile 0 0 profile-id 3
+ ont alarm-policy 0 0 policy-id 1
+ ont ipconfig 0 0 ip-index 1 dhcp vlan 2242 priority 0

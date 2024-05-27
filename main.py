@@ -14,6 +14,7 @@ from scripts.MC import client_modify
 from scripts.VC import client_traffic
 from scripts.MR import router_monitor
 from scripts.SYNC_DB import db_sync
+from scripts.plan_migration import migration
 from helpers.handlers.printer import inp, log
 
 def main():
@@ -22,6 +23,7 @@ def main():
             action = inp(
                 """
 Que accion se realizara? 
+    > (PM)  :   [OLT] MIGRAR NUEVOS PLANES 🆕
     > (RL)  :   [OLT] Reactivar con lista
     > (RU)  :   [OLT] Reactivar uno
     > (SL)  :   [OLT] Suspender con lista
@@ -64,6 +66,7 @@ $ """
                 "MP": data_plan_migration,
                 "RA": device_acl,
                 "OA": device_acl,
+                "PM": migration,
             }
 
             MOD_KEYS = modules.keys()
