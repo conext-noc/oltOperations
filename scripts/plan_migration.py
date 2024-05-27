@@ -56,7 +56,7 @@ def clientsTable(comm, command, fsp, olt):
 
 def gather_onu_data(comm, command, slot, port, onu_id):
     command(f"display ont info 0 {slot} {port} {onu_id} | no-more")
-    sleep(3)
+    sleep(5)
     value = decoder(comm)
     fail = fail_checker(value)
     if fail != None:
@@ -80,14 +80,14 @@ def gather_onu_data(comm, command, slot, port, onu_id):
     service_profile_id = (
         service_profile_id_match.group(1) if service_profile_id_match else None
     )
-    spid_index = None
-    vlan_id = None
-    device = None
+    spid_index = 0
+    vlan_id = 0
+    device = ""
     device_db = ""
     traffic_table = None
 
     command(f"display service-port port 0/{slot}/{port} ont {onu_id} | no-more")
-    sleep(3)
+    sleep(5)
     spid_value = decoder(comm)
     pattern = r"\s+(\d+)\s+(\d+)\s+\w+\s+\w+\s+\d+/\d+\s*/\d+\s+\d+\s+\d+\s+\w+\s+\d+\s+(\d+)\s+\d+\s+\w+"
     fail = fail_checker(spid_value)
@@ -105,7 +105,7 @@ def gather_onu_data(comm, command, slot, port, onu_id):
         traffic_table = match.group(3)
 
     command(f"display ont version 0 {slot} {port} {onu_id} | no-more")
-    sleep(3)
+    sleep(5)
     device_value = decoder(comm)
     device_pattern = r"Equipment-ID\s+:\s+([^\n]+)"
     fail = fail_checker(device_value)
