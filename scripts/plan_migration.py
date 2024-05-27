@@ -84,7 +84,7 @@ def gather_onu_data(comm, command, slot, port, onu_id):
     vlan_id = 0
     device = ""
     device_db = ""
-    traffic_table = None
+    traffic_table = 0
 
     command(f"display service-port port 0/{slot}/{port} ont {onu_id} | no-more")
     sleep(5)
