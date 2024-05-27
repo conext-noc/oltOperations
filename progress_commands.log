@@ -1,0 +1,20 @@
+undo service-port 2433
+interface gpon 0/1
+ont delete 3 40
+
+interface gpon 0/1
+ ont add 3 40 sn-auth "48575443B1E1F94E" omci ont-lineprofile-id 8 ont-srvprofile-id 3 desc "PRUEBA_ CP 4758963652"
+ ont optical-alarm-profile 3 40 profile-id 3
+ ont alarm-policy 3 40 policy-id 1
+ ont ipconfig 3 40 ip-index 1 dhcp vlan 1241 priority 0
+ ont ipconfig 3 40 ip-index 2 dhcp vlan 1241 priority 5
+ ont wan-config 3 40 ip-index 2 profile-id 0
+ ont wan-config 3 40 ip-index 1 profile-id 0
+ ont internet-config 3 40 ip-index 2
+ ont internet-config 3 40 ip-index 1
+ ont policy-route-config 3 40 profile-id 2
+ ont fec 3 40 use-profile-config
+quit
+service-port 2433 vlan 1241 gpon 0/1/3 ont 40 gemport 8 multi-service user-vlan 1241 tag-transform transparent inbound traffic-table index 211 outbound traffic-table index 211
+
+
