@@ -54,7 +54,7 @@ def clientsTable(comm, command, fsp, olt):
     return ont_info
 
 
-def gather_onu_data(comm, command, slot, port, onu_id):
+def gather_onu_data(comm, command, slot, port, onu_id, olt):
     command(f"display ont info 0 {slot} {port} {onu_id} | no-more")
     sleep(5)
     value = decoder(comm)
@@ -94,7 +94,7 @@ def gather_onu_data(comm, command, slot, port, onu_id):
         endpoint=endpoints["get_client"],
         data={
             "lookup_type": "D",
-            "lookup_value": {"olt": "*", "fspi": f"0/{slot}/{port}/{onu_id}"},
+            "lookup_value": {"olt": olt, "fspi": f"0/{slot}/{port}/{onu_id}"},
         },
     )
     data_plans = db_request(endpoints["get_plans"], {})["data"]
@@ -125,9 +125,9 @@ def gather_onu_data(comm, command, slot, port, onu_id):
     }
 
 
-def migrate_onu(comm, command, slot, port, ont_list):
+def migrate_onu(comm, command, slot, port, ont_list, olt):
     for ont_id in ont_list.keys():
-        onu_data = gather_onu_data(comm, command, slot=slot, port=port, onu_id=ont_id)
+        onu_data = gather_onu_data(comm, command, slot=slot, port=port, onu_id=ont_id, olt=olt)
         dev = (
             onu_data["device"]
             if onu_data["device"] is not None
@@ -213,7 +213,7 @@ def migration(comm, command, quit_ssh, device, *args, **kwargs):
                     print(f"PORT : 0/{slot}/{port}")
                     print(f"PORT : 0/{slot}/{port}", file=open("progress.log", "a"))
                     ont_list = clientsTable(comm, command, f"0/{slot}/{port}", device)
-                    migrate_onu(comm, command, slot=slot, port=port, ont_list=ont_list)
+                    migrate_onu(comm, command, slot=slot, port=port, ont_list=ont_list, olt=device)
     else:
         slot = inp("Ingrese la tarjeta del ONT : ")
         port = inp("Ingrese el puerto del ONT : ")
@@ -225,5 +225,5 @@ def migration(comm, command, quit_ssh, device, *args, **kwargs):
                 "fsp": f"0/{slot}/{port}",
                 "ont_id": onu_id,
             }
-        migrate_onu(comm, command, slot=slot, port=port, ont_list=onu_list)
+        migrate_onu(comm, command, slot=slot, port=port, ont_list=onu_list,olt=device)
     quit_ssh()
