@@ -80,7 +80,7 @@ def gather_onu_data(comm, command, slot, port, onu_id):
     service_profile_id = (
         service_profile_id_match.group(1) if service_profile_id_match else None
     )
-    spid_index = 0
+    spid_index = calculate_spid({"slot":slot, "port":port, "onu_id":onu_id})["I"]
     vlan_id = 0
     device = ""
     device_db = ""
@@ -192,23 +192,23 @@ DEVICE: {dev}
                 f"undo service-port {onu_data['spid']}",
                 file=open("progress_commands.log", "a"),
             )
-            command(f"undo service-port {onu_data['spid']}")
+            # command(f"undo service-port {onu_data['spid']}")
             sleep(2)
             print(
                 f"interface gpon {onu_data['frame']}/{onu_data['slot']}",
                 file=open("progress_commands.log", "a"),
             )
-            command(f"interface gpon {onu_data['frame']}/{onu_data['slot']}")
+            # command(f"interface gpon {onu_data['frame']}/{onu_data['slot']}")
             sleep(2)
             print(
                 f"ont delete {onu_data['port']} {onu_data['id']}",
                 file=open("progress_commands.log", "a"),
             )
-            command(f"ont delete {onu_data['port']} {onu_data['id']}")
+            # command(f"ont delete {onu_data['port']} {onu_data['id']}")
             sleep(2)
             for line in iter(CONFIG.splitlines()):
                 print(line.format(**onu_data), file=open("progress_commands.log", "a"))
-                command(line.format(**onu_data))
+                # command(line.format(**onu_data))
                 sleep(2)
             print("\n", file=open("progress_commands.log", "a"))
             print(

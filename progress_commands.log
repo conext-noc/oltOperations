@@ -7,3 +7,14 @@ ont delete 0 0
  ont optical-alarm-profile 0 0 profile-id 3
  ont alarm-policy 0 0 policy-id 1
  ont ipconfig 0 0 ip-index 1 dhcp vlan 2242 priority 0
+undo service-port 0
+interface gpon 0/1
+ont delete 3 0
+
+ interface gpon 0/1
+ ont add 3 0 sn-auth "4857544351AC92A6" omci ont-lineprofile-id 4 ont-srvprofile-id 111 desc "PRUEBA CP_2 8965326589"
+ ont optical-alarm-profile 3 0 profile-id 3
+ ont alarm-policy 3 0 policy-id 1
+undo service-port 0
+interface gpon 0/1
+ont delete 3 0
