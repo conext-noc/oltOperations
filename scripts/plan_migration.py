@@ -242,7 +242,7 @@ def migration(comm, command, quit_ssh, device,*args, **kwargs):
     else:
         slot = inp("Ingrese la tarjeta del ONT : ")
         port = inp("Ingrese el puerto del ONT : ")
-        onu_count = inp("Ingrese la cantidad de ont a migrar : ")
+        onu_count = int(inp("Ingrese la cantidad de ont a migrar : ") or 0)
         onu_list = {}
         for onu in range(onu_count):
             onu_id = inp(f"Ingrese el ID del ONT {onu} : ")
