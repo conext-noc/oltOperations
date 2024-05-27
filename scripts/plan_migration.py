@@ -73,6 +73,7 @@ def gather_onu_data(comm, command, slot, port, onu_id, olt):
     ont_sn = sn_match.group(1) if sn_match else None
     name = name_match.group(1).strip() if name_match else None
     spid_index = calculate_spid({"slot": slot, "port": port, "onu_id": onu_id})["I"]
+    device = "EG8141V5"
 
     command(f"display ont version 0 {slot} {port} {onu_id} | no-more")
     sleep(5)
