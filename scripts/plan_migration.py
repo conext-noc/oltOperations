@@ -64,45 +64,15 @@ def gather_onu_data(comm, command, slot, port, onu_id):
         return []
     sn_pattern = r"SN\s+:\s+([A-F0-9]+)"
     name_pattern = r"Description\s+:\s+([A-Za-z0-9_ -]+)"
-    line_profile_id_pattern = r"Line profile ID\s+:\s+(\d+)"
-    service_profile_id_pattern = r"Service profile ID\s+:\s+(\d+)"
 
     # Extracting the information using regex
     sn_match = re.search(sn_pattern, value)
     name_match = re.search(name_pattern, value)
-    line_profile_id_match = re.search(line_profile_id_pattern, value)
-    service_profile_id_match = re.search(service_profile_id_pattern, value)
 
     # Assigning the results to variables
     ont_sn = sn_match.group(1) if sn_match else None
     name = name_match.group(1).strip() if name_match else None
-    line_profile_id = line_profile_id_match.group(1) if line_profile_id_match else None
-    service_profile_id = (
-        service_profile_id_match.group(1) if service_profile_id_match else None
-    )
-    spid_index = calculate_spid({"slot":slot, "port":port, "onu_id":onu_id})["I"]
-    vlan_id = 0
-    device = ""
-    device_db = ""
-    traffic_table = 0
-
-    command(f"display service-port port 0/{slot}/{port} ont {onu_id} | no-more")
-    sleep(5)
-    spid_value = decoder(comm)
-    pattern = r"\s+(\d+)\s+(\d+)\s+\w+\s+\w+\s+\d+/\d+\s*/\d+\s+\d+\s+\d+\s+\w+\s+\d+\s+(\d+)\s+\d+\s+\w+"
-    fail = fail_checker(spid_value)
-    if fail != None:
-        log(fail, "fail")
-        return []
-
-    # Extracting the information using regex
-    match = re.search(pattern, spid_value)
-
-    # Assigning the results to variables
-    if match:
-        spid_index = match.group(1)
-        vlan_id = match.group(2)
-        traffic_table = match.group(3)
+    spid_index = calculate_spid({"slot": slot, "port": port, "onu_id": onu_id})["I"]
 
     command(f"display ont version 0 {slot} {port} {onu_id} | no-more")
     sleep(5)
@@ -127,11 +97,15 @@ def gather_onu_data(comm, command, slot, port, onu_id):
             "lookup_value": {"olt": "*", "fspi": f"0/{slot}/{port}/{onu_id}"},
         },
     )
+    data_plans = db_request(endpoints["get_plans"], {})["data"]
+    new_plan = [
+        data_plan for data_plan in data_plans if onu_db_data["data"]["plan_name"] == data_plan["plan_name"]
+    ][0]
 
     if not onu_db_data["error"] and onu_db_data["data"] is not None:
         device_db = onu_db_data["data"]["device"]
 
-    gem_port = 8 if int(vlan_id) in [1241, 2241] else 1
+    gem_port = 8 if int(new_plan['vlan']) in [1241, 2241] else 1
 
     return {
         "frame": 0,
@@ -140,11 +114,11 @@ def gather_onu_data(comm, command, slot, port, onu_id):
         "id": int(onu_id),
         "name": name,
         "sn": ont_sn,
-        "line_profile": int(line_profile_id),
-        "srv_profile": int(service_profile_id),
+        "line_profile": int(new_plan['line_profile']),
+        "srv_profile": int(new_plan['srv_profile']),
         "spid": int(spid_index),
-        "vlan": int(vlan_id),
-        "traffic_table": int(traffic_table),
+        "vlan": int(new_plan['vlan']),
+        "traffic_table": int(new_plan["plan_idx"]),
         "device": device.replace("\r", "").replace("\n", "").replace(" ", ""),
         "device_db": device_db.replace("\r", "").replace("\n", "").replace(" ", ""),
         "gem_port": int(gem_port),
@@ -178,7 +152,7 @@ PORT : {onu_data['frame']}/{onu_data['slot']}/{onu_data['port']}/{onu_data['id']
 ONT SN: {onu_data['sn']}
 Name: {onu_data['name']}
 Line Profile ID: {onu_data['line_profile']}
-Service Profile ID: {onu_data['service_profile']}
+Service Profile ID: {onu_data['srv_profile']}
 SPID: {onu_data['spid']}
 VLAN: {onu_data['vlan']}
 TRAFFIC TABLE ID: {onu_data['traffic_table']}
@@ -187,6 +161,7 @@ DEVICE: {dev}
                 file=open("progress_missing.log", "a"),
             )
             continue
+
         else:
             print(
                 f"undo service-port {onu_data['spid']}",
@@ -227,7 +202,7 @@ DEVICE: {dev}
             )
 
 
-def migration(comm, command, quit_ssh, device,*args, **kwargs):
+def migration(comm, command, quit_ssh, device, *args, **kwargs):
     action = inp("Desea realizar la migracion en toda la OLT? [Y/N] : ")
     if action == "Y":
         for slot in range(1, 16):
