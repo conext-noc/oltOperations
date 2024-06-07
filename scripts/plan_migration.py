@@ -6,6 +6,7 @@ from helpers.constants.definitions import (
     BDCM_CONFIG,
     ROUTING_ONUS,
     endpoints,
+    map_ports
 )
 from helpers.handlers.fail import fail_checker
 from helpers.handlers.request import db_request
@@ -204,17 +205,23 @@ DEVICE: {dev}
 
 
 def migration(comm, command, quit_ssh, device, *args, **kwargs):
+    initializin = False
     action = inp("Desea realizar la migracion en toda la OLT? [Y/N] : ")
+
+    fsp = input("""Escribe el FSP desde donde iniciar [F/S/P]:  """)
+
+    map_ports_keys = map_ports.items()
+    
     if action == "Y":
-        for slot in range(1, 16):
-            if slot == 8 or slot == 9:
-                continue
-            else:
-                for port in range(0, 15):
-                    print(f"PORT : 0/{slot}/{port}")
-                    print(f"PORT : 0/{slot}/{port}", file=open("progress.log", "a"))
-                    ont_list = clientsTable(comm, command, f"0/{slot}/{port}", device)
-                    migrate_onu(comm, command, slot=slot, port=port, ont_list=ont_list, olt=device)
+        for clave, valor in map_ports_keys:
+            if valor == fsp or initializin == True:
+                initializin=True
+                slot = valor.split("/")[1]
+                port = valor.split("/")[2]
+                print(f"PORT : 0/{slot}/{port}")
+                print(f"PORT : 0/{slot}/{port}", file=open("progress.log", "a"))
+                ont_list = clientsTable(comm, command, f"0/{slot}/{port}", device)
+                migrate_onu(comm, command, slot=slot, port=port, ont_list=ont_list, olt=device)
     else:
         slot = inp("Ingrese la tarjeta del ONT : ")
         port = inp("Ingrese el puerto del ONT : ")
