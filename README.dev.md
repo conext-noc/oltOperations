@@ -1,6 +1,6 @@
 # DEVELOPING:
 
-### VENV
+### VENV #
 
 - Use of virtualenvs:
   Virtual environments in Python are a best practice that allows you to create isolated environments to work on specific Python projects. Here are some reasons why you should use virtual environments in Python:
