@@ -41,14 +41,24 @@ def client_install(comm, command, quit_ssh, device, _):
     client["slot"] = int(client["fsp"].split("/")[1])
     client["port"] = int(client["fsp"].split("/")[2])
 
-    client["plan_name"] = inp("Ingrese plan del cliente : ")
-
     db_plans = db_request(endpoints["get_plans"],{})["data"]
     plan_lists = [item["plan_name"] for item in db_plans]
 
-    if client["plan_name"] not in plan_lists:
-        log("El plan ingresado no existe...", "fail")
+    log("Seleccione el plan del cliente:", "info")
+    for i, plan_name in enumerate(plan_lists):
+        print(f"{i} : {plan_name}")
+    
+    plan_choice = inp("Ingrese el numero del plan : ")
+    try:
+        plan_index = int(plan_choice)
+        if plan_index < 0 or plan_index >= len(plan_lists):
+            log("Opcion invalida...", "fail")
+            return
+    except ValueError:
+        log("Opcion invalida...", "fail")
         return
+        
+    client["plan_name"] = plan_lists[plan_index]
 
     plan = next(
         (item for item in db_plans if item["plan_name"] == client["plan_name"]),
@@ -57,7 +67,21 @@ def client_install(comm, command, quit_ssh, device, _):
 
     client["line_profile"] = plan["line_profile"]
     client["srv_profile"] = plan["srv_profile"]
-    client["wan"][0] = plan
+    client["wan"][0] = plan.copy()
+    client["is_ip"] = False
+
+    if inp("¿Lleva IP publica? [Y | N] : ").upper() == "Y":
+        client["is_ip"] = True
+        client["line_profile"] = 12
+        client["srv_profile"] = 13
+        client["wan"][0]["gem_port"] = 15
+        
+        if "MAX" in client["plan_name"]:
+            client["wan"][0]["plan_idx"] = 60
+        elif "NEXT" in client["plan_name"]:
+            client["wan"][0]["plan_idx"] = 80
+        elif "MAGICAL" in client["plan_name"]:
+            client["wan"][0]["plan_idx"] = 100
 
     client["name_1"] = inp(
         "Ingrese Primer nombre del cliente, nombre de empresa o residencia-condominio : "

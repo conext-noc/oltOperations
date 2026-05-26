@@ -109,6 +109,7 @@ client_place_holder = {
     "line_profile": None,
     "srv_profile": None,
     "device": None,
+    "is_ip": False,
     "wan": [{"vlan": None, "spid": None, "plan_name": None, "provider": None}],
 }
 
