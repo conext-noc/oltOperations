@@ -101,6 +101,9 @@ def client_install(comm, command, quit_ssh, device, _):
         ).replace(" ", "_")
         client["contract"] = inp("Ingrese contrato del cliente : ")[:10].zfill(10)
 
+    ont_type_choice = inp("El equipo se instalara como XGPON o GPON? [X | G] : ").upper()
+    client["is_xgpon"] = ont_type_choice.startswith("X")
+
     (client["onu_id"], client["fail"]) = add_client(comm, command, client)
     (client["temp"], client["pwr"], client["pwr_rx"]) = optical_values(comm, command, client, True)
     (client["ip"], client["mask"]) = wan_data(comm, command, client)

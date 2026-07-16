@@ -9,9 +9,12 @@ from helpers.constants.definitions import bridges
 def add_client(comm, command, data):
     command(f"interface gpon {data['frame']}/{data['slot']}")
     sleep(3)
-    command(
-        f'ont add {data["port"]} sn-auth {data["sn"]} omci ont-lineprofile-id {data["line_profile"]} ont-srvprofile-id {data["srv_profile"]} desc "{data["name_1"]} {data["name_2"]} {data["contract"]}" '
-    )
+    
+    ont_add_command = f'ont add {data["port"]} sn-auth {data["sn"]} omci ont-lineprofile-id {data["line_profile"]} ont-srvprofile-id {data["srv_profile"]} desc "{data["name_1"]} {data["name_2"]} {data["contract"]}"'
+    if data.get("is_xgpon"):
+        ont_add_command += " ont-type 10g/2.5g"
+        
+    command(ont_add_command)
     sleep(7)
     value = decoder(comm)
     fail = fail_checker(value)

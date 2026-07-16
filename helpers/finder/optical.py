@@ -12,6 +12,11 @@ def optical_values(comm, command, data, show):
     TEMP = None
     PWR = None
     PWR_RX = None
+    
+    if data.get("is_xgpon"):
+        log("Equipo XGPON detectado. Esperando 30s adicionales para que el equipo levante...", "info")
+        sleep(30)
+        
     sleep(OPTICAL_TIME)
     command(f'  interface  gpon  {data["frame"]}/{data["slot"]}  ')
     sleep(OPTICAL_TIME)
@@ -27,8 +32,11 @@ def optical_values(comm, command, data, show):
     re_temp = check(value, condition_onu_temp)
     if fail is None:
         if re_pwr is not None and re_pwr_rx is not None:
-            TEMP = re_temp.group(1)
+            TEMP = re_temp.group(1) if re_temp else None
             PWR = re_pwr.group(1)
             PWR_RX = re_pwr_rx.group(1)
+        else:
+            log(f"DEBUG: OLT output for optical-info:\n{value}", "info")
+            
     log(fail, "fail") if show and fail is not None else None
     return (TEMP, PWR, PWR_RX)

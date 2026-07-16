@@ -133,10 +133,15 @@ $ """
     if change_type == "CO":
         new_values["sn"] = inp("Ingrese el nuevo serial del cliente : ")
         client["sn"] = new_values["sn"]
+        ont_type_choice = inp("El equipo se modificara como XGPON o GPON? [X | G] : ").upper()
+        client["is_xgpon"] = ont_type_choice.startswith("X")
         sleep(3)
         command(f'interface gpon {client["frame"]}/{client["slot"]}')
         sleep(3)
-        command(f'ont modify {client["port"]} {client["onu_id"]} sn {new_values["sn"]}')
+        ont_modify_command = f'ont modify {client["port"]} {client["onu_id"]} sn {new_values["sn"]}'
+        if client.get("is_xgpon"):
+            ont_modify_command += " ont-type 10g/2.5g"
+        command(ont_modify_command)
         add_vlan = inp("Se agregara vlan al puerto? [Y | N] : ")
         command(
             f" ont port native-vlan {client['port']} {client['onu_id']} eth 1 vlan {client['vlan']} "

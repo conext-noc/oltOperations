@@ -16,28 +16,27 @@ def ssh(ip, debugging):
     creds = db_request(endpoints["get_creds"], {})
 
     # Handling multiple SSH sessions
-    while cont and count <= 2:
+    while cont and count < len(creds["data"]):
         try:
             username = creds["data"][count]["user_name"]
             password = creds["data"][count]["password"]
             port = 22
             log(f"trying to connect with {username} @ {ip}", "info")
-            conn.connect(ip, port, username, password, timeout=20)
+            conn.connect(ip, port, username, password, timeout=60)
             comm = conn.invoke_shell()
             cont = False
-        except paramiko.ssh_exception.AuthenticationException:
-            log(f"failed to connect with {username} @ {ip}", "info")
+            break
+        except Exception as e:
+            log(f"failed to connect with {username} @ {ip} - Error: {e}", "info")
             cont = True
             count += 1
-            log(f"retrying to re-connect with {creds['data'][count if count < 3 else 2]['user_name']} @ {ip}", "info")
+            if count < len(creds["data"]):
+                log(f"retrying to re-connect with {creds['data'][count]['user_name']} @ {ip}", "info")
+            else:
+                log("No more credentials to try or connection refused. Exiting...", "fail")
+                import sys
+                sys.exit(1)
             continue
-        except TimeoutError:
-            log(f"failed to connect with {username} @ {ip}", "info")
-            cont = True
-            count += 1
-            log(f"retrying to re-connect with {creds['data'][count if count < 3 else 2]['user_name']} @ {ip}", "info")
-            continue
-        break
 
     def enter():
         comm.send(" \n")
